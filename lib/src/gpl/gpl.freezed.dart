@@ -40,44 +40,47 @@ mixin _$GimpPaletteColor {
 abstract class $GimpPaletteColorCopyWith<$Res> {
   factory $GimpPaletteColorCopyWith(
           GimpPaletteColor value, $Res Function(GimpPaletteColor) then) =
-      _$GimpPaletteColorCopyWithImpl<$Res>;
+      _$GimpPaletteColorCopyWithImpl<$Res, GimpPaletteColor>;
+  @useResult
   $Res call({int red, int green, int blue, String name});
 }
 
 /// @nodoc
-class _$GimpPaletteColorCopyWithImpl<$Res>
+class _$GimpPaletteColorCopyWithImpl<$Res, $Val extends GimpPaletteColor>
     implements $GimpPaletteColorCopyWith<$Res> {
   _$GimpPaletteColorCopyWithImpl(this._value, this._then);
 
-  final GimpPaletteColor _value;
   // ignore: unused_field
-  final $Res Function(GimpPaletteColor) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
-    Object? name = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -88,41 +91,40 @@ abstract class _$$_GimpPaletteColorCopyWith<$Res>
           _$_GimpPaletteColor value, $Res Function(_$_GimpPaletteColor) then) =
       __$$_GimpPaletteColorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int red, int green, int blue, String name});
 }
 
 /// @nodoc
 class __$$_GimpPaletteColorCopyWithImpl<$Res>
-    extends _$GimpPaletteColorCopyWithImpl<$Res>
+    extends _$GimpPaletteColorCopyWithImpl<$Res, _$_GimpPaletteColor>
     implements _$$_GimpPaletteColorCopyWith<$Res> {
   __$$_GimpPaletteColorCopyWithImpl(
       _$_GimpPaletteColor _value, $Res Function(_$_GimpPaletteColor) _then)
-      : super(_value, (v) => _then(v as _$_GimpPaletteColor));
+      : super(_value, _then);
 
-  @override
-  _$_GimpPaletteColor get _value => super._value as _$_GimpPaletteColor;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
-    Object? name = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
+    Object? name = null,
   }) {
     return _then(_$_GimpPaletteColor(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
@@ -166,23 +168,19 @@ class _$_GimpPaletteColor implements _GimpPaletteColor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GimpPaletteColor &&
-            const DeepCollectionEquality().equals(other.red, red) &&
-            const DeepCollectionEquality().equals(other.green, green) &&
-            const DeepCollectionEquality().equals(other.blue, blue) &&
-            const DeepCollectionEquality().equals(other.name, name));
+            (identical(other.red, red) || other.red == red) &&
+            (identical(other.green, green) || other.green == green) &&
+            (identical(other.blue, blue) || other.blue == blue) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(red),
-      const DeepCollectionEquality().hash(green),
-      const DeepCollectionEquality().hash(blue),
-      const DeepCollectionEquality().hash(name));
+  int get hashCode => Object.hash(runtimeType, red, green, blue, name);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GimpPaletteColorCopyWith<_$_GimpPaletteColor> get copyWith =>
       __$$_GimpPaletteColorCopyWithImpl<_$_GimpPaletteColor>(this, _$identity);
 
@@ -245,7 +243,8 @@ mixin _$GimpPalette {
 abstract class $GimpPaletteCopyWith<$Res> {
   factory $GimpPaletteCopyWith(
           GimpPalette value, $Res Function(GimpPalette) then) =
-      _$GimpPaletteCopyWithImpl<$Res>;
+      _$GimpPaletteCopyWithImpl<$Res, GimpPalette>;
+  @useResult
   $Res call(
       {String name,
       int? columns,
@@ -254,38 +253,41 @@ abstract class $GimpPaletteCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$GimpPaletteCopyWithImpl<$Res> implements $GimpPaletteCopyWith<$Res> {
+class _$GimpPaletteCopyWithImpl<$Res, $Val extends GimpPalette>
+    implements $GimpPaletteCopyWith<$Res> {
   _$GimpPaletteCopyWithImpl(this._value, this._then);
 
-  final GimpPalette _value;
   // ignore: unused_field
-  final $Res Function(GimpPalette) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? columns = freezed,
-    Object? comments = freezed,
-    Object? colors = freezed,
+    Object? comments = null,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      columns: columns == freezed
+      columns: freezed == columns
           ? _value.columns
           : columns // ignore: cast_nullable_to_non_nullable
               as int?,
-      comments: comments == freezed
+      comments: null == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
               as String,
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<GimpPaletteColor>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -296,6 +298,7 @@ abstract class _$$_GimpPaletteCopyWith<$Res>
           _$_GimpPalette value, $Res Function(_$_GimpPalette) then) =
       __$$_GimpPaletteCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       int? columns,
@@ -304,36 +307,35 @@ abstract class _$$_GimpPaletteCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_GimpPaletteCopyWithImpl<$Res> extends _$GimpPaletteCopyWithImpl<$Res>
+class __$$_GimpPaletteCopyWithImpl<$Res>
+    extends _$GimpPaletteCopyWithImpl<$Res, _$_GimpPalette>
     implements _$$_GimpPaletteCopyWith<$Res> {
   __$$_GimpPaletteCopyWithImpl(
       _$_GimpPalette _value, $Res Function(_$_GimpPalette) _then)
-      : super(_value, (v) => _then(v as _$_GimpPalette));
+      : super(_value, _then);
 
-  @override
-  _$_GimpPalette get _value => super._value as _$_GimpPalette;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? name = null,
     Object? columns = freezed,
-    Object? comments = freezed,
-    Object? colors = freezed,
+    Object? comments = null,
+    Object? colors = null,
   }) {
     return _then(_$_GimpPalette(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      columns: columns == freezed
+      columns: freezed == columns
           ? _value.columns
           : columns // ignore: cast_nullable_to_non_nullable
               as int?,
-      comments: comments == freezed
+      comments: null == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
               as String,
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<GimpPaletteColor>,
@@ -377,23 +379,21 @@ class _$_GimpPalette implements _GimpPalette {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GimpPalette &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.columns, columns) &&
-            const DeepCollectionEquality().equals(other.comments, comments) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.columns, columns) || other.columns == columns) &&
+            (identical(other.comments, comments) ||
+                other.comments == comments) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(columns),
-      const DeepCollectionEquality().hash(comments),
+  int get hashCode => Object.hash(runtimeType, name, columns, comments,
       const DeepCollectionEquality().hash(_colors));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GimpPaletteCopyWith<_$_GimpPalette> get copyWith =>
       __$$_GimpPaletteCopyWithImpl<_$_GimpPalette>(this, _$identity);
 

@@ -31,5 +31,5 @@ _$_AdobeColorTable _$$_AdobeColorTableFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_AdobeColorTableToJson(_$_AdobeColorTable instance) =>
     <String, dynamic>{
-      'colors': instance.colors.map((e) => e.toJson()).toList(),
+      'colors': instance.colors,
     };

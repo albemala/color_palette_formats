@@ -42,39 +42,44 @@ abstract class $ResourceInterchangeFileFormatColorCopyWith<$Res> {
   factory $ResourceInterchangeFileFormatColorCopyWith(
           ResourceInterchangeFileFormatColor value,
           $Res Function(ResourceInterchangeFileFormatColor) then) =
-      _$ResourceInterchangeFileFormatColorCopyWithImpl<$Res>;
+      _$ResourceInterchangeFileFormatColorCopyWithImpl<$Res,
+          ResourceInterchangeFileFormatColor>;
+  @useResult
   $Res call({int red, int green, int blue});
 }
 
 /// @nodoc
-class _$ResourceInterchangeFileFormatColorCopyWithImpl<$Res>
+class _$ResourceInterchangeFileFormatColorCopyWithImpl<$Res,
+        $Val extends ResourceInterchangeFileFormatColor>
     implements $ResourceInterchangeFileFormatColorCopyWith<$Res> {
   _$ResourceInterchangeFileFormatColorCopyWithImpl(this._value, this._then);
 
-  final ResourceInterchangeFileFormatColor _value;
   // ignore: unused_field
-  final $Res Function(ResourceInterchangeFileFormatColor) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
   }) {
     return _then(_value.copyWith(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -86,38 +91,37 @@ abstract class _$$_ResourceInterchangeFileFormatColorCopyWith<$Res>
           $Res Function(_$_ResourceInterchangeFileFormatColor) then) =
       __$$_ResourceInterchangeFileFormatColorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int red, int green, int blue});
 }
 
 /// @nodoc
 class __$$_ResourceInterchangeFileFormatColorCopyWithImpl<$Res>
-    extends _$ResourceInterchangeFileFormatColorCopyWithImpl<$Res>
+    extends _$ResourceInterchangeFileFormatColorCopyWithImpl<$Res,
+        _$_ResourceInterchangeFileFormatColor>
     implements _$$_ResourceInterchangeFileFormatColorCopyWith<$Res> {
   __$$_ResourceInterchangeFileFormatColorCopyWithImpl(
       _$_ResourceInterchangeFileFormatColor _value,
       $Res Function(_$_ResourceInterchangeFileFormatColor) _then)
-      : super(_value, (v) => _then(v as _$_ResourceInterchangeFileFormatColor));
+      : super(_value, _then);
 
-  @override
-  _$_ResourceInterchangeFileFormatColor get _value =>
-      super._value as _$_ResourceInterchangeFileFormatColor;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
   }) {
     return _then(_$_ResourceInterchangeFileFormatColor(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
@@ -158,21 +162,18 @@ class _$_ResourceInterchangeFileFormatColor
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ResourceInterchangeFileFormatColor &&
-            const DeepCollectionEquality().equals(other.red, red) &&
-            const DeepCollectionEquality().equals(other.green, green) &&
-            const DeepCollectionEquality().equals(other.blue, blue));
+            (identical(other.red, red) || other.red == red) &&
+            (identical(other.green, green) || other.green == green) &&
+            (identical(other.blue, blue) || other.blue == blue));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(red),
-      const DeepCollectionEquality().hash(green),
-      const DeepCollectionEquality().hash(blue));
+  int get hashCode => Object.hash(runtimeType, red, green, blue);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ResourceInterchangeFileFormatColorCopyWith<
           _$_ResourceInterchangeFileFormatColor>
       get copyWith => __$$_ResourceInterchangeFileFormatColorCopyWithImpl<
@@ -238,34 +239,39 @@ abstract class $ResourceInterchangeFileFormatCopyWith<$Res> {
   factory $ResourceInterchangeFileFormatCopyWith(
           ResourceInterchangeFileFormat value,
           $Res Function(ResourceInterchangeFileFormat) then) =
-      _$ResourceInterchangeFileFormatCopyWithImpl<$Res>;
+      _$ResourceInterchangeFileFormatCopyWithImpl<$Res,
+          ResourceInterchangeFileFormat>;
+  @useResult
   $Res call({int version, List<ResourceInterchangeFileFormatColor> colors});
 }
 
 /// @nodoc
-class _$ResourceInterchangeFileFormatCopyWithImpl<$Res>
+class _$ResourceInterchangeFileFormatCopyWithImpl<$Res,
+        $Val extends ResourceInterchangeFileFormat>
     implements $ResourceInterchangeFileFormatCopyWith<$Res> {
   _$ResourceInterchangeFileFormatCopyWithImpl(this._value, this._then);
 
-  final ResourceInterchangeFileFormat _value;
   // ignore: unused_field
-  final $Res Function(ResourceInterchangeFileFormat) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as int,
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<ResourceInterchangeFileFormatColor>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -277,33 +283,32 @@ abstract class _$$_ResourceInterchangeFileFormatCopyWith<$Res>
           $Res Function(_$_ResourceInterchangeFileFormat) then) =
       __$$_ResourceInterchangeFileFormatCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int version, List<ResourceInterchangeFileFormatColor> colors});
 }
 
 /// @nodoc
 class __$$_ResourceInterchangeFileFormatCopyWithImpl<$Res>
-    extends _$ResourceInterchangeFileFormatCopyWithImpl<$Res>
+    extends _$ResourceInterchangeFileFormatCopyWithImpl<$Res,
+        _$_ResourceInterchangeFileFormat>
     implements _$$_ResourceInterchangeFileFormatCopyWith<$Res> {
   __$$_ResourceInterchangeFileFormatCopyWithImpl(
       _$_ResourceInterchangeFileFormat _value,
       $Res Function(_$_ResourceInterchangeFileFormat) _then)
-      : super(_value, (v) => _then(v as _$_ResourceInterchangeFileFormat));
+      : super(_value, _then);
 
-  @override
-  _$_ResourceInterchangeFileFormat get _value =>
-      super._value as _$_ResourceInterchangeFileFormat;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? colors = null,
   }) {
     return _then(_$_ResourceInterchangeFileFormat(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as int,
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<ResourceInterchangeFileFormatColor>,
@@ -343,19 +348,18 @@ class _$_ResourceInterchangeFileFormat
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ResourceInterchangeFileFormat &&
-            const DeepCollectionEquality().equals(other.version, version) &&
+            (identical(other.version, version) || other.version == version) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(version),
-      const DeepCollectionEquality().hash(_colors));
+      runtimeType, version, const DeepCollectionEquality().hash(_colors));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ResourceInterchangeFileFormatCopyWith<_$_ResourceInterchangeFileFormat>
       get copyWith => __$$_ResourceInterchangeFileFormatCopyWithImpl<
           _$_ResourceInterchangeFileFormat>(this, _$identity);

@@ -43,34 +43,38 @@ mixin _$AdobeColorSwatchColor {
 abstract class $AdobeColorSwatchColorCopyWith<$Res> {
   factory $AdobeColorSwatchColorCopyWith(AdobeColorSwatchColor value,
           $Res Function(AdobeColorSwatchColor) then) =
-      _$AdobeColorSwatchColorCopyWithImpl<$Res>;
+      _$AdobeColorSwatchColorCopyWithImpl<$Res, AdobeColorSwatchColor>;
+  @useResult
   $Res call({AdobeColorSwatchColorSpace colorSpace, List<double> values});
 }
 
 /// @nodoc
-class _$AdobeColorSwatchColorCopyWithImpl<$Res>
+class _$AdobeColorSwatchColorCopyWithImpl<$Res,
+        $Val extends AdobeColorSwatchColor>
     implements $AdobeColorSwatchColorCopyWith<$Res> {
   _$AdobeColorSwatchColorCopyWithImpl(this._value, this._then);
 
-  final AdobeColorSwatchColor _value;
   // ignore: unused_field
-  final $Res Function(AdobeColorSwatchColor) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colorSpace = freezed,
-    Object? values = freezed,
+    Object? colorSpace = null,
+    Object? values = null,
   }) {
     return _then(_value.copyWith(
-      colorSpace: colorSpace == freezed
+      colorSpace: null == colorSpace
           ? _value.colorSpace
           : colorSpace // ignore: cast_nullable_to_non_nullable
               as AdobeColorSwatchColorSpace,
-      values: values == freezed
+      values: null == values
           ? _value.values
           : values // ignore: cast_nullable_to_non_nullable
               as List<double>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -81,32 +85,30 @@ abstract class _$$_AdobeColorSwatchColorCopyWith<$Res>
           $Res Function(_$_AdobeColorSwatchColor) then) =
       __$$_AdobeColorSwatchColorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({AdobeColorSwatchColorSpace colorSpace, List<double> values});
 }
 
 /// @nodoc
 class __$$_AdobeColorSwatchColorCopyWithImpl<$Res>
-    extends _$AdobeColorSwatchColorCopyWithImpl<$Res>
+    extends _$AdobeColorSwatchColorCopyWithImpl<$Res, _$_AdobeColorSwatchColor>
     implements _$$_AdobeColorSwatchColorCopyWith<$Res> {
   __$$_AdobeColorSwatchColorCopyWithImpl(_$_AdobeColorSwatchColor _value,
       $Res Function(_$_AdobeColorSwatchColor) _then)
-      : super(_value, (v) => _then(v as _$_AdobeColorSwatchColor));
+      : super(_value, _then);
 
-  @override
-  _$_AdobeColorSwatchColor get _value =>
-      super._value as _$_AdobeColorSwatchColor;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colorSpace = freezed,
-    Object? values = freezed,
+    Object? colorSpace = null,
+    Object? values = null,
   }) {
     return _then(_$_AdobeColorSwatchColor(
-      colorSpace: colorSpace == freezed
+      colorSpace: null == colorSpace
           ? _value.colorSpace
           : colorSpace // ignore: cast_nullable_to_non_nullable
               as AdobeColorSwatchColorSpace,
-      values: values == freezed
+      values: null == values
           ? _value._values
           : values // ignore: cast_nullable_to_non_nullable
               as List<double>,
@@ -159,20 +161,19 @@ class _$_AdobeColorSwatchColor implements _AdobeColorSwatchColor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AdobeColorSwatchColor &&
-            const DeepCollectionEquality()
-                .equals(other.colorSpace, colorSpace) &&
+            (identical(other.colorSpace, colorSpace) ||
+                other.colorSpace == colorSpace) &&
             const DeepCollectionEquality().equals(other._values, _values));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(colorSpace),
-      const DeepCollectionEquality().hash(_values));
+      runtimeType, colorSpace, const DeepCollectionEquality().hash(_values));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AdobeColorSwatchColorCopyWith<_$_AdobeColorSwatchColor> get copyWith =>
       __$$_AdobeColorSwatchColorCopyWithImpl<_$_AdobeColorSwatchColor>(
           this, _$identity);
@@ -230,34 +231,37 @@ mixin _$AdobeColorSwatch {
 abstract class $AdobeColorSwatchCopyWith<$Res> {
   factory $AdobeColorSwatchCopyWith(
           AdobeColorSwatch value, $Res Function(AdobeColorSwatch) then) =
-      _$AdobeColorSwatchCopyWithImpl<$Res>;
+      _$AdobeColorSwatchCopyWithImpl<$Res, AdobeColorSwatch>;
+  @useResult
   $Res call({int version, List<AdobeColorSwatchColor> colors});
 }
 
 /// @nodoc
-class _$AdobeColorSwatchCopyWithImpl<$Res>
+class _$AdobeColorSwatchCopyWithImpl<$Res, $Val extends AdobeColorSwatch>
     implements $AdobeColorSwatchCopyWith<$Res> {
   _$AdobeColorSwatchCopyWithImpl(this._value, this._then);
 
-  final AdobeColorSwatch _value;
   // ignore: unused_field
-  final $Res Function(AdobeColorSwatch) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as int,
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<AdobeColorSwatchColor>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -268,31 +272,30 @@ abstract class _$$_AdobeColorSwatchCopyWith<$Res>
           _$_AdobeColorSwatch value, $Res Function(_$_AdobeColorSwatch) then) =
       __$$_AdobeColorSwatchCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int version, List<AdobeColorSwatchColor> colors});
 }
 
 /// @nodoc
 class __$$_AdobeColorSwatchCopyWithImpl<$Res>
-    extends _$AdobeColorSwatchCopyWithImpl<$Res>
+    extends _$AdobeColorSwatchCopyWithImpl<$Res, _$_AdobeColorSwatch>
     implements _$$_AdobeColorSwatchCopyWith<$Res> {
   __$$_AdobeColorSwatchCopyWithImpl(
       _$_AdobeColorSwatch _value, $Res Function(_$_AdobeColorSwatch) _then)
-      : super(_value, (v) => _then(v as _$_AdobeColorSwatch));
+      : super(_value, _then);
 
-  @override
-  _$_AdobeColorSwatch get _value => super._value as _$_AdobeColorSwatch;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? colors = null,
   }) {
     return _then(_$_AdobeColorSwatch(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as int,
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<AdobeColorSwatchColor>,
@@ -330,19 +333,18 @@ class _$_AdobeColorSwatch implements _AdobeColorSwatch {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AdobeColorSwatch &&
-            const DeepCollectionEquality().equals(other.version, version) &&
+            (identical(other.version, version) || other.version == version) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(version),
-      const DeepCollectionEquality().hash(_colors));
+      runtimeType, version, const DeepCollectionEquality().hash(_colors));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AdobeColorSwatchCopyWith<_$_AdobeColorSwatch> get copyWith =>
       __$$_AdobeColorSwatchCopyWithImpl<_$_AdobeColorSwatch>(this, _$identity);
 

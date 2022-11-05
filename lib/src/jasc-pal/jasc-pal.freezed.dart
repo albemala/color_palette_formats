@@ -39,39 +39,42 @@ mixin _$JascPaletteColor {
 abstract class $JascPaletteColorCopyWith<$Res> {
   factory $JascPaletteColorCopyWith(
           JascPaletteColor value, $Res Function(JascPaletteColor) then) =
-      _$JascPaletteColorCopyWithImpl<$Res>;
+      _$JascPaletteColorCopyWithImpl<$Res, JascPaletteColor>;
+  @useResult
   $Res call({int red, int green, int blue});
 }
 
 /// @nodoc
-class _$JascPaletteColorCopyWithImpl<$Res>
+class _$JascPaletteColorCopyWithImpl<$Res, $Val extends JascPaletteColor>
     implements $JascPaletteColorCopyWith<$Res> {
   _$JascPaletteColorCopyWithImpl(this._value, this._then);
 
-  final JascPaletteColor _value;
   // ignore: unused_field
-  final $Res Function(JascPaletteColor) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
   }) {
     return _then(_value.copyWith(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,36 +85,35 @@ abstract class _$$_JascPaletteColorCopyWith<$Res>
           _$_JascPaletteColor value, $Res Function(_$_JascPaletteColor) then) =
       __$$_JascPaletteColorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int red, int green, int blue});
 }
 
 /// @nodoc
 class __$$_JascPaletteColorCopyWithImpl<$Res>
-    extends _$JascPaletteColorCopyWithImpl<$Res>
+    extends _$JascPaletteColorCopyWithImpl<$Res, _$_JascPaletteColor>
     implements _$$_JascPaletteColorCopyWith<$Res> {
   __$$_JascPaletteColorCopyWithImpl(
       _$_JascPaletteColor _value, $Res Function(_$_JascPaletteColor) _then)
-      : super(_value, (v) => _then(v as _$_JascPaletteColor));
+      : super(_value, _then);
 
-  @override
-  _$_JascPaletteColor get _value => super._value as _$_JascPaletteColor;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
   }) {
     return _then(_$_JascPaletteColor(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
@@ -150,21 +152,18 @@ class _$_JascPaletteColor implements _JascPaletteColor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_JascPaletteColor &&
-            const DeepCollectionEquality().equals(other.red, red) &&
-            const DeepCollectionEquality().equals(other.green, green) &&
-            const DeepCollectionEquality().equals(other.blue, blue));
+            (identical(other.red, red) || other.red == red) &&
+            (identical(other.green, green) || other.green == green) &&
+            (identical(other.blue, blue) || other.blue == blue));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(red),
-      const DeepCollectionEquality().hash(green),
-      const DeepCollectionEquality().hash(blue));
+  int get hashCode => Object.hash(runtimeType, red, green, blue);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_JascPaletteColorCopyWith<_$_JascPaletteColor> get copyWith =>
       __$$_JascPaletteColorCopyWithImpl<_$_JascPaletteColor>(this, _$identity);
 
@@ -222,33 +221,37 @@ mixin _$JascPalette {
 abstract class $JascPaletteCopyWith<$Res> {
   factory $JascPaletteCopyWith(
           JascPalette value, $Res Function(JascPalette) then) =
-      _$JascPaletteCopyWithImpl<$Res>;
+      _$JascPaletteCopyWithImpl<$Res, JascPalette>;
+  @useResult
   $Res call({String version, List<JascPaletteColor> colors});
 }
 
 /// @nodoc
-class _$JascPaletteCopyWithImpl<$Res> implements $JascPaletteCopyWith<$Res> {
+class _$JascPaletteCopyWithImpl<$Res, $Val extends JascPalette>
+    implements $JascPaletteCopyWith<$Res> {
   _$JascPaletteCopyWithImpl(this._value, this._then);
 
-  final JascPalette _value;
   // ignore: unused_field
-  final $Res Function(JascPalette) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as String,
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<JascPaletteColor>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -259,30 +262,30 @@ abstract class _$$_JascPaletteCopyWith<$Res>
           _$_JascPalette value, $Res Function(_$_JascPalette) then) =
       __$$_JascPaletteCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String version, List<JascPaletteColor> colors});
 }
 
 /// @nodoc
-class __$$_JascPaletteCopyWithImpl<$Res> extends _$JascPaletteCopyWithImpl<$Res>
+class __$$_JascPaletteCopyWithImpl<$Res>
+    extends _$JascPaletteCopyWithImpl<$Res, _$_JascPalette>
     implements _$$_JascPaletteCopyWith<$Res> {
   __$$_JascPaletteCopyWithImpl(
       _$_JascPalette _value, $Res Function(_$_JascPalette) _then)
-      : super(_value, (v) => _then(v as _$_JascPalette));
+      : super(_value, _then);
 
-  @override
-  _$_JascPalette get _value => super._value as _$_JascPalette;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? colors = null,
   }) {
     return _then(_$_JascPalette(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as String,
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<JascPaletteColor>,
@@ -319,19 +322,18 @@ class _$_JascPalette implements _JascPalette {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_JascPalette &&
-            const DeepCollectionEquality().equals(other.version, version) &&
+            (identical(other.version, version) || other.version == version) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(version),
-      const DeepCollectionEquality().hash(_colors));
+      runtimeType, version, const DeepCollectionEquality().hash(_colors));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_JascPaletteCopyWith<_$_JascPalette> get copyWith =>
       __$$_JascPaletteCopyWithImpl<_$_JascPalette>(this, _$identity);
 

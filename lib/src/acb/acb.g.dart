@@ -52,7 +52,7 @@ Map<String, dynamic> _$$_AdobeColorBookToJson(_$_AdobeColorBook instance) =>
       'pageSize': instance.pageSize,
       'pageSelectorOffset': instance.pageSelectorOffset,
       'colorSpace': _$AdobeColorBookColorSpaceEnumMap[instance.colorSpace]!,
-      'colors': instance.colors.map((e) => e.toJson()).toList(),
+      'colors': instance.colors,
     };
 
 const _$AdobeColorBookColorSpaceEnumMap = {

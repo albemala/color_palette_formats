@@ -39,5 +39,5 @@ Map<String, dynamic> _$$_ProcreateSwatchesToJson(
         _$_ProcreateSwatches instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'swatches': instance.swatches.map((e) => e.toJson()).toList(),
+      'swatches': instance.swatches,
     };

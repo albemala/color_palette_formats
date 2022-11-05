@@ -38,7 +38,8 @@ mixin _$AdobeSwatchExchangeColor {
 abstract class $AdobeSwatchExchangeColorCopyWith<$Res> {
   factory $AdobeSwatchExchangeColorCopyWith(AdobeSwatchExchangeColor value,
           $Res Function(AdobeSwatchExchangeColor) then) =
-      _$AdobeSwatchExchangeColorCopyWithImpl<$Res>;
+      _$AdobeSwatchExchangeColorCopyWithImpl<$Res, AdobeSwatchExchangeColor>;
+  @useResult
   $Res call(
       {String name,
       AdobeSwatchExchangeColorModel model,
@@ -47,39 +48,42 @@ abstract class $AdobeSwatchExchangeColorCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AdobeSwatchExchangeColorCopyWithImpl<$Res>
+class _$AdobeSwatchExchangeColorCopyWithImpl<$Res,
+        $Val extends AdobeSwatchExchangeColor>
     implements $AdobeSwatchExchangeColorCopyWith<$Res> {
   _$AdobeSwatchExchangeColorCopyWithImpl(this._value, this._then);
 
-  final AdobeSwatchExchangeColor _value;
   // ignore: unused_field
-  final $Res Function(AdobeSwatchExchangeColor) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? model = freezed,
-    Object? values = freezed,
-    Object? type = freezed,
+    Object? name = null,
+    Object? model = null,
+    Object? values = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      model: model == freezed
+      model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as AdobeSwatchExchangeColorModel,
-      values: values == freezed
+      values: null == values
           ? _value.values
           : values // ignore: cast_nullable_to_non_nullable
               as List<double>,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as AdobeSwatchExchangeColorType,
-    ));
+    ) as $Val);
   }
 }
 
@@ -91,6 +95,7 @@ abstract class _$$_AdobeSwatchExchangeColorCopyWith<$Res>
           $Res Function(_$_AdobeSwatchExchangeColor) then) =
       __$$_AdobeSwatchExchangeColorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String name,
       AdobeSwatchExchangeColorModel model,
@@ -100,37 +105,35 @@ abstract class _$$_AdobeSwatchExchangeColorCopyWith<$Res>
 
 /// @nodoc
 class __$$_AdobeSwatchExchangeColorCopyWithImpl<$Res>
-    extends _$AdobeSwatchExchangeColorCopyWithImpl<$Res>
+    extends _$AdobeSwatchExchangeColorCopyWithImpl<$Res,
+        _$_AdobeSwatchExchangeColor>
     implements _$$_AdobeSwatchExchangeColorCopyWith<$Res> {
   __$$_AdobeSwatchExchangeColorCopyWithImpl(_$_AdobeSwatchExchangeColor _value,
       $Res Function(_$_AdobeSwatchExchangeColor) _then)
-      : super(_value, (v) => _then(v as _$_AdobeSwatchExchangeColor));
+      : super(_value, _then);
 
-  @override
-  _$_AdobeSwatchExchangeColor get _value =>
-      super._value as _$_AdobeSwatchExchangeColor;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? model = freezed,
-    Object? values = freezed,
-    Object? type = freezed,
+    Object? name = null,
+    Object? model = null,
+    Object? values = null,
+    Object? type = null,
   }) {
     return _then(_$_AdobeSwatchExchangeColor(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      model: model == freezed
+      model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as AdobeSwatchExchangeColorModel,
-      values: values == freezed
+      values: null == values
           ? _value._values
           : values // ignore: cast_nullable_to_non_nullable
               as List<double>,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as AdobeSwatchExchangeColorType,
@@ -179,23 +182,20 @@ class _$_AdobeSwatchExchangeColor implements _AdobeSwatchExchangeColor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AdobeSwatchExchangeColor &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.model, model) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.model, model) || other.model == model) &&
             const DeepCollectionEquality().equals(other._values, _values) &&
-            const DeepCollectionEquality().equals(other.type, type));
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(model),
-      const DeepCollectionEquality().hash(_values),
-      const DeepCollectionEquality().hash(type));
+  int get hashCode => Object.hash(runtimeType, name, model,
+      const DeepCollectionEquality().hash(_values), type);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AdobeSwatchExchangeColorCopyWith<_$_AdobeSwatchExchangeColor>
       get copyWith => __$$_AdobeSwatchExchangeColorCopyWithImpl<
           _$_AdobeSwatchExchangeColor>(this, _$identity);
@@ -256,7 +256,8 @@ mixin _$AdobeSwatchExchange {
 abstract class $AdobeSwatchExchangeCopyWith<$Res> {
   factory $AdobeSwatchExchangeCopyWith(
           AdobeSwatchExchange value, $Res Function(AdobeSwatchExchange) then) =
-      _$AdobeSwatchExchangeCopyWithImpl<$Res>;
+      _$AdobeSwatchExchangeCopyWithImpl<$Res, AdobeSwatchExchange>;
+  @useResult
   $Res call(
       {String version,
       List<dynamic> groups,
@@ -264,34 +265,36 @@ abstract class $AdobeSwatchExchangeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AdobeSwatchExchangeCopyWithImpl<$Res>
+class _$AdobeSwatchExchangeCopyWithImpl<$Res, $Val extends AdobeSwatchExchange>
     implements $AdobeSwatchExchangeCopyWith<$Res> {
   _$AdobeSwatchExchangeCopyWithImpl(this._value, this._then);
 
-  final AdobeSwatchExchange _value;
   // ignore: unused_field
-  final $Res Function(AdobeSwatchExchange) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? groups = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? groups = null,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as String,
-      groups: groups == freezed
+      groups: null == groups
           ? _value.groups
           : groups // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<AdobeSwatchExchangeColor>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -302,6 +305,7 @@ abstract class _$$_AdobeSwatchExchangeCopyWith<$Res>
           $Res Function(_$_AdobeSwatchExchange) then) =
       __$$_AdobeSwatchExchangeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String version,
       List<dynamic> groups,
@@ -310,31 +314,29 @@ abstract class _$$_AdobeSwatchExchangeCopyWith<$Res>
 
 /// @nodoc
 class __$$_AdobeSwatchExchangeCopyWithImpl<$Res>
-    extends _$AdobeSwatchExchangeCopyWithImpl<$Res>
+    extends _$AdobeSwatchExchangeCopyWithImpl<$Res, _$_AdobeSwatchExchange>
     implements _$$_AdobeSwatchExchangeCopyWith<$Res> {
   __$$_AdobeSwatchExchangeCopyWithImpl(_$_AdobeSwatchExchange _value,
       $Res Function(_$_AdobeSwatchExchange) _then)
-      : super(_value, (v) => _then(v as _$_AdobeSwatchExchange));
+      : super(_value, _then);
 
-  @override
-  _$_AdobeSwatchExchange get _value => super._value as _$_AdobeSwatchExchange;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? groups = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? groups = null,
+    Object? colors = null,
   }) {
     return _then(_$_AdobeSwatchExchange(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as String,
-      groups: groups == freezed
+      groups: null == groups
           ? _value._groups
           : groups // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<AdobeSwatchExchangeColor>,
@@ -381,7 +383,7 @@ class _$_AdobeSwatchExchange implements _AdobeSwatchExchange {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AdobeSwatchExchange &&
-            const DeepCollectionEquality().equals(other.version, version) &&
+            (identical(other.version, version) || other.version == version) &&
             const DeepCollectionEquality().equals(other._groups, _groups) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
@@ -390,12 +392,13 @@ class _$_AdobeSwatchExchange implements _AdobeSwatchExchange {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(version),
+      version,
       const DeepCollectionEquality().hash(_groups),
       const DeepCollectionEquality().hash(_colors));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AdobeSwatchExchangeCopyWith<_$_AdobeSwatchExchange> get copyWith =>
       __$$_AdobeSwatchExchangeCopyWithImpl<_$_AdobeSwatchExchange>(
           this, _$identity);

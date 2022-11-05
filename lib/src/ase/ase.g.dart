@@ -54,5 +54,5 @@ Map<String, dynamic> _$$_AdobeSwatchExchangeToJson(
     <String, dynamic>{
       'version': instance.version,
       'groups': instance.groups,
-      'colors': instance.colors.map((e) => e.toJson()).toList(),
+      'colors': instance.colors,
     };

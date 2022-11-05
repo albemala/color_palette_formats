@@ -39,39 +39,43 @@ mixin _$AdobeColorTableColor {
 abstract class $AdobeColorTableColorCopyWith<$Res> {
   factory $AdobeColorTableColorCopyWith(AdobeColorTableColor value,
           $Res Function(AdobeColorTableColor) then) =
-      _$AdobeColorTableColorCopyWithImpl<$Res>;
+      _$AdobeColorTableColorCopyWithImpl<$Res, AdobeColorTableColor>;
+  @useResult
   $Res call({int green, int blue, int red});
 }
 
 /// @nodoc
-class _$AdobeColorTableColorCopyWithImpl<$Res>
+class _$AdobeColorTableColorCopyWithImpl<$Res,
+        $Val extends AdobeColorTableColor>
     implements $AdobeColorTableColorCopyWith<$Res> {
   _$AdobeColorTableColorCopyWithImpl(this._value, this._then);
 
-  final AdobeColorTableColor _value;
   // ignore: unused_field
-  final $Res Function(AdobeColorTableColor) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? green = freezed,
-    Object? blue = freezed,
-    Object? red = freezed,
+    Object? green = null,
+    Object? blue = null,
+    Object? red = null,
   }) {
     return _then(_value.copyWith(
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,36 +86,35 @@ abstract class _$$_AdobeColorTableColorCopyWith<$Res>
           $Res Function(_$_AdobeColorTableColor) then) =
       __$$_AdobeColorTableColorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int green, int blue, int red});
 }
 
 /// @nodoc
 class __$$_AdobeColorTableColorCopyWithImpl<$Res>
-    extends _$AdobeColorTableColorCopyWithImpl<$Res>
+    extends _$AdobeColorTableColorCopyWithImpl<$Res, _$_AdobeColorTableColor>
     implements _$$_AdobeColorTableColorCopyWith<$Res> {
   __$$_AdobeColorTableColorCopyWithImpl(_$_AdobeColorTableColor _value,
       $Res Function(_$_AdobeColorTableColor) _then)
-      : super(_value, (v) => _then(v as _$_AdobeColorTableColor));
+      : super(_value, _then);
 
-  @override
-  _$_AdobeColorTableColor get _value => super._value as _$_AdobeColorTableColor;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? green = freezed,
-    Object? blue = freezed,
-    Object? red = freezed,
+    Object? green = null,
+    Object? blue = null,
+    Object? red = null,
   }) {
     return _then(_$_AdobeColorTableColor(
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
@@ -150,21 +153,18 @@ class _$_AdobeColorTableColor implements _AdobeColorTableColor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AdobeColorTableColor &&
-            const DeepCollectionEquality().equals(other.green, green) &&
-            const DeepCollectionEquality().equals(other.blue, blue) &&
-            const DeepCollectionEquality().equals(other.red, red));
+            (identical(other.green, green) || other.green == green) &&
+            (identical(other.blue, blue) || other.blue == blue) &&
+            (identical(other.red, red) || other.red == red));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(green),
-      const DeepCollectionEquality().hash(blue),
-      const DeepCollectionEquality().hash(red));
+  int get hashCode => Object.hash(runtimeType, green, blue, red);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AdobeColorTableColorCopyWith<_$_AdobeColorTableColor> get copyWith =>
       __$$_AdobeColorTableColorCopyWithImpl<_$_AdobeColorTableColor>(
           this, _$identity);
@@ -222,29 +222,32 @@ mixin _$AdobeColorTable {
 abstract class $AdobeColorTableCopyWith<$Res> {
   factory $AdobeColorTableCopyWith(
           AdobeColorTable value, $Res Function(AdobeColorTable) then) =
-      _$AdobeColorTableCopyWithImpl<$Res>;
+      _$AdobeColorTableCopyWithImpl<$Res, AdobeColorTable>;
+  @useResult
   $Res call({List<AdobeColorTableColor> colors});
 }
 
 /// @nodoc
-class _$AdobeColorTableCopyWithImpl<$Res>
+class _$AdobeColorTableCopyWithImpl<$Res, $Val extends AdobeColorTable>
     implements $AdobeColorTableCopyWith<$Res> {
   _$AdobeColorTableCopyWithImpl(this._value, this._then);
 
-  final AdobeColorTable _value;
   // ignore: unused_field
-  final $Res Function(AdobeColorTable) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colors = freezed,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<AdobeColorTableColor>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -255,26 +258,25 @@ abstract class _$$_AdobeColorTableCopyWith<$Res>
           _$_AdobeColorTable value, $Res Function(_$_AdobeColorTable) then) =
       __$$_AdobeColorTableCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<AdobeColorTableColor> colors});
 }
 
 /// @nodoc
 class __$$_AdobeColorTableCopyWithImpl<$Res>
-    extends _$AdobeColorTableCopyWithImpl<$Res>
+    extends _$AdobeColorTableCopyWithImpl<$Res, _$_AdobeColorTable>
     implements _$$_AdobeColorTableCopyWith<$Res> {
   __$$_AdobeColorTableCopyWithImpl(
       _$_AdobeColorTable _value, $Res Function(_$_AdobeColorTable) _then)
-      : super(_value, (v) => _then(v as _$_AdobeColorTable));
+      : super(_value, _then);
 
-  @override
-  _$_AdobeColorTable get _value => super._value as _$_AdobeColorTable;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colors = freezed,
+    Object? colors = null,
   }) {
     return _then(_$_AdobeColorTable(
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<AdobeColorTableColor>,
@@ -318,6 +320,7 @@ class _$_AdobeColorTable implements _AdobeColorTable {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AdobeColorTableCopyWith<_$_AdobeColorTable> get copyWith =>
       __$$_AdobeColorTableCopyWithImpl<_$_AdobeColorTable>(this, _$identity);
 

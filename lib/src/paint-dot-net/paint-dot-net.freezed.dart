@@ -43,44 +43,48 @@ mixin _$PaintDotNetPaletteColor {
 abstract class $PaintDotNetPaletteColorCopyWith<$Res> {
   factory $PaintDotNetPaletteColorCopyWith(PaintDotNetPaletteColor value,
           $Res Function(PaintDotNetPaletteColor) then) =
-      _$PaintDotNetPaletteColorCopyWithImpl<$Res>;
+      _$PaintDotNetPaletteColorCopyWithImpl<$Res, PaintDotNetPaletteColor>;
+  @useResult
   $Res call({int red, int green, int blue, int alpha});
 }
 
 /// @nodoc
-class _$PaintDotNetPaletteColorCopyWithImpl<$Res>
+class _$PaintDotNetPaletteColorCopyWithImpl<$Res,
+        $Val extends PaintDotNetPaletteColor>
     implements $PaintDotNetPaletteColorCopyWith<$Res> {
   _$PaintDotNetPaletteColorCopyWithImpl(this._value, this._then);
 
-  final PaintDotNetPaletteColor _value;
   // ignore: unused_field
-  final $Res Function(PaintDotNetPaletteColor) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
-    Object? alpha = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
+    Object? alpha = null,
   }) {
     return _then(_value.copyWith(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
-      alpha: alpha == freezed
+      alpha: null == alpha
           ? _value.alpha
           : alpha // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -91,42 +95,41 @@ abstract class _$$_PaintDotNetPaletteColorCopyWith<$Res>
           $Res Function(_$_PaintDotNetPaletteColor) then) =
       __$$_PaintDotNetPaletteColorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int red, int green, int blue, int alpha});
 }
 
 /// @nodoc
 class __$$_PaintDotNetPaletteColorCopyWithImpl<$Res>
-    extends _$PaintDotNetPaletteColorCopyWithImpl<$Res>
+    extends _$PaintDotNetPaletteColorCopyWithImpl<$Res,
+        _$_PaintDotNetPaletteColor>
     implements _$$_PaintDotNetPaletteColorCopyWith<$Res> {
   __$$_PaintDotNetPaletteColorCopyWithImpl(_$_PaintDotNetPaletteColor _value,
       $Res Function(_$_PaintDotNetPaletteColor) _then)
-      : super(_value, (v) => _then(v as _$_PaintDotNetPaletteColor));
+      : super(_value, _then);
 
-  @override
-  _$_PaintDotNetPaletteColor get _value =>
-      super._value as _$_PaintDotNetPaletteColor;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
-    Object? alpha = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
+    Object? alpha = null,
   }) {
     return _then(_$_PaintDotNetPaletteColor(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as int,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as int,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as int,
-      alpha: alpha == freezed
+      alpha: null == alpha
           ? _value.alpha
           : alpha // ignore: cast_nullable_to_non_nullable
               as int,
@@ -172,23 +175,19 @@ class _$_PaintDotNetPaletteColor implements _PaintDotNetPaletteColor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PaintDotNetPaletteColor &&
-            const DeepCollectionEquality().equals(other.red, red) &&
-            const DeepCollectionEquality().equals(other.green, green) &&
-            const DeepCollectionEquality().equals(other.blue, blue) &&
-            const DeepCollectionEquality().equals(other.alpha, alpha));
+            (identical(other.red, red) || other.red == red) &&
+            (identical(other.green, green) || other.green == green) &&
+            (identical(other.blue, blue) || other.blue == blue) &&
+            (identical(other.alpha, alpha) || other.alpha == alpha));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(red),
-      const DeepCollectionEquality().hash(green),
-      const DeepCollectionEquality().hash(blue),
-      const DeepCollectionEquality().hash(alpha));
+  int get hashCode => Object.hash(runtimeType, red, green, blue, alpha);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PaintDotNetPaletteColorCopyWith<_$_PaintDotNetPaletteColor>
       get copyWith =>
           __$$_PaintDotNetPaletteColorCopyWithImpl<_$_PaintDotNetPaletteColor>(
@@ -253,29 +252,32 @@ mixin _$PaintDotNetPalette {
 abstract class $PaintDotNetPaletteCopyWith<$Res> {
   factory $PaintDotNetPaletteCopyWith(
           PaintDotNetPalette value, $Res Function(PaintDotNetPalette) then) =
-      _$PaintDotNetPaletteCopyWithImpl<$Res>;
+      _$PaintDotNetPaletteCopyWithImpl<$Res, PaintDotNetPalette>;
+  @useResult
   $Res call({List<PaintDotNetPaletteColor> colors});
 }
 
 /// @nodoc
-class _$PaintDotNetPaletteCopyWithImpl<$Res>
+class _$PaintDotNetPaletteCopyWithImpl<$Res, $Val extends PaintDotNetPalette>
     implements $PaintDotNetPaletteCopyWith<$Res> {
   _$PaintDotNetPaletteCopyWithImpl(this._value, this._then);
 
-  final PaintDotNetPalette _value;
   // ignore: unused_field
-  final $Res Function(PaintDotNetPalette) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colors = freezed,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<PaintDotNetPaletteColor>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -286,26 +288,25 @@ abstract class _$$_PaintDotNetPaletteCopyWith<$Res>
           $Res Function(_$_PaintDotNetPalette) then) =
       __$$_PaintDotNetPaletteCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<PaintDotNetPaletteColor> colors});
 }
 
 /// @nodoc
 class __$$_PaintDotNetPaletteCopyWithImpl<$Res>
-    extends _$PaintDotNetPaletteCopyWithImpl<$Res>
+    extends _$PaintDotNetPaletteCopyWithImpl<$Res, _$_PaintDotNetPalette>
     implements _$$_PaintDotNetPaletteCopyWith<$Res> {
   __$$_PaintDotNetPaletteCopyWithImpl(
       _$_PaintDotNetPalette _value, $Res Function(_$_PaintDotNetPalette) _then)
-      : super(_value, (v) => _then(v as _$_PaintDotNetPalette));
+      : super(_value, _then);
 
-  @override
-  _$_PaintDotNetPalette get _value => super._value as _$_PaintDotNetPalette;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colors = freezed,
+    Object? colors = null,
   }) {
     return _then(_$_PaintDotNetPalette(
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<PaintDotNetPaletteColor>,
@@ -350,6 +351,7 @@ class _$_PaintDotNetPalette implements _PaintDotNetPalette {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PaintDotNetPaletteCopyWith<_$_PaintDotNetPalette> get copyWith =>
       __$$_PaintDotNetPaletteCopyWithImpl<_$_PaintDotNetPalette>(
           this, _$identity);

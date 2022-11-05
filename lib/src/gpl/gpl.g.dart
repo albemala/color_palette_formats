@@ -37,5 +37,5 @@ Map<String, dynamic> _$$_GimpPaletteToJson(_$_GimpPalette instance) =>
       'name': instance.name,
       'columns': instance.columns,
       'comments': instance.comments,
-      'colors': instance.colors.map((e) => e.toJson()).toList(),
+      'colors': instance.colors,
     };

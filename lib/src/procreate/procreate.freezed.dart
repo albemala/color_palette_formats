@@ -46,7 +46,8 @@ mixin _$ProcreateSwatchesSwatch {
 abstract class $ProcreateSwatchesSwatchCopyWith<$Res> {
   factory $ProcreateSwatchesSwatchCopyWith(ProcreateSwatchesSwatch value,
           $Res Function(ProcreateSwatchesSwatch) then) =
-      _$ProcreateSwatchesSwatchCopyWithImpl<$Res>;
+      _$ProcreateSwatchesSwatchCopyWithImpl<$Res, ProcreateSwatchesSwatch>;
+  @useResult
   $Res call(
       {double hue,
       double saturation,
@@ -57,44 +58,47 @@ abstract class $ProcreateSwatchesSwatchCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProcreateSwatchesSwatchCopyWithImpl<$Res>
+class _$ProcreateSwatchesSwatchCopyWithImpl<$Res,
+        $Val extends ProcreateSwatchesSwatch>
     implements $ProcreateSwatchesSwatchCopyWith<$Res> {
   _$ProcreateSwatchesSwatchCopyWithImpl(this._value, this._then);
 
-  final ProcreateSwatchesSwatch _value;
   // ignore: unused_field
-  final $Res Function(ProcreateSwatchesSwatch) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hue = freezed,
-    Object? saturation = freezed,
-    Object? brightness = freezed,
-    Object? alpha = freezed,
-    Object? colorSpace = freezed,
+    Object? hue = null,
+    Object? saturation = null,
+    Object? brightness = null,
+    Object? alpha = null,
+    Object? colorSpace = null,
   }) {
     return _then(_value.copyWith(
-      hue: hue == freezed
+      hue: null == hue
           ? _value.hue
           : hue // ignore: cast_nullable_to_non_nullable
               as double,
-      saturation: saturation == freezed
+      saturation: null == saturation
           ? _value.saturation
           : saturation // ignore: cast_nullable_to_non_nullable
               as double,
-      brightness: brightness == freezed
+      brightness: null == brightness
           ? _value.brightness
           : brightness // ignore: cast_nullable_to_non_nullable
               as double,
-      alpha: alpha == freezed
+      alpha: null == alpha
           ? _value.alpha
           : alpha // ignore: cast_nullable_to_non_nullable
               as double,
-      colorSpace: colorSpace == freezed
+      colorSpace: null == colorSpace
           ? _value.colorSpace
           : colorSpace // ignore: cast_nullable_to_non_nullable
               as ProcreateSwatchesColorSpace,
-    ));
+    ) as $Val);
   }
 }
 
@@ -105,6 +109,7 @@ abstract class _$$_ProcreateSwatchesSwatchCopyWith<$Res>
           $Res Function(_$_ProcreateSwatchesSwatch) then) =
       __$$_ProcreateSwatchesSwatchCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {double hue,
       double saturation,
@@ -116,42 +121,40 @@ abstract class _$$_ProcreateSwatchesSwatchCopyWith<$Res>
 
 /// @nodoc
 class __$$_ProcreateSwatchesSwatchCopyWithImpl<$Res>
-    extends _$ProcreateSwatchesSwatchCopyWithImpl<$Res>
+    extends _$ProcreateSwatchesSwatchCopyWithImpl<$Res,
+        _$_ProcreateSwatchesSwatch>
     implements _$$_ProcreateSwatchesSwatchCopyWith<$Res> {
   __$$_ProcreateSwatchesSwatchCopyWithImpl(_$_ProcreateSwatchesSwatch _value,
       $Res Function(_$_ProcreateSwatchesSwatch) _then)
-      : super(_value, (v) => _then(v as _$_ProcreateSwatchesSwatch));
+      : super(_value, _then);
 
-  @override
-  _$_ProcreateSwatchesSwatch get _value =>
-      super._value as _$_ProcreateSwatchesSwatch;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? hue = freezed,
-    Object? saturation = freezed,
-    Object? brightness = freezed,
-    Object? alpha = freezed,
-    Object? colorSpace = freezed,
+    Object? hue = null,
+    Object? saturation = null,
+    Object? brightness = null,
+    Object? alpha = null,
+    Object? colorSpace = null,
   }) {
     return _then(_$_ProcreateSwatchesSwatch(
-      hue: hue == freezed
+      hue: null == hue
           ? _value.hue
           : hue // ignore: cast_nullable_to_non_nullable
               as double,
-      saturation: saturation == freezed
+      saturation: null == saturation
           ? _value.saturation
           : saturation // ignore: cast_nullable_to_non_nullable
               as double,
-      brightness: brightness == freezed
+      brightness: null == brightness
           ? _value.brightness
           : brightness // ignore: cast_nullable_to_non_nullable
               as double,
-      alpha: alpha == freezed
+      alpha: null == alpha
           ? _value.alpha
           : alpha // ignore: cast_nullable_to_non_nullable
               as double,
-      colorSpace: colorSpace == freezed
+      colorSpace: null == colorSpace
           ? _value.colorSpace
           : colorSpace // ignore: cast_nullable_to_non_nullable
               as ProcreateSwatchesColorSpace,
@@ -202,28 +205,24 @@ class _$_ProcreateSwatchesSwatch implements _ProcreateSwatchesSwatch {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProcreateSwatchesSwatch &&
-            const DeepCollectionEquality().equals(other.hue, hue) &&
-            const DeepCollectionEquality()
-                .equals(other.saturation, saturation) &&
-            const DeepCollectionEquality()
-                .equals(other.brightness, brightness) &&
-            const DeepCollectionEquality().equals(other.alpha, alpha) &&
-            const DeepCollectionEquality()
-                .equals(other.colorSpace, colorSpace));
+            (identical(other.hue, hue) || other.hue == hue) &&
+            (identical(other.saturation, saturation) ||
+                other.saturation == saturation) &&
+            (identical(other.brightness, brightness) ||
+                other.brightness == brightness) &&
+            (identical(other.alpha, alpha) || other.alpha == alpha) &&
+            (identical(other.colorSpace, colorSpace) ||
+                other.colorSpace == colorSpace));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(hue),
-      const DeepCollectionEquality().hash(saturation),
-      const DeepCollectionEquality().hash(brightness),
-      const DeepCollectionEquality().hash(alpha),
-      const DeepCollectionEquality().hash(colorSpace));
+  int get hashCode =>
+      Object.hash(runtimeType, hue, saturation, brightness, alpha, colorSpace);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ProcreateSwatchesSwatchCopyWith<_$_ProcreateSwatchesSwatch>
       get copyWith =>
           __$$_ProcreateSwatchesSwatchCopyWithImpl<_$_ProcreateSwatchesSwatch>(
@@ -295,34 +294,37 @@ mixin _$ProcreateSwatches {
 abstract class $ProcreateSwatchesCopyWith<$Res> {
   factory $ProcreateSwatchesCopyWith(
           ProcreateSwatches value, $Res Function(ProcreateSwatches) then) =
-      _$ProcreateSwatchesCopyWithImpl<$Res>;
+      _$ProcreateSwatchesCopyWithImpl<$Res, ProcreateSwatches>;
+  @useResult
   $Res call({String name, List<ProcreateSwatchesSwatch> swatches});
 }
 
 /// @nodoc
-class _$ProcreateSwatchesCopyWithImpl<$Res>
+class _$ProcreateSwatchesCopyWithImpl<$Res, $Val extends ProcreateSwatches>
     implements $ProcreateSwatchesCopyWith<$Res> {
   _$ProcreateSwatchesCopyWithImpl(this._value, this._then);
 
-  final ProcreateSwatches _value;
   // ignore: unused_field
-  final $Res Function(ProcreateSwatches) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? swatches = freezed,
+    Object? name = null,
+    Object? swatches = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      swatches: swatches == freezed
+      swatches: null == swatches
           ? _value.swatches
           : swatches // ignore: cast_nullable_to_non_nullable
               as List<ProcreateSwatchesSwatch>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -333,31 +335,30 @@ abstract class _$$_ProcreateSwatchesCopyWith<$Res>
           $Res Function(_$_ProcreateSwatches) then) =
       __$$_ProcreateSwatchesCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, List<ProcreateSwatchesSwatch> swatches});
 }
 
 /// @nodoc
 class __$$_ProcreateSwatchesCopyWithImpl<$Res>
-    extends _$ProcreateSwatchesCopyWithImpl<$Res>
+    extends _$ProcreateSwatchesCopyWithImpl<$Res, _$_ProcreateSwatches>
     implements _$$_ProcreateSwatchesCopyWith<$Res> {
   __$$_ProcreateSwatchesCopyWithImpl(
       _$_ProcreateSwatches _value, $Res Function(_$_ProcreateSwatches) _then)
-      : super(_value, (v) => _then(v as _$_ProcreateSwatches));
+      : super(_value, _then);
 
-  @override
-  _$_ProcreateSwatches get _value => super._value as _$_ProcreateSwatches;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? swatches = freezed,
+    Object? name = null,
+    Object? swatches = null,
   }) {
     return _then(_$_ProcreateSwatches(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      swatches: swatches == freezed
+      swatches: null == swatches
           ? _value._swatches
           : swatches // ignore: cast_nullable_to_non_nullable
               as List<ProcreateSwatchesSwatch>,
@@ -395,19 +396,18 @@ class _$_ProcreateSwatches implements _ProcreateSwatches {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProcreateSwatches &&
-            const DeepCollectionEquality().equals(other.name, name) &&
+            (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._swatches, _swatches));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(_swatches));
+      runtimeType, name, const DeepCollectionEquality().hash(_swatches));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ProcreateSwatchesCopyWith<_$_ProcreateSwatches> get copyWith =>
       __$$_ProcreateSwatchesCopyWithImpl<_$_ProcreateSwatches>(
           this, _$identity);

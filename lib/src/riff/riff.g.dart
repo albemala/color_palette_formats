@@ -36,5 +36,5 @@ Map<String, dynamic> _$$_ResourceInterchangeFileFormatToJson(
         _$_ResourceInterchangeFileFormat instance) =>
     <String, dynamic>{
       'version': instance.version,
-      'colors': instance.colors.map((e) => e.toJson()).toList(),
+      'colors': instance.colors,
     };

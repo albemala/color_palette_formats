@@ -37,5 +37,5 @@ Map<String, dynamic> _$$_SketchPaletteToJson(_$_SketchPalette instance) =>
     <String, dynamic>{
       'compatibleVersion': instance.compatibleVersion,
       'pluginVersion': instance.pluginVersion,
-      'colors': instance.colors.map((e) => e.toJson()).toList(),
+      'colors': instance.colors,
     };

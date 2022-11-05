@@ -39,39 +39,42 @@ mixin _$AdobeColorBookColor {
 abstract class $AdobeColorBookColorCopyWith<$Res> {
   factory $AdobeColorBookColorCopyWith(
           AdobeColorBookColor value, $Res Function(AdobeColorBookColor) then) =
-      _$AdobeColorBookColorCopyWithImpl<$Res>;
+      _$AdobeColorBookColorCopyWithImpl<$Res, AdobeColorBookColor>;
+  @useResult
   $Res call({String name, String code, List<int> values});
 }
 
 /// @nodoc
-class _$AdobeColorBookColorCopyWithImpl<$Res>
+class _$AdobeColorBookColorCopyWithImpl<$Res, $Val extends AdobeColorBookColor>
     implements $AdobeColorBookColorCopyWith<$Res> {
   _$AdobeColorBookColorCopyWithImpl(this._value, this._then);
 
-  final AdobeColorBookColor _value;
   // ignore: unused_field
-  final $Res Function(AdobeColorBookColor) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? code = freezed,
-    Object? values = freezed,
+    Object? name = null,
+    Object? code = null,
+    Object? values = null,
   }) {
     return _then(_value.copyWith(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      values: values == freezed
+      values: null == values
           ? _value.values
           : values // ignore: cast_nullable_to_non_nullable
               as List<int>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,36 +85,35 @@ abstract class _$$_AdobeColorBookColorCopyWith<$Res>
           $Res Function(_$_AdobeColorBookColor) then) =
       __$$_AdobeColorBookColorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String name, String code, List<int> values});
 }
 
 /// @nodoc
 class __$$_AdobeColorBookColorCopyWithImpl<$Res>
-    extends _$AdobeColorBookColorCopyWithImpl<$Res>
+    extends _$AdobeColorBookColorCopyWithImpl<$Res, _$_AdobeColorBookColor>
     implements _$$_AdobeColorBookColorCopyWith<$Res> {
   __$$_AdobeColorBookColorCopyWithImpl(_$_AdobeColorBookColor _value,
       $Res Function(_$_AdobeColorBookColor) _then)
-      : super(_value, (v) => _then(v as _$_AdobeColorBookColor));
+      : super(_value, _then);
 
-  @override
-  _$_AdobeColorBookColor get _value => super._value as _$_AdobeColorBookColor;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? code = freezed,
-    Object? values = freezed,
+    Object? name = null,
+    Object? code = null,
+    Object? values = null,
   }) {
     return _then(_$_AdobeColorBookColor(
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      code: code == freezed
+      code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
-      values: values == freezed
+      values: null == values
           ? _value._values
           : values // ignore: cast_nullable_to_non_nullable
               as List<int>,
@@ -160,21 +162,19 @@ class _$_AdobeColorBookColor implements _AdobeColorBookColor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AdobeColorBookColor &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.code, code) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.code, code) || other.code == code) &&
             const DeepCollectionEquality().equals(other._values, _values));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(code),
-      const DeepCollectionEquality().hash(_values));
+      runtimeType, name, code, const DeepCollectionEquality().hash(_values));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AdobeColorBookColorCopyWith<_$_AdobeColorBookColor> get copyWith =>
       __$$_AdobeColorBookColorCopyWithImpl<_$_AdobeColorBookColor>(
           this, _$identity);
@@ -241,7 +241,8 @@ mixin _$AdobeColorBook {
 abstract class $AdobeColorBookCopyWith<$Res> {
   factory $AdobeColorBookCopyWith(
           AdobeColorBook value, $Res Function(AdobeColorBook) then) =
-      _$AdobeColorBookCopyWithImpl<$Res>;
+      _$AdobeColorBookCopyWithImpl<$Res, AdobeColorBook>;
+  @useResult
   $Res call(
       {int version,
       int identifier,
@@ -257,74 +258,76 @@ abstract class $AdobeColorBookCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AdobeColorBookCopyWithImpl<$Res>
+class _$AdobeColorBookCopyWithImpl<$Res, $Val extends AdobeColorBook>
     implements $AdobeColorBookCopyWith<$Res> {
   _$AdobeColorBookCopyWithImpl(this._value, this._then);
 
-  final AdobeColorBook _value;
   // ignore: unused_field
-  final $Res Function(AdobeColorBook) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? identifier = freezed,
-    Object? title = freezed,
-    Object? description = freezed,
-    Object? colorNamePrefix = freezed,
-    Object? colorNameSuffix = freezed,
-    Object? colorCount = freezed,
-    Object? pageSize = freezed,
-    Object? pageSelectorOffset = freezed,
-    Object? colorSpace = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? identifier = null,
+    Object? title = null,
+    Object? description = null,
+    Object? colorNamePrefix = null,
+    Object? colorNameSuffix = null,
+    Object? colorCount = null,
+    Object? pageSize = null,
+    Object? pageSelectorOffset = null,
+    Object? colorSpace = null,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as int,
-      identifier: identifier == freezed
+      identifier: null == identifier
           ? _value.identifier
           : identifier // ignore: cast_nullable_to_non_nullable
               as int,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      colorNamePrefix: colorNamePrefix == freezed
+      colorNamePrefix: null == colorNamePrefix
           ? _value.colorNamePrefix
           : colorNamePrefix // ignore: cast_nullable_to_non_nullable
               as String,
-      colorNameSuffix: colorNameSuffix == freezed
+      colorNameSuffix: null == colorNameSuffix
           ? _value.colorNameSuffix
           : colorNameSuffix // ignore: cast_nullable_to_non_nullable
               as String,
-      colorCount: colorCount == freezed
+      colorCount: null == colorCount
           ? _value.colorCount
           : colorCount // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSize: pageSize == freezed
+      pageSize: null == pageSize
           ? _value.pageSize
           : pageSize // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSelectorOffset: pageSelectorOffset == freezed
+      pageSelectorOffset: null == pageSelectorOffset
           ? _value.pageSelectorOffset
           : pageSelectorOffset // ignore: cast_nullable_to_non_nullable
               as int,
-      colorSpace: colorSpace == freezed
+      colorSpace: null == colorSpace
           ? _value.colorSpace
           : colorSpace // ignore: cast_nullable_to_non_nullable
               as AdobeColorBookColorSpace,
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<AdobeColorBookColor>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -335,6 +338,7 @@ abstract class _$$_AdobeColorBookCopyWith<$Res>
           _$_AdobeColorBook value, $Res Function(_$_AdobeColorBook) then) =
       __$$_AdobeColorBookCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {int version,
       int identifier,
@@ -351,71 +355,69 @@ abstract class _$$_AdobeColorBookCopyWith<$Res>
 
 /// @nodoc
 class __$$_AdobeColorBookCopyWithImpl<$Res>
-    extends _$AdobeColorBookCopyWithImpl<$Res>
+    extends _$AdobeColorBookCopyWithImpl<$Res, _$_AdobeColorBook>
     implements _$$_AdobeColorBookCopyWith<$Res> {
   __$$_AdobeColorBookCopyWithImpl(
       _$_AdobeColorBook _value, $Res Function(_$_AdobeColorBook) _then)
-      : super(_value, (v) => _then(v as _$_AdobeColorBook));
+      : super(_value, _then);
 
-  @override
-  _$_AdobeColorBook get _value => super._value as _$_AdobeColorBook;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? version = freezed,
-    Object? identifier = freezed,
-    Object? title = freezed,
-    Object? description = freezed,
-    Object? colorNamePrefix = freezed,
-    Object? colorNameSuffix = freezed,
-    Object? colorCount = freezed,
-    Object? pageSize = freezed,
-    Object? pageSelectorOffset = freezed,
-    Object? colorSpace = freezed,
-    Object? colors = freezed,
+    Object? version = null,
+    Object? identifier = null,
+    Object? title = null,
+    Object? description = null,
+    Object? colorNamePrefix = null,
+    Object? colorNameSuffix = null,
+    Object? colorCount = null,
+    Object? pageSize = null,
+    Object? pageSelectorOffset = null,
+    Object? colorSpace = null,
+    Object? colors = null,
   }) {
     return _then(_$_AdobeColorBook(
-      version: version == freezed
+      version: null == version
           ? _value.version
           : version // ignore: cast_nullable_to_non_nullable
               as int,
-      identifier: identifier == freezed
+      identifier: null == identifier
           ? _value.identifier
           : identifier // ignore: cast_nullable_to_non_nullable
               as int,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      colorNamePrefix: colorNamePrefix == freezed
+      colorNamePrefix: null == colorNamePrefix
           ? _value.colorNamePrefix
           : colorNamePrefix // ignore: cast_nullable_to_non_nullable
               as String,
-      colorNameSuffix: colorNameSuffix == freezed
+      colorNameSuffix: null == colorNameSuffix
           ? _value.colorNameSuffix
           : colorNameSuffix // ignore: cast_nullable_to_non_nullable
               as String,
-      colorCount: colorCount == freezed
+      colorCount: null == colorCount
           ? _value.colorCount
           : colorCount // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSize: pageSize == freezed
+      pageSize: null == pageSize
           ? _value.pageSize
           : pageSize // ignore: cast_nullable_to_non_nullable
               as int,
-      pageSelectorOffset: pageSelectorOffset == freezed
+      pageSelectorOffset: null == pageSelectorOffset
           ? _value.pageSelectorOffset
           : pageSelectorOffset // ignore: cast_nullable_to_non_nullable
               as int,
-      colorSpace: colorSpace == freezed
+      colorSpace: null == colorSpace
           ? _value.colorSpace
           : colorSpace // ignore: cast_nullable_to_non_nullable
               as AdobeColorBookColorSpace,
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<AdobeColorBookColor>,
@@ -480,23 +482,24 @@ class _$_AdobeColorBook implements _AdobeColorBook {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AdobeColorBook &&
-            const DeepCollectionEquality().equals(other.version, version) &&
-            const DeepCollectionEquality()
-                .equals(other.identifier, identifier) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.colorNamePrefix, colorNamePrefix) &&
-            const DeepCollectionEquality()
-                .equals(other.colorNameSuffix, colorNameSuffix) &&
-            const DeepCollectionEquality()
-                .equals(other.colorCount, colorCount) &&
-            const DeepCollectionEquality().equals(other.pageSize, pageSize) &&
-            const DeepCollectionEquality()
-                .equals(other.pageSelectorOffset, pageSelectorOffset) &&
-            const DeepCollectionEquality()
-                .equals(other.colorSpace, colorSpace) &&
+            (identical(other.version, version) || other.version == version) &&
+            (identical(other.identifier, identifier) ||
+                other.identifier == identifier) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.colorNamePrefix, colorNamePrefix) ||
+                other.colorNamePrefix == colorNamePrefix) &&
+            (identical(other.colorNameSuffix, colorNameSuffix) ||
+                other.colorNameSuffix == colorNameSuffix) &&
+            (identical(other.colorCount, colorCount) ||
+                other.colorCount == colorCount) &&
+            (identical(other.pageSize, pageSize) ||
+                other.pageSize == pageSize) &&
+            (identical(other.pageSelectorOffset, pageSelectorOffset) ||
+                other.pageSelectorOffset == pageSelectorOffset) &&
+            (identical(other.colorSpace, colorSpace) ||
+                other.colorSpace == colorSpace) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
@@ -504,20 +507,21 @@ class _$_AdobeColorBook implements _AdobeColorBook {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(version),
-      const DeepCollectionEquality().hash(identifier),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(colorNamePrefix),
-      const DeepCollectionEquality().hash(colorNameSuffix),
-      const DeepCollectionEquality().hash(colorCount),
-      const DeepCollectionEquality().hash(pageSize),
-      const DeepCollectionEquality().hash(pageSelectorOffset),
-      const DeepCollectionEquality().hash(colorSpace),
+      version,
+      identifier,
+      title,
+      description,
+      colorNamePrefix,
+      colorNameSuffix,
+      colorCount,
+      pageSize,
+      pageSelectorOffset,
+      colorSpace,
       const DeepCollectionEquality().hash(_colors));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AdobeColorBookCopyWith<_$_AdobeColorBook> get copyWith =>
       __$$_AdobeColorBookCopyWithImpl<_$_AdobeColorBook>(this, _$identity);
 

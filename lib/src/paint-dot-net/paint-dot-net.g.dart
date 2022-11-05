@@ -36,5 +36,5 @@ _$_PaintDotNetPalette _$$_PaintDotNetPaletteFromJson(
 Map<String, dynamic> _$$_PaintDotNetPaletteToJson(
         _$_PaintDotNetPalette instance) =>
     <String, dynamic>{
-      'colors': instance.colors.map((e) => e.toJson()).toList(),
+      'colors': instance.colors,
     };

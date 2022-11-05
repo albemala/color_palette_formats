@@ -42,44 +42,47 @@ mixin _$SketchPaletteColor {
 abstract class $SketchPaletteColorCopyWith<$Res> {
   factory $SketchPaletteColorCopyWith(
           SketchPaletteColor value, $Res Function(SketchPaletteColor) then) =
-      _$SketchPaletteColorCopyWithImpl<$Res>;
+      _$SketchPaletteColorCopyWithImpl<$Res, SketchPaletteColor>;
+  @useResult
   $Res call({double red, double green, double blue, double alpha});
 }
 
 /// @nodoc
-class _$SketchPaletteColorCopyWithImpl<$Res>
+class _$SketchPaletteColorCopyWithImpl<$Res, $Val extends SketchPaletteColor>
     implements $SketchPaletteColorCopyWith<$Res> {
   _$SketchPaletteColorCopyWithImpl(this._value, this._then);
 
-  final SketchPaletteColor _value;
   // ignore: unused_field
-  final $Res Function(SketchPaletteColor) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
-    Object? alpha = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
+    Object? alpha = null,
   }) {
     return _then(_value.copyWith(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as double,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as double,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as double,
-      alpha: alpha == freezed
+      alpha: null == alpha
           ? _value.alpha
           : alpha // ignore: cast_nullable_to_non_nullable
               as double,
-    ));
+    ) as $Val);
   }
 }
 
@@ -90,41 +93,40 @@ abstract class _$$_SketchPaletteColorCopyWith<$Res>
           $Res Function(_$_SketchPaletteColor) then) =
       __$$_SketchPaletteColorCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({double red, double green, double blue, double alpha});
 }
 
 /// @nodoc
 class __$$_SketchPaletteColorCopyWithImpl<$Res>
-    extends _$SketchPaletteColorCopyWithImpl<$Res>
+    extends _$SketchPaletteColorCopyWithImpl<$Res, _$_SketchPaletteColor>
     implements _$$_SketchPaletteColorCopyWith<$Res> {
   __$$_SketchPaletteColorCopyWithImpl(
       _$_SketchPaletteColor _value, $Res Function(_$_SketchPaletteColor) _then)
-      : super(_value, (v) => _then(v as _$_SketchPaletteColor));
+      : super(_value, _then);
 
-  @override
-  _$_SketchPaletteColor get _value => super._value as _$_SketchPaletteColor;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? red = freezed,
-    Object? green = freezed,
-    Object? blue = freezed,
-    Object? alpha = freezed,
+    Object? red = null,
+    Object? green = null,
+    Object? blue = null,
+    Object? alpha = null,
   }) {
     return _then(_$_SketchPaletteColor(
-      red: red == freezed
+      red: null == red
           ? _value.red
           : red // ignore: cast_nullable_to_non_nullable
               as double,
-      green: green == freezed
+      green: null == green
           ? _value.green
           : green // ignore: cast_nullable_to_non_nullable
               as double,
-      blue: blue == freezed
+      blue: null == blue
           ? _value.blue
           : blue // ignore: cast_nullable_to_non_nullable
               as double,
-      alpha: alpha == freezed
+      alpha: null == alpha
           ? _value.alpha
           : alpha // ignore: cast_nullable_to_non_nullable
               as double,
@@ -170,23 +172,19 @@ class _$_SketchPaletteColor implements _SketchPaletteColor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SketchPaletteColor &&
-            const DeepCollectionEquality().equals(other.red, red) &&
-            const DeepCollectionEquality().equals(other.green, green) &&
-            const DeepCollectionEquality().equals(other.blue, blue) &&
-            const DeepCollectionEquality().equals(other.alpha, alpha));
+            (identical(other.red, red) || other.red == red) &&
+            (identical(other.green, green) || other.green == green) &&
+            (identical(other.blue, blue) || other.blue == blue) &&
+            (identical(other.alpha, alpha) || other.alpha == alpha));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(red),
-      const DeepCollectionEquality().hash(green),
-      const DeepCollectionEquality().hash(blue),
-      const DeepCollectionEquality().hash(alpha));
+  int get hashCode => Object.hash(runtimeType, red, green, blue, alpha);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SketchPaletteColorCopyWith<_$_SketchPaletteColor> get copyWith =>
       __$$_SketchPaletteColorCopyWithImpl<_$_SketchPaletteColor>(
           this, _$identity);
@@ -251,7 +249,8 @@ mixin _$SketchPalette {
 abstract class $SketchPaletteCopyWith<$Res> {
   factory $SketchPaletteCopyWith(
           SketchPalette value, $Res Function(SketchPalette) then) =
-      _$SketchPaletteCopyWithImpl<$Res>;
+      _$SketchPaletteCopyWithImpl<$Res, SketchPalette>;
+  @useResult
   $Res call(
       {String compatibleVersion,
       String pluginVersion,
@@ -259,34 +258,36 @@ abstract class $SketchPaletteCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SketchPaletteCopyWithImpl<$Res>
+class _$SketchPaletteCopyWithImpl<$Res, $Val extends SketchPalette>
     implements $SketchPaletteCopyWith<$Res> {
   _$SketchPaletteCopyWithImpl(this._value, this._then);
 
-  final SketchPalette _value;
   // ignore: unused_field
-  final $Res Function(SketchPalette) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? compatibleVersion = freezed,
-    Object? pluginVersion = freezed,
-    Object? colors = freezed,
+    Object? compatibleVersion = null,
+    Object? pluginVersion = null,
+    Object? colors = null,
   }) {
     return _then(_value.copyWith(
-      compatibleVersion: compatibleVersion == freezed
+      compatibleVersion: null == compatibleVersion
           ? _value.compatibleVersion
           : compatibleVersion // ignore: cast_nullable_to_non_nullable
               as String,
-      pluginVersion: pluginVersion == freezed
+      pluginVersion: null == pluginVersion
           ? _value.pluginVersion
           : pluginVersion // ignore: cast_nullable_to_non_nullable
               as String,
-      colors: colors == freezed
+      colors: null == colors
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<SketchPaletteColor>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -297,6 +298,7 @@ abstract class _$$_SketchPaletteCopyWith<$Res>
           _$_SketchPalette value, $Res Function(_$_SketchPalette) then) =
       __$$_SketchPaletteCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String compatibleVersion,
       String pluginVersion,
@@ -305,31 +307,29 @@ abstract class _$$_SketchPaletteCopyWith<$Res>
 
 /// @nodoc
 class __$$_SketchPaletteCopyWithImpl<$Res>
-    extends _$SketchPaletteCopyWithImpl<$Res>
+    extends _$SketchPaletteCopyWithImpl<$Res, _$_SketchPalette>
     implements _$$_SketchPaletteCopyWith<$Res> {
   __$$_SketchPaletteCopyWithImpl(
       _$_SketchPalette _value, $Res Function(_$_SketchPalette) _then)
-      : super(_value, (v) => _then(v as _$_SketchPalette));
+      : super(_value, _then);
 
-  @override
-  _$_SketchPalette get _value => super._value as _$_SketchPalette;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? compatibleVersion = freezed,
-    Object? pluginVersion = freezed,
-    Object? colors = freezed,
+    Object? compatibleVersion = null,
+    Object? pluginVersion = null,
+    Object? colors = null,
   }) {
     return _then(_$_SketchPalette(
-      compatibleVersion: compatibleVersion == freezed
+      compatibleVersion: null == compatibleVersion
           ? _value.compatibleVersion
           : compatibleVersion // ignore: cast_nullable_to_non_nullable
               as String,
-      pluginVersion: pluginVersion == freezed
+      pluginVersion: null == pluginVersion
           ? _value.pluginVersion
           : pluginVersion // ignore: cast_nullable_to_non_nullable
               as String,
-      colors: colors == freezed
+      colors: null == colors
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<SketchPaletteColor>,
@@ -370,23 +370,21 @@ class _$_SketchPalette implements _SketchPalette {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SketchPalette &&
-            const DeepCollectionEquality()
-                .equals(other.compatibleVersion, compatibleVersion) &&
-            const DeepCollectionEquality()
-                .equals(other.pluginVersion, pluginVersion) &&
+            (identical(other.compatibleVersion, compatibleVersion) ||
+                other.compatibleVersion == compatibleVersion) &&
+            (identical(other.pluginVersion, pluginVersion) ||
+                other.pluginVersion == pluginVersion) &&
             const DeepCollectionEquality().equals(other._colors, _colors));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(compatibleVersion),
-      const DeepCollectionEquality().hash(pluginVersion),
+  int get hashCode => Object.hash(runtimeType, compatibleVersion, pluginVersion,
       const DeepCollectionEquality().hash(_colors));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SketchPaletteCopyWith<_$_SketchPalette> get copyWith =>
       __$$_SketchPaletteCopyWithImpl<_$_SketchPalette>(this, _$identity);
 
