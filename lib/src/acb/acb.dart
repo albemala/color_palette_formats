@@ -122,12 +122,12 @@ AdobeColorBook decodeAdobeColorBook(File file) {
 
   final header = readUtf8String(buffer, 4);
   if (header != _fileSignature) {
-    throw StateError('Not a valid Adobe Color Book file');
+    throw Exception('Not a valid Adobe Color Book file');
   }
 
   final version = buffer.readUint16();
   if (version != supportedAdobeColorBookVersion) {
-    throw StateError(
+    throw Exception(
       'Unsupported version $version, Supported version: $supportedAdobeColorBookVersion',
     );
   }
@@ -211,7 +211,7 @@ AdobeColorBook decodeAdobeColorBook(File file) {
 
   final colorSpaceAsEnum = _readColorSpace[colorSpace];
   if (colorSpaceAsEnum == null) {
-    throw StateError('Unsupported color space $colorSpace');
+    throw Exception('Unsupported color space $colorSpace');
   }
   return AdobeColorBook(
     version: version,

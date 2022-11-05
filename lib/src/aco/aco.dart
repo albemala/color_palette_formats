@@ -89,7 +89,7 @@ AdobeColorSwatch decodeAdobeColorSwatch(File file) {
 
   final version = buffer.readUint16();
   if (version != supportedAdobeColorSwatchVersion) {
-    throw StateError(
+    throw Exception(
       'Unsupported version: $version. Supported version: $supportedAdobeColorSwatchVersion',
     );
   }
@@ -105,7 +105,7 @@ AdobeColorSwatch decodeAdobeColorSwatch(File file) {
 
     final colorSpaceAsEnum = _readColorSpace[colorSpace];
     if (colorSpaceAsEnum == null) {
-      throw StateError('Unsupported color space: $colorSpace');
+      throw Exception('Unsupported color space: $colorSpace');
     }
 
     final values = <double>[];
@@ -178,7 +178,7 @@ void encodeAdobeColorSwatch(AdobeColorSwatch swatch, File file) {
     // color space
     final colorSpace = _writeColorSpace[color.colorSpace];
     if (colorSpace == null) {
-      throw StateError('Unsupported color space: ${color.colorSpace}');
+      throw Exception('Unsupported color space: ${color.colorSpace}');
     }
     buffer.writeUint16(colorSpace);
     // color values

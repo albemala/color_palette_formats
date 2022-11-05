@@ -96,7 +96,7 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
 
   final header = readUtf8String(buffer, 4);
   if (header != _fileSignature) {
-    throw StateError('Not a valid Adobe Swatch Exchange file');
+    throw Exception('Not a valid Adobe Swatch Exchange file');
   }
 
   final version = [
@@ -104,7 +104,7 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
     buffer.readInt16(),
   ].join('.');
   if (version != supportedAdobeSwatchExchangeVersion) {
-    throw StateError(
+    throw Exception(
       'Unsupported version $version. Supported version: $supportedAdobeSwatchExchangeVersion',
     );
   }
@@ -142,17 +142,17 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
             values.add(buffer.readFloat32()); // gray
             break;
           default:
-            throw StateError('Unknown color model: $model');
+            throw Exception('Unknown color model: $model');
         }
         final type = buffer.readInt16();
 
         final modelAsEnum = _readColorModel[model];
         if (modelAsEnum == null) {
-          throw StateError('Unknown color model: $model');
+          throw Exception('Unknown color model: $model');
         }
         final typeAsEnum = _readColorType[type];
         if (typeAsEnum == null) {
-          throw StateError('Unknown color type: $type');
+          throw Exception('Unknown color type: $type');
         }
         colors.add(
           AdobeSwatchExchangeColor(
@@ -174,7 +174,7 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
       case _blockTypeGroupEnd:
         break;
       default:
-        throw StateError('Unknown block type: $blockType');
+        throw Exception('Unknown block type: $blockType');
     }
   }
 
@@ -208,7 +208,7 @@ void encodeAdobeSwatchExchange(AdobeSwatchExchange swatch, File file) {
     // color model
     final model = _writeColorModel[color.model];
     if (model == null) {
-      throw StateError('Unknown color model: ${color.model}');
+      throw Exception('Unknown color model: ${color.model}');
     }
     writeUtf8String(colorBuffer, model);
     // color values
@@ -231,7 +231,7 @@ void encodeAdobeSwatchExchange(AdobeSwatchExchange swatch, File file) {
     // color type
     final type = _writeColorType[color.type];
     if (type == null) {
-      throw StateError('Unknown color type: ${color.type}');
+      throw Exception('Unknown color type: ${color.type}');
     }
     colorBuffer.writeInt16(type);
     // block length

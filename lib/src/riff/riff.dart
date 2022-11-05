@@ -61,21 +61,21 @@ ResourceInterchangeFileFormat decodeResourceInterchangeFileFormat(File file) {
 
   final header = readUtf8String(buffer, 4);
   if (header != _fileSignature) {
-    throw StateError('Not a valid Resource Interchange File Format file');
+    throw Exception('Not a valid Resource Interchange File Format file');
   }
 
   final dataSize = buffer.readUint32();
 
   final dataType = readUtf8String(buffer, 8);
   if (dataType != _dataType) {
-    throw StateError('Not a valid Resource Interchange File Format file');
+    throw Exception('Not a valid Resource Interchange File Format file');
   }
 
   final chunkSize = buffer.readUint32();
 
   final version = buffer.readUint16(Endian.big);
   if (version != supportedResourceInterchangeFileFormatVersion) {
-    throw StateError(
+    throw Exception(
       'Unsupported version $version. Supported version: $supportedResourceInterchangeFileFormatVersion',
     );
   }
