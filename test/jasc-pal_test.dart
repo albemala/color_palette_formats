@@ -5,7 +5,7 @@ import 'package:palettes/palettes.dart';
 
 Future<void> main() async {
   test('read pal file', () {
-    final palFile1 = File('./assets/pal1.pal');
+    final palFile1 = File('./assets/pal1_v0100.pal');
     final pal1 = decodeJascPalette(palFile1);
     // print(pal1.toJson());
 

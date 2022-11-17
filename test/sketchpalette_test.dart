@@ -5,21 +5,27 @@ import 'package:palettes/palettes.dart';
 
 Future<void> main() async {
   test('read sketchpalette file', () {
-    final sketchpaletteFile1 = File('./assets/sketchpalette1.sketchpalette');
+    final sketchpaletteFile1 =
+        File('./assets/sketchpalette1_v1.4.sketchpalette');
     final sketchpalette1 = decodeSketchPalette(sketchpaletteFile1);
     // print(sketchpalette1.toJson());
 
-    expect(sketchpalette1.compatibleVersion,
-        equals(supportedSketchPaletteVersion));
+    expect(
+      sketchpalette1.compatibleVersion,
+      equals(supportedSketchPaletteVersion),
+    );
     expect(sketchpalette1.pluginVersion, equals(supportedSketchPaletteVersion));
     expect(sketchpalette1.colors.length, equals(6));
 
-    final sketchpaletteFile2 = File('./assets/sketchpalette2.sketchpalette');
+    final sketchpaletteFile2 =
+        File('./assets/sketchpalette2_v1.4.sketchpalette');
     final sketchpalette2 = decodeSketchPalette(sketchpaletteFile2);
     // print(sketchpalette2.toJson());
 
-    expect(sketchpalette2.compatibleVersion,
-        equals(supportedSketchPaletteVersion));
+    expect(
+      sketchpalette2.compatibleVersion,
+      equals(supportedSketchPaletteVersion),
+    );
     expect(sketchpalette2.pluginVersion, equals(supportedSketchPaletteVersion));
     expect(sketchpalette2.colors.length, equals(10));
   });
@@ -58,10 +64,14 @@ Future<void> main() async {
     final decodedSketchPalette = decodeSketchPalette(sketchPaletteFile);
     // print(decodedSketchPalette.toJson());
 
-    expect(decodedSketchPalette.compatibleVersion,
-        equals(supportedSketchPaletteVersion));
-    expect(decodedSketchPalette.pluginVersion,
-        equals(supportedSketchPaletteVersion));
+    expect(
+      decodedSketchPalette.compatibleVersion,
+      equals(supportedSketchPaletteVersion),
+    );
+    expect(
+      decodedSketchPalette.pluginVersion,
+      equals(supportedSketchPaletteVersion),
+    );
     expect(decodedSketchPalette.colors.length, equals(3));
 
     // delete temp file

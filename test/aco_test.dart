@@ -5,14 +5,14 @@ import 'package:palettes/palettes.dart';
 
 Future<void> main() async {
   test('read aco file', () {
-    final acoFile1 = File('./assets/aco1.aco');
+    final acoFile1 = File('./assets/aco1_v1.aco');
     final aco1 = decodeAdobeColorSwatch(acoFile1);
     // print(aco1.toJson());
 
     expect(aco1.version, equals(supportedAdobeColorSwatchVersion));
     expect(aco1.colors.length, equals(52));
 
-    final acoFile2 = File('./assets/aco2.aco');
+    final acoFile2 = File('./assets/aco2_v1.aco');
     final aco2 = decodeAdobeColorSwatch(acoFile2);
     // print(aco2.toJson());
 

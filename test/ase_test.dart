@@ -5,7 +5,7 @@ import 'package:palettes/palettes.dart';
 
 Future<void> main() async {
   test('read ase file', () {
-    final aseFile1 = File('./assets/ase1.ase');
+    final aseFile1 = File('./assets/ase1_v1.0.ase');
     final ase1 = decodeAdobeSwatchExchange(aseFile1);
     // print(ase1.toJson());
 
@@ -13,7 +13,7 @@ Future<void> main() async {
     expect(ase1.groups.length, equals(0));
     expect(ase1.colors.length, equals(122));
 
-    final aseFile2 = File('./assets/ase2.ase');
+    final aseFile2 = File('./assets/ase2_v1.0.ase');
     final ase2 = decodeAdobeSwatchExchange(aseFile2);
     // print(ase2.toJson());
 

@@ -5,9 +5,9 @@ import 'package:palettes/palettes.dart';
 
 Future<void> main() async {
   test('read acb file', () {
-    final acbFile1 = File('./assets/acb1.acb');
+    final acbFile1 = File('./assets/acb1_v1.acb');
     final acb1 = decodeAdobeColorBook(acbFile1);
-    print(acb1.toJson());
+    // print(acb1.toJson());
 
     expect(acb1.version, equals(supportedAdobeColorBookVersion));
     expect(acb1.colors.length, equals(300));

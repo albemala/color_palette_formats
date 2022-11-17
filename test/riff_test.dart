@@ -5,7 +5,7 @@ import 'package:palettes/palettes.dart';
 
 Future<void> main() async {
   test('read riff file', () {
-    final riffFile1 = File('./assets/riff1.pal');
+    final riffFile1 = File('./assets/riff1_v3.pal');
     final riff1 = decodeResourceInterchangeFileFormat(riffFile1);
     // print(riff1.toJson());
 
@@ -15,7 +15,7 @@ Future<void> main() async {
     );
     expect(riff1.colors.length, equals(16));
 
-    final riffFile2 = File('./assets/riff2.pal');
+    final riffFile2 = File('./assets/riff2_v3.pal');
     final riff2 = decodeResourceInterchangeFileFormat(riffFile2);
     // print(riff2.toJson());
 
