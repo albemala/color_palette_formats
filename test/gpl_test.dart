@@ -59,7 +59,23 @@ Future<void> main() async {
 
     expect(decodedGpl.name, equals('gpl'));
     expect(decodedGpl.columns, equals(8));
+    expect(decodedGpl.comments, equals(' test\n'));
     expect(decodedGpl.colors.length, equals(3));
+
+    expect(decodedGpl.colors[0].name, equals('red'));
+    expect(decodedGpl.colors[0].red, equals(255));
+    expect(decodedGpl.colors[0].green, equals(0));
+    expect(decodedGpl.colors[0].blue, equals(0));
+
+    expect(decodedGpl.colors[1].name, equals('cyan'));
+    expect(decodedGpl.colors[1].red, equals(0));
+    expect(decodedGpl.colors[1].green, equals(255));
+    expect(decodedGpl.colors[1].blue, equals(255));
+
+    expect(decodedGpl.colors[2].name, equals('gray'));
+    expect(decodedGpl.colors[2].red, equals(128));
+    expect(decodedGpl.colors[2].green, equals(128));
+    expect(decodedGpl.colors[2].blue, equals(128));
 
     // delete temp file
     gplFile.deleteSync();

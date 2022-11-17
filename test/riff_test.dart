@@ -59,7 +59,20 @@ Future<void> main() async {
       decodedRiff.version,
       equals(supportedResourceInterchangeFileFormatVersion),
     );
+
     expect(decodedRiff.colors.length, equals(3));
+
+    expect(decodedRiff.colors[0].red, equals(0));
+    expect(decodedRiff.colors[0].green, equals(0));
+    expect(decodedRiff.colors[0].blue, equals(255));
+
+    expect(decodedRiff.colors[1].red, equals(0));
+    expect(decodedRiff.colors[1].green, equals(255));
+    expect(decodedRiff.colors[1].blue, equals(0));
+
+    expect(decodedRiff.colors[2].red, equals(255));
+    expect(decodedRiff.colors[2].green, equals(0));
+    expect(decodedRiff.colors[2].blue, equals(0));
 
     // delete temp file
     riffFile.deleteSync();

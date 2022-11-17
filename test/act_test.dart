@@ -44,6 +44,11 @@ Future<void> main() async {
     // print(decodedAct.toJson());
 
     expect(decodedAct.colors.length, equals(adobeColorTableColorsCount));
+    for (var i = 0; i < adobeColorTableColorsCount; i++) {
+      expect(decodedAct.colors[i].red, equals(i));
+      expect(decodedAct.colors[i].green, equals(i));
+      expect(decodedAct.colors[i].blue, equals(i));
+    }
 
     // delete temp file
     actFile.deleteSync();

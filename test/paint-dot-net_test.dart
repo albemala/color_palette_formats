@@ -46,6 +46,21 @@ Future<void> main() async {
 
     expect(decodedPaintDotNet.colors.length, equals(3));
 
+    expect(decodedPaintDotNet.colors[0].red, equals(255));
+    expect(decodedPaintDotNet.colors[0].green, equals(0));
+    expect(decodedPaintDotNet.colors[0].blue, equals(0));
+    expect(decodedPaintDotNet.colors[0].alpha, equals(255));
+
+    expect(decodedPaintDotNet.colors[1].red, equals(0));
+    expect(decodedPaintDotNet.colors[1].green, equals(255));
+    expect(decodedPaintDotNet.colors[1].blue, equals(255));
+    expect(decodedPaintDotNet.colors[1].alpha, equals(255));
+
+    expect(decodedPaintDotNet.colors[2].red, equals(128));
+    expect(decodedPaintDotNet.colors[2].green, equals(128));
+    expect(decodedPaintDotNet.colors[2].blue, equals(128));
+    expect(decodedPaintDotNet.colors[2].alpha, equals(255));
+
     // delete temp file
     paintDotNetFile.deleteSync();
   });

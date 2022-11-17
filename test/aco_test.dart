@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:palettes/palettes.dart';
 
@@ -38,7 +39,7 @@ Future<void> main() async {
         ),
         AdobeColorSwatchColor(
           colorSpace: AdobeColorSwatchColorSpace.grayscale,
-          values: [0.5],
+          values: [128],
         ),
       ],
     );
@@ -51,7 +52,18 @@ Future<void> main() async {
     // print(decodedAco.toJson());
 
     expect(decodedAco.version, equals(supportedAdobeColorSwatchVersion));
+
     expect(decodedAco.colors.length, equals(4));
+    for (var i = 0; i < decodedAco.colors.length; i++) {
+      expect(
+        decodedAco.colors[i].colorSpace,
+        equals(aco.colors[i].colorSpace),
+      );
+      expect(
+        listEquals(decodedAco.colors[i].values, aco.colors[i].values),
+        true,
+      );
+    }
 
     // delete temp file
     acoFile.deleteSync();

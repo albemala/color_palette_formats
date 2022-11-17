@@ -56,8 +56,43 @@ Future<void> main() async {
     // print(decodedAse.toJson());
 
     expect(decodedAse.version, equals(supportedAdobeSwatchExchangeVersion));
+
     expect(decodedAse.groups.length, equals(0));
+
     expect(decodedAse.colors.length, equals(3));
+
+    expect(decodedAse.colors[0].name, equals('red'));
+    expect(
+      decodedAse.colors[0].model,
+      equals(AdobeSwatchExchangeColorModel.rgb),
+    );
+    expect(decodedAse.colors[0].values, equals([1, 0, 0]));
+    expect(
+      decodedAse.colors[0].type,
+      equals(AdobeSwatchExchangeColorType.global),
+    );
+
+    expect(decodedAse.colors[1].name, equals('cyan'));
+    expect(
+      decodedAse.colors[1].model,
+      equals(AdobeSwatchExchangeColorModel.cmyk),
+    );
+    expect(decodedAse.colors[1].values, equals([1, 0, 0, 0]));
+    expect(
+      decodedAse.colors[1].type,
+      equals(AdobeSwatchExchangeColorType.global),
+    );
+
+    expect(decodedAse.colors[2].name, equals('gray'));
+    expect(
+      decodedAse.colors[2].model,
+      equals(AdobeSwatchExchangeColorModel.gray),
+    );
+    expect(decodedAse.colors[2].values, equals([0.5]));
+    expect(
+      decodedAse.colors[2].type,
+      equals(AdobeSwatchExchangeColorType.global),
+    );
 
     // delete temp file
     aseFile.deleteSync();

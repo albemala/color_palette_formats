@@ -72,7 +72,23 @@ Future<void> main() async {
       decodedSketchPalette.pluginVersion,
       equals(supportedSketchPaletteVersion),
     );
+
     expect(decodedSketchPalette.colors.length, equals(3));
+
+    expect(decodedSketchPalette.colors[0].red, equals(1));
+    expect(decodedSketchPalette.colors[0].green, equals(0));
+    expect(decodedSketchPalette.colors[0].blue, equals(0));
+    expect(decodedSketchPalette.colors[0].alpha, equals(1));
+
+    expect(decodedSketchPalette.colors[1].red, equals(0));
+    expect(decodedSketchPalette.colors[1].green, equals(1));
+    expect(decodedSketchPalette.colors[1].blue, equals(0));
+    expect(decodedSketchPalette.colors[1].alpha, equals(1));
+
+    expect(decodedSketchPalette.colors[2].red, equals(0));
+    expect(decodedSketchPalette.colors[2].green, equals(0));
+    expect(decodedSketchPalette.colors[2].blue, equals(1));
+    expect(decodedSketchPalette.colors[2].alpha, equals(1));
 
     // delete temp file
     sketchPaletteFile.deleteSync();

@@ -40,11 +40,24 @@ Future<void> main() async {
     encodeJascPalette(pal, palFile);
     // print(palFile.readAsStringSync());
 
-    final decodedpal = decodeJascPalette(palFile);
-    // print(decodedpal.toJson());
+    final decodedPal = decodeJascPalette(palFile);
+    // print(decodedPal.toJson());
 
-    expect(decodedpal.version, equals(supportedJascPaletteVersion));
-    expect(decodedpal.colors.length, equals(3));
+    expect(decodedPal.version, equals(supportedJascPaletteVersion));
+
+    expect(decodedPal.colors.length, equals(3));
+
+    expect(decodedPal.colors[0].red, equals(255));
+    expect(decodedPal.colors[0].green, equals(0));
+    expect(decodedPal.colors[0].blue, equals(0));
+
+    expect(decodedPal.colors[1].red, equals(0));
+    expect(decodedPal.colors[1].green, equals(255));
+    expect(decodedPal.colors[1].blue, equals(0));
+
+    expect(decodedPal.colors[2].red, equals(0));
+    expect(decodedPal.colors[2].green, equals(0));
+    expect(decodedPal.colors[2].blue, equals(255));
 
     // delete temp file
     palFile.deleteSync();

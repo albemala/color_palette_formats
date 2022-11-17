@@ -51,7 +51,20 @@ Future<void> main() async {
     // print(decodedHpl.toJson());
 
     expect(decodedHpl.version, equals(supportedHomesitePaletteVersion));
+
     expect(decodedHpl.colors.length, equals(3));
+
+    expect(decodedHpl.colors[0].red, equals(255));
+    expect(decodedHpl.colors[0].green, equals(0));
+    expect(decodedHpl.colors[0].blue, equals(0));
+
+    expect(decodedHpl.colors[1].red, equals(0));
+    expect(decodedHpl.colors[1].green, equals(255));
+    expect(decodedHpl.colors[1].blue, equals(255));
+
+    expect(decodedHpl.colors[2].red, equals(128));
+    expect(decodedHpl.colors[2].green, equals(128));
+    expect(decodedHpl.colors[2].blue, equals(128));
 
     // delete temp file
     hplFile.deleteSync();
