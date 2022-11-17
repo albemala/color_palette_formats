@@ -11,9 +11,7 @@ _$_AdobeColorSwatchColor _$$_AdobeColorSwatchColorFromJson(
     _$_AdobeColorSwatchColor(
       colorSpace:
           $enumDecode(_$AdobeColorSwatchColorSpaceEnumMap, json['colorSpace']),
-      values: (json['values'] as List<dynamic>)
-          .map((e) => (e as num).toDouble())
-          .toList(),
+      values: (json['values'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$$_AdobeColorSwatchColorToJson(

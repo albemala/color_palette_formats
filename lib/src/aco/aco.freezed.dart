@@ -31,7 +31,7 @@ mixin _$AdobeColorSwatchColor {
   /// - LAB: [0..100, -128..127, -128..127]
   /// - Grayscale: [0..255]
   /// - Wide CMYK: [0..100, 0..100, 0..100, 0..100]
-  List<double> get values => throw _privateConstructorUsedError;
+  List<int> get values => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +45,7 @@ abstract class $AdobeColorSwatchColorCopyWith<$Res> {
           $Res Function(AdobeColorSwatchColor) then) =
       _$AdobeColorSwatchColorCopyWithImpl<$Res, AdobeColorSwatchColor>;
   @useResult
-  $Res call({AdobeColorSwatchColorSpace colorSpace, List<double> values});
+  $Res call({AdobeColorSwatchColorSpace colorSpace, List<int> values});
 }
 
 /// @nodoc
@@ -73,7 +73,7 @@ class _$AdobeColorSwatchColorCopyWithImpl<$Res,
       values: null == values
           ? _value.values
           : values // ignore: cast_nullable_to_non_nullable
-              as List<double>,
+              as List<int>,
     ) as $Val);
   }
 }
@@ -86,7 +86,7 @@ abstract class _$$_AdobeColorSwatchColorCopyWith<$Res>
       __$$_AdobeColorSwatchColorCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AdobeColorSwatchColorSpace colorSpace, List<double> values});
+  $Res call({AdobeColorSwatchColorSpace colorSpace, List<int> values});
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class __$$_AdobeColorSwatchColorCopyWithImpl<$Res>
       values: null == values
           ? _value._values
           : values // ignore: cast_nullable_to_non_nullable
-              as List<double>,
+              as List<int>,
     ));
   }
 }
@@ -120,7 +120,7 @@ class __$$_AdobeColorSwatchColorCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AdobeColorSwatchColor implements _AdobeColorSwatchColor {
   const _$_AdobeColorSwatchColor(
-      {required this.colorSpace, required final List<double> values})
+      {required this.colorSpace, required final List<int> values})
       : _values = values;
 
   factory _$_AdobeColorSwatchColor.fromJson(Map<String, dynamic> json) =>
@@ -136,7 +136,7 @@ class _$_AdobeColorSwatchColor implements _AdobeColorSwatchColor {
   /// - LAB: [0..100, -128..127, -128..127]
   /// - Grayscale: [0..255]
   /// - Wide CMYK: [0..100, 0..100, 0..100, 0..100]
-  final List<double> _values;
+  final List<int> _values;
 
   /// Color values depend on color space:
   /// - RGB: [0..255, 0..255, 0..255]
@@ -146,7 +146,7 @@ class _$_AdobeColorSwatchColor implements _AdobeColorSwatchColor {
   /// - Grayscale: [0..255]
   /// - Wide CMYK: [0..100, 0..100, 0..100, 0..100]
   @override
-  List<double> get values {
+  List<int> get values {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_values);
   }
@@ -189,7 +189,7 @@ class _$_AdobeColorSwatchColor implements _AdobeColorSwatchColor {
 abstract class _AdobeColorSwatchColor implements AdobeColorSwatchColor {
   const factory _AdobeColorSwatchColor(
       {required final AdobeColorSwatchColorSpace colorSpace,
-      required final List<double> values}) = _$_AdobeColorSwatchColor;
+      required final List<int> values}) = _$_AdobeColorSwatchColor;
 
   factory _AdobeColorSwatchColor.fromJson(Map<String, dynamic> json) =
       _$_AdobeColorSwatchColor.fromJson;
@@ -205,7 +205,7 @@ abstract class _AdobeColorSwatchColor implements AdobeColorSwatchColor {
   /// - LAB: [0..100, -128..127, -128..127]
   /// - Grayscale: [0..255]
   /// - Wide CMYK: [0..100, 0..100, 0..100, 0..100]
-  List<double> get values;
+  List<int> get values;
   @override
   @JsonKey(ignore: true)
   _$$_AdobeColorSwatchColorCopyWith<_$_AdobeColorSwatchColor> get copyWith =>

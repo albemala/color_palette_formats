@@ -39,7 +39,7 @@ class AdobeColorSwatchColor with _$AdobeColorSwatchColor {
     /// - LAB: [0..100, -128..127, -128..127]
     /// - Grayscale: [0..255]
     /// - Wide CMYK: [0..100, 0..100, 0..100, 0..100]
-    required List<double> values,
+    required List<int> values,
   }) = _AdobeColorSwatchColor;
 
   factory AdobeColorSwatchColor.fromJson(Map<String, dynamic> json) =>
@@ -156,7 +156,7 @@ AdobeColorSwatch decodeAdobeColorSwatch(File file) {
     colors.add(
       AdobeColorSwatchColor(
         colorSpace: colorSpaceAsEnum,
-        values: values,
+        values: values.map((value) => value.round()).toList(),
       ),
     );
   }
@@ -210,9 +210,9 @@ void encodeAdobeColorSwatch(AdobeColorSwatch swatch, File file) {
         ); // z
         break;
       case AdobeColorSwatchColorSpace.lab:
-        buffer.writeUint16((color.values[0] * 100).round()); // w
-        buffer.writeUint16((color.values[1] * 100).round()); // x
-        buffer.writeUint16((color.values[2] * 100).round()); // y
+        buffer.writeUint16(color.values[0] * 100); // w
+        buffer.writeUint16(color.values[1] * 100); // x
+        buffer.writeUint16(color.values[2] * 100); // y
         buffer.writeUint16(0); // z
         break;
       case AdobeColorSwatchColorSpace.grayscale:
