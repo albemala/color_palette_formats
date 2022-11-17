@@ -72,7 +72,8 @@ class ProcreateSwatchesSwatch with _$ProcreateSwatchesSwatch {
 @freezed
 class ProcreateSwatches with _$ProcreateSwatches {
   const factory ProcreateSwatches({
-    required String name,
+    @Default('') //
+        String name,
     required List<ProcreateSwatchesSwatch> swatches,
   }) = _ProcreateSwatches;
 

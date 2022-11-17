@@ -229,7 +229,7 @@ GimpPalette _$GimpPaletteFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$GimpPalette {
   String get name => throw _privateConstructorUsedError;
-  int? get columns => throw _privateConstructorUsedError;
+  int get columns => throw _privateConstructorUsedError;
   String get comments => throw _privateConstructorUsedError;
   List<GimpPaletteColor> get colors => throw _privateConstructorUsedError;
 
@@ -247,7 +247,7 @@ abstract class $GimpPaletteCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      int? columns,
+      int columns,
       String comments,
       List<GimpPaletteColor> colors});
 }
@@ -266,7 +266,7 @@ class _$GimpPaletteCopyWithImpl<$Res, $Val extends GimpPalette>
   @override
   $Res call({
     Object? name = null,
-    Object? columns = freezed,
+    Object? columns = null,
     Object? comments = null,
     Object? colors = null,
   }) {
@@ -275,10 +275,10 @@ class _$GimpPaletteCopyWithImpl<$Res, $Val extends GimpPalette>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      columns: freezed == columns
+      columns: null == columns
           ? _value.columns
           : columns // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       comments: null == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
@@ -301,7 +301,7 @@ abstract class _$$_GimpPaletteCopyWith<$Res>
   @useResult
   $Res call(
       {String name,
-      int? columns,
+      int columns,
       String comments,
       List<GimpPaletteColor> colors});
 }
@@ -318,7 +318,7 @@ class __$$_GimpPaletteCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? columns = freezed,
+    Object? columns = null,
     Object? comments = null,
     Object? colors = null,
   }) {
@@ -327,10 +327,10 @@ class __$$_GimpPaletteCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      columns: freezed == columns
+      columns: null == columns
           ? _value.columns
           : columns // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       comments: null == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
@@ -348,8 +348,8 @@ class __$$_GimpPaletteCopyWithImpl<$Res>
 class _$_GimpPalette implements _GimpPalette {
   const _$_GimpPalette(
       {required this.name,
-      required this.columns,
-      required this.comments,
+      this.columns = 1,
+      this.comments = '',
       required final List<GimpPaletteColor> colors})
       : _colors = colors;
 
@@ -359,8 +359,10 @@ class _$_GimpPalette implements _GimpPalette {
   @override
   final String name;
   @override
-  final int? columns;
+  @JsonKey()
+  final int columns;
   @override
+  @JsonKey()
   final String comments;
   final List<GimpPaletteColor> _colors;
   @override
@@ -408,8 +410,8 @@ class _$_GimpPalette implements _GimpPalette {
 abstract class _GimpPalette implements GimpPalette {
   const factory _GimpPalette(
       {required final String name,
-      required final int? columns,
-      required final String comments,
+      final int columns,
+      final String comments,
       required final List<GimpPaletteColor> colors}) = _$_GimpPalette;
 
   factory _GimpPalette.fromJson(Map<String, dynamic> json) =
@@ -418,7 +420,7 @@ abstract class _GimpPalette implements GimpPalette {
   @override
   String get name;
   @override
-  int? get columns;
+  int get columns;
   @override
   String get comments;
   @override

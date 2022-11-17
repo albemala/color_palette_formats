@@ -25,25 +25,21 @@ Future<void> main() async {
   test('write ase file', () async {
     const ase = AdobeSwatchExchange(
       version: supportedAdobeSwatchExchangeVersion,
-      groups: [],
       colors: [
         AdobeSwatchExchangeColor(
           name: 'red',
           model: AdobeSwatchExchangeColorModel.rgb,
           values: [1, 0, 0],
-          type: AdobeSwatchExchangeColorType.global,
         ),
         AdobeSwatchExchangeColor(
           name: 'cyan',
           model: AdobeSwatchExchangeColorModel.cmyk,
           values: [1, 0, 0, 0],
-          type: AdobeSwatchExchangeColorType.global,
         ),
         AdobeSwatchExchangeColor(
           name: 'gray',
           model: AdobeSwatchExchangeColorModel.gray,
           values: [0.5],
-          type: AdobeSwatchExchangeColorType.global,
         ),
       ],
     );

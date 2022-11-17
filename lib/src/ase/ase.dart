@@ -31,12 +31,14 @@ enum AdobeSwatchExchangeColorType {
 @freezed
 class AdobeSwatchExchangeColor with _$AdobeSwatchExchangeColor {
   const factory AdobeSwatchExchangeColor({
-    required String name,
+    @Default('') //
+        String name,
     required AdobeSwatchExchangeColorModel model,
 
     /// Color values are in the range [0..1]
     required List<double> values,
-    required AdobeSwatchExchangeColorType type,
+    @Default(AdobeSwatchExchangeColorType.global) //
+        AdobeSwatchExchangeColorType type,
   }) = _AdobeSwatchExchangeColor;
 
   factory AdobeSwatchExchangeColor.fromJson(Map<String, dynamic> json) =>
@@ -47,7 +49,8 @@ class AdobeSwatchExchangeColor with _$AdobeSwatchExchangeColor {
 class AdobeSwatchExchange with _$AdobeSwatchExchange {
   const factory AdobeSwatchExchange({
     required String version,
-    required List<dynamic> groups,
+    @Default([]) //
+        List<dynamic> groups,
     required List<AdobeSwatchExchangeColor> colors,
   }) = _AdobeSwatchExchange;
 

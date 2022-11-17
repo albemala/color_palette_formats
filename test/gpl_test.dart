@@ -18,7 +18,7 @@ Future<void> main() async {
     // print(gpl2.toJson());
 
     expect(gpl2.name, equals('Oxygen'));
-    expect(gpl2.columns, equals(null));
+    expect(gpl2.columns, equals(1));
     expect(gpl2.colors.length, equals(126));
   });
 

@@ -28,7 +28,7 @@ Map<String, dynamic> _$$_ProcreateSwatchesSwatchToJson(
 
 _$_ProcreateSwatches _$$_ProcreateSwatchesFromJson(Map<String, dynamic> json) =>
     _$_ProcreateSwatches(
-      name: json['name'] as String,
+      name: json['name'] as String? ?? '',
       swatches: (json['swatches'] as List<dynamic>)
           .map((e) =>
               ProcreateSwatchesSwatch.fromJson(e as Map<String, dynamic>))

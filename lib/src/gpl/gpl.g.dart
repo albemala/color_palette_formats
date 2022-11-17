@@ -25,8 +25,8 @@ Map<String, dynamic> _$$_GimpPaletteColorToJson(_$_GimpPaletteColor instance) =>
 _$_GimpPalette _$$_GimpPaletteFromJson(Map<String, dynamic> json) =>
     _$_GimpPalette(
       name: json['name'] as String,
-      columns: json['columns'] as int?,
-      comments: json['comments'] as String,
+      columns: json['columns'] as int? ?? 1,
+      comments: json['comments'] as String? ?? '',
       colors: (json['colors'] as List<dynamic>)
           .map((e) => GimpPaletteColor.fromJson(e as Map<String, dynamic>))
           .toList(),

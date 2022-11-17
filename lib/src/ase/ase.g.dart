@@ -9,12 +9,14 @@ part of 'ase.dart';
 _$_AdobeSwatchExchangeColor _$$_AdobeSwatchExchangeColorFromJson(
         Map<String, dynamic> json) =>
     _$_AdobeSwatchExchangeColor(
-      name: json['name'] as String,
+      name: json['name'] as String? ?? '',
       model: $enumDecode(_$AdobeSwatchExchangeColorModelEnumMap, json['model']),
       values: (json['values'] as List<dynamic>)
           .map((e) => (e as num).toDouble())
           .toList(),
-      type: $enumDecode(_$AdobeSwatchExchangeColorTypeEnumMap, json['type']),
+      type: $enumDecodeNullable(
+              _$AdobeSwatchExchangeColorTypeEnumMap, json['type']) ??
+          AdobeSwatchExchangeColorType.global,
     );
 
 Map<String, dynamic> _$$_AdobeSwatchExchangeColorToJson(
@@ -42,7 +44,7 @@ _$_AdobeSwatchExchange _$$_AdobeSwatchExchangeFromJson(
         Map<String, dynamic> json) =>
     _$_AdobeSwatchExchange(
       version: json['version'] as String,
-      groups: json['groups'] as List<dynamic>,
+      groups: json['groups'] as List<dynamic>? ?? const [],
       colors: (json['colors'] as List<dynamic>)
           .map((e) =>
               AdobeSwatchExchangeColor.fromJson(e as Map<String, dynamic>))

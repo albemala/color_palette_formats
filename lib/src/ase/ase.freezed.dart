@@ -145,16 +145,17 @@ class __$$_AdobeSwatchExchangeColorCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AdobeSwatchExchangeColor implements _AdobeSwatchExchangeColor {
   const _$_AdobeSwatchExchangeColor(
-      {required this.name,
+      {this.name = '',
       required this.model,
       required final List<double> values,
-      required this.type})
+      this.type = AdobeSwatchExchangeColorType.global})
       : _values = values;
 
   factory _$_AdobeSwatchExchangeColor.fromJson(Map<String, dynamic> json) =>
       _$$_AdobeSwatchExchangeColorFromJson(json);
 
   @override
+  @JsonKey()
   final String name;
   @override
   final AdobeSwatchExchangeColorModel model;
@@ -170,6 +171,7 @@ class _$_AdobeSwatchExchangeColor implements _AdobeSwatchExchangeColor {
   }
 
   @override
+  @JsonKey()
   final AdobeSwatchExchangeColorType type;
 
   @override
@@ -210,11 +212,10 @@ class _$_AdobeSwatchExchangeColor implements _AdobeSwatchExchangeColor {
 
 abstract class _AdobeSwatchExchangeColor implements AdobeSwatchExchangeColor {
   const factory _AdobeSwatchExchangeColor(
-          {required final String name,
-          required final AdobeSwatchExchangeColorModel model,
-          required final List<double> values,
-          required final AdobeSwatchExchangeColorType type}) =
-      _$_AdobeSwatchExchangeColor;
+      {final String name,
+      required final AdobeSwatchExchangeColorModel model,
+      required final List<double> values,
+      final AdobeSwatchExchangeColorType type}) = _$_AdobeSwatchExchangeColor;
 
   factory _AdobeSwatchExchangeColor.fromJson(Map<String, dynamic> json) =
       _$_AdobeSwatchExchangeColor.fromJson;
@@ -349,7 +350,7 @@ class __$$_AdobeSwatchExchangeCopyWithImpl<$Res>
 class _$_AdobeSwatchExchange implements _AdobeSwatchExchange {
   const _$_AdobeSwatchExchange(
       {required this.version,
-      required final List<dynamic> groups,
+      final List<dynamic> groups = const [],
       required final List<AdobeSwatchExchangeColor> colors})
       : _groups = groups,
         _colors = colors;
@@ -361,6 +362,7 @@ class _$_AdobeSwatchExchange implements _AdobeSwatchExchange {
   final String version;
   final List<dynamic> _groups;
   @override
+  @JsonKey()
   List<dynamic> get groups {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_groups);
@@ -414,7 +416,7 @@ class _$_AdobeSwatchExchange implements _AdobeSwatchExchange {
 abstract class _AdobeSwatchExchange implements AdobeSwatchExchange {
   const factory _AdobeSwatchExchange(
           {required final String version,
-          required final List<dynamic> groups,
+          final List<dynamic> groups,
           required final List<AdobeSwatchExchangeColor> colors}) =
       _$_AdobeSwatchExchange;
 

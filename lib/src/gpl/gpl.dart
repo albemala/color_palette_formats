@@ -46,8 +46,10 @@ class GimpPaletteColor with _$GimpPaletteColor {
 class GimpPalette with _$GimpPalette {
   const factory GimpPalette({
     required String name,
-    required int? columns,
-    required String comments,
+    @Default(1) //
+        int columns,
+    @Default('') //
+        String comments,
     required List<GimpPaletteColor> colors,
   }) = _GimpPalette;
 
@@ -66,7 +68,7 @@ GimpPalette decodeGimpPalette(File file) {
   }
 
   var name = '';
-  int? columns;
+  var columns = 1;
   final comments = StringBuffer();
   final colors = <GimpPaletteColor>[];
   for (var i = 1; i < lines.length; i++) {

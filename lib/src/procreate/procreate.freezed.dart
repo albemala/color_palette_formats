@@ -370,14 +370,14 @@ class __$$_ProcreateSwatchesCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ProcreateSwatches implements _ProcreateSwatches {
   const _$_ProcreateSwatches(
-      {required this.name,
-      required final List<ProcreateSwatchesSwatch> swatches})
+      {this.name = '', required final List<ProcreateSwatchesSwatch> swatches})
       : _swatches = swatches;
 
   factory _$_ProcreateSwatches.fromJson(Map<String, dynamic> json) =>
       _$$_ProcreateSwatchesFromJson(json);
 
   @override
+  @JsonKey()
   final String name;
   final List<ProcreateSwatchesSwatch> _swatches;
   @override
@@ -422,7 +422,7 @@ class _$_ProcreateSwatches implements _ProcreateSwatches {
 
 abstract class _ProcreateSwatches implements ProcreateSwatches {
   const factory _ProcreateSwatches(
-          {required final String name,
+          {final String name,
           required final List<ProcreateSwatchesSwatch> swatches}) =
       _$_ProcreateSwatches;
 
