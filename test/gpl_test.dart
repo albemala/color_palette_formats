@@ -25,7 +25,6 @@ Future<void> main() async {
   test('write gpl file', () async {
     const gpl = GimpPalette(
       name: 'gpl',
-      columns: 8,
       comments: ' test',
       colors: [
         GimpPaletteColor(
@@ -35,7 +34,7 @@ Future<void> main() async {
           blue: 0,
         ),
         GimpPaletteColor(
-          name: 'cyan',
+          name: '',
           red: 0,
           green: 255,
           blue: 255,
@@ -48,6 +47,7 @@ Future<void> main() async {
         ),
       ],
     );
+    // print(gpl.toJson());
 
     // write to temp file
     final gplFile = File('./test/test.gpl');
@@ -58,7 +58,7 @@ Future<void> main() async {
     // print(decodedGpl.toJson());
 
     expect(decodedGpl.name, equals('gpl'));
-    expect(decodedGpl.columns, equals(8));
+    expect(decodedGpl.columns, equals(1));
     expect(decodedGpl.comments, equals(' test\n'));
     expect(decodedGpl.colors.length, equals(3));
 
@@ -67,7 +67,7 @@ Future<void> main() async {
     expect(decodedGpl.colors[0].green, equals(0));
     expect(decodedGpl.colors[0].blue, equals(0));
 
-    expect(decodedGpl.colors[1].name, equals('cyan'));
+    expect(decodedGpl.colors[1].name, equals(''));
     expect(decodedGpl.colors[1].red, equals(0));
     expect(decodedGpl.colors[1].green, equals(255));
     expect(decodedGpl.colors[1].blue, equals(255));

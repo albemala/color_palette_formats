@@ -93,7 +93,7 @@ GimpPalette decodeGimpPalette(File file) {
     // line is a color
     // the first 3 parts are red, green and blue
     // the rest is the color name
-    final regex = RegExp(r'(\d+)\s+(\d+)\s+(\d+)\s+(.*)');
+    final regex = RegExp(r'(\d+)\s+(\d+)\s+(\d+)\s*(.*)');
     final match = regex.firstMatch(line);
     final red = int.tryParse(match?.group(1) ?? '') ?? 0;
     final green = int.tryParse(match?.group(2) ?? '') ?? 0;
@@ -121,9 +121,7 @@ void encodeGimpPalette(GimpPalette gimpPalette, File file) {
   final buffer = StringBuffer();
   buffer.writeln(_fileSignature);
   buffer.writeln('Name: ${gimpPalette.name}');
-  if (gimpPalette.columns != null) {
-    buffer.writeln('Columns: ${gimpPalette.columns}');
-  }
+  buffer.writeln('Columns: ${gimpPalette.columns}');
   gimpPalette.comments //
       .split('\n')
       .forEach((line) => buffer.writeln('# $line'));
