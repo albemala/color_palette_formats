@@ -8,8 +8,7 @@ across a wide range of industry-standard formats.
 Currently, the package supports the following formats:
 
 - Adobe Color Book (ACB)
-- Adobe Color
-- Swatch (ACO)
+- Adobe Color Swatch (ACO)
 - Adobe Color Table (ACT)
 - Adobe Swatch Exchange (ASE)
 - GIMP Palette (GPL)

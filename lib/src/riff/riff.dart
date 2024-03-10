@@ -60,6 +60,7 @@ ResourceInterchangeFileFormat decodeResourceInterchangeFileFormat(File file) {
     throw Exception('Not a valid Resource Interchange File Format file');
   }
 
+  // ignore: unused_local_variable
   final dataSize = buffer.readUint32();
 
   final dataType = readUtf8String(buffer, 8);
@@ -67,6 +68,7 @@ ResourceInterchangeFileFormat decodeResourceInterchangeFileFormat(File file) {
     throw Exception('Not a valid Resource Interchange File Format file');
   }
 
+  // ignore: unused_local_variable
   final chunkSize = buffer.readUint32();
 
   final version = buffer.readUint16(Endian.big);
@@ -86,6 +88,7 @@ ResourceInterchangeFileFormat decodeResourceInterchangeFileFormat(File file) {
       buffer.readUint8(),
     ];
 
+    // ignore: unused_local_variable
     final flags = buffer.readUint8();
 
     colors.add(

@@ -70,6 +70,7 @@ JascPalette decodeJascPalette(File file) {
     );
   }
 
+  // ignore: unused_local_variable
   final colorsCount = lines.elementAt(2);
 
   final colors = lines

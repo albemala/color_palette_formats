@@ -119,6 +119,7 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
   final blocksCount = buffer.readInt32();
   for (var i = 0; i < blocksCount; i++) {
     final blockType = buffer.readInt16();
+    // ignore: unused_local_variable
     final blockLength = buffer.readInt32();
     switch (blockType) {
       case _blockTypeColor:
@@ -165,6 +166,7 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
         );
       case _blockTypeGroupStart:
         final nameLengthIncludingTerminator = buffer.readInt16();
+        // ignore: unused_local_variable
         final name = readUtf16String(
           buffer,
           nameLengthIncludingTerminator,
