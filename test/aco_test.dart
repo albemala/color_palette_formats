@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:palettes/palettes.dart';
 
 Future<void> main() async {
   test('read aco file', () {

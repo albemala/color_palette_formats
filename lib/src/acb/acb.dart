@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:buffer/buffer.dart';
+import 'package:color_palette_formats/src/utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:palettes/src/utils.dart';
 
 part 'acb.mapper.dart';
 
