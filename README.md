@@ -1,39 +1,84 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Color palette formats
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+[![Pub](https://img.shields.io/pub/v/color_palette_formats)](https://pub.dev/packages/color_palette_formats)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+A package for decoding and encoding various color palette formats. It allows Flutter apps to read and write color data
+across a wide range of industry-standard formats.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Currently, the package supports the following formats:
 
-## Features
+- Adobe Color Book (ACB)
+- Adobe Color
+- Swatch (ACO)
+- Adobe Color Table (ACT)
+- Adobe Swatch Exchange (ASE)
+- GIMP Palette (GPL)
+- Homesite Palette (HPL)
+- JASC
+- Palette (PAL)
+- Paint.NET Palette
+- Procreate Swatches
+- Resource Interchange File Format (RIFF)
+- Sketch Palette
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## Examples
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+#### Reading a color palette file
 
 ```dart
-const like = 'sample';
+// Example: Reading an ACO (Adobe Color Swatch) file.
+final acoFile = File('path/to/aco1_v1.aco');
+final aco = decodeAdobeColorSwatch(acoFile);
+assert(aco.version == supportedAdobeColorSwatchVersion);
+assert(aco.colors.length == 52);
+
+// Example: Reading a Procreate Swatches file.
+final procreateFile = File('path/to/procreate1.swatches');
+final procreate = decodeProcreateSwatches(procreateFile);
+assert(procreate.first.swatches.length == 30);
+
+// Example: Reading a Sketch Palette file.
+final sketchpaletteFile =  File('path/to/sketchpalette1_v1.4.sketchpalette');
+final sketchpalette = decodeSketchPalette(sketchpaletteFile);
+assert(sketchpalette.compatibleVersion == supportedSketchPaletteVersion);
+assert(sketchpalette.pluginVersion == supportedSketchPaletteVersion);
+assert(sketchpalette.colors.length == 6);
 ```
 
-## Additional information
+#### Writing a color palette file
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+final ase = AdobeSwatchExchange(
+  version: supportedAdobeSwatchExchangeVersion,
+  colors: [
+    AdobeSwatchExchangeColor(
+      name: 'red',
+      model: AdobeSwatchExchangeColorModel.rgb,
+      values: [1, 0, 0],
+    ),
+    AdobeSwatchExchangeColor(
+      name: 'cyan',
+      model: AdobeSwatchExchangeColorModel.cmyk,
+      values: [1, 0, 0, 0],
+    ),
+    AdobeSwatchExchangeColor(
+      name: 'gray',
+      model: AdobeSwatchExchangeColorModel.gray,
+      values: [0.5],
+    ),
+  ],
+);
+// write to file
+final aseFile = File('path/to/ase1_v1.ase');
+encodeAdobeSwatchExchange(ase, aseFile);
+```
+
+## Support this project
+
+<a href="https://www.buymeacoffee.com/albemala" target="_blank">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" >
+</a>
+
+## Credits
+
+Created by [@albemala](https://github.com/albemala) ([Twitter](https://twitter.com/albemala)).
