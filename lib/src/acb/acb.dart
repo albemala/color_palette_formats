@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:buffer/buffer.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:palettes/src/utils.dart';
 
-part 'acb.freezed.dart';
-part 'acb.g.dart';
+part 'acb.mapper.dart';
 
 /*
 * Adobe Color Book (ACB) (.acb)
@@ -17,6 +16,7 @@ part 'acb.g.dart';
 
 const supportedAdobeColorBookVersion = 1;
 
+@MappableEnum()
 enum AdobeColorBookColorSpace {
   rgb,
   hsb,
@@ -30,41 +30,51 @@ enum AdobeColorBookColorSpace {
   hks,
 }
 
-@freezed
-class AdobeColorBookColor with _$AdobeColorBookColor {
-  const factory AdobeColorBookColor({
-    required String name,
-    required String code,
+@MappableClass()
+class AdobeColorBookColor with AdobeColorBookColorMappable {
+  final String name;
+  final String code;
 
-    /// Color values depend on color space:
-    /// - RGB: [0..255, 0..255, 0..255]
-    /// - CMYK: [0..100, 0..100, 0..100, 0..100]
-    /// - LAB: [0..100, -128..127, -128..127]
-    required List<int> values,
-  }) = _AdobeColorBookColor;
+  /// Color values depend on color space:
+  /// - RGB: [0..255, 0..255, 0..255]
+  /// - CMYK: [0..100, 0..100, 0..100, 0..100]
+  /// - LAB: [0..100, -128..127, -128..127]
+  final List<int> values;
 
-  factory AdobeColorBookColor.fromJson(Map<String, dynamic> json) =>
-      _$AdobeColorBookColorFromJson(json);
+  AdobeColorBookColor({
+    required this.name,
+    required this.code,
+    required this.values,
+  });
 }
 
-@freezed
-class AdobeColorBook with _$AdobeColorBook {
-  const factory AdobeColorBook({
-    required int version,
-    required int identifier,
-    required String title,
-    required String description,
-    required String colorNamePrefix,
-    required String colorNameSuffix,
-    required int colorCount,
-    required int pageSize,
-    required int pageSelectorOffset,
-    required AdobeColorBookColorSpace colorSpace,
-    required List<AdobeColorBookColor> colors,
-  }) = _AdobeColorBook;
+@MappableClass()
+class AdobeColorBook with AdobeColorBookMappable {
+  final int version;
+  final int identifier;
+  final String title;
+  final String description;
+  final String colorNamePrefix;
+  final String colorNameSuffix;
+  final int colorCount;
+  final int pageSize;
+  final int pageSelectorOffset;
+  final AdobeColorBookColorSpace colorSpace;
+  final List<AdobeColorBookColor> colors;
 
-  factory AdobeColorBook.fromJson(Map<String, dynamic> json) =>
-      _$AdobeColorBookFromJson(json);
+  AdobeColorBook({
+    required this.version,
+    required this.identifier,
+    required this.title,
+    required this.description,
+    required this.colorNamePrefix,
+    required this.colorNameSuffix,
+    required this.colorCount,
+    required this.pageSize,
+    required this.pageSelectorOffset,
+    required this.colorSpace,
+    required this.colors,
+  });
 }
 
 const _fileSignature = '8BCB';
@@ -168,7 +178,6 @@ AdobeColorBook decodeAdobeColorBook(File file) {
     switch (colorSpace) {
       case _colorSpaceRgb:
         values.addAll(rawValues);
-        break;
       case _colorSpaceHsb:
         break;
       case _colorSpaceCmyk:
@@ -178,7 +187,6 @@ AdobeColorBook decodeAdobeColorBook(File file) {
           ((255 - rawValues[2]) / 2.55 + 0.5).round(),
           ((255 - rawValues[3]) / 2.55 + 0.5).round(),
         ]);
-        break;
       case _colorSpacePantone:
         break;
       case _colorSpaceFocoltone:
@@ -193,7 +201,6 @@ AdobeColorBook decodeAdobeColorBook(File file) {
           rawValues[1] - 128,
           rawValues[2] - 128,
         ]);
-        break;
       case _colorSpaceGrayscale:
         break;
       case _colorSpaceHks:

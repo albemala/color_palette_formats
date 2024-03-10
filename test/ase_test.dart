@@ -23,7 +23,7 @@ Future<void> main() async {
   });
 
   test('write ase file', () async {
-    const ase = AdobeSwatchExchange(
+    final ase = AdobeSwatchExchange(
       version: supportedAdobeSwatchExchangeVersion,
       colors: [
         AdobeSwatchExchangeColor(

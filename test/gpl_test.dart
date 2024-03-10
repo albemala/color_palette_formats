@@ -23,7 +23,7 @@ Future<void> main() async {
   });
 
   test('write gpl file', () async {
-    const gpl = GimpPalette(
+    final gpl = GimpPalette(
       name: 'gpl',
       comments: ' test',
       colors: [

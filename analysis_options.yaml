@@ -2,10 +2,11 @@ include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
   exclude:
-    - 'lib/**.g.dart'
+#    - 'lib/**.g.dart'
 
 linter:
   rules:
+    file_names: false
     flutter_style_todos: false
     sort_constructors_first: false
     cascade_invocations: false

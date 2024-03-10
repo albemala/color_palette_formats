@@ -1,5 +1,3 @@
-library palettes;
-
 export 'src/acb/acb.dart';
 export 'src/aco/aco.dart';
 export 'src/act/act.dart';

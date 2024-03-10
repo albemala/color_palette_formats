@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'gpl.freezed.dart';
-part 'gpl.g.dart';
+part 'gpl.mapper.dart';
 
 /*
 * Gimp Palette (GPL) (.gpl) (Gimp, Inkscape, Krita, KolourPaint, Scribus, CinePaint, MyPaint)
@@ -24,37 +23,39 @@ Name: Oxygen
 * - http://www.selapa.net/swatches/colors/fileformats.php
 */
 
-@freezed
-class GimpPaletteColor with _$GimpPaletteColor {
-  const factory GimpPaletteColor({
-    /// Value: [0..255]
-    required int red,
+@MappableClass()
+class GimpPaletteColor with GimpPaletteColorMappable {
+  /// Value: [0..255]
+  final int red;
 
-    /// Value: [0..255]
-    required int green,
+  /// Value: [0..255]
+  final int green;
 
-    /// Value: [0..255]
-    required int blue,
-    required String name,
-  }) = _GimpPaletteColor;
+  /// Value: [0..255]
+  final int blue;
+  final String name;
 
-  factory GimpPaletteColor.fromJson(Map<String, dynamic> json) =>
-      _$GimpPaletteColorFromJson(json);
+  GimpPaletteColor({
+    required this.red,
+    required this.green,
+    required this.blue,
+    required this.name,
+  });
 }
 
-@freezed
-class GimpPalette with _$GimpPalette {
-  const factory GimpPalette({
-    required String name,
-    @Default(1) //
-        int columns,
-    @Default('') //
-        String comments,
-    required List<GimpPaletteColor> colors,
-  }) = _GimpPalette;
+@MappableClass()
+class GimpPalette with GimpPaletteMappable {
+  final String name;
+  final int columns;
+  final String comments;
+  final List<GimpPaletteColor> colors;
 
-  factory GimpPalette.fromJson(Map<String, dynamic> json) =>
-      _$GimpPaletteFromJson(json);
+  GimpPalette({
+    required this.name,
+    this.columns = 1,
+    this.comments = '',
+    required this.colors,
+  });
 }
 
 const _fileSignature = 'GIMP Palette';

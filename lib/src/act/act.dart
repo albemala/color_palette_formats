@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:buffer/buffer.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:path/path.dart';
 
-part 'act.freezed.dart';
-part 'act.g.dart';
+part 'act.mapper.dart';
 
 /*
 * Adobe Color Table (ACT) (.act)
@@ -16,31 +15,31 @@ part 'act.g.dart';
 
 const adobeColorTableColorsCount = 255;
 
-@freezed
-class AdobeColorTableColor with _$AdobeColorTableColor {
-  const factory AdobeColorTableColor({
-    /// Value [0..255]
-    required int green,
+@MappableClass()
+class AdobeColorTableColor with AdobeColorTableColorMappable {
+  /// Value [0..255]
+  final int green;
 
-    /// Value [0..255]
-    required int blue,
+  /// Value [0..255]
+  final int blue;
 
-    /// Value [0..255]
-    required int red,
-  }) = _AdobeColorTableColor;
+  /// Value [0..255]
+  final int red;
 
-  factory AdobeColorTableColor.fromJson(Map<String, dynamic> json) =>
-      _$AdobeColorTableColorFromJson(json);
+  AdobeColorTableColor({
+    required this.red,
+    required this.green,
+    required this.blue,
+  });
 }
 
-@freezed
-class AdobeColorTable with _$AdobeColorTable {
-  const factory AdobeColorTable({
-    required List<AdobeColorTableColor> colors,
-  }) = _AdobeColorTable;
+@MappableClass()
+class AdobeColorTable with AdobeColorTableMappable {
+  final List<AdobeColorTableColor> colors;
 
-  factory AdobeColorTable.fromJson(Map<String, dynamic> json) =>
-      _$AdobeColorTableFromJson(json);
+  AdobeColorTable({
+    required this.colors,
+  });
 }
 
 AdobeColorTable decodeAdobeColorTable(File file) {

@@ -21,7 +21,7 @@ Future<void> main() async {
   });
 
   test('write hpl file', () async {
-    const hpl = HomesitePalette(
+    final hpl = HomesitePalette(
       version: supportedHomesitePaletteVersion,
       colors: [
         HomesitePaletteColor(

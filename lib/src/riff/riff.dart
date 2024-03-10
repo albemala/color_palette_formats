@@ -2,11 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:buffer/buffer.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:palettes/src/utils.dart';
 
-part 'riff.freezed.dart';
-part 'riff.g.dart';
+part 'riff.mapper.dart';
 
 /*
 * Resource Interchange File Format (RIFF) (.pal)
@@ -17,37 +16,34 @@ part 'riff.g.dart';
 
 const supportedResourceInterchangeFileFormatVersion = 3;
 
-@freezed
+@MappableClass()
 class ResourceInterchangeFileFormatColor
-    with _$ResourceInterchangeFileFormatColor {
-  const factory ResourceInterchangeFileFormatColor({
-    /// Value: [0..255]
-    required int red,
+    with ResourceInterchangeFileFormatColorMappable {
+  /// Value: [0..255]
+  final int red;
 
-    /// Value: [0..255]
-    required int green,
+  /// Value: [0..255]
+  final int green;
 
-    /// Value: [0..255]
-    required int blue,
-  }) = _ResourceInterchangeFileFormatColor;
+  /// Value: [0..255]
+  final int blue;
 
-  factory ResourceInterchangeFileFormatColor.fromJson(
-    Map<String, dynamic> json,
-  ) =>
-      _$ResourceInterchangeFileFormatColorFromJson(json);
+  ResourceInterchangeFileFormatColor({
+    required this.red,
+    required this.green,
+    required this.blue,
+  });
 }
 
-@freezed
-class ResourceInterchangeFileFormat with _$ResourceInterchangeFileFormat {
-  const factory ResourceInterchangeFileFormat({
-    required int version,
-    required List<ResourceInterchangeFileFormatColor> colors,
-  }) = _ResourceInterchangeFileFormat;
+@MappableClass()
+class ResourceInterchangeFileFormat with ResourceInterchangeFileFormatMappable {
+  final int version;
+  final List<ResourceInterchangeFileFormatColor> colors;
 
-  factory ResourceInterchangeFileFormat.fromJson(
-    Map<String, dynamic> json,
-  ) =>
-      _$ResourceInterchangeFileFormatFromJson(json);
+  ResourceInterchangeFileFormat({
+    required this.version,
+    required this.colors,
+  });
 }
 
 const _fileSignature = 'RIFF';

@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'paint-dot-net.freezed.dart';
-part 'paint-dot-net.g.dart';
+part 'paint-dot-net.mapper.dart';
 
 /*
 * Paint.NET Palette (.txt) (Paint.NET)
@@ -28,34 +27,35 @@ FFB6FF00
 * - ...
 */
 
-@freezed
-class PaintDotNetPaletteColor with _$PaintDotNetPaletteColor {
-  const factory PaintDotNetPaletteColor({
-    /// Value: [0..255]
-    required int red,
+@MappableClass()
+class PaintDotNetPaletteColor with PaintDotNetPaletteColorMappable {
+  /// Value: [0..255]
+  final int red;
 
-    /// Value: [0..255]
-    required int green,
+  /// Value: [0..255]
+  final int green;
 
-    /// Value: [0..255]
-    required int blue,
+  /// Value: [0..255]
+  final int blue;
 
-    /// Value: [0..255]
-    required int alpha,
-  }) = _PaintDotNetPaletteColor;
+  /// Value: [0..255]
+  final int alpha;
 
-  factory PaintDotNetPaletteColor.fromJson(Map<String, dynamic> json) =>
-      _$PaintDotNetPaletteColorFromJson(json);
+  PaintDotNetPaletteColor({
+    required this.red,
+    required this.green,
+    required this.blue,
+    required this.alpha,
+  });
 }
 
-@freezed
-class PaintDotNetPalette with _$PaintDotNetPalette {
-  const factory PaintDotNetPalette({
-    required List<PaintDotNetPaletteColor> colors,
-  }) = _PaintDotNetPalette;
+@MappableClass()
+class PaintDotNetPalette with PaintDotNetPaletteMappable {
+  final List<PaintDotNetPaletteColor> colors;
 
-  factory PaintDotNetPalette.fromJson(Map<String, dynamic> json) =>
-      _$PaintDotNetPaletteFromJson(json);
+  PaintDotNetPalette({
+    required this.colors,
+  });
 }
 
 const _header = '''

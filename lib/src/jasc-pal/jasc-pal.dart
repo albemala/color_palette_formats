@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'jasc-pal.freezed.dart';
-part 'jasc-pal.g.dart';
+part 'jasc-pal.mapper.dart';
 
 /*
 * Jasc Palette (JASC PAL) (.pal, .psppalette) (Paint Shop Pro, Jasc Software, Corel)
@@ -25,32 +24,33 @@ JASC-PAL
 
 const supportedJascPaletteVersion = '0100';
 
-@freezed
-class JascPaletteColor with _$JascPaletteColor {
-  const factory JascPaletteColor({
-    /// Value: [0..255]
-    required int red,
+@MappableClass()
+class JascPaletteColor with JascPaletteColorMappable {
+  /// Value: [0..255]
+  final int red;
 
-    /// Value: [0..255]
-    required int green,
+  /// Value: [0..255]
+  final int green;
 
-    /// Value: [0..255]
-    required int blue,
-  }) = _JascPaletteColor;
+  /// Value: [0..255]
+  final int blue;
 
-  factory JascPaletteColor.fromJson(Map<String, dynamic> json) =>
-      _$JascPaletteColorFromJson(json);
+  JascPaletteColor({
+    required this.red,
+    required this.green,
+    required this.blue,
+  });
 }
 
-@freezed
-class JascPalette with _$JascPalette {
-  const factory JascPalette({
-    required String version,
-    required List<JascPaletteColor> colors,
-  }) = _JascPalette;
+@MappableClass()
+class JascPalette with JascPaletteMappable {
+  final String version;
+  final List<JascPaletteColor> colors;
 
-  factory JascPalette.fromJson(Map<String, dynamic> json) =>
-      _$JascPaletteFromJson(json);
+  JascPalette({
+    required this.version,
+    required this.colors,
+  });
 }
 
 const _fileSignature = 'JASC-PAL';

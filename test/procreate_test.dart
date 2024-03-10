@@ -19,7 +19,7 @@ Future<void> main() async {
   });
 
   test('write procreate file', () async {
-    const procreate = ProcreateSwatches(
+    final procreate = ProcreateSwatches(
       name: 'test',
       swatches: [
         ProcreateSwatchesSwatch(

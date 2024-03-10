@@ -14,7 +14,7 @@ Future<void> main() async {
   });
 
   test('write pal file', () async {
-    const pal = JascPalette(
+    final pal = JascPalette(
       version: supportedJascPaletteVersion,
       colors: [
         JascPaletteColor(

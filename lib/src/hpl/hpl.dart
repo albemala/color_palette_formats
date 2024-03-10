@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'hpl.freezed.dart';
-part 'hpl.g.dart';
+part 'hpl.mapper.dart';
 
 /*
 * Homesite Palette (HPL) (.hpl) (Allaire Homesite, Macromedia ColdFusion)
@@ -29,32 +28,33 @@ Version 4.0
 
 const supportedHomesitePaletteVersion = '4.0';
 
-@freezed
-class HomesitePaletteColor with _$HomesitePaletteColor {
-  const factory HomesitePaletteColor({
-    /// Value: [0..255]
-    required int red,
+@MappableClass()
+class HomesitePaletteColor with HomesitePaletteColorMappable {
+  /// Value: [0..255]
+  final int red;
 
-    /// Value: [0..255]
-    required int green,
+  /// Value: [0..255]
+  final int green;
 
-    /// Value: [0..255]
-    required int blue,
-  }) = _HomesitePaletteColor;
+  /// Value: [0..255]
+  final int blue;
 
-  factory HomesitePaletteColor.fromJson(Map<String, dynamic> json) =>
-      _$HomesitePaletteColorFromJson(json);
+  HomesitePaletteColor({
+    required this.red,
+    required this.green,
+    required this.blue,
+  });
 }
 
-@freezed
-class HomesitePalette with _$HomesitePalette {
-  const factory HomesitePalette({
-    required String version,
-    required List<HomesitePaletteColor> colors,
-  }) = _HomesitePalette;
+@MappableClass()
+class HomesitePalette with HomesitePaletteMappable {
+  final String version;
+  final List<HomesitePaletteColor> colors;
 
-  factory HomesitePalette.fromJson(Map<String, dynamic> json) =>
-      _$HomesitePaletteFromJson(json);
+  HomesitePalette({
+    required this.version,
+    required this.colors,
+  });
 }
 
 const _fileSignature = 'Palette';

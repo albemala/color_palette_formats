@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:buffer/buffer.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:palettes/src/utils.dart';
 
-part 'ase.freezed.dart';
-part 'ase.g.dart';
+part 'ase.mapper.dart';
 
 /*
 * Adobe Swatch Exchange (ASE) (.ase)
@@ -16,46 +15,48 @@ part 'ase.g.dart';
 
 const supportedAdobeSwatchExchangeVersion = '1.0';
 
+@MappableEnum()
 enum AdobeSwatchExchangeColorModel {
   rgb,
   cmyk,
   gray,
 }
 
+@MappableEnum()
 enum AdobeSwatchExchangeColorType {
   global,
   spot,
   normal,
 }
 
-@freezed
-class AdobeSwatchExchangeColor with _$AdobeSwatchExchangeColor {
-  const factory AdobeSwatchExchangeColor({
-    @Default('') //
-        String name,
-    required AdobeSwatchExchangeColorModel model,
+@MappableClass()
+class AdobeSwatchExchangeColor with AdobeSwatchExchangeColorMappable {
+  final String name;
+  final AdobeSwatchExchangeColorModel model;
 
-    /// Color values are in the range [0..1]
-    required List<double> values,
-    @Default(AdobeSwatchExchangeColorType.global) //
-        AdobeSwatchExchangeColorType type,
-  }) = _AdobeSwatchExchangeColor;
+  // Color values are in the range [0..1]
+  final List<double> values;
+  final AdobeSwatchExchangeColorType type;
 
-  factory AdobeSwatchExchangeColor.fromJson(Map<String, dynamic> json) =>
-      _$AdobeSwatchExchangeColorFromJson(json);
+  AdobeSwatchExchangeColor({
+    required this.name,
+    required this.model,
+    required this.values,
+    this.type = AdobeSwatchExchangeColorType.global,
+  });
 }
 
-@freezed
-class AdobeSwatchExchange with _$AdobeSwatchExchange {
-  const factory AdobeSwatchExchange({
-    required String version,
-    @Default([]) //
-        List<dynamic> groups,
-    required List<AdobeSwatchExchangeColor> colors,
-  }) = _AdobeSwatchExchange;
+@MappableClass()
+class AdobeSwatchExchange with AdobeSwatchExchangeMappable {
+  final String version;
+  final List<dynamic> groups;
+  final List<AdobeSwatchExchangeColor> colors;
 
-  factory AdobeSwatchExchange.fromJson(Map<String, dynamic> json) =>
-      _$AdobeSwatchExchangeFromJson(json);
+  AdobeSwatchExchange({
+    required this.version,
+    this.groups = const [],
+    required this.colors,
+  });
 }
 
 const _fileSignature = 'ASEF';
@@ -135,15 +136,12 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
             values.add(buffer.readFloat32()); // magenta
             values.add(buffer.readFloat32()); // yellow
             values.add(buffer.readFloat32()); // key
-            break;
           case _colorModelRgb:
             values.add(buffer.readFloat32()); // red
             values.add(buffer.readFloat32()); // green
             values.add(buffer.readFloat32()); // blue
-            break;
           case _colorModelGrayscale:
             values.add(buffer.readFloat32()); // gray
-            break;
           default:
             throw Exception('Unknown color model: $model');
         }
@@ -165,7 +163,6 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
             type: typeAsEnum,
           ),
         );
-        break;
       case _blockTypeGroupStart:
         final nameLengthIncludingTerminator = buffer.readInt16();
         final name = readUtf16String(
@@ -173,7 +170,6 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
           nameLengthIncludingTerminator,
           includingTerminator: true,
         );
-        break;
       case _blockTypeGroupEnd:
         break;
       default:
@@ -221,15 +217,12 @@ void encodeAdobeSwatchExchange(AdobeSwatchExchange swatch, File file) {
         colorBuffer.writeFloat32(color.values[1]); // magenta
         colorBuffer.writeFloat32(color.values[2]); // yellow
         colorBuffer.writeFloat32(color.values[3]); // key
-        break;
       case AdobeSwatchExchangeColorModel.rgb:
         colorBuffer.writeFloat32(color.values[0]); // red
         colorBuffer.writeFloat32(color.values[1]); // green
         colorBuffer.writeFloat32(color.values[2]); // blue
-        break;
       case AdobeSwatchExchangeColorModel.gray:
         colorBuffer.writeFloat32(color.values[0]); // gray
-        break;
     }
     // color type
     final type = _writeColorType[color.type];

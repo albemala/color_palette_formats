@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'sketchpalette.freezed.dart';
-part 'sketchpalette.g.dart';
+part 'sketchpalette.mapper.dart';
 
 /*
 * Sketch Palette (.sketchpalette) (Sketch)
@@ -38,46 +37,49 @@ part 'sketchpalette.g.dart';
 
 const supportedSketchPaletteVersion = '1.4';
 
-@freezed
-class SketchPaletteColor with _$SketchPaletteColor {
-  const factory SketchPaletteColor({
-    /// Value: [0..1]
-    required double red,
+@MappableClass()
+class SketchPaletteColor with SketchPaletteColorMappable {
+  /// Value: [0..1]
+  final double red;
 
-    /// Value: [0..1]
-    required double green,
+  /// Value: [0..1]
+  final double green;
 
-    /// Value: [0..1]
-    required double blue,
+  /// Value: [0..1]
+  final double blue;
 
-    /// Value: [0..1]
-    required double alpha,
-  }) = _SketchPaletteColor;
+  /// Value: [0..1]
+  final double alpha;
 
-  factory SketchPaletteColor.fromJson(Map<String, dynamic> json) =>
-      _$SketchPaletteColorFromJson(json);
+  SketchPaletteColor({
+    required this.red,
+    required this.green,
+    required this.blue,
+    required this.alpha,
+  });
 }
 
-@freezed
-class SketchPalette with _$SketchPalette {
-  const factory SketchPalette({
-    required String compatibleVersion,
-    required String pluginVersion,
-    required List<SketchPaletteColor> colors,
-  }) = _SketchPalette;
+@MappableClass()
+class SketchPalette with SketchPaletteMappable {
+  final String compatibleVersion;
+  final String pluginVersion;
+  final List<SketchPaletteColor> colors;
 
-  factory SketchPalette.fromJson(Map<String, dynamic> json) =>
-      _$SketchPaletteFromJson(json);
+  SketchPalette({
+    required this.compatibleVersion,
+    required this.pluginVersion,
+    required this.colors,
+  });
 }
 
 SketchPalette decodeSketchPalette(File file) {
   // read file and convert to json
   final fileAsString = file.readAsStringSync();
-  final fileAsJson = json.decode(fileAsString) as Map<String, dynamic>;
+  final fileAsMap = json.decode(fileAsString) as Map<String, dynamic>;
 
-  final compatibleVersion = fileAsJson['compatibleVersion'] as String;
-  final pluginVersion = fileAsJson['pluginVersion'] as String;
-  final colors = fileAsJson['colors'] as List<dynamic>;
+  final compatibleVersion = fileAsMap['compatibleVersion'] as String;
+  final pluginVersion = fileAsMap['pluginVersion'] as String;
+  final colors = fileAsMap['colors'] as List<dynamic>;
 
   final paletteColors = <SketchPaletteColor>[];
   for (var i = 0; i < colors.length; i++) {
@@ -104,7 +106,6 @@ SketchPalette decodeSketchPalette(File file) {
 }
 
 void encodeSketchPalette(SketchPalette sketchPalette, File file) {
-  final sketchPaletteAsJson = sketchPalette.toJson();
-  final sketchPaletteAsString = json.encode(sketchPaletteAsJson);
+  final sketchPaletteAsString = sketchPalette.toJson();
   file.writeAsStringSync(sketchPaletteAsString);
 }

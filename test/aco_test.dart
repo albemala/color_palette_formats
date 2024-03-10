@@ -22,7 +22,7 @@ Future<void> main() async {
   });
 
   test('write aco file', () async {
-    const aco = AdobeColorSwatch(
+    final aco = AdobeColorSwatch(
       version: supportedAdobeColorSwatchVersion,
       colors: [
         AdobeColorSwatchColor(

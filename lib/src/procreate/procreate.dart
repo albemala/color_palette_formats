@@ -2,10 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:archive/archive.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'procreate.freezed.dart';
-part 'procreate.g.dart';
+part 'procreate.mapper.dart';
 
 /*
 * Procreate swatches (.swatches) (Procreate)
@@ -40,45 +39,46 @@ part 'procreate.g.dart';
 * - ...
 */
 
+@MappableEnum(
+  mode: ValuesMode.indexed,
+)
 enum ProcreateSwatchesColorSpace {
   hsb,
 }
 
-@freezed
-class ProcreateSwatchesSwatch with _$ProcreateSwatchesSwatch {
-  const factory ProcreateSwatchesSwatch({
-    /// Value: [0..1]
-    required double hue,
+@MappableClass()
+class ProcreateSwatchesSwatch with ProcreateSwatchesSwatchMappable {
+  /// Value: [0..1]
+  final double hue;
 
-    /// Value: [0..1]
-    required double saturation,
+  /// Value: [0..1]
+  final double saturation;
 
-    /// Value: [0..1]
-    required double brightness,
+  /// Value: [0..1]
+  final double brightness;
 
-    /// Value: [0..1]
-    required double alpha,
-    @JsonKey(
-      fromJson: _toColorSpace,
-      toJson: _fromColorSpace,
-    )
-        required ProcreateSwatchesColorSpace colorSpace,
-  }) = _ProcreateSwatchesSwatch;
+  /// Value: [0..1]
+  final double alpha;
+  final ProcreateSwatchesColorSpace colorSpace;
 
-  factory ProcreateSwatchesSwatch.fromJson(Map<String, dynamic> json) =>
-      _$ProcreateSwatchesSwatchFromJson(json);
+  ProcreateSwatchesSwatch({
+    required this.hue,
+    required this.saturation,
+    required this.brightness,
+    required this.alpha,
+    required this.colorSpace,
+  });
 }
 
-@freezed
-class ProcreateSwatches with _$ProcreateSwatches {
-  const factory ProcreateSwatches({
-    @Default('') //
-        String name,
-    required List<ProcreateSwatchesSwatch> swatches,
-  }) = _ProcreateSwatches;
+@MappableClass()
+class ProcreateSwatches with ProcreateSwatchesMappable {
+  final String name;
+  final List<ProcreateSwatchesSwatch> swatches;
 
-  factory ProcreateSwatches.fromJson(Map<String, dynamic> json) =>
-      _$ProcreateSwatchesFromJson(json);
+  ProcreateSwatches({
+    this.name = '',
+    required this.swatches,
+  });
 }
 
 ProcreateSwatchesColorSpace _toColorSpace(int colorSpace) {
@@ -97,15 +97,16 @@ List<ProcreateSwatches> decodeProcreateSwatches(File file) {
   final jsonContent = String.fromCharCodes(jsonFile.content as List<int>);
 
   final swatches = json.decode(jsonContent) as List<dynamic>;
-  return swatches
-      .map(
-        (swatch) => ProcreateSwatches.fromJson(swatch as Map<String, dynamic>),
-      )
-      .toList();
+  return swatches.map((swatch) {
+    return ProcreateSwatchesMapper.fromMap(swatch as Map<String, dynamic>);
+  }).toList();
 }
 
 void encodeProcreateSwatches(List<ProcreateSwatches> swatches, File file) {
-  final jsonContent = json.encode(swatches);
+  final jsonList = swatches.map((swatch) {
+    return swatch.toMap();
+  }).toList();
+  final jsonContent = json.encode(jsonList);
 
   final archive = Archive();
   archive.addFile(

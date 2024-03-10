@@ -13,7 +13,7 @@ Future<void> main() async {
   });
 
   test('write paint-dot-net file', () async {
-    const paintDotNet = PaintDotNetPalette(
+    final paintDotNet = PaintDotNetPalette(
       colors: [
         PaintDotNetPaletteColor(
           red: 255,

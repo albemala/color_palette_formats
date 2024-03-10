@@ -15,7 +15,7 @@ Future<void> main() async {
 
 /*
 test('write acb file', () async {
-    const acb = AdobeColorSwatch(
+    final acb = AdobeColorSwatch(
       version: supportedAdobeColorSwatchVersion,
       colors: [
         AdobeColorSwatchColor(

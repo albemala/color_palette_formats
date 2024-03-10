@@ -31,7 +31,7 @@ Future<void> main() async {
   });
 
   test('write sketchpalette file', () async {
-    const sketchPalette = SketchPalette(
+    final sketchPalette = SketchPalette(
       compatibleVersion: supportedSketchPaletteVersion,
       pluginVersion: supportedSketchPaletteVersion,
       colors: [

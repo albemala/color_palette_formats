@@ -27,7 +27,7 @@ Future<void> main() async {
   });
 
   test('write riff file', () async {
-    const riff = ResourceInterchangeFileFormat(
+    final riff = ResourceInterchangeFileFormat(
       version: supportedResourceInterchangeFileFormatVersion,
       colors: [
         ResourceInterchangeFileFormatColor(

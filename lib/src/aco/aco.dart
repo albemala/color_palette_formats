@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:buffer/buffer.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'aco.freezed.dart';
-part 'aco.g.dart';
+part 'aco.mapper.dart';
 
 /*
 * Adobe Color Swatch (ACO) (.aco)
@@ -18,6 +17,7 @@ part 'aco.g.dart';
 
 const supportedAdobeColorSwatchVersion = 1;
 
+@MappableEnum()
 enum AdobeColorSwatchColorSpace {
   rgb,
   hsb,
@@ -27,34 +27,34 @@ enum AdobeColorSwatchColorSpace {
   wideCmyk,
 }
 
-@freezed
-class AdobeColorSwatchColor with _$AdobeColorSwatchColor {
-  const factory AdobeColorSwatchColor({
-    required AdobeColorSwatchColorSpace colorSpace,
+@MappableClass()
+class AdobeColorSwatchColor with AdobeColorSwatchColorMappable {
+  final AdobeColorSwatchColorSpace colorSpace;
 
-    /// Color values depend on color space:
-    /// - RGB: [0..255, 0..255, 0..255]
-    /// - HSB: [0..359, 0..100, 0..100]
-    /// - CMYK: [0..100, 0..100, 0..100, 0..100]
-    /// - LAB: [0..100, -128..127, -128..127]
-    /// - Grayscale: [0..255]
-    /// - Wide CMYK: [0..100, 0..100, 0..100, 0..100]
-    required List<int> values,
-  }) = _AdobeColorSwatchColor;
+  /// Color values depend on color space:
+  /// - RGB: [0..255, 0..255, 0..255]
+  /// - HSB: [0..359, 0..100, 0..100]
+  /// - CMYK: [0..100, 0..100, 0..100, 0..100]
+  /// - LAB: [0..100, -128..127, -128..127]
+  /// - Grayscale: [0..255]
+  /// - Wide CMYK: [0..100, 0..100, 0..100, 0..100]
+  final List<int> values;
 
-  factory AdobeColorSwatchColor.fromJson(Map<String, dynamic> json) =>
-      _$AdobeColorSwatchColorFromJson(json);
+  AdobeColorSwatchColor({
+    required this.colorSpace,
+    required this.values,
+  });
 }
 
-@freezed
-class AdobeColorSwatch with _$AdobeColorSwatch {
-  const factory AdobeColorSwatch({
-    required int version,
-    required List<AdobeColorSwatchColor> colors,
-  }) = _AdobeColorSwatch;
+@MappableClass()
+class AdobeColorSwatch with AdobeColorSwatchMappable {
+  final int version;
+  final List<AdobeColorSwatchColor> colors;
 
-  factory AdobeColorSwatch.fromJson(Map<String, dynamic> json) =>
-      _$AdobeColorSwatchFromJson(json);
+  AdobeColorSwatch({
+    required this.version,
+    required this.colors,
+  });
 }
 
 const _maxUInt16 = 65535;
@@ -116,14 +116,12 @@ AdobeColorSwatch decodeAdobeColorSwatch(File file) {
           x / _maxUInt16 * 255, // g
           y / _maxUInt16 * 255, // b
         ]);
-        break;
       case AdobeColorSwatchColorSpace.hsb:
         values.addAll([
           w / _maxUInt16 * 360, // h
           x / _maxUInt16 * 100, // s
           y / _maxUInt16 * 100, // b
         ]);
-        break;
       case AdobeColorSwatchColorSpace.cmyk:
         values.addAll([
           100 - w / _maxUInt16 * 100, // c
@@ -131,19 +129,16 @@ AdobeColorSwatch decodeAdobeColorSwatch(File file) {
           100 - y / _maxUInt16 * 100, // y
           100 - z / _maxUInt16 * 100, // k
         ]);
-        break;
       case AdobeColorSwatchColorSpace.lab:
         values.addAll([
           w / 100, // l
           if (x > 12700) (x - _maxUInt16) / 100 else x / 100, // a
           if (y > 12700) (y - _maxUInt16) / 100 else y / 100, // b
         ]);
-        break;
       case AdobeColorSwatchColorSpace.grayscale:
         values.addAll([
           w / 10000 * 100, // gray
         ]);
-        break;
       case AdobeColorSwatchColorSpace.wideCmyk:
         values.addAll([
           w / 10000 * 100, // c
@@ -151,7 +146,6 @@ AdobeColorSwatch decodeAdobeColorSwatch(File file) {
           y / 10000 * 100, // y
           z / 10000 * 100, // k
         ]);
-        break;
     }
     colors.add(
       AdobeColorSwatchColor(
@@ -188,13 +182,11 @@ void encodeAdobeColorSwatch(AdobeColorSwatch swatch, File file) {
         buffer.writeUint16((color.values[1] / 255 * _maxUInt16).round()); // x
         buffer.writeUint16((color.values[2] / 255 * _maxUInt16).round()); // y
         buffer.writeUint16(0); // z
-        break;
       case AdobeColorSwatchColorSpace.hsb:
         buffer.writeUint16((color.values[0] / 360 * _maxUInt16).round()); // w
         buffer.writeUint16((color.values[1] / 100 * _maxUInt16).round()); // x
         buffer.writeUint16((color.values[2] / 100 * _maxUInt16).round()); // y
         buffer.writeUint16(0); // z
-        break;
       case AdobeColorSwatchColorSpace.cmyk:
         buffer.writeUint16(
           (100 - color.values[0] / 100 * _maxUInt16).round(),
@@ -208,25 +200,21 @@ void encodeAdobeColorSwatch(AdobeColorSwatch swatch, File file) {
         buffer.writeUint16(
           (100 - color.values[3] / 100 * _maxUInt16).round(),
         ); // z
-        break;
       case AdobeColorSwatchColorSpace.lab:
         buffer.writeUint16(color.values[0] * 100); // w
         buffer.writeUint16(color.values[1] * 100); // x
         buffer.writeUint16(color.values[2] * 100); // y
         buffer.writeUint16(0); // z
-        break;
       case AdobeColorSwatchColorSpace.grayscale:
         buffer.writeUint16((color.values[0] / 100 * 10000).round()); // w
         buffer.writeUint16(0); // x
         buffer.writeUint16(0); // y
         buffer.writeUint16(0); // z
-        break;
       case AdobeColorSwatchColorSpace.wideCmyk:
         buffer.writeUint16((color.values[0] / 100 * 10000).round()); // w
         buffer.writeUint16((color.values[1] / 100 * 10000).round()); // x
         buffer.writeUint16((color.values[2] / 100 * 10000).round()); // y
         buffer.writeUint16((color.values[3] / 100 * 10000).round()); // z
-        break;
     }
     // write file
     final bytes = buffer.toBytes();
