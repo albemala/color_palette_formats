@@ -108,9 +108,8 @@ AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
     buffer.readInt16(),
   ].join('.');
   if (version != supportedAdobeSwatchExchangeVersion) {
-    throw Exception(
-      'Unsupported version $version. Supported version: $supportedAdobeSwatchExchangeVersion',
-    );
+    throw Exception('''
+Unsupported version $version. Supported version: $supportedAdobeSwatchExchangeVersion''');
   }
 
   final groups = <dynamic>[];

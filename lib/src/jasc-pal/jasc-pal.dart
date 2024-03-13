@@ -5,7 +5,8 @@ import 'package:dart_mappable/dart_mappable.dart';
 part 'jasc-pal.mapper.dart';
 
 /*
-* Jasc Palette (JASC PAL) (.pal, .psppalette) (Paint Shop Pro, Jasc Software, Corel)
+* Jasc Palette (JASC PAL)
+* (.pal, .psppalette) (Paint Shop Pro, Jasc Software, Corel)
 *
 * Content example:
 *
@@ -65,9 +66,8 @@ JascPalette decodeJascPalette(File file) {
 
   final version = lines.elementAt(1);
   if (version != supportedJascPaletteVersion) {
-    throw Exception(
-      'Unsupported version $version. Supported version: $supportedJascPaletteVersion',
-    );
+    throw Exception('''
+Unsupported version $version. Supported version: $supportedJascPaletteVersion''');
   }
 
   // ignore: unused_local_variable

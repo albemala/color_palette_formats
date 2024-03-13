@@ -73,9 +73,8 @@ ResourceInterchangeFileFormat decodeResourceInterchangeFileFormat(File file) {
 
   final version = buffer.readUint16(Endian.big);
   if (version != supportedResourceInterchangeFileFormatVersion) {
-    throw Exception(
-      'Unsupported version $version. Supported version: $supportedResourceInterchangeFileFormatVersion',
-    );
+    throw Exception('''
+Unsupported version $version. Supported version: $supportedResourceInterchangeFileFormatVersion''');
   }
 
   final colorsCount = buffer.readUint16();

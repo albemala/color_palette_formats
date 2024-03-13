@@ -113,6 +113,7 @@ const _readColorSpace = {
   _colorSpaceGrayscale: AdobeColorBookColorSpace.grayscale,
   _colorSpaceHks: AdobeColorBookColorSpace.hks,
 };
+// ignore: unused_element
 const _writeColorSpace = {
   AdobeColorBookColorSpace.rgb: _colorSpaceRgb,
   AdobeColorBookColorSpace.hsb: _colorSpaceHsb,
@@ -137,9 +138,8 @@ AdobeColorBook decodeAdobeColorBook(File file) {
 
   final version = buffer.readUint16();
   if (version != supportedAdobeColorBookVersion) {
-    throw Exception(
-      'Unsupported version $version, Supported version: $supportedAdobeColorBookVersion',
-    );
+    throw Exception('''
+Unsupported version $version, Supported version: $supportedAdobeColorBookVersion''');
   }
 
   final identifier = buffer.readUint16();

@@ -89,9 +89,8 @@ AdobeColorSwatch decodeAdobeColorSwatch(File file) {
 
   final version = buffer.readUint16();
   if (version != supportedAdobeColorSwatchVersion) {
-    throw Exception(
-      'Unsupported version: $version. Supported version: $supportedAdobeColorSwatchVersion',
-    );
+    throw Exception('''
+Unsupported version: $version. Supported version: $supportedAdobeColorSwatchVersion''');
   }
 
   final colorsCount = buffer.readUint16();

@@ -14,7 +14,8 @@ part 'paint-dot-net.mapper.dart';
 ; Lines that start with a semicolon are comments
 ; Colors are written as 8-digit hexadecimal numbers: aarrggbb
 ; For example, this would specify green: FF00FF00
-; The alpha ('aa') value specifies how transparent a color is. FF is fully opaque, 00 is fully transparent.
+; The alpha ('aa') value specifies how transparent a color is.
+; FF is fully opaque, 00 is fully transparent.
 FF000000
 FF404040
 FFFF0000
@@ -78,7 +79,8 @@ PaintDotNetPalette decodePaintDotNetPalette(File file) {
       // comments are ignored
       continue;
     }
-    // line is a color, convert 8-digit hexadecimal numbers (aarrggbb) into red, green, blue, alpha
+    // line is a color, convert 8-digit hexadecimal numbers (aarrggbb)
+    // into red, green, blue, alpha
     final alpha = int.parse(line.substring(0, 2), radix: 16);
     final red = int.parse(line.substring(2, 4), radix: 16);
     final green = int.parse(line.substring(4, 6), radix: 16);

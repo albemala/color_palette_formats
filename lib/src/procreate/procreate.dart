@@ -81,14 +81,6 @@ class ProcreateSwatches with ProcreateSwatchesMappable {
   });
 }
 
-ProcreateSwatchesColorSpace _toColorSpace(int colorSpace) {
-  return ProcreateSwatchesColorSpace.values[colorSpace];
-}
-
-int _fromColorSpace(ProcreateSwatchesColorSpace colorSpace) {
-  return ProcreateSwatchesColorSpace.values.indexOf(colorSpace);
-}
-
 List<ProcreateSwatches> decodeProcreateSwatches(File file) {
   final bytes = file.readAsBytesSync();
 

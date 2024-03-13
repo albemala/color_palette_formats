@@ -69,9 +69,8 @@ HomesitePalette decodeHomesitePalette(File file) {
 
   final version = lines.elementAt(1).split(' ').last;
   if (version != supportedHomesitePaletteVersion) {
-    throw Exception(
-      'Unsupported version $version. Supported version: $supportedHomesitePaletteVersion',
-    );
+    throw Exception('''
+Unsupported version $version. Supported version: $supportedHomesitePaletteVersion''');
   }
 
   final colors = lines //

@@ -5,7 +5,8 @@ import 'package:dart_mappable/dart_mappable.dart';
 part 'gpl.mapper.dart';
 
 /*
-* Gimp Palette (GPL) (.gpl) (Gimp, Inkscape, Krita, KolourPaint, Scribus, CinePaint, MyPaint)
+* Gimp Palette (GPL)
+* (.gpl) (Gimp, Inkscape, Krita, KolourPaint, Scribus, CinePaint, MyPaint)
 *
 * Content example:
 *
