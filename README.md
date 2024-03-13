@@ -72,6 +72,12 @@ final aseFile = File('path/to/ase1_v1.ase');
 encodeAdobeSwatchExchange(ase, aseFile);
 ```
 
+## Projects using this package
+
+🎨 **[Hexee Pro](https://hexee.app/)** - Palette editor & Advanced color toolkit for designers and developers.
+
+Feel free to submit a pull request to add your project to this list.
+
 ## Support this project
 
 <a href="https://www.buymeacoffee.com/albemala" target="_blank">
