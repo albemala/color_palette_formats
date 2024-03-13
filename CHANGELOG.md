@@ -1,6 +1,10 @@
+## 1.1.2
+
+- Fixed linter issues
+
 ## 1.1.1
 
-- Fixed linter warnings
+- Fixed linter issues
 
 ## 1.1.0
 
