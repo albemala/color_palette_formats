@@ -7,14 +7,14 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read aco file', () {
     final acoFile1 = File('./assets/aco1_v1.aco');
-    final aco1 = decodeAdobeColorSwatch(acoFile1);
+    final aco1 = AdobeColorSwatch.fromBytes(acoFile1.readAsBytesSync());
     // print(aco1.toJson());
 
     expect(aco1.version, equals(supportedAdobeColorSwatchVersion));
     expect(aco1.colors.length, equals(52));
 
     final acoFile2 = File('./assets/aco2_v1.aco');
-    final aco2 = decodeAdobeColorSwatch(acoFile2);
+    final aco2 = AdobeColorSwatch.fromBytes(acoFile2.readAsBytesSync());
     // print(aco2.toJson());
 
     expect(aco2.version, equals(supportedAdobeColorSwatchVersion));
@@ -46,9 +46,9 @@ Future<void> main() async {
 
     // write to temp file
     final acoFile = File('./test/test.aco');
-    encodeAdobeColorSwatch(aco, acoFile);
+    acoFile.writeAsBytesSync(aco.toBytes());
 
-    final decodedAco = decodeAdobeColorSwatch(acoFile);
+    final decodedAco = AdobeColorSwatch.fromBytes(acoFile.readAsBytesSync());
     // print(decodedAco.toJson());
 
     expect(decodedAco.version, equals(supportedAdobeColorSwatchVersion));

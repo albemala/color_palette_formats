@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read gpl file', () {
     final gplFile1 = File('./assets/gpl1.gimp');
-    final gpl1 = decodeGimpPalette(gplFile1);
+    final gpl1 = GimpPalette.fromBytes(gplFile1.readAsBytesSync());
     // print(gpl1.toJson());
 
     expect(gpl1.name, equals('Visibone2'));
@@ -14,7 +14,7 @@ Future<void> main() async {
     expect(gpl1.colors.length, equals(256));
 
     final gplFile2 = File('./assets/gpl2.gpl');
-    final gpl2 = decodeGimpPalette(gplFile2);
+    final gpl2 = GimpPalette.fromBytes(gplFile2.readAsBytesSync());
     // print(gpl2.toJson());
 
     expect(gpl2.name, equals('Oxygen'));
@@ -51,10 +51,10 @@ Future<void> main() async {
 
     // write to temp file
     final gplFile = File('./test/test.gpl');
-    encodeGimpPalette(gpl, gplFile);
+    gplFile.writeAsBytesSync(gpl.toBytes());
     // print(gplFile.readAsStringSync());
 
-    final decodedGpl = decodeGimpPalette(gplFile);
+    final decodedGpl = GimpPalette.fromBytes(gplFile.readAsBytesSync());
     // print(decodedGpl.toJson());
 
     expect(decodedGpl.name, equals('gpl'));

@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:buffer/buffer.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:path/path.dart';
 
 part 'act.mapper.dart';
 
@@ -40,18 +37,21 @@ class AdobeColorTable with AdobeColorTableMappable {
   AdobeColorTable({
     required this.colors,
   });
+
+  factory AdobeColorTable.fromBytes(List<int> bytes) {
+    return _decode(bytes);
+  }
+
+  List<int> toBytes() {
+    return _encode(this);
+  }
 }
 
-AdobeColorTable decodeAdobeColorTable(File file) {
-  final fileExtension = extension(file.path);
-  final bytes = file.readAsBytesSync();
-  // if extension is 'act', skip this check
-  if (fileExtension != '.act') {
-    // should be 768 or 772 bytes long
-    if (bytes.length != 768 && bytes.length != 772) {
-      throw Exception('Not a valid Adobe Color Table file');
-    }
-  }
+AdobeColorTable _decode(List<int> bytes) {
+  // should be 768 or 772 bytes long
+  // if (bytes.length != 768 && bytes.length != 772) {
+  //   throw Exception('Not a valid Adobe Color Table file');
+  // }
 
   final buffer = ByteDataReader()..add(bytes);
 
@@ -74,14 +74,12 @@ AdobeColorTable decodeAdobeColorTable(File file) {
   );
 }
 
-void encodeAdobeColorTable(AdobeColorTable colorTable, File file) {
+List<int> _encode(AdobeColorTable colorTable) {
   final buffer = ByteDataWriter();
   for (final color in colorTable.colors) {
     buffer.writeUint8(color.red);
     buffer.writeUint8(color.green);
     buffer.writeUint8(color.blue);
   }
-  // write file
-  final bytes = buffer.toBytes();
-  file.writeAsBytesSync(bytes);
+  return buffer.toBytes();
 }

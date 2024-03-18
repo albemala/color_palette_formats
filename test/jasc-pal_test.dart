@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read pal file', () {
     final palFile1 = File('./assets/pal1_v0100.pal');
-    final pal1 = decodeJascPalette(palFile1);
+    final pal1 = JascPalette.fromBytes(palFile1.readAsBytesSync());
     // print(pal1.toJson());
 
     expect(pal1.version, equals(supportedJascPaletteVersion));
@@ -37,10 +37,10 @@ Future<void> main() async {
 
     // write to temp file
     final palFile = File('./test/test.pal');
-    encodeJascPalette(pal, palFile);
+    palFile.writeAsBytesSync(pal.toBytes());
     // print(palFile.readAsStringSync());
 
-    final decodedPal = decodeJascPalette(palFile);
+    final decodedPal = JascPalette.fromBytes(palFile.readAsBytesSync());
     // print(decodedPal.toJson());
 
     expect(decodedPal.version, equals(supportedJascPaletteVersion));

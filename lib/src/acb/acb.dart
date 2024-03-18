@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:buffer/buffer.dart';
 import 'package:color_palette_formats/src/utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
@@ -75,60 +73,13 @@ class AdobeColorBook with AdobeColorBookMappable {
     required this.colorSpace,
     required this.colors,
   });
-}
 
-const _fileSignature = '8BCB';
-
-const _colorSpaceRgb = 0;
-const _colorSpaceHsb = 1;
-const _colorSpaceCmyk = 2;
-const _colorSpacePantone = 3;
-const _colorSpaceFocoltone = 4;
-const _colorSpaceTrumatch = 5;
-const _colorSpaceToyo = 6;
-const _colorSpaceLab = 7;
-const _colorSpaceGrayscale = 8;
-const _colorSpaceHks = 10;
-
-int getChannels(int colorSpace) {
-  switch (colorSpace) {
-    case _colorSpaceCmyk:
-      return 4;
-    case _colorSpaceGrayscale:
-      return 1;
-    default:
-      return 3;
+  factory AdobeColorBook.fromBytes(List<int> bytes) {
+    return _decode(bytes);
   }
 }
 
-const _readColorSpace = {
-  _colorSpaceRgb: AdobeColorBookColorSpace.rgb,
-  _colorSpaceHsb: AdobeColorBookColorSpace.hsb,
-  _colorSpaceCmyk: AdobeColorBookColorSpace.cmyk,
-  _colorSpacePantone: AdobeColorBookColorSpace.pantone,
-  _colorSpaceFocoltone: AdobeColorBookColorSpace.focoltone,
-  _colorSpaceTrumatch: AdobeColorBookColorSpace.trumatch,
-  _colorSpaceToyo: AdobeColorBookColorSpace.toyo,
-  _colorSpaceLab: AdobeColorBookColorSpace.lab,
-  _colorSpaceGrayscale: AdobeColorBookColorSpace.grayscale,
-  _colorSpaceHks: AdobeColorBookColorSpace.hks,
-};
-// ignore: unused_element
-const _writeColorSpace = {
-  AdobeColorBookColorSpace.rgb: _colorSpaceRgb,
-  AdobeColorBookColorSpace.hsb: _colorSpaceHsb,
-  AdobeColorBookColorSpace.cmyk: _colorSpaceCmyk,
-  AdobeColorBookColorSpace.pantone: _colorSpacePantone,
-  AdobeColorBookColorSpace.focoltone: _colorSpaceFocoltone,
-  AdobeColorBookColorSpace.trumatch: _colorSpaceTrumatch,
-  AdobeColorBookColorSpace.toyo: _colorSpaceToyo,
-  AdobeColorBookColorSpace.lab: _colorSpaceLab,
-  AdobeColorBookColorSpace.grayscale: _colorSpaceGrayscale,
-  AdobeColorBookColorSpace.hks: _colorSpaceHks,
-};
-
-AdobeColorBook decodeAdobeColorBook(File file) {
-  final bytes = file.readAsBytesSync();
+AdobeColorBook _decode(List<int> bytes) {
   final buffer = ByteDataReader()..add(bytes);
 
   final header = readUtf8String(buffer, 4);
@@ -164,7 +115,7 @@ Unsupported version $version, Supported version: $supportedAdobeColorBookVersion
 
   final colorSpace = buffer.readUint16();
 
-  final channels = getChannels(colorSpace);
+  final channels = _getChannels(colorSpace);
 
   final colors = <AdobeColorBookColor>[];
   for (var i = 0; i < colorCount; i++) {
@@ -234,5 +185,55 @@ Unsupported version $version, Supported version: $supportedAdobeColorBookVersion
     colors: colors,
   );
 }
+
+const _fileSignature = '8BCB';
+
+const _colorSpaceRgb = 0;
+const _colorSpaceHsb = 1;
+const _colorSpaceCmyk = 2;
+const _colorSpacePantone = 3;
+const _colorSpaceFocoltone = 4;
+const _colorSpaceTrumatch = 5;
+const _colorSpaceToyo = 6;
+const _colorSpaceLab = 7;
+const _colorSpaceGrayscale = 8;
+const _colorSpaceHks = 10;
+
+int _getChannels(int colorSpace) {
+  switch (colorSpace) {
+    case _colorSpaceCmyk:
+      return 4;
+    case _colorSpaceGrayscale:
+      return 1;
+    default:
+      return 3;
+  }
+}
+
+const _readColorSpace = {
+  _colorSpaceRgb: AdobeColorBookColorSpace.rgb,
+  _colorSpaceHsb: AdobeColorBookColorSpace.hsb,
+  _colorSpaceCmyk: AdobeColorBookColorSpace.cmyk,
+  _colorSpacePantone: AdobeColorBookColorSpace.pantone,
+  _colorSpaceFocoltone: AdobeColorBookColorSpace.focoltone,
+  _colorSpaceTrumatch: AdobeColorBookColorSpace.trumatch,
+  _colorSpaceToyo: AdobeColorBookColorSpace.toyo,
+  _colorSpaceLab: AdobeColorBookColorSpace.lab,
+  _colorSpaceGrayscale: AdobeColorBookColorSpace.grayscale,
+  _colorSpaceHks: AdobeColorBookColorSpace.hks,
+};
+// ignore: unused_element
+const _writeColorSpace = {
+  AdobeColorBookColorSpace.rgb: _colorSpaceRgb,
+  AdobeColorBookColorSpace.hsb: _colorSpaceHsb,
+  AdobeColorBookColorSpace.cmyk: _colorSpaceCmyk,
+  AdobeColorBookColorSpace.pantone: _colorSpacePantone,
+  AdobeColorBookColorSpace.focoltone: _colorSpaceFocoltone,
+  AdobeColorBookColorSpace.trumatch: _colorSpaceTrumatch,
+  AdobeColorBookColorSpace.toyo: _colorSpaceToyo,
+  AdobeColorBookColorSpace.lab: _colorSpaceLab,
+  AdobeColorBookColorSpace.grayscale: _colorSpaceGrayscale,
+  AdobeColorBookColorSpace.hks: _colorSpaceHks,
+};
 
 // TODO encode

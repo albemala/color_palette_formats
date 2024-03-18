@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:buffer/buffer.dart';
 import 'package:color_palette_formats/src/utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
@@ -57,45 +55,17 @@ class AdobeSwatchExchange with AdobeSwatchExchangeMappable {
     this.groups = const [],
     required this.colors,
   });
+
+  factory AdobeSwatchExchange.fromBytes(List<int> bytes) {
+    return _decode(bytes);
+  }
+
+  List<int> toBytes() {
+    return _encode(this);
+  }
 }
 
-const _fileSignature = 'ASEF';
-
-const _blockTypeColor = 0x0001;
-const _blockTypeGroupStart = 0xc001;
-const _blockTypeGroupEnd = 0xc002;
-
-const _colorModelRgb = 'RGB ';
-const _colorModelCmyk = 'CMYK';
-const _colorModelGrayscale = 'Gray';
-const _colorTypeGlobal = 0;
-const _colorTypeSpot = 1;
-const _colorTypeNormal = 2;
-
-const _readColorType = {
-  _colorTypeGlobal: AdobeSwatchExchangeColorType.global,
-  _colorTypeSpot: AdobeSwatchExchangeColorType.spot,
-  _colorTypeNormal: AdobeSwatchExchangeColorType.normal,
-};
-const _writeColorType = {
-  AdobeSwatchExchangeColorType.global: _colorTypeGlobal,
-  AdobeSwatchExchangeColorType.spot: _colorTypeSpot,
-  AdobeSwatchExchangeColorType.normal: _colorTypeNormal,
-};
-
-const _readColorModel = {
-  _colorModelRgb: AdobeSwatchExchangeColorModel.rgb,
-  _colorModelCmyk: AdobeSwatchExchangeColorModel.cmyk,
-  _colorModelGrayscale: AdobeSwatchExchangeColorModel.gray,
-};
-const _writeColorModel = {
-  AdobeSwatchExchangeColorModel.rgb: _colorModelRgb,
-  AdobeSwatchExchangeColorModel.cmyk: _colorModelCmyk,
-  AdobeSwatchExchangeColorModel.gray: _colorModelGrayscale,
-};
-
-AdobeSwatchExchange decodeAdobeSwatchExchange(File file) {
-  final bytes = file.readAsBytesSync();
+AdobeSwatchExchange _decode(List<int> bytes) {
   final buffer = ByteDataReader()..add(bytes);
 
   final header = readUtf8String(buffer, 4);
@@ -185,7 +155,7 @@ Unsupported version $version. Supported version: $supportedAdobeSwatchExchangeVe
   );
 }
 
-void encodeAdobeSwatchExchange(AdobeSwatchExchange swatch, File file) {
+List<int> _encode(AdobeSwatchExchange swatch) {
   final buffer = ByteDataWriter();
   // file signature
   writeUtf8String(buffer, _fileSignature);
@@ -236,7 +206,40 @@ void encodeAdobeSwatchExchange(AdobeSwatchExchange swatch, File file) {
     // block data
     buffer.write(colorBuffer.toBytes());
   }
-  // write file
-  final bytes = buffer.toBytes();
-  file.writeAsBytesSync(bytes);
+  return buffer.toBytes();
 }
+
+const _fileSignature = 'ASEF';
+
+const _blockTypeColor = 0x0001;
+const _blockTypeGroupStart = 0xc001;
+const _blockTypeGroupEnd = 0xc002;
+
+const _colorModelRgb = 'RGB ';
+const _colorModelCmyk = 'CMYK';
+const _colorModelGrayscale = 'Gray';
+const _colorTypeGlobal = 0;
+const _colorTypeSpot = 1;
+const _colorTypeNormal = 2;
+
+const _readColorType = {
+  _colorTypeGlobal: AdobeSwatchExchangeColorType.global,
+  _colorTypeSpot: AdobeSwatchExchangeColorType.spot,
+  _colorTypeNormal: AdobeSwatchExchangeColorType.normal,
+};
+const _writeColorType = {
+  AdobeSwatchExchangeColorType.global: _colorTypeGlobal,
+  AdobeSwatchExchangeColorType.spot: _colorTypeSpot,
+  AdobeSwatchExchangeColorType.normal: _colorTypeNormal,
+};
+
+const _readColorModel = {
+  _colorModelRgb: AdobeSwatchExchangeColorModel.rgb,
+  _colorModelCmyk: AdobeSwatchExchangeColorModel.cmyk,
+  _colorModelGrayscale: AdobeSwatchExchangeColorModel.gray,
+};
+const _writeColorModel = {
+  AdobeSwatchExchangeColorModel.rgb: _colorModelRgb,
+  AdobeSwatchExchangeColorModel.cmyk: _colorModelCmyk,
+  AdobeSwatchExchangeColorModel.gray: _colorModelGrayscale,
+};

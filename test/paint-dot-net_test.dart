@@ -6,7 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read paint-dot-net file', () {
     final paintDotNetFile1 = File('./assets/paint-dot-net1.txt');
-    final paintDotNet1 = decodePaintDotNetPalette(paintDotNetFile1);
+    final paintDotNet1 =
+        PaintDotNetPalette.fromBytes(paintDotNetFile1.readAsBytesSync());
     // print(paintDotNet1.toJson());
 
     expect(paintDotNet1.colors.length, equals(96));
@@ -38,10 +39,11 @@ Future<void> main() async {
 
     // write to temp file
     final paintDotNetFile = File('./test/test.txt');
-    encodePaintDotNetPalette(paintDotNet, paintDotNetFile);
+    paintDotNetFile.writeAsBytesSync(paintDotNet.toBytes());
     // print(paintDotNetFile.readAsStringSync());
 
-    final decodedPaintDotNet = decodePaintDotNetPalette(paintDotNetFile);
+    final decodedPaintDotNet =
+        PaintDotNetPalette.fromBytes(paintDotNetFile.readAsBytesSync());
     // print(decodedPaintDotNet.toJson());
 
     expect(decodedPaintDotNet.colors.length, equals(3));

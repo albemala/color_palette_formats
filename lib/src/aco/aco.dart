@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:buffer/buffer.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -55,36 +53,17 @@ class AdobeColorSwatch with AdobeColorSwatchMappable {
     required this.version,
     required this.colors,
   });
+
+  factory AdobeColorSwatch.fromBytes(List<int> bytes) {
+    return _decode(bytes);
+  }
+
+  List<int> toBytes() {
+    return _encode(this);
+  }
 }
 
-const _maxUInt16 = 65535;
-
-const _colorSpaceRgb = 0;
-const _colorSpaceHsb = 1;
-const _colorSpaceCmyk = 2;
-const _colorSpaceLab = 7;
-const _colorSpaceGrayscale = 8;
-const _colorSpaceWideCmyk = 9;
-
-const _readColorSpace = {
-  _colorSpaceRgb: AdobeColorSwatchColorSpace.rgb,
-  _colorSpaceHsb: AdobeColorSwatchColorSpace.hsb,
-  _colorSpaceCmyk: AdobeColorSwatchColorSpace.cmyk,
-  _colorSpaceLab: AdobeColorSwatchColorSpace.lab,
-  _colorSpaceGrayscale: AdobeColorSwatchColorSpace.grayscale,
-  _colorSpaceWideCmyk: AdobeColorSwatchColorSpace.wideCmyk,
-};
-const _writeColorSpace = {
-  AdobeColorSwatchColorSpace.rgb: _colorSpaceRgb,
-  AdobeColorSwatchColorSpace.hsb: _colorSpaceHsb,
-  AdobeColorSwatchColorSpace.cmyk: _colorSpaceCmyk,
-  AdobeColorSwatchColorSpace.lab: _colorSpaceLab,
-  AdobeColorSwatchColorSpace.grayscale: _colorSpaceGrayscale,
-  AdobeColorSwatchColorSpace.wideCmyk: _colorSpaceWideCmyk,
-};
-
-AdobeColorSwatch decodeAdobeColorSwatch(File file) {
-  final bytes = file.readAsBytesSync();
+AdobeColorSwatch _decode(List<int> bytes) {
   final buffer = ByteDataReader()..add(bytes);
 
   final version = buffer.readUint16();
@@ -160,7 +139,7 @@ Unsupported version: $version. Supported version: $supportedAdobeColorSwatchVers
   );
 }
 
-void encodeAdobeColorSwatch(AdobeColorSwatch swatch, File file) {
+List<int> _encode(AdobeColorSwatch swatch) {
   final buffer = ByteDataWriter();
   // version
   buffer.writeUint16(swatch.version);
@@ -215,8 +194,32 @@ void encodeAdobeColorSwatch(AdobeColorSwatch swatch, File file) {
         buffer.writeUint16((color.values[2] / 100 * 10000).round()); // y
         buffer.writeUint16((color.values[3] / 100 * 10000).round()); // z
     }
-    // write file
-    final bytes = buffer.toBytes();
-    file.writeAsBytesSync(bytes);
   }
+  return buffer.toBytes();
 }
+
+const _maxUInt16 = 65535;
+
+const _colorSpaceRgb = 0;
+const _colorSpaceHsb = 1;
+const _colorSpaceCmyk = 2;
+const _colorSpaceLab = 7;
+const _colorSpaceGrayscale = 8;
+const _colorSpaceWideCmyk = 9;
+
+const _readColorSpace = {
+  _colorSpaceRgb: AdobeColorSwatchColorSpace.rgb,
+  _colorSpaceHsb: AdobeColorSwatchColorSpace.hsb,
+  _colorSpaceCmyk: AdobeColorSwatchColorSpace.cmyk,
+  _colorSpaceLab: AdobeColorSwatchColorSpace.lab,
+  _colorSpaceGrayscale: AdobeColorSwatchColorSpace.grayscale,
+  _colorSpaceWideCmyk: AdobeColorSwatchColorSpace.wideCmyk,
+};
+const _writeColorSpace = {
+  AdobeColorSwatchColorSpace.rgb: _colorSpaceRgb,
+  AdobeColorSwatchColorSpace.hsb: _colorSpaceHsb,
+  AdobeColorSwatchColorSpace.cmyk: _colorSpaceCmyk,
+  AdobeColorSwatchColorSpace.lab: _colorSpaceLab,
+  AdobeColorSwatchColorSpace.grayscale: _colorSpaceGrayscale,
+  AdobeColorSwatchColorSpace.wideCmyk: _colorSpaceWideCmyk,
+};

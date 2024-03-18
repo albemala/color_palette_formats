@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -55,12 +55,18 @@ class HomesitePalette with HomesitePaletteMappable {
     required this.version,
     required this.colors,
   });
+
+  factory HomesitePalette.fromBytes(List<int> bytes) {
+    return _decode(bytes);
+  }
+
+  List<int> toBytes() {
+    return _encode(this);
+  }
 }
 
-const _fileSignature = 'Palette';
-
-HomesitePalette decodeHomesitePalette(File file) {
-  final lines = file.readAsLinesSync().map((line) => line.trim());
+HomesitePalette _decode(List<int> bytes) {
+  final lines = utf8.decode(bytes).split('\n');
 
   final header = lines.elementAt(0);
   if (header != _fileSignature) {
@@ -76,6 +82,8 @@ Unsupported version $version. Supported version: $supportedHomesitePaletteVersio
   final colors = lines //
       // skip header and version
       .skip(3)
+      // remove empty lines
+      .where((line) => line.isNotEmpty)
       .map((line) {
     // split line into 3 values: red, green, blue
     final values = line.split(' ').map(int.parse).toList();
@@ -92,7 +100,7 @@ Unsupported version $version. Supported version: $supportedHomesitePaletteVersio
   );
 }
 
-void encodeHomesitePalette(HomesitePalette palette, File file) {
+List<int> _encode(HomesitePalette palette) {
   final lines = <String>[];
   lines.add(_fileSignature);
   lines.add('Version ${palette.version}');
@@ -103,5 +111,7 @@ void encodeHomesitePalette(HomesitePalette palette, File file) {
     ),
   );
   final contents = lines.join('\n');
-  file.writeAsStringSync(contents);
+  return utf8.encode(contents);
 }
+
+const _fileSignature = 'Palette';

@@ -6,19 +6,19 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read act file', () {
     final actFile1 = File('./assets/act1.act');
-    final act1 = decodeAdobeColorTable(actFile1);
+    final act1 = AdobeColorTable.fromBytes(actFile1.readAsBytesSync());
     // print(act1.toJson());
 
     expect(act1.colors.length, equals(adobeColorTableColorsCount));
 
     final actFile2 = File('./assets/act2.act');
-    final act2 = decodeAdobeColorTable(actFile2);
+    final act2 = AdobeColorTable.fromBytes(actFile2.readAsBytesSync());
     // print(act2.toJson());
 
     expect(act2.colors.length, equals(adobeColorTableColorsCount));
 
     final actFile3 = File('./assets/act3.act');
-    final act3 = decodeAdobeColorTable(actFile3);
+    final act3 = AdobeColorTable.fromBytes(actFile3.readAsBytesSync());
     // print(act3.toJson());
 
     expect(act3.colors.length, equals(adobeColorTableColorsCount));
@@ -38,9 +38,9 @@ Future<void> main() async {
 
     // write to temp file
     final actFile = File('./test/test.act');
-    encodeAdobeColorTable(act, actFile);
+    actFile.writeAsBytesSync(act.toBytes());
 
-    final decodedAct = decodeAdobeColorTable(actFile);
+    final decodedAct = AdobeColorTable.fromBytes(actFile.readAsBytesSync());
     // print(decodedAct.toJson());
 
     expect(decodedAct.colors.length, equals(adobeColorTableColorsCount));

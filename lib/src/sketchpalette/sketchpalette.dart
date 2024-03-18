@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -70,11 +69,19 @@ class SketchPalette with SketchPaletteMappable {
     required this.pluginVersion,
     required this.colors,
   });
+
+  factory SketchPalette.fromBytes(List<int> bytes) {
+    return _decode(bytes);
+  }
+
+  List<int> toBytes() {
+    return _encode(this);
+  }
 }
 
-SketchPalette decodeSketchPalette(File file) {
+SketchPalette _decode(List<int> bytes) {
   // read file and convert to json
-  final fileAsString = file.readAsStringSync();
+  final fileAsString = utf8.decode(bytes);
   final fileAsMap = json.decode(fileAsString) as Map<String, dynamic>;
 
   final compatibleVersion = fileAsMap['compatibleVersion'] as String;
@@ -105,7 +112,7 @@ SketchPalette decodeSketchPalette(File file) {
   );
 }
 
-void encodeSketchPalette(SketchPalette sketchPalette, File file) {
+List<int> _encode(SketchPalette sketchPalette) {
   final sketchPaletteAsString = sketchPalette.toJson();
-  file.writeAsStringSync(sketchPaletteAsString);
+  return utf8.encode(sketchPaletteAsString);
 }

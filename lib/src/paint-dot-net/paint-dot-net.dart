@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -57,18 +57,18 @@ class PaintDotNetPalette with PaintDotNetPaletteMappable {
   PaintDotNetPalette({
     required this.colors,
   });
+
+  factory PaintDotNetPalette.fromBytes(List<int> bytes) {
+    return _decode(bytes);
+  }
+
+  List<int> toBytes() {
+    return _encode(this);
+  }
 }
 
-const _header = '''
-; paint.net Palette File
-; Lines that start with a semicolon are comments
-; Colors are written as 8-digit hexadecimal numbers: aarrggbb
-; For example, this would specify green: FF00FF00
-; The alpha ('aa') value specifies how transparent a color is. FF is fully opaque, 00 is fully transparent.
-''';
-
-PaintDotNetPalette decodePaintDotNetPalette(File file) {
-  final lines = file.readAsLinesSync().map((line) => line.trim());
+PaintDotNetPalette _decode(List<int> bytes) {
+  final lines = utf8.decode(bytes).split('\n');
 
   final colors = <PaintDotNetPaletteColor>[];
   for (var i = 0; i < lines.length; i++) {
@@ -100,9 +100,8 @@ PaintDotNetPalette decodePaintDotNetPalette(File file) {
   );
 }
 
-void encodePaintDotNetPalette(PaintDotNetPalette palette, File file) {
+List<int> _encode(PaintDotNetPalette palette) {
   final buffer = StringBuffer();
-
   buffer.write(_header);
   for (final color in palette.colors) {
     buffer.write(color.alpha.toRadixString(16).padLeft(2, '0').toUpperCase());
@@ -111,6 +110,13 @@ void encodePaintDotNetPalette(PaintDotNetPalette palette, File file) {
     buffer.write(color.blue.toRadixString(16).padLeft(2, '0').toUpperCase());
     buffer.write('\n');
   }
-
-  file.writeAsStringSync(buffer.toString());
+  return utf8.encode(buffer.toString());
 }
+
+const _header = '''
+; paint.net Palette File
+; Lines that start with a semicolon are comments
+; Colors are written as 8-digit hexadecimal numbers: aarrggbb
+; For example, this would specify green: FF00FF00
+; The alpha ('aa') value specifies how transparent a color is. FF is fully opaque, 00 is fully transparent.
+''';

@@ -6,14 +6,14 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read hpl file', () {
     final hplFile1 = File('./assets/hpl1_v4.0.hpl');
-    final hpl1 = decodeHomesitePalette(hplFile1);
+    final hpl1 = HomesitePalette.fromBytes(hplFile1.readAsBytesSync());
     // print(hpl1.toJson());
 
     expect(hpl1.version, equals(supportedHomesitePaletteVersion));
     expect(hpl1.colors.length, equals(287));
 
     final hplFile2 = File('./assets/hpl2_v4.0.hpl');
-    final hpl2 = decodeHomesitePalette(hplFile2);
+    final hpl2 = HomesitePalette.fromBytes(hplFile2.readAsBytesSync());
     // print(hpl2.toJson());
 
     expect(hpl2.version, equals(supportedHomesitePaletteVersion));
@@ -44,10 +44,10 @@ Future<void> main() async {
 
     // write to temp file
     final hplFile = File('./test/test.hpl');
-    encodeHomesitePalette(hpl, hplFile);
+    hplFile.writeAsBytesSync(hpl.toBytes());
     // print(hplFile.readAsStringSync());
 
-    final decodedHpl = decodeHomesitePalette(hplFile);
+    final decodedHpl = HomesitePalette.fromBytes(hplFile.readAsBytesSync());
     // print(decodedHpl.toJson());
 
     expect(decodedHpl.version, equals(supportedHomesitePaletteVersion));

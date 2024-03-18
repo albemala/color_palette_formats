@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -57,12 +57,18 @@ class GimpPalette with GimpPaletteMappable {
     this.comments = '',
     required this.colors,
   });
+
+  factory GimpPalette.fromBytes(List<int> bytes) {
+    return _decode(bytes);
+  }
+
+  List<int> toBytes() {
+    return _encode(this);
+  }
 }
 
-const _fileSignature = 'GIMP Palette';
-
-GimpPalette decodeGimpPalette(File file) {
-  final lines = file.readAsLinesSync().map((line) => line.trim());
+GimpPalette _decode(List<int> bytes) {
+  final lines = utf8.decode(bytes).split('\n');
 
   final header = lines.elementAt(0);
   if (header != _fileSignature) {
@@ -75,6 +81,8 @@ GimpPalette decodeGimpPalette(File file) {
   final colors = <GimpPaletteColor>[];
   for (var i = 1; i < lines.length; i++) {
     final line = lines.elementAt(i);
+    // skip empty lines
+    if (line.isEmpty) continue;
     if (line.startsWith('#')) {
       // line is a comment
       var comment = line.substring(1);
@@ -119,7 +127,7 @@ GimpPalette decodeGimpPalette(File file) {
   );
 }
 
-void encodeGimpPalette(GimpPalette gimpPalette, File file) {
+List<int> _encode(GimpPalette gimpPalette) {
   final buffer = StringBuffer();
   buffer.writeln(_fileSignature);
   buffer.writeln('Name: ${gimpPalette.name}');
@@ -130,5 +138,7 @@ void encodeGimpPalette(GimpPalette gimpPalette, File file) {
   for (final color in gimpPalette.colors) {
     buffer.writeln('${color.red} ${color.green} ${color.blue} ${color.name}');
   }
-  file.writeAsStringSync(buffer.toString());
+  return utf8.encode(buffer.toString());
 }
+
+const _fileSignature = 'GIMP Palette';

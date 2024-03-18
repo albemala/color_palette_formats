@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read ase file', () {
     final aseFile1 = File('./assets/ase1_v1.0.ase');
-    final ase1 = decodeAdobeSwatchExchange(aseFile1);
+    final ase1 = AdobeSwatchExchange.fromBytes(aseFile1.readAsBytesSync());
     // print(ase1.toJson());
 
     expect(ase1.version, equals(supportedAdobeSwatchExchangeVersion));
@@ -14,7 +14,7 @@ Future<void> main() async {
     expect(ase1.colors.length, equals(122));
 
     final aseFile2 = File('./assets/ase2_v1.0.ase');
-    final ase2 = decodeAdobeSwatchExchange(aseFile2);
+    final ase2 = AdobeSwatchExchange.fromBytes(aseFile2.readAsBytesSync());
     // print(ase2.toJson());
 
     expect(ase2.version, equals(supportedAdobeSwatchExchangeVersion));
@@ -46,9 +46,9 @@ Future<void> main() async {
 
     // write to temp file
     final aseFile = File('./test/test.ase');
-    encodeAdobeSwatchExchange(ase, aseFile);
+    aseFile.writeAsBytesSync(ase.toBytes());
 
-    final decodedAse = decodeAdobeSwatchExchange(aseFile);
+    final decodedAse = AdobeSwatchExchange.fromBytes(aseFile.readAsBytesSync());
     // print(decodedAse.toJson());
 
     expect(decodedAse.version, equals(supportedAdobeSwatchExchangeVersion));

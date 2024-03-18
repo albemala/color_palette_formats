@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:archive/archive.dart';
 import 'package:dart_mappable/dart_mappable.dart';
@@ -79,11 +78,13 @@ class ProcreateSwatches with ProcreateSwatchesMappable {
     this.name = '',
     required this.swatches,
   });
+
+  List<int> toBytes() {
+    return encodeProcreateSwatches([this]);
+  }
 }
 
-List<ProcreateSwatches> decodeProcreateSwatches(File file) {
-  final bytes = file.readAsBytesSync();
-
+List<ProcreateSwatches> decodeProcreateSwatches(List<int> bytes) {
   final archive = ZipDecoder().decodeBytes(bytes);
   final jsonFile = archive.first;
   final jsonContent = String.fromCharCodes(jsonFile.content as List<int>);
@@ -94,7 +95,7 @@ List<ProcreateSwatches> decodeProcreateSwatches(File file) {
   }).toList();
 }
 
-void encodeProcreateSwatches(List<ProcreateSwatches> swatches, File file) {
+List<int> encodeProcreateSwatches(List<ProcreateSwatches> swatches) {
   final jsonList = swatches.map((swatch) {
     return swatch.toMap();
   }).toList();
@@ -108,7 +109,5 @@ void encodeProcreateSwatches(List<ProcreateSwatches> swatches, File file) {
       jsonContent.codeUnits,
     ),
   );
-
-  final bytes = ZipEncoder().encode(archive) ?? [];
-  file.writeAsBytesSync(bytes);
+  return ZipEncoder().encode(archive) ?? [];
 }

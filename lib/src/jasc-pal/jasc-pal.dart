@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -52,12 +52,18 @@ class JascPalette with JascPaletteMappable {
     required this.version,
     required this.colors,
   });
+
+  factory JascPalette.fromBytes(List<int> bytes) {
+    return _decode(bytes);
+  }
+
+  List<int> toBytes() {
+    return _encode(this);
+  }
 }
 
-const _fileSignature = 'JASC-PAL';
-
-JascPalette decodeJascPalette(File file) {
-  final lines = file.readAsLinesSync().map((line) => line.trim());
+JascPalette _decode(List<int> bytes) {
+  final lines = utf8.decode(bytes).split('\n');
 
   final header = lines.elementAt(0);
   if (header != _fileSignature) {
@@ -76,6 +82,8 @@ Unsupported version $version. Supported version: $supportedJascPaletteVersion'''
   final colors = lines
       // skip header
       .skip(3)
+      // remove empty lines
+      .where((line) => line.isNotEmpty)
       .map((line) {
     // split line int 3 values: red, green, blue
     final values = line.split(' ').map(int.parse).toList();
@@ -92,7 +100,7 @@ Unsupported version $version. Supported version: $supportedJascPaletteVersion'''
   );
 }
 
-void encodeJascPalette(JascPalette jascPalette, File file) {
+List<int> _encode(JascPalette jascPalette) {
   final buffer = StringBuffer();
   buffer.writeln(_fileSignature);
   buffer.writeln(jascPalette.version);
@@ -100,5 +108,7 @@ void encodeJascPalette(JascPalette jascPalette, File file) {
   for (final color in jascPalette.colors) {
     buffer.writeln('${color.red} ${color.green} ${color.blue}');
   }
-  file.writeAsStringSync(buffer.toString());
+  return utf8.encode(buffer.toString());
 }
+
+const _fileSignature = 'JASC-PAL';

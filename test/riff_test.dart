@@ -6,7 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read riff file', () {
     final riffFile1 = File('./assets/riff1_v3.pal');
-    final riff1 = decodeResourceInterchangeFileFormat(riffFile1);
+    final riff1 =
+        ResourceInterchangeFileFormat.fromBytes(riffFile1.readAsBytesSync());
     // print(riff1.toJson());
 
     expect(
@@ -16,7 +17,8 @@ Future<void> main() async {
     expect(riff1.colors.length, equals(16));
 
     final riffFile2 = File('./assets/riff2_v3.pal');
-    final riff2 = decodeResourceInterchangeFileFormat(riffFile2);
+    final riff2 =
+        ResourceInterchangeFileFormat.fromBytes(riffFile2.readAsBytesSync());
     // print(riff2.toJson());
 
     expect(
@@ -50,9 +52,10 @@ Future<void> main() async {
 
     // write to temp file
     final riffFile = File('./test/test.pal');
-    encodeResourceInterchangeFileFormat(riff, riffFile);
+    riffFile.writeAsBytesSync(riff.toBytes());
 
-    final decodedRiff = decodeResourceInterchangeFileFormat(riffFile);
+    final decodedRiff =
+        ResourceInterchangeFileFormat.fromBytes(riffFile.readAsBytesSync());
     // print(decodedRiff.toJson());
 
     expect(

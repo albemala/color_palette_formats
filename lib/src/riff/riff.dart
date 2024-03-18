@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:buffer/buffer.dart';
@@ -44,13 +43,17 @@ class ResourceInterchangeFileFormat with ResourceInterchangeFileFormatMappable {
     required this.version,
     required this.colors,
   });
+
+  factory ResourceInterchangeFileFormat.fromBytes(List<int> bytes) {
+    return _decode(bytes);
+  }
+
+  List<int> toBytes() {
+    return _encode(this);
+  }
 }
 
-const _fileSignature = 'RIFF';
-const _dataType = 'PAL data';
-
-ResourceInterchangeFileFormat decodeResourceInterchangeFileFormat(File file) {
-  final bytes = file.readAsBytesSync();
+ResourceInterchangeFileFormat _decode(List<int> bytes) {
   final buffer = ByteDataReader(
     endian: Endian.little,
   )..add(bytes);
@@ -105,10 +108,7 @@ Unsupported version $version. Supported version: $supportedResourceInterchangeFi
   );
 }
 
-void encodeResourceInterchangeFileFormat(
-  ResourceInterchangeFileFormat riff,
-  File file,
-) {
+List<int> _encode(ResourceInterchangeFileFormat riff) {
   final buffer = ByteDataWriter(endian: Endian.little);
   // file signature
   writeUtf8String(buffer, _fileSignature);
@@ -141,7 +141,8 @@ void encodeResourceInterchangeFileFormat(
     // flags
     buffer.writeUint8(0);
   }
-  // write file
-  final bytes = buffer.toBytes();
-  file.writeAsBytesSync(bytes);
+  return buffer.toBytes();
 }
+
+const _fileSignature = 'RIFF';
+const _dataType = 'PAL data';

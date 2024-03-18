@@ -7,7 +7,8 @@ Future<void> main() async {
   test('read sketchpalette file', () {
     final sketchpaletteFile1 =
         File('./assets/sketchpalette1_v1.4.sketchpalette');
-    final sketchpalette1 = decodeSketchPalette(sketchpaletteFile1);
+    final sketchpalette1 =
+        SketchPalette.fromBytes(sketchpaletteFile1.readAsBytesSync());
     // print(sketchpalette1.toJson());
 
     expect(
@@ -19,7 +20,8 @@ Future<void> main() async {
 
     final sketchpaletteFile2 =
         File('./assets/sketchpalette2_v1.4.sketchpalette');
-    final sketchpalette2 = decodeSketchPalette(sketchpaletteFile2);
+    final sketchpalette2 =
+        SketchPalette.fromBytes(sketchpaletteFile2.readAsBytesSync());
     // print(sketchpalette2.toJson());
 
     expect(
@@ -58,10 +60,11 @@ Future<void> main() async {
 
     // write to temp file
     final sketchPaletteFile = File('./test/test.sketchpalette');
-    encodeSketchPalette(sketchPalette, sketchPaletteFile);
+    sketchPaletteFile.writeAsBytesSync(sketchPalette.toBytes());
     // print(sketchPaletteFile.readAsStringSync());
 
-    final decodedSketchPalette = decodeSketchPalette(sketchPaletteFile);
+    final decodedSketchPalette =
+        SketchPalette.fromBytes(sketchPaletteFile.readAsBytesSync());
     // print(decodedSketchPalette.toJson());
 
     expect(
