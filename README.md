@@ -27,18 +27,18 @@ Currently, the package supports the following formats:
 ```dart
 // Example: Reading an ACO (Adobe Color Swatch) file.
 final acoFile = File('path/to/aco1_v1.aco');
-final aco = decodeAdobeColorSwatch(acoFile);
+final aco = AdobeColorSwatch.fromBytes(acoFile.readAsBytesSync());
 assert(aco.version == supportedAdobeColorSwatchVersion);
 assert(aco.colors.length == 52);
 
 // Example: Reading a Procreate Swatches file.
 final procreateFile = File('path/to/procreate1.swatches');
-final procreate = decodeProcreateSwatches(procreateFile);
+final procreate = decodeProcreateSwatches(procreateFile.readAsBytesSync());
 assert(procreate.first.swatches.length == 30);
 
 // Example: Reading a Sketch Palette file.
 final sketchpaletteFile =  File('path/to/sketchpalette1_v1.4.sketchpalette');
-final sketchpalette = decodeSketchPalette(sketchpaletteFile);
+final sketchpalette = SketchPalette.fromBytes(sketchpaletteFile.readAsBytesSync());
 assert(sketchpalette.compatibleVersion == supportedSketchPaletteVersion);
 assert(sketchpalette.pluginVersion == supportedSketchPaletteVersion);
 assert(sketchpalette.colors.length == 6);
@@ -69,7 +69,7 @@ final ase = AdobeSwatchExchange(
 );
 // write to file
 final aseFile = File('path/to/ase1_v1.ase');
-encodeAdobeSwatchExchange(ase, aseFile);
+aseFile.writeAsBytesSync(ase.toBytes());
 ```
 
 ## Projects using this package

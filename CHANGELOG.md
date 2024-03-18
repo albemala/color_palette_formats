@@ -1,3 +1,8 @@
+## 2.0.0
+
+- **Breaking Change**: Reworked API to accept only bytes. The new API now uses `<PaletteClass>.fromBytes()` to decode
+  and `palette.toBytes()` to encode.
+
 ## 1.1.2
 
 - Fixed linter issues
