@@ -32,7 +32,7 @@ class AdobeSwatchExchangeColor with AdobeSwatchExchangeColorMappable {
   final String name;
   final AdobeSwatchExchangeColorModel model;
 
-  // Color values are in the range [0..1]
+  /// Color values are in the range [0..1]
   final List<double> values;
   final AdobeSwatchExchangeColorType type;
 
