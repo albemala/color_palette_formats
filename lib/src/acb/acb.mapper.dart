@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'acb.dart';
@@ -160,10 +160,8 @@ mixin AdobeColorBookColorMappable {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            AdobeColorBookColorMapper.ensureInitialized()
-                .isValueEqual(this as AdobeColorBookColor, other));
+    return AdobeColorBookColorMapper.ensureInitialized()
+        .equalsValue(this as AdobeColorBookColor, other);
   }
 
   @override
@@ -333,10 +331,8 @@ mixin AdobeColorBookMappable {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            AdobeColorBookMapper.ensureInitialized()
-                .isValueEqual(this as AdobeColorBook, other));
+    return AdobeColorBookMapper.ensureInitialized()
+        .equalsValue(this as AdobeColorBook, other);
   }
 
   @override

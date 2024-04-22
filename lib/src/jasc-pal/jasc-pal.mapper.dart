@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'jasc-pal.dart';
@@ -75,10 +75,8 @@ mixin JascPaletteColorMappable {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            JascPaletteColorMapper.ensureInitialized()
-                .isValueEqual(this as JascPaletteColor, other));
+    return JascPaletteColorMapper.ensureInitialized()
+        .equalsValue(this as JascPaletteColor, other);
   }
 
   @override
@@ -194,10 +192,8 @@ mixin JascPaletteMappable {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            JascPaletteMapper.ensureInitialized()
-                .isValueEqual(this as JascPalette, other));
+    return JascPaletteMapper.ensureInitialized()
+        .equalsValue(this as JascPalette, other);
   }
 
   @override
