@@ -4,22 +4,44 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('read ase file', () {
-    final aseFile1 = File('./assets/ase1_v1.0.ase');
-    final ase1 = AdobeSwatchExchange.fromBytes(aseFile1.readAsBytesSync());
-    // print(ase1.toJson());
+  test('read ase1_v1.0.ase file', () {
+    const filePath = './assets/ase1_v1.0.ase';
+    final bytes = File(filePath).readAsBytesSync();
+    final ase = AdobeSwatchExchange.fromBytes(bytes);
 
-    expect(ase1.version, equals(supportedAdobeSwatchExchangeVersion));
-    expect(ase1.groups.length, equals(0));
-    expect(ase1.colors.length, equals(122));
+    expect(ase.version, equals(supportedAdobeSwatchExchangeVersion));
+    expect(ase.groups.length, equals(0));
+    expect(ase.colors.length, equals(122));
+  });
 
-    final aseFile2 = File('./assets/ase2_v1.0.ase');
-    final ase2 = AdobeSwatchExchange.fromBytes(aseFile2.readAsBytesSync());
-    // print(ase2.toJson());
+  test('read ase2_v1.0.ase file', () {
+    const filePath = './assets/ase2_v1.0.ase';
+    final bytes = File(filePath).readAsBytesSync();
+    final ase = AdobeSwatchExchange.fromBytes(bytes);
 
-    expect(ase2.version, equals(supportedAdobeSwatchExchangeVersion));
-    expect(ase2.groups.length, equals(0));
-    expect(ase2.colors.length, equals(6));
+    expect(ase.version, equals(supportedAdobeSwatchExchangeVersion));
+    expect(ase.groups.length, equals(0));
+    expect(ase.colors.length, equals(6));
+  });
+
+  test('read The Ultimate Skin Tone Swatch Palette CMYK.ase file', () {
+    const filePath = './assets/The Ultimate Skin Tone Swatch Palette CMYK.ase';
+    final bytes = File(filePath).readAsBytesSync();
+    final ase = AdobeSwatchExchange.fromBytes(bytes);
+
+    expect(ase.version, equals(supportedAdobeSwatchExchangeVersion));
+    expect(ase.groups.length, equals(0));
+    expect(ase.colors.length, equals(500));
+  });
+
+  test('read The Ultimate Skin Tone Swatch Palette RBG.ase file', () {
+    const filePath = './assets/The Ultimate Skin Tone Swatch Palette RBG.ase';
+    final bytes = File(filePath).readAsBytesSync();
+    final ase = AdobeSwatchExchange.fromBytes(bytes);
+
+    expect(ase.version, equals(supportedAdobeSwatchExchangeVersion));
+    expect(ase.groups.length, equals(0));
+    expect(ase.colors.length, equals(500));
   });
 
   test('write ase file', () async {
