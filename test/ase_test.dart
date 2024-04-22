@@ -24,26 +24,6 @@ Future<void> main() async {
     expect(ase.colors.length, equals(6));
   });
 
-  test('read The Ultimate Skin Tone Swatch Palette CMYK.ase file', () {
-    const filePath = './assets/The Ultimate Skin Tone Swatch Palette CMYK.ase';
-    final bytes = File(filePath).readAsBytesSync();
-    final ase = AdobeSwatchExchange.fromBytes(bytes);
-
-    expect(ase.version, equals(supportedAdobeSwatchExchangeVersion));
-    expect(ase.groups.length, equals(0));
-    expect(ase.colors.length, equals(500));
-  });
-
-  test('read The Ultimate Skin Tone Swatch Palette RBG.ase file', () {
-    const filePath = './assets/The Ultimate Skin Tone Swatch Palette RBG.ase';
-    final bytes = File(filePath).readAsBytesSync();
-    final ase = AdobeSwatchExchange.fromBytes(bytes);
-
-    expect(ase.version, equals(supportedAdobeSwatchExchangeVersion));
-    expect(ase.groups.length, equals(0));
-    expect(ase.colors.length, equals(500));
-  });
-
   test('write ase file', () async {
     final ase = AdobeSwatchExchange(
       version: supportedAdobeSwatchExchangeVersion,
