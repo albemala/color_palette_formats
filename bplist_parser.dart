@@ -3,6 +3,10 @@ import 'dart:typed_data';
 
 import 'package:path/path.dart';
 
+// TODO enable mapper
+// TODO can i use buffer package to parse file?
+// TODO simplify decoding, i see too much use of data buffers
+
 // part 'acb.mapper.dart';
 
 // @MappableClass()
