@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Updated readme
+
 ## 2.0.1
 
 - Ignore unknown block type when decoding ase format

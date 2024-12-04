@@ -1,6 +1,6 @@
 name: color_palette_formats
 description: A Flutter package for decoding and encoding various color palette formats
-version: 2.0.1
+version: 2.0.2
 repository: https://github.com/albemala/color_palette_formats
 
 environment:
