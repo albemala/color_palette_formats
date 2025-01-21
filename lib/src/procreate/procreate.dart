@@ -109,5 +109,5 @@ List<int> encodeProcreateSwatches(List<ProcreateSwatches> swatches) {
       jsonContent.codeUnits,
     ),
   );
-  return ZipEncoder().encode(archive) ?? [];
+  return ZipEncoder().encode(archive);
 }
