@@ -3,6 +3,10 @@ description: A Flutter package for decoding and encoding various color palette f
 version: 2.0.2
 repository: https://github.com/albemala/color_palette_formats
 
+funding:
+  - https://github.com/sponsors/albemala
+  - https://www.buymeacoffee.com/albemala
+
 environment:
   sdk: ">=3.2.0 <4.0.0"
   flutter: ">=3.16.0"
