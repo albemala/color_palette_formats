@@ -1,3 +1,8 @@
+## 2.0.3
+
+- Upgraded dependencies
+- Updated funding information
+
 ## 2.0.2
 
 - Updated readme
