@@ -14,6 +14,14 @@ void main() {
     print(acb.toMap());
   }
   for (final path in [
+    'assets/ACBL.acbl',
+  ]) {
+    final file = File(path);
+    final acbl = AdobeColorBookLegacy.fromBytes(file.readAsBytesSync());
+    print('--- $path ---');
+    print(acbl.toMap());
+  }
+  for (final path in [
     'assets/aco1_v1.aco',
     'assets/aco2_v1.aco',
   ]) {

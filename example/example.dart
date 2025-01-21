@@ -11,6 +11,13 @@ void main() {
   assert(acb.version == supportedAdobeColorBookVersion);
   assert(acb.colors.length == 300);
 
+  // Example: Reading an ACBL (Adobe Color Book Legacy) file.
+  final acblFile = File('path/to/ACBL.acbl');
+  final acbl = AdobeColorBookLegacy.fromBytes(acblFile.readAsBytesSync());
+  assert(acbl.version == 1);
+  assert(acbl.bookId == 3002);
+  assert(acbl.colors.length == 11);
+
   // Example: Reading an ACO (Adobe Color Swatch) file.
   final acoFile = File('path/to/aco1_v1.aco');
   final aco = AdobeColorSwatch.fromBytes(acoFile.readAsBytesSync());
