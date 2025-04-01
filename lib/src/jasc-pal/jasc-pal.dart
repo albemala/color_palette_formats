@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'jasc-pal.mapper.dart';
+part 'decode.dart';
+part 'encode.dart';
 
 /*
 * Jasc Palette (JASC PAL)
@@ -60,55 +62,6 @@ class JascPalette with JascPaletteMappable {
   List<int> toBytes() {
     return _encode(this);
   }
-}
-
-JascPalette _decode(List<int> bytes) {
-  final lines = utf8.decode(bytes).split('\n');
-
-  final header = lines.elementAt(0);
-  if (header != _fileSignature) {
-    throw Exception('Not a valid JASC PAL file');
-  }
-
-  final version = lines.elementAt(1);
-  if (version != supportedJascPaletteVersion) {
-    throw Exception('''
-Unsupported version $version. Supported version: $supportedJascPaletteVersion''');
-  }
-
-  // ignore: unused_local_variable
-  final colorsCount = lines.elementAt(2);
-
-  final colors = lines
-      // skip header
-      .skip(3)
-      // remove empty lines
-      .where((line) => line.isNotEmpty)
-      .map((line) {
-    // split line int 3 values: red, green, blue
-    final values = line.split(' ').map(int.parse).toList();
-    return JascPaletteColor(
-      red: values[0],
-      green: values[1],
-      blue: values[2],
-    );
-  }).toList();
-
-  return JascPalette(
-    version: version,
-    colors: colors,
-  );
-}
-
-List<int> _encode(JascPalette jascPalette) {
-  final buffer = StringBuffer();
-  buffer.writeln(_fileSignature);
-  buffer.writeln(jascPalette.version);
-  buffer.writeln(jascPalette.colors.length);
-  for (final color in jascPalette.colors) {
-    buffer.writeln('${color.red} ${color.green} ${color.blue}');
-  }
-  return utf8.encode(buffer.toString());
 }
 
 const _fileSignature = 'JASC-PAL';

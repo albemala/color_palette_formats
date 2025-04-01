@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'hpl.mapper.dart';
+part 'decode.dart';
+part 'encode.dart';
 
 /*
 * Homesite Palette (HPL) (.hpl) (Allaire Homesite, Macromedia ColdFusion)
@@ -63,55 +65,6 @@ class HomesitePalette with HomesitePaletteMappable {
   List<int> toBytes() {
     return _encode(this);
   }
-}
-
-HomesitePalette _decode(List<int> bytes) {
-  final lines = utf8.decode(bytes).split('\n');
-
-  final header = lines.elementAt(0);
-  if (header != _fileSignature) {
-    throw Exception('Not a valid HPL file');
-  }
-
-  final version = lines.elementAt(1).split(' ').last;
-  if (version != supportedHomesitePaletteVersion) {
-    throw Exception('''
-Unsupported version $version. Supported version: $supportedHomesitePaletteVersion''');
-  }
-
-  final colors = lines //
-      // skip header and version
-      .skip(3)
-      // remove empty lines
-      .where((line) => line.isNotEmpty)
-      .map((line) {
-    // split line into 3 values: red, green, blue
-    final values = line.split(' ').map(int.parse).toList();
-    return HomesitePaletteColor(
-      red: values[0],
-      green: values[1],
-      blue: values[2],
-    );
-  }).toList();
-
-  return HomesitePalette(
-    version: version,
-    colors: colors,
-  );
-}
-
-List<int> _encode(HomesitePalette palette) {
-  final lines = <String>[];
-  lines.add(_fileSignature);
-  lines.add('Version ${palette.version}');
-  lines.add('');
-  lines.addAll(
-    palette.colors.map(
-      (color) => '${color.red} ${color.green} ${color.blue}',
-    ),
-  );
-  final contents = lines.join('\n');
-  return utf8.encode(contents);
 }
 
 const _fileSignature = 'Palette';

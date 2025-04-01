@@ -3,6 +3,7 @@ import 'package:color_palette_formats/src/utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'acb.mapper.dart';
+part 'decode.dart';
 
 /*
 * Adobe Color Book (ACB) (.acb)
@@ -79,112 +80,7 @@ class AdobeColorBook with AdobeColorBookMappable {
   }
 }
 
-AdobeColorBook _decode(List<int> bytes) {
-  final buffer = ByteDataReader()..add(bytes);
-
-  final header = readUtf8String(buffer, 4);
-  if (header != _fileSignature) {
-    throw Exception('Not a valid Adobe Color Book file');
-  }
-
-  final version = buffer.readUint16();
-  if (version != supportedAdobeColorBookVersion) {
-    throw Exception('''
-Unsupported version $version, Supported version: $supportedAdobeColorBookVersion''');
-  }
-
-  final identifier = buffer.readUint16();
-
-  final titleLength = buffer.readUint32();
-  final title = readUtf16String(buffer, titleLength);
-
-  final prefixLength = buffer.readUint32();
-  final prefix = readUtf16String(buffer, prefixLength);
-
-  final suffixLength = buffer.readUint32();
-  final suffix = readUtf16String(buffer, suffixLength);
-
-  final descriptionLength = buffer.readUint32();
-  final description = readUtf16String(buffer, descriptionLength);
-
-  final colorCount = buffer.readUint16();
-
-  final pageSize = buffer.readUint16();
-
-  final pageSelectorOffset = buffer.readUint16();
-
-  final colorSpace = buffer.readUint16();
-
-  final channels = _getChannels(colorSpace);
-
-  final colors = <AdobeColorBookColor>[];
-  for (var i = 0; i < colorCount; i++) {
-    final colorNameLength = buffer.readUint32();
-    final colorName = readUtf16String(buffer, colorNameLength);
-
-    final colorCode = readUtf8String(buffer, 6);
-
-    final rawValues = buffer.read(channels);
-    final values = <int>[];
-    switch (colorSpace) {
-      case _colorSpaceRgb:
-        values.addAll(rawValues);
-      case _colorSpaceHsb:
-        break;
-      case _colorSpaceCmyk:
-        values.addAll([
-          ((255 - rawValues[0]) / 2.55 + 0.5).round(),
-          ((255 - rawValues[1]) / 2.55 + 0.5).round(),
-          ((255 - rawValues[2]) / 2.55 + 0.5).round(),
-          ((255 - rawValues[3]) / 2.55 + 0.5).round(),
-        ]);
-      case _colorSpacePantone:
-        break;
-      case _colorSpaceFocoltone:
-        break;
-      case _colorSpaceTrumatch:
-        break;
-      case _colorSpaceToyo:
-        break;
-      case _colorSpaceLab:
-        values.addAll([
-          (rawValues[0] / 2.55 + 0.5).round(),
-          rawValues[1] - 128,
-          rawValues[2] - 128,
-        ]);
-      case _colorSpaceGrayscale:
-        break;
-      case _colorSpaceHks:
-        break;
-    }
-
-    colors.add(
-      AdobeColorBookColor(
-        name: colorName,
-        code: colorCode,
-        values: values,
-      ),
-    );
-  }
-
-  final colorSpaceAsEnum = _readColorSpace[colorSpace];
-  if (colorSpaceAsEnum == null) {
-    throw Exception('Unsupported color space $colorSpace');
-  }
-  return AdobeColorBook(
-    version: version,
-    identifier: identifier,
-    title: title,
-    description: description,
-    colorNamePrefix: prefix,
-    colorNameSuffix: suffix,
-    colorCount: colorCount,
-    pageSize: pageSize,
-    pageSelectorOffset: pageSelectorOffset,
-    colorSpace: colorSpaceAsEnum,
-    colors: colors,
-  );
-}
+// TODO encode
 
 const _fileSignature = '8BCB';
 
@@ -222,18 +118,3 @@ const _readColorSpace = {
   _colorSpaceGrayscale: AdobeColorBookColorSpace.grayscale,
   _colorSpaceHks: AdobeColorBookColorSpace.hks,
 };
-// ignore: unused_element
-const _writeColorSpace = {
-  AdobeColorBookColorSpace.rgb: _colorSpaceRgb,
-  AdobeColorBookColorSpace.hsb: _colorSpaceHsb,
-  AdobeColorBookColorSpace.cmyk: _colorSpaceCmyk,
-  AdobeColorBookColorSpace.pantone: _colorSpacePantone,
-  AdobeColorBookColorSpace.focoltone: _colorSpaceFocoltone,
-  AdobeColorBookColorSpace.trumatch: _colorSpaceTrumatch,
-  AdobeColorBookColorSpace.toyo: _colorSpaceToyo,
-  AdobeColorBookColorSpace.lab: _colorSpaceLab,
-  AdobeColorBookColorSpace.grayscale: _colorSpaceGrayscale,
-  AdobeColorBookColorSpace.hks: _colorSpaceHks,
-};
-
-// TODO encode

@@ -4,6 +4,8 @@ import 'package:archive/archive.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'procreate.mapper.dart';
+part 'decode.dart';
+part 'encode.dart';
 
 /*
 * Procreate swatches (.swatches) (Procreate)
@@ -82,32 +84,4 @@ class ProcreateSwatches with ProcreateSwatchesMappable {
   List<int> toBytes() {
     return encodeProcreateSwatches([this]);
   }
-}
-
-List<ProcreateSwatches> decodeProcreateSwatches(List<int> bytes) {
-  final archive = ZipDecoder().decodeBytes(bytes);
-  final jsonFile = archive.first;
-  final jsonContent = String.fromCharCodes(jsonFile.content as List<int>);
-
-  final swatches = json.decode(jsonContent) as List<dynamic>;
-  return swatches.map((swatch) {
-    return ProcreateSwatchesMapper.fromMap(swatch as Map<String, dynamic>);
-  }).toList();
-}
-
-List<int> encodeProcreateSwatches(List<ProcreateSwatches> swatches) {
-  final jsonList = swatches.map((swatch) {
-    return swatch.toMap();
-  }).toList();
-  final jsonContent = json.encode(jsonList);
-
-  final archive = Archive();
-  archive.addFile(
-    ArchiveFile(
-      'swatches.json',
-      jsonContent.length,
-      jsonContent.codeUnits,
-    ),
-  );
-  return ZipEncoder().encode(archive);
 }
