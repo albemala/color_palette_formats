@@ -65,8 +65,9 @@ mixin JascPaletteColorMappable {
   }
 
   JascPaletteColorCopyWith<JascPaletteColor, JascPaletteColor, JascPaletteColor>
-      get copyWith => _JascPaletteColorCopyWithImpl(
-          this as JascPaletteColor, $identity, $identity);
+      get copyWith =>
+          _JascPaletteColorCopyWithImpl<JascPaletteColor, JascPaletteColor>(
+              this as JascPaletteColor, $identity, $identity);
   @override
   String toString() {
     return JascPaletteColorMapper.ensureInitialized()
@@ -89,8 +90,8 @@ mixin JascPaletteColorMappable {
 extension JascPaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, JascPaletteColor, $Out> {
   JascPaletteColorCopyWith<$R, JascPaletteColor, $Out>
-      get $asJascPaletteColor =>
-          $base.as((v, t, t2) => _JascPaletteColorCopyWithImpl(v, t, t2));
+      get $asJascPaletteColor => $base
+          .as((v, t, t2) => _JascPaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class JascPaletteColorCopyWith<$R, $In extends JascPaletteColor, $Out>
@@ -123,7 +124,7 @@ class _JascPaletteColorCopyWithImpl<$R, $Out>
   @override
   JascPaletteColorCopyWith<$R2, JascPaletteColor, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _JascPaletteColorCopyWithImpl($value, $cast, t);
+      _JascPaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class JascPaletteMapper extends ClassMapperBase<JascPalette> {
@@ -183,7 +184,8 @@ mixin JascPaletteMappable {
   }
 
   JascPaletteCopyWith<JascPalette, JascPalette, JascPalette> get copyWith =>
-      _JascPaletteCopyWithImpl(this as JascPalette, $identity, $identity);
+      _JascPaletteCopyWithImpl<JascPalette, JascPalette>(
+          this as JascPalette, $identity, $identity);
   @override
   String toString() {
     return JascPaletteMapper.ensureInitialized()
@@ -205,7 +207,7 @@ mixin JascPaletteMappable {
 extension JascPaletteValueCopy<$R, $Out>
     on ObjectCopyWith<$R, JascPalette, $Out> {
   JascPaletteCopyWith<$R, JascPalette, $Out> get $asJascPalette =>
-      $base.as((v, t, t2) => _JascPaletteCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _JascPaletteCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class JascPaletteCopyWith<$R, $In extends JascPalette, $Out>
@@ -244,5 +246,5 @@ class _JascPaletteCopyWithImpl<$R, $Out>
   @override
   JascPaletteCopyWith<$R2, JascPalette, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _JascPaletteCopyWithImpl($value, $cast, t);
+      _JascPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

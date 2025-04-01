@@ -69,8 +69,9 @@ mixin GimpPaletteColorMappable {
   }
 
   GimpPaletteColorCopyWith<GimpPaletteColor, GimpPaletteColor, GimpPaletteColor>
-      get copyWith => _GimpPaletteColorCopyWithImpl(
-          this as GimpPaletteColor, $identity, $identity);
+      get copyWith =>
+          _GimpPaletteColorCopyWithImpl<GimpPaletteColor, GimpPaletteColor>(
+              this as GimpPaletteColor, $identity, $identity);
   @override
   String toString() {
     return GimpPaletteColorMapper.ensureInitialized()
@@ -93,8 +94,8 @@ mixin GimpPaletteColorMappable {
 extension GimpPaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, GimpPaletteColor, $Out> {
   GimpPaletteColorCopyWith<$R, GimpPaletteColor, $Out>
-      get $asGimpPaletteColor =>
-          $base.as((v, t, t2) => _GimpPaletteColorCopyWithImpl(v, t, t2));
+      get $asGimpPaletteColor => $base
+          .as((v, t, t2) => _GimpPaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class GimpPaletteColorCopyWith<$R, $In extends GimpPaletteColor, $Out>
@@ -130,7 +131,7 @@ class _GimpPaletteColorCopyWithImpl<$R, $Out>
   @override
   GimpPaletteColorCopyWith<$R2, GimpPaletteColor, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _GimpPaletteColorCopyWithImpl($value, $cast, t);
+      _GimpPaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class GimpPaletteMapper extends ClassMapperBase<GimpPalette> {
@@ -200,7 +201,8 @@ mixin GimpPaletteMappable {
   }
 
   GimpPaletteCopyWith<GimpPalette, GimpPalette, GimpPalette> get copyWith =>
-      _GimpPaletteCopyWithImpl(this as GimpPalette, $identity, $identity);
+      _GimpPaletteCopyWithImpl<GimpPalette, GimpPalette>(
+          this as GimpPalette, $identity, $identity);
   @override
   String toString() {
     return GimpPaletteMapper.ensureInitialized()
@@ -222,7 +224,7 @@ mixin GimpPaletteMappable {
 extension GimpPaletteValueCopy<$R, $Out>
     on ObjectCopyWith<$R, GimpPalette, $Out> {
   GimpPaletteCopyWith<$R, GimpPalette, $Out> get $asGimpPalette =>
-      $base.as((v, t, t2) => _GimpPaletteCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _GimpPaletteCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class GimpPaletteCopyWith<$R, $In extends GimpPalette, $Out>
@@ -273,5 +275,5 @@ class _GimpPaletteCopyWithImpl<$R, $Out>
   @override
   GimpPaletteCopyWith<$R2, GimpPalette, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _GimpPaletteCopyWithImpl($value, $cast, t);
+      _GimpPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

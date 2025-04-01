@@ -77,7 +77,9 @@ mixin ResourceInterchangeFileFormatColorMappable {
           ResourceInterchangeFileFormatColor,
           ResourceInterchangeFileFormatColor,
           ResourceInterchangeFileFormatColor>
-      get copyWith => _ResourceInterchangeFileFormatColorCopyWithImpl(
+      get copyWith => _ResourceInterchangeFileFormatColorCopyWithImpl<
+              ResourceInterchangeFileFormatColor,
+              ResourceInterchangeFileFormatColor>(
           this as ResourceInterchangeFileFormatColor, $identity, $identity);
   @override
   String toString() {
@@ -103,7 +105,7 @@ extension ResourceInterchangeFileFormatColorValueCopy<$R, $Out>
   ResourceInterchangeFileFormatColorCopyWith<$R,
           ResourceInterchangeFileFormatColor, $Out>
       get $asResourceInterchangeFileFormatColor => $base.as((v, t, t2) =>
-          _ResourceInterchangeFileFormatColorCopyWithImpl(v, t, t2));
+          _ResourceInterchangeFileFormatColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ResourceInterchangeFileFormatColorCopyWith<
@@ -143,7 +145,8 @@ class _ResourceInterchangeFileFormatColorCopyWithImpl<$R, $Out>
   ResourceInterchangeFileFormatColorCopyWith<$R2,
       ResourceInterchangeFileFormatColor, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _ResourceInterchangeFileFormatColorCopyWithImpl($value, $cast, t);
+      _ResourceInterchangeFileFormatColorCopyWithImpl<$R2, $Out2>(
+          $value, $cast, t);
 }
 
 class ResourceInterchangeFileFormatMapper
@@ -211,7 +214,8 @@ mixin ResourceInterchangeFileFormatMappable {
 
   ResourceInterchangeFileFormatCopyWith<ResourceInterchangeFileFormat,
           ResourceInterchangeFileFormat, ResourceInterchangeFileFormat>
-      get copyWith => _ResourceInterchangeFileFormatCopyWithImpl(
+      get copyWith => _ResourceInterchangeFileFormatCopyWithImpl<
+              ResourceInterchangeFileFormat, ResourceInterchangeFileFormat>(
           this as ResourceInterchangeFileFormat, $identity, $identity);
   @override
   String toString() {
@@ -235,8 +239,8 @@ mixin ResourceInterchangeFileFormatMappable {
 extension ResourceInterchangeFileFormatValueCopy<$R, $Out>
     on ObjectCopyWith<$R, ResourceInterchangeFileFormat, $Out> {
   ResourceInterchangeFileFormatCopyWith<$R, ResourceInterchangeFileFormat, $Out>
-      get $asResourceInterchangeFileFormat => $base.as(
-          (v, t, t2) => _ResourceInterchangeFileFormatCopyWithImpl(v, t, t2));
+      get $asResourceInterchangeFileFormat => $base.as((v, t, t2) =>
+          _ResourceInterchangeFileFormatCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ResourceInterchangeFileFormatCopyWith<
@@ -291,5 +295,5 @@ class _ResourceInterchangeFileFormatCopyWithImpl<$R, $Out>
   ResourceInterchangeFileFormatCopyWith<$R2, ResourceInterchangeFileFormat,
       $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _ResourceInterchangeFileFormatCopyWithImpl($value, $cast, t);
+      _ResourceInterchangeFileFormatCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

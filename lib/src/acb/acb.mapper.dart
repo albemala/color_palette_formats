@@ -27,25 +27,25 @@ class AdobeColorBookColorSpaceMapper
   @override
   AdobeColorBookColorSpace decode(dynamic value) {
     switch (value) {
-      case 'rgb':
+      case r'rgb':
         return AdobeColorBookColorSpace.rgb;
-      case 'hsb':
+      case r'hsb':
         return AdobeColorBookColorSpace.hsb;
-      case 'cmyk':
+      case r'cmyk':
         return AdobeColorBookColorSpace.cmyk;
-      case 'pantone':
+      case r'pantone':
         return AdobeColorBookColorSpace.pantone;
-      case 'focoltone':
+      case r'focoltone':
         return AdobeColorBookColorSpace.focoltone;
-      case 'trumatch':
+      case r'trumatch':
         return AdobeColorBookColorSpace.trumatch;
-      case 'toyo':
+      case r'toyo':
         return AdobeColorBookColorSpace.toyo;
-      case 'lab':
+      case r'lab':
         return AdobeColorBookColorSpace.lab;
-      case 'grayscale':
+      case r'grayscale':
         return AdobeColorBookColorSpace.grayscale;
-      case 'hks':
+      case r'hks':
         return AdobeColorBookColorSpace.hks;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -56,25 +56,25 @@ class AdobeColorBookColorSpaceMapper
   dynamic encode(AdobeColorBookColorSpace self) {
     switch (self) {
       case AdobeColorBookColorSpace.rgb:
-        return 'rgb';
+        return r'rgb';
       case AdobeColorBookColorSpace.hsb:
-        return 'hsb';
+        return r'hsb';
       case AdobeColorBookColorSpace.cmyk:
-        return 'cmyk';
+        return r'cmyk';
       case AdobeColorBookColorSpace.pantone:
-        return 'pantone';
+        return r'pantone';
       case AdobeColorBookColorSpace.focoltone:
-        return 'focoltone';
+        return r'focoltone';
       case AdobeColorBookColorSpace.trumatch:
-        return 'trumatch';
+        return r'trumatch';
       case AdobeColorBookColorSpace.toyo:
-        return 'toyo';
+        return r'toyo';
       case AdobeColorBookColorSpace.lab:
-        return 'lab';
+        return r'lab';
       case AdobeColorBookColorSpace.grayscale:
-        return 'grayscale';
+        return r'grayscale';
       case AdobeColorBookColorSpace.hks:
-        return 'hks';
+        return r'hks';
     }
   }
 }
@@ -149,9 +149,9 @@ mixin AdobeColorBookColorMappable {
   }
 
   AdobeColorBookColorCopyWith<AdobeColorBookColor, AdobeColorBookColor,
-          AdobeColorBookColor>
-      get copyWith => _AdobeColorBookColorCopyWithImpl(
-          this as AdobeColorBookColor, $identity, $identity);
+      AdobeColorBookColor> get copyWith => _AdobeColorBookColorCopyWithImpl<
+          AdobeColorBookColor, AdobeColorBookColor>(
+      this as AdobeColorBookColor, $identity, $identity);
   @override
   String toString() {
     return AdobeColorBookColorMapper.ensureInitialized()
@@ -174,8 +174,8 @@ mixin AdobeColorBookColorMappable {
 extension AdobeColorBookColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorBookColor, $Out> {
   AdobeColorBookColorCopyWith<$R, AdobeColorBookColor, $Out>
-      get $asAdobeColorBookColor =>
-          $base.as((v, t, t2) => _AdobeColorBookColorCopyWithImpl(v, t, t2));
+      get $asAdobeColorBookColor => $base.as(
+          (v, t, t2) => _AdobeColorBookColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorBookColorCopyWith<$R, $In extends AdobeColorBookColor,
@@ -214,7 +214,7 @@ class _AdobeColorBookColorCopyWithImpl<$R, $Out>
   @override
   AdobeColorBookColorCopyWith<$R2, AdobeColorBookColor, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeColorBookColorCopyWithImpl($value, $cast, t);
+          _AdobeColorBookColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AdobeColorBookMapper extends ClassMapperBase<AdobeColorBook> {
@@ -321,8 +321,9 @@ mixin AdobeColorBookMappable {
   }
 
   AdobeColorBookCopyWith<AdobeColorBook, AdobeColorBook, AdobeColorBook>
-      get copyWith => _AdobeColorBookCopyWithImpl(
-          this as AdobeColorBook, $identity, $identity);
+      get copyWith =>
+          _AdobeColorBookCopyWithImpl<AdobeColorBook, AdobeColorBook>(
+              this as AdobeColorBook, $identity, $identity);
   @override
   String toString() {
     return AdobeColorBookMapper.ensureInitialized()
@@ -345,7 +346,7 @@ mixin AdobeColorBookMappable {
 extension AdobeColorBookValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorBook, $Out> {
   AdobeColorBookCopyWith<$R, AdobeColorBook, $Out> get $asAdobeColorBook =>
-      $base.as((v, t, t2) => _AdobeColorBookCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _AdobeColorBookCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorBookCopyWith<$R, $In extends AdobeColorBook, $Out>
@@ -430,5 +431,5 @@ class _AdobeColorBookCopyWithImpl<$R, $Out>
   @override
   AdobeColorBookCopyWith<$R2, AdobeColorBook, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _AdobeColorBookCopyWithImpl($value, $cast, t);
+      _AdobeColorBookCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

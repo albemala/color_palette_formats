@@ -66,9 +66,9 @@ mixin AdobeColorTableColorMappable {
   }
 
   AdobeColorTableColorCopyWith<AdobeColorTableColor, AdobeColorTableColor,
-          AdobeColorTableColor>
-      get copyWith => _AdobeColorTableColorCopyWithImpl(
-          this as AdobeColorTableColor, $identity, $identity);
+      AdobeColorTableColor> get copyWith => _AdobeColorTableColorCopyWithImpl<
+          AdobeColorTableColor, AdobeColorTableColor>(
+      this as AdobeColorTableColor, $identity, $identity);
   @override
   String toString() {
     return AdobeColorTableColorMapper.ensureInitialized()
@@ -91,8 +91,8 @@ mixin AdobeColorTableColorMappable {
 extension AdobeColorTableColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorTableColor, $Out> {
   AdobeColorTableColorCopyWith<$R, AdobeColorTableColor, $Out>
-      get $asAdobeColorTableColor =>
-          $base.as((v, t, t2) => _AdobeColorTableColorCopyWithImpl(v, t, t2));
+      get $asAdobeColorTableColor => $base.as(
+          (v, t, t2) => _AdobeColorTableColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorTableColorCopyWith<
@@ -127,7 +127,7 @@ class _AdobeColorTableColorCopyWithImpl<$R, $Out>
   @override
   AdobeColorTableColorCopyWith<$R2, AdobeColorTableColor, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeColorTableColorCopyWithImpl($value, $cast, t);
+          _AdobeColorTableColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AdobeColorTableMapper extends ClassMapperBase<AdobeColorTable> {
@@ -182,8 +182,9 @@ mixin AdobeColorTableMappable {
   }
 
   AdobeColorTableCopyWith<AdobeColorTable, AdobeColorTable, AdobeColorTable>
-      get copyWith => _AdobeColorTableCopyWithImpl(
-          this as AdobeColorTable, $identity, $identity);
+      get copyWith =>
+          _AdobeColorTableCopyWithImpl<AdobeColorTable, AdobeColorTable>(
+              this as AdobeColorTable, $identity, $identity);
   @override
   String toString() {
     return AdobeColorTableMapper.ensureInitialized()
@@ -206,7 +207,7 @@ mixin AdobeColorTableMappable {
 extension AdobeColorTableValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorTable, $Out> {
   AdobeColorTableCopyWith<$R, AdobeColorTable, $Out> get $asAdobeColorTable =>
-      $base.as((v, t, t2) => _AdobeColorTableCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _AdobeColorTableCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorTableCopyWith<$R, $In extends AdobeColorTable, $Out>
@@ -246,5 +247,5 @@ class _AdobeColorTableCopyWithImpl<$R, $Out>
   @override
   AdobeColorTableCopyWith<$R2, AdobeColorTable, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _AdobeColorTableCopyWithImpl($value, $cast, t);
+      _AdobeColorTableCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

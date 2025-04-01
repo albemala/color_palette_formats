@@ -27,11 +27,11 @@ class AdobeSwatchExchangeColorModelMapper
   @override
   AdobeSwatchExchangeColorModel decode(dynamic value) {
     switch (value) {
-      case 'rgb':
+      case r'rgb':
         return AdobeSwatchExchangeColorModel.rgb;
-      case 'cmyk':
+      case r'cmyk':
         return AdobeSwatchExchangeColorModel.cmyk;
-      case 'gray':
+      case r'gray':
         return AdobeSwatchExchangeColorModel.gray;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -42,11 +42,11 @@ class AdobeSwatchExchangeColorModelMapper
   dynamic encode(AdobeSwatchExchangeColorModel self) {
     switch (self) {
       case AdobeSwatchExchangeColorModel.rgb:
-        return 'rgb';
+        return r'rgb';
       case AdobeSwatchExchangeColorModel.cmyk:
-        return 'cmyk';
+        return r'cmyk';
       case AdobeSwatchExchangeColorModel.gray:
-        return 'gray';
+        return r'gray';
     }
   }
 }
@@ -81,11 +81,11 @@ class AdobeSwatchExchangeColorTypeMapper
   @override
   AdobeSwatchExchangeColorType decode(dynamic value) {
     switch (value) {
-      case 'global':
+      case r'global':
         return AdobeSwatchExchangeColorType.global;
-      case 'spot':
+      case r'spot':
         return AdobeSwatchExchangeColorType.spot;
-      case 'normal':
+      case r'normal':
         return AdobeSwatchExchangeColorType.normal;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -96,11 +96,11 @@ class AdobeSwatchExchangeColorTypeMapper
   dynamic encode(AdobeSwatchExchangeColorType self) {
     switch (self) {
       case AdobeSwatchExchangeColorType.global:
-        return 'global';
+        return r'global';
       case AdobeSwatchExchangeColorType.spot:
-        return 'spot';
+        return r'spot';
       case AdobeSwatchExchangeColorType.normal:
-        return 'normal';
+        return r'normal';
     }
   }
 }
@@ -189,7 +189,8 @@ mixin AdobeSwatchExchangeColorMappable {
 
   AdobeSwatchExchangeColorCopyWith<AdobeSwatchExchangeColor,
           AdobeSwatchExchangeColor, AdobeSwatchExchangeColor>
-      get copyWith => _AdobeSwatchExchangeColorCopyWithImpl(
+      get copyWith => _AdobeSwatchExchangeColorCopyWithImpl<
+              AdobeSwatchExchangeColor, AdobeSwatchExchangeColor>(
           this as AdobeSwatchExchangeColor, $identity, $identity);
   @override
   String toString() {
@@ -213,8 +214,8 @@ mixin AdobeSwatchExchangeColorMappable {
 extension AdobeSwatchExchangeColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeSwatchExchangeColor, $Out> {
   AdobeSwatchExchangeColorCopyWith<$R, AdobeSwatchExchangeColor, $Out>
-      get $asAdobeSwatchExchangeColor => $base
-          .as((v, t, t2) => _AdobeSwatchExchangeColorCopyWithImpl(v, t, t2));
+      get $asAdobeSwatchExchangeColor => $base.as((v, t, t2) =>
+          _AdobeSwatchExchangeColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeSwatchExchangeColorCopyWith<
@@ -266,7 +267,7 @@ class _AdobeSwatchExchangeColorCopyWithImpl<$R, $Out>
   @override
   AdobeSwatchExchangeColorCopyWith<$R2, AdobeSwatchExchangeColor, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeSwatchExchangeColorCopyWithImpl($value, $cast, t);
+          _AdobeSwatchExchangeColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AdobeSwatchExchangeMapper extends ClassMapperBase<AdobeSwatchExchange> {
@@ -333,9 +334,9 @@ mixin AdobeSwatchExchangeMappable {
   }
 
   AdobeSwatchExchangeCopyWith<AdobeSwatchExchange, AdobeSwatchExchange,
-          AdobeSwatchExchange>
-      get copyWith => _AdobeSwatchExchangeCopyWithImpl(
-          this as AdobeSwatchExchange, $identity, $identity);
+      AdobeSwatchExchange> get copyWith => _AdobeSwatchExchangeCopyWithImpl<
+          AdobeSwatchExchange, AdobeSwatchExchange>(
+      this as AdobeSwatchExchange, $identity, $identity);
   @override
   String toString() {
     return AdobeSwatchExchangeMapper.ensureInitialized()
@@ -358,8 +359,8 @@ mixin AdobeSwatchExchangeMappable {
 extension AdobeSwatchExchangeValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeSwatchExchange, $Out> {
   AdobeSwatchExchangeCopyWith<$R, AdobeSwatchExchange, $Out>
-      get $asAdobeSwatchExchange =>
-          $base.as((v, t, t2) => _AdobeSwatchExchangeCopyWithImpl(v, t, t2));
+      get $asAdobeSwatchExchange => $base.as(
+          (v, t, t2) => _AdobeSwatchExchangeCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeSwatchExchangeCopyWith<$R, $In extends AdobeSwatchExchange,
@@ -416,5 +417,5 @@ class _AdobeSwatchExchangeCopyWithImpl<$R, $Out>
   @override
   AdobeSwatchExchangeCopyWith<$R2, AdobeSwatchExchange, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeSwatchExchangeCopyWithImpl($value, $cast, t);
+          _AdobeSwatchExchangeCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

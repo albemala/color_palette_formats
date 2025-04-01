@@ -75,7 +75,8 @@ mixin PaintDotNetPaletteColorMappable {
 
   PaintDotNetPaletteColorCopyWith<PaintDotNetPaletteColor,
           PaintDotNetPaletteColor, PaintDotNetPaletteColor>
-      get copyWith => _PaintDotNetPaletteColorCopyWithImpl(
+      get copyWith => _PaintDotNetPaletteColorCopyWithImpl<
+              PaintDotNetPaletteColor, PaintDotNetPaletteColor>(
           this as PaintDotNetPaletteColor, $identity, $identity);
   @override
   String toString() {
@@ -99,8 +100,8 @@ mixin PaintDotNetPaletteColorMappable {
 extension PaintDotNetPaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, PaintDotNetPaletteColor, $Out> {
   PaintDotNetPaletteColorCopyWith<$R, PaintDotNetPaletteColor, $Out>
-      get $asPaintDotNetPaletteColor => $base
-          .as((v, t, t2) => _PaintDotNetPaletteColorCopyWithImpl(v, t, t2));
+      get $asPaintDotNetPaletteColor => $base.as((v, t, t2) =>
+          _PaintDotNetPaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class PaintDotNetPaletteColorCopyWith<
@@ -139,7 +140,7 @@ class _PaintDotNetPaletteColorCopyWithImpl<$R, $Out>
   @override
   PaintDotNetPaletteColorCopyWith<$R2, PaintDotNetPaletteColor, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _PaintDotNetPaletteColorCopyWithImpl($value, $cast, t);
+          _PaintDotNetPaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class PaintDotNetPaletteMapper extends ClassMapperBase<PaintDotNetPalette> {
@@ -196,8 +197,8 @@ mixin PaintDotNetPaletteMappable {
 
   PaintDotNetPaletteCopyWith<PaintDotNetPalette, PaintDotNetPalette,
           PaintDotNetPalette>
-      get copyWith => _PaintDotNetPaletteCopyWithImpl(
-          this as PaintDotNetPalette, $identity, $identity);
+      get copyWith => _PaintDotNetPaletteCopyWithImpl<PaintDotNetPalette,
+          PaintDotNetPalette>(this as PaintDotNetPalette, $identity, $identity);
   @override
   String toString() {
     return PaintDotNetPaletteMapper.ensureInitialized()
@@ -220,8 +221,8 @@ mixin PaintDotNetPaletteMappable {
 extension PaintDotNetPaletteValueCopy<$R, $Out>
     on ObjectCopyWith<$R, PaintDotNetPalette, $Out> {
   PaintDotNetPaletteCopyWith<$R, PaintDotNetPalette, $Out>
-      get $asPaintDotNetPalette =>
-          $base.as((v, t, t2) => _PaintDotNetPaletteCopyWithImpl(v, t, t2));
+      get $asPaintDotNetPalette => $base.as(
+          (v, t, t2) => _PaintDotNetPaletteCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class PaintDotNetPaletteCopyWith<$R, $In extends PaintDotNetPalette,
@@ -261,5 +262,5 @@ class _PaintDotNetPaletteCopyWithImpl<$R, $Out>
   @override
   PaintDotNetPaletteCopyWith<$R2, PaintDotNetPalette, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _PaintDotNetPaletteCopyWithImpl($value, $cast, t);
+      _PaintDotNetPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

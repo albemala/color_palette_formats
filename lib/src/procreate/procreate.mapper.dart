@@ -128,7 +128,8 @@ mixin ProcreateSwatchesSwatchMappable {
 
   ProcreateSwatchesSwatchCopyWith<ProcreateSwatchesSwatch,
           ProcreateSwatchesSwatch, ProcreateSwatchesSwatch>
-      get copyWith => _ProcreateSwatchesSwatchCopyWithImpl(
+      get copyWith => _ProcreateSwatchesSwatchCopyWithImpl<
+              ProcreateSwatchesSwatch, ProcreateSwatchesSwatch>(
           this as ProcreateSwatchesSwatch, $identity, $identity);
   @override
   String toString() {
@@ -152,8 +153,8 @@ mixin ProcreateSwatchesSwatchMappable {
 extension ProcreateSwatchesSwatchValueCopy<$R, $Out>
     on ObjectCopyWith<$R, ProcreateSwatchesSwatch, $Out> {
   ProcreateSwatchesSwatchCopyWith<$R, ProcreateSwatchesSwatch, $Out>
-      get $asProcreateSwatchesSwatch => $base
-          .as((v, t, t2) => _ProcreateSwatchesSwatchCopyWithImpl(v, t, t2));
+      get $asProcreateSwatchesSwatch => $base.as((v, t, t2) =>
+          _ProcreateSwatchesSwatchCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ProcreateSwatchesSwatchCopyWith<
@@ -204,7 +205,7 @@ class _ProcreateSwatchesSwatchCopyWithImpl<$R, $Out>
   @override
   ProcreateSwatchesSwatchCopyWith<$R2, ProcreateSwatchesSwatch, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _ProcreateSwatchesSwatchCopyWithImpl($value, $cast, t);
+          _ProcreateSwatchesSwatchCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ProcreateSwatchesMapper extends ClassMapperBase<ProcreateSwatches> {
@@ -266,8 +267,9 @@ mixin ProcreateSwatchesMappable {
 
   ProcreateSwatchesCopyWith<ProcreateSwatches, ProcreateSwatches,
           ProcreateSwatches>
-      get copyWith => _ProcreateSwatchesCopyWithImpl(
-          this as ProcreateSwatches, $identity, $identity);
+      get copyWith =>
+          _ProcreateSwatchesCopyWithImpl<ProcreateSwatches, ProcreateSwatches>(
+              this as ProcreateSwatches, $identity, $identity);
   @override
   String toString() {
     return ProcreateSwatchesMapper.ensureInitialized()
@@ -290,8 +292,8 @@ mixin ProcreateSwatchesMappable {
 extension ProcreateSwatchesValueCopy<$R, $Out>
     on ObjectCopyWith<$R, ProcreateSwatches, $Out> {
   ProcreateSwatchesCopyWith<$R, ProcreateSwatches, $Out>
-      get $asProcreateSwatches =>
-          $base.as((v, t, t2) => _ProcreateSwatchesCopyWithImpl(v, t, t2));
+      get $asProcreateSwatches => $base
+          .as((v, t, t2) => _ProcreateSwatchesCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class ProcreateSwatchesCopyWith<$R, $In extends ProcreateSwatches,
@@ -337,5 +339,5 @@ class _ProcreateSwatchesCopyWithImpl<$R, $Out>
   @override
   ProcreateSwatchesCopyWith<$R2, ProcreateSwatches, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _ProcreateSwatchesCopyWithImpl($value, $cast, t);
+      _ProcreateSwatchesCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

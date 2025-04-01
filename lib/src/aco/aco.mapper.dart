@@ -27,17 +27,17 @@ class AdobeColorSwatchColorSpaceMapper
   @override
   AdobeColorSwatchColorSpace decode(dynamic value) {
     switch (value) {
-      case 'rgb':
+      case r'rgb':
         return AdobeColorSwatchColorSpace.rgb;
-      case 'hsb':
+      case r'hsb':
         return AdobeColorSwatchColorSpace.hsb;
-      case 'cmyk':
+      case r'cmyk':
         return AdobeColorSwatchColorSpace.cmyk;
-      case 'lab':
+      case r'lab':
         return AdobeColorSwatchColorSpace.lab;
-      case 'grayscale':
+      case r'grayscale':
         return AdobeColorSwatchColorSpace.grayscale;
-      case 'wideCmyk':
+      case r'wideCmyk':
         return AdobeColorSwatchColorSpace.wideCmyk;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -48,17 +48,17 @@ class AdobeColorSwatchColorSpaceMapper
   dynamic encode(AdobeColorSwatchColorSpace self) {
     switch (self) {
       case AdobeColorSwatchColorSpace.rgb:
-        return 'rgb';
+        return r'rgb';
       case AdobeColorSwatchColorSpace.hsb:
-        return 'hsb';
+        return r'hsb';
       case AdobeColorSwatchColorSpace.cmyk:
-        return 'cmyk';
+        return r'cmyk';
       case AdobeColorSwatchColorSpace.lab:
-        return 'lab';
+        return r'lab';
       case AdobeColorSwatchColorSpace.grayscale:
-        return 'grayscale';
+        return r'grayscale';
       case AdobeColorSwatchColorSpace.wideCmyk:
-        return 'wideCmyk';
+        return r'wideCmyk';
     }
   }
 }
@@ -131,9 +131,9 @@ mixin AdobeColorSwatchColorMappable {
   }
 
   AdobeColorSwatchColorCopyWith<AdobeColorSwatchColor, AdobeColorSwatchColor,
-          AdobeColorSwatchColor>
-      get copyWith => _AdobeColorSwatchColorCopyWithImpl(
-          this as AdobeColorSwatchColor, $identity, $identity);
+      AdobeColorSwatchColor> get copyWith => _AdobeColorSwatchColorCopyWithImpl<
+          AdobeColorSwatchColor, AdobeColorSwatchColor>(
+      this as AdobeColorSwatchColor, $identity, $identity);
   @override
   String toString() {
     return AdobeColorSwatchColorMapper.ensureInitialized()
@@ -156,8 +156,8 @@ mixin AdobeColorSwatchColorMappable {
 extension AdobeColorSwatchColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorSwatchColor, $Out> {
   AdobeColorSwatchColorCopyWith<$R, AdobeColorSwatchColor, $Out>
-      get $asAdobeColorSwatchColor =>
-          $base.as((v, t, t2) => _AdobeColorSwatchColorCopyWithImpl(v, t, t2));
+      get $asAdobeColorSwatchColor => $base.as(
+          (v, t, t2) => _AdobeColorSwatchColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorSwatchColorCopyWith<
@@ -196,7 +196,7 @@ class _AdobeColorSwatchColorCopyWithImpl<$R, $Out>
   @override
   AdobeColorSwatchColorCopyWith<$R2, AdobeColorSwatchColor, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeColorSwatchColorCopyWithImpl($value, $cast, t);
+          _AdobeColorSwatchColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AdobeColorSwatchMapper extends ClassMapperBase<AdobeColorSwatch> {
@@ -256,8 +256,9 @@ mixin AdobeColorSwatchMappable {
   }
 
   AdobeColorSwatchCopyWith<AdobeColorSwatch, AdobeColorSwatch, AdobeColorSwatch>
-      get copyWith => _AdobeColorSwatchCopyWithImpl(
-          this as AdobeColorSwatch, $identity, $identity);
+      get copyWith =>
+          _AdobeColorSwatchCopyWithImpl<AdobeColorSwatch, AdobeColorSwatch>(
+              this as AdobeColorSwatch, $identity, $identity);
   @override
   String toString() {
     return AdobeColorSwatchMapper.ensureInitialized()
@@ -280,8 +281,8 @@ mixin AdobeColorSwatchMappable {
 extension AdobeColorSwatchValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorSwatch, $Out> {
   AdobeColorSwatchCopyWith<$R, AdobeColorSwatch, $Out>
-      get $asAdobeColorSwatch =>
-          $base.as((v, t, t2) => _AdobeColorSwatchCopyWithImpl(v, t, t2));
+      get $asAdobeColorSwatch => $base
+          .as((v, t, t2) => _AdobeColorSwatchCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorSwatchCopyWith<$R, $In extends AdobeColorSwatch, $Out>
@@ -325,5 +326,5 @@ class _AdobeColorSwatchCopyWithImpl<$R, $Out>
   @override
   AdobeColorSwatchCopyWith<$R2, AdobeColorSwatch, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _AdobeColorSwatchCopyWithImpl($value, $cast, t);
+      _AdobeColorSwatchCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

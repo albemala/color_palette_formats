@@ -75,7 +75,9 @@ mixin AdobeColorBookLegacyPrefixPostfixMappable {
 
   AdobeColorBookLegacyPrefixPostfixCopyWith<AdobeColorBookLegacyPrefixPostfix,
           AdobeColorBookLegacyPrefixPostfix, AdobeColorBookLegacyPrefixPostfix>
-      get copyWith => _AdobeColorBookLegacyPrefixPostfixCopyWithImpl(
+      get copyWith => _AdobeColorBookLegacyPrefixPostfixCopyWithImpl<
+              AdobeColorBookLegacyPrefixPostfix,
+              AdobeColorBookLegacyPrefixPostfix>(
           this as AdobeColorBookLegacyPrefixPostfix, $identity, $identity);
   @override
   String toString() {
@@ -101,7 +103,7 @@ extension AdobeColorBookLegacyPrefixPostfixValueCopy<$R, $Out>
   AdobeColorBookLegacyPrefixPostfixCopyWith<$R,
           AdobeColorBookLegacyPrefixPostfix, $Out>
       get $asAdobeColorBookLegacyPrefixPostfix => $base.as((v, t, t2) =>
-          _AdobeColorBookLegacyPrefixPostfixCopyWithImpl(v, t, t2));
+          _AdobeColorBookLegacyPrefixPostfixCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorBookLegacyPrefixPostfixCopyWith<
@@ -142,7 +144,8 @@ class _AdobeColorBookLegacyPrefixPostfixCopyWithImpl<$R, $Out>
   AdobeColorBookLegacyPrefixPostfixCopyWith<$R2,
       AdobeColorBookLegacyPrefixPostfix, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _AdobeColorBookLegacyPrefixPostfixCopyWithImpl($value, $cast, t);
+      _AdobeColorBookLegacyPrefixPostfixCopyWithImpl<$R2, $Out2>(
+          $value, $cast, t);
 }
 
 class AdobeColorBookLegacyFormatMapper
@@ -217,7 +220,8 @@ mixin AdobeColorBookLegacyFormatMappable {
 
   AdobeColorBookLegacyFormatCopyWith<AdobeColorBookLegacyFormat,
           AdobeColorBookLegacyFormat, AdobeColorBookLegacyFormat>
-      get copyWith => _AdobeColorBookLegacyFormatCopyWithImpl(
+      get copyWith => _AdobeColorBookLegacyFormatCopyWithImpl<
+              AdobeColorBookLegacyFormat, AdobeColorBookLegacyFormat>(
           this as AdobeColorBookLegacyFormat, $identity, $identity);
   @override
   String toString() {
@@ -241,8 +245,8 @@ mixin AdobeColorBookLegacyFormatMappable {
 extension AdobeColorBookLegacyFormatValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorBookLegacyFormat, $Out> {
   AdobeColorBookLegacyFormatCopyWith<$R, AdobeColorBookLegacyFormat, $Out>
-      get $asAdobeColorBookLegacyFormat => $base
-          .as((v, t, t2) => _AdobeColorBookLegacyFormatCopyWithImpl(v, t, t2));
+      get $asAdobeColorBookLegacyFormat => $base.as((v, t, t2) =>
+          _AdobeColorBookLegacyFormatCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorBookLegacyFormatCopyWith<
@@ -283,7 +287,7 @@ class _AdobeColorBookLegacyFormatCopyWithImpl<$R, $Out>
   @override
   AdobeColorBookLegacyFormatCopyWith<$R2, AdobeColorBookLegacyFormat, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeColorBookLegacyFormatCopyWithImpl($value, $cast, t);
+          _AdobeColorBookLegacyFormatCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AdobeColorBookLegacyColorMapper
@@ -347,7 +351,8 @@ mixin AdobeColorBookLegacyColorMappable {
 
   AdobeColorBookLegacyColorCopyWith<AdobeColorBookLegacyColor,
           AdobeColorBookLegacyColor, AdobeColorBookLegacyColor>
-      get copyWith => _AdobeColorBookLegacyColorCopyWithImpl(
+      get copyWith => _AdobeColorBookLegacyColorCopyWithImpl<
+              AdobeColorBookLegacyColor, AdobeColorBookLegacyColor>(
           this as AdobeColorBookLegacyColor, $identity, $identity);
   @override
   String toString() {
@@ -371,8 +376,8 @@ mixin AdobeColorBookLegacyColorMappable {
 extension AdobeColorBookLegacyColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorBookLegacyColor, $Out> {
   AdobeColorBookLegacyColorCopyWith<$R, AdobeColorBookLegacyColor, $Out>
-      get $asAdobeColorBookLegacyColor => $base
-          .as((v, t, t2) => _AdobeColorBookLegacyColorCopyWithImpl(v, t, t2));
+      get $asAdobeColorBookLegacyColor => $base.as((v, t, t2) =>
+          _AdobeColorBookLegacyColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorBookLegacyColorCopyWith<
@@ -410,7 +415,7 @@ class _AdobeColorBookLegacyColorCopyWithImpl<$R, $Out>
   @override
   AdobeColorBookLegacyColorCopyWith<$R2, AdobeColorBookLegacyColor, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeColorBookLegacyColorCopyWithImpl($value, $cast, t);
+          _AdobeColorBookLegacyColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AdobeColorBookLegacyMapper extends ClassMapperBase<AdobeColorBookLegacy> {
@@ -493,9 +498,9 @@ mixin AdobeColorBookLegacyMappable {
   }
 
   AdobeColorBookLegacyCopyWith<AdobeColorBookLegacy, AdobeColorBookLegacy,
-          AdobeColorBookLegacy>
-      get copyWith => _AdobeColorBookLegacyCopyWithImpl(
-          this as AdobeColorBookLegacy, $identity, $identity);
+      AdobeColorBookLegacy> get copyWith => _AdobeColorBookLegacyCopyWithImpl<
+          AdobeColorBookLegacy, AdobeColorBookLegacy>(
+      this as AdobeColorBookLegacy, $identity, $identity);
   @override
   String toString() {
     return AdobeColorBookLegacyMapper.ensureInitialized()
@@ -518,8 +523,8 @@ mixin AdobeColorBookLegacyMappable {
 extension AdobeColorBookLegacyValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorBookLegacy, $Out> {
   AdobeColorBookLegacyCopyWith<$R, AdobeColorBookLegacy, $Out>
-      get $asAdobeColorBookLegacy =>
-          $base.as((v, t, t2) => _AdobeColorBookLegacyCopyWithImpl(v, t, t2));
+      get $asAdobeColorBookLegacy => $base.as(
+          (v, t, t2) => _AdobeColorBookLegacyCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorBookLegacyCopyWith<
@@ -611,5 +616,5 @@ class _AdobeColorBookLegacyCopyWithImpl<$R, $Out>
   @override
   AdobeColorBookLegacyCopyWith<$R2, AdobeColorBookLegacy, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeColorBookLegacyCopyWithImpl($value, $cast, t);
+          _AdobeColorBookLegacyCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

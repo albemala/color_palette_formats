@@ -73,8 +73,8 @@ mixin SketchPaletteColorMappable {
 
   SketchPaletteColorCopyWith<SketchPaletteColor, SketchPaletteColor,
           SketchPaletteColor>
-      get copyWith => _SketchPaletteColorCopyWithImpl(
-          this as SketchPaletteColor, $identity, $identity);
+      get copyWith => _SketchPaletteColorCopyWithImpl<SketchPaletteColor,
+          SketchPaletteColor>(this as SketchPaletteColor, $identity, $identity);
   @override
   String toString() {
     return SketchPaletteColorMapper.ensureInitialized()
@@ -97,8 +97,8 @@ mixin SketchPaletteColorMappable {
 extension SketchPaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, SketchPaletteColor, $Out> {
   SketchPaletteColorCopyWith<$R, SketchPaletteColor, $Out>
-      get $asSketchPaletteColor =>
-          $base.as((v, t, t2) => _SketchPaletteColorCopyWithImpl(v, t, t2));
+      get $asSketchPaletteColor => $base.as(
+          (v, t, t2) => _SketchPaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class SketchPaletteColorCopyWith<$R, $In extends SketchPaletteColor,
@@ -134,7 +134,7 @@ class _SketchPaletteColorCopyWithImpl<$R, $Out>
   @override
   SketchPaletteColorCopyWith<$R2, SketchPaletteColor, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _SketchPaletteColorCopyWithImpl($value, $cast, t);
+      _SketchPaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class SketchPaletteMapper extends ClassMapperBase<SketchPalette> {
@@ -200,7 +200,7 @@ mixin SketchPaletteMappable {
   }
 
   SketchPaletteCopyWith<SketchPalette, SketchPalette, SketchPalette>
-      get copyWith => _SketchPaletteCopyWithImpl(
+      get copyWith => _SketchPaletteCopyWithImpl<SketchPalette, SketchPalette>(
           this as SketchPalette, $identity, $identity);
   @override
   String toString() {
@@ -224,7 +224,7 @@ mixin SketchPaletteMappable {
 extension SketchPaletteValueCopy<$R, $Out>
     on ObjectCopyWith<$R, SketchPalette, $Out> {
   SketchPaletteCopyWith<$R, SketchPalette, $Out> get $asSketchPalette =>
-      $base.as((v, t, t2) => _SketchPaletteCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _SketchPaletteCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class SketchPaletteCopyWith<$R, $In extends SketchPalette, $Out>
@@ -276,5 +276,5 @@ class _SketchPaletteCopyWithImpl<$R, $Out>
   @override
   SketchPaletteCopyWith<$R2, SketchPalette, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _SketchPaletteCopyWithImpl($value, $cast, t);
+      _SketchPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

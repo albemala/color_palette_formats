@@ -66,9 +66,9 @@ mixin HomesitePaletteColorMappable {
   }
 
   HomesitePaletteColorCopyWith<HomesitePaletteColor, HomesitePaletteColor,
-          HomesitePaletteColor>
-      get copyWith => _HomesitePaletteColorCopyWithImpl(
-          this as HomesitePaletteColor, $identity, $identity);
+      HomesitePaletteColor> get copyWith => _HomesitePaletteColorCopyWithImpl<
+          HomesitePaletteColor, HomesitePaletteColor>(
+      this as HomesitePaletteColor, $identity, $identity);
   @override
   String toString() {
     return HomesitePaletteColorMapper.ensureInitialized()
@@ -91,8 +91,8 @@ mixin HomesitePaletteColorMappable {
 extension HomesitePaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, HomesitePaletteColor, $Out> {
   HomesitePaletteColorCopyWith<$R, HomesitePaletteColor, $Out>
-      get $asHomesitePaletteColor =>
-          $base.as((v, t, t2) => _HomesitePaletteColorCopyWithImpl(v, t, t2));
+      get $asHomesitePaletteColor => $base.as(
+          (v, t, t2) => _HomesitePaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class HomesitePaletteColorCopyWith<
@@ -127,7 +127,7 @@ class _HomesitePaletteColorCopyWithImpl<$R, $Out>
   @override
   HomesitePaletteColorCopyWith<$R2, HomesitePaletteColor, $Out2>
       $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _HomesitePaletteColorCopyWithImpl($value, $cast, t);
+          _HomesitePaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class HomesitePaletteMapper extends ClassMapperBase<HomesitePalette> {
@@ -187,8 +187,9 @@ mixin HomesitePaletteMappable {
   }
 
   HomesitePaletteCopyWith<HomesitePalette, HomesitePalette, HomesitePalette>
-      get copyWith => _HomesitePaletteCopyWithImpl(
-          this as HomesitePalette, $identity, $identity);
+      get copyWith =>
+          _HomesitePaletteCopyWithImpl<HomesitePalette, HomesitePalette>(
+              this as HomesitePalette, $identity, $identity);
   @override
   String toString() {
     return HomesitePaletteMapper.ensureInitialized()
@@ -211,7 +212,7 @@ mixin HomesitePaletteMappable {
 extension HomesitePaletteValueCopy<$R, $Out>
     on ObjectCopyWith<$R, HomesitePalette, $Out> {
   HomesitePaletteCopyWith<$R, HomesitePalette, $Out> get $asHomesitePalette =>
-      $base.as((v, t, t2) => _HomesitePaletteCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _HomesitePaletteCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class HomesitePaletteCopyWith<$R, $In extends HomesitePalette, $Out>
@@ -255,5 +256,5 @@ class _HomesitePaletteCopyWithImpl<$R, $Out>
   @override
   HomesitePaletteCopyWith<$R2, HomesitePalette, $Out2> $chain<$R2, $Out2>(
           Then<$Out2, $R2> t) =>
-      _HomesitePaletteCopyWithImpl($value, $cast, t);
+      _HomesitePaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
