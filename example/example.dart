@@ -20,7 +20,6 @@ void main() {
   // Example: Reading an ACO (Adobe Color Swatch) file.
   final acoFile = File('path/to/aco1_v1.aco');
   final aco = AdobeColorSwatch.fromBytes(acoFile.readAsBytesSync());
-  assert(aco.version == supportedAdobeColorSwatchVersion);
   assert(aco.colors.length == 52);
 
   // Example: Reading an ACT (Adobe Color Table) file.

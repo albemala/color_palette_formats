@@ -214,22 +214,17 @@ class AdobeColorSwatchMapper extends ClassMapperBase<AdobeColorSwatch> {
   @override
   final String id = 'AdobeColorSwatch';
 
-  static int _$version(AdobeColorSwatch v) => v.version;
-  static const Field<AdobeColorSwatch, int> _f$version =
-      Field('version', _$version);
   static List<AdobeColorSwatchColor> _$colors(AdobeColorSwatch v) => v.colors;
   static const Field<AdobeColorSwatch, List<AdobeColorSwatchColor>> _f$colors =
       Field('colors', _$colors);
 
   @override
   final MappableFields<AdobeColorSwatch> fields = const {
-    #version: _f$version,
     #colors: _f$colors,
   };
 
   static AdobeColorSwatch _instantiate(DecodingData data) {
-    return AdobeColorSwatch(
-        version: data.dec(_f$version), colors: data.dec(_f$colors));
+    return AdobeColorSwatch(colors: data.dec(_f$colors));
   }
 
   @override
@@ -292,7 +287,7 @@ abstract class AdobeColorSwatchCopyWith<$R, $In extends AdobeColorSwatch, $Out>
       AdobeColorSwatchColor,
       AdobeColorSwatchColorCopyWith<$R, AdobeColorSwatchColor,
           AdobeColorSwatchColor>> get colors;
-  $R call({int? version, List<AdobeColorSwatchColor>? colors});
+  $R call({List<AdobeColorSwatchColor>? colors});
   AdobeColorSwatchCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -313,15 +308,11 @@ class _AdobeColorSwatchCopyWithImpl<$R, $Out>
           AdobeColorSwatchColor>> get colors => ListCopyWith(
       $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
   @override
-  $R call({int? version, List<AdobeColorSwatchColor>? colors}) =>
-      $apply(FieldCopyWithData({
-        if (version != null) #version: version,
-        if (colors != null) #colors: colors
-      }));
+  $R call({List<AdobeColorSwatchColor>? colors}) =>
+      $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
   @override
-  AdobeColorSwatch $make(CopyWithData data) => AdobeColorSwatch(
-      version: data.get(#version, or: $value.version),
-      colors: data.get(#colors, or: $value.colors));
+  AdobeColorSwatch $make(CopyWithData data) =>
+      AdobeColorSwatch(colors: data.get(#colors, or: $value.colors));
 
   @override
   AdobeColorSwatchCopyWith<$R2, AdobeColorSwatch, $Out2> $chain<$R2, $Out2>(
