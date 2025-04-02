@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   test('read paint-dot-net file', () {
-    final paintDotNetFile1 = File('./assets/paint-dot-net1.txt');
+    final paintDotNetFile1 = File('./assets/paint-dot-net/paint-dot-net1.txt');
     final paintDotNet1 = PaintDotNetPalette.fromBytes(
       paintDotNetFile1.readAsBytesSync(),
     );

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   test('read riff file', () {
-    final riffFile1 = File('./assets/riff1_v3.pal');
+    final riffFile1 = File('./assets/riff/riff1_v3.pal');
     final riff1 = ResourceInterchangeFileFormat.fromBytes(
       riffFile1.readAsBytesSync(),
     );
@@ -13,7 +13,7 @@ Future<void> main() async {
 
     expect(riff1.colors.length, equals(16));
 
-    final riffFile2 = File('./assets/riff2_v3.pal');
+    final riffFile2 = File('./assets/riff/riff2_v3.pal');
     final riff2 = ResourceInterchangeFileFormat.fromBytes(
       riffFile2.readAsBytesSync(),
     );

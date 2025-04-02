@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   test('read procreate file', () {
-    final procreateFile1 = File('./assets/procreate1.swatches');
+    final procreateFile1 = File('./assets/procreate/procreate1.swatches');
     final procreate1 = decodeProcreateSwatches(
       procreateFile1.readAsBytesSync(),
     );
@@ -13,7 +13,7 @@ Future<void> main() async {
 
     expect(procreate1.first.swatches.length, equals(30));
 
-    final procreateFile2 = File('./assets/procreate2.swatches');
+    final procreateFile2 = File('./assets/procreate/procreate2.swatches');
     final procreate2 = decodeProcreateSwatches(
       procreateFile2.readAsBytesSync(),
     );

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   test('read ase1_v1.0.ase file', () {
-    const filePath = './assets/ase1_v1.0.ase';
+    const filePath = './assets/ase/ase1_v1.0.ase';
     final bytes = File(filePath).readAsBytesSync();
     final ase = AdobeSwatchExchange.fromBytes(bytes);
 
@@ -14,7 +14,7 @@ Future<void> main() async {
   });
 
   test('read ase2_v1.0.ase file', () {
-    const filePath = './assets/ase2_v1.0.ase';
+    const filePath = './assets/ase/ase2_v1.0.ase';
     final bytes = File(filePath).readAsBytesSync();
     final ase = AdobeSwatchExchange.fromBytes(bytes);
 
@@ -23,7 +23,7 @@ Future<void> main() async {
   });
 
   test('read blue.ase file', () {
-    const filePath = './assets/blue.ase';
+    const filePath = './assets/ase/blue.ase';
     final bytes = File(filePath).readAsBytesSync();
     final ase = AdobeSwatchExchange.fromBytes(bytes);
 

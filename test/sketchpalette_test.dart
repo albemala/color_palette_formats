@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read sketchpalette file', () {
     final sketchpaletteFile1 = File(
-      './assets/sketchpalette1_v1.4.sketchpalette',
+      './assets/sketchpalette/sketchpalette1_v1.4.sketchpalette',
     );
     final sketchpalette1 = SketchPalette.fromBytes(
       sketchpaletteFile1.readAsBytesSync(),
@@ -21,7 +21,7 @@ Future<void> main() async {
     expect(sketchpalette1.colors.length, equals(6));
 
     final sketchpaletteFile2 = File(
-      './assets/sketchpalette2_v1.4.sketchpalette',
+      './assets/sketchpalette/sketchpalette2_v1.4.sketchpalette',
     );
     final sketchpalette2 = SketchPalette.fromBytes(
       sketchpaletteFile2.readAsBytesSync(),

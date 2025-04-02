@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   test('read pal file', () {
-    final palFile1 = File('./assets/pal1_v0100.pal');
+    final palFile1 = File('./assets/jasc-pal/pal1_v0100.pal');
     final pal1 = JascPalette.fromBytes(palFile1.readAsBytesSync());
     // print(pal1.toJson());
 

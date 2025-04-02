@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   test('read acbl file', () {
-    final acblFile = File('./assets/ACBL.acbl');
+    final acblFile = File('./assets/acbl/ACBL.acbl');
     final acbl = AdobeColorBookLegacy.fromBytes(acblFile.readAsBytesSync());
 
     expect(acbl.version, equals(1));
