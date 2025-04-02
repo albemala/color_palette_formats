@@ -166,9 +166,6 @@ class ResourceInterchangeFileFormatMapper
   @override
   final String id = 'ResourceInterchangeFileFormat';
 
-  static int _$version(ResourceInterchangeFileFormat v) => v.version;
-  static const Field<ResourceInterchangeFileFormat, int> _f$version =
-      Field('version', _$version);
   static List<ResourceInterchangeFileFormatColor> _$colors(
           ResourceInterchangeFileFormat v) =>
       v.colors;
@@ -178,13 +175,11 @@ class ResourceInterchangeFileFormatMapper
 
   @override
   final MappableFields<ResourceInterchangeFileFormat> fields = const {
-    #version: _f$version,
     #colors: _f$colors,
   };
 
   static ResourceInterchangeFileFormat _instantiate(DecodingData data) {
-    return ResourceInterchangeFileFormat(
-        version: data.dec(_f$version), colors: data.dec(_f$colors));
+    return ResourceInterchangeFileFormat(colors: data.dec(_f$colors));
   }
 
   @override
@@ -254,7 +249,7 @@ abstract class ResourceInterchangeFileFormatCopyWith<
           $R,
           ResourceInterchangeFileFormatColor,
           ResourceInterchangeFileFormatColor>> get colors;
-  $R call({int? version, List<ResourceInterchangeFileFormatColor>? colors});
+  $R call({List<ResourceInterchangeFileFormatColor>? colors});
   ResourceInterchangeFileFormatCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -280,15 +275,11 @@ class _ResourceInterchangeFileFormatCopyWithImpl<$R, $Out>
           ResourceInterchangeFileFormatColor>> get colors => ListCopyWith(
       $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
   @override
-  $R call({int? version, List<ResourceInterchangeFileFormatColor>? colors}) =>
-      $apply(FieldCopyWithData({
-        if (version != null) #version: version,
-        if (colors != null) #colors: colors
-      }));
+  $R call({List<ResourceInterchangeFileFormatColor>? colors}) =>
+      $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
   @override
   ResourceInterchangeFileFormat $make(CopyWithData data) =>
       ResourceInterchangeFileFormat(
-          version: data.get(#version, or: $value.version),
           colors: data.get(#colors, or: $value.colors));
 
   @override

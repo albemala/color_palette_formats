@@ -65,7 +65,6 @@ void main() {
   final riff = ResourceInterchangeFileFormat.fromBytes(
     riffFile.readAsBytesSync(),
   );
-  assert(riff.version == supportedResourceInterchangeFileFormatVersion);
   assert(riff.colors.length == 16);
 
   // Example: Reading a Sketch Palette file.

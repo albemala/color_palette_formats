@@ -21,7 +21,7 @@ List<int> _encode(ResourceInterchangeFileFormat riff) {
         riff.colors.length * 8 * 4, // colors
   );
   // version
-  buffer.writeUint16(riff.version, Endian.big);
+  buffer.writeUint16(ResourceInterchangeFileFormat.version, Endian.big);
   // colors count
   buffer.writeUint16(riff.colors.length);
   // colors

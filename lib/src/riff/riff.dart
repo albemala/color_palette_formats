@@ -15,8 +15,6 @@ part 'encode.dart';
 * - http://www.selapa.net/swatches/colors/fileformats.php
 */
 
-const supportedResourceInterchangeFileFormatVersion = 3;
-
 @MappableClass()
 class ResourceInterchangeFileFormatColor
     with ResourceInterchangeFileFormatColorMappable {
@@ -38,13 +36,11 @@ class ResourceInterchangeFileFormatColor
 
 @MappableClass()
 class ResourceInterchangeFileFormat with ResourceInterchangeFileFormatMappable {
-  final int version;
+  static const version = 3;
+
   final List<ResourceInterchangeFileFormatColor> colors;
 
-  ResourceInterchangeFileFormat({
-    required this.version,
-    required this.colors,
-  });
+  ResourceInterchangeFileFormat({required this.colors});
 
   factory ResourceInterchangeFileFormat.fromBytes(List<int> bytes) {
     return _decode(bytes);
