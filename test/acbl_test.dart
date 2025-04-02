@@ -64,7 +64,7 @@ Future<void> main() async {
 
     // Write to temp file
     final acblFile = File('./test/test.acbl');
-    acblFile.writeAsStringSync(acbl.toBytes());
+    acblFile.writeAsBytesSync(acbl.toBytes());
 
     // Read back and verify
     final decodedAcbl = AdobeColorBookLegacy.fromBytes(

@@ -1,6 +1,6 @@
 part of 'acbl.dart';
 
-String _encode(AdobeColorBookLegacy book) {
+List<int> _encode(AdobeColorBookLegacy book) {
   final builder = XmlBuilder();
   builder.processing('xml', 'version="1.0" encoding="UTF-8"');
 
@@ -36,7 +36,7 @@ String _encode(AdobeColorBookLegacy book) {
   );
 
   // Use pretty: true for readability, matching original behavior.
-  return builder.buildDocument().toXmlString(pretty: true);
+  return utf8.encode(builder.buildDocument().toXmlString(pretty: true));
 }
 
 // Generic function to build a list of elements within a container

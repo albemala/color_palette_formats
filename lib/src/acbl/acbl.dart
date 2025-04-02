@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:xml/xml.dart';
@@ -71,7 +72,7 @@ class AdobeColorBookLegacy with AdobeColorBookLegacyMappable {
     return _decode(bytes);
   }
 
-  String toBytes() {
+  List<int> toBytes() {
     return _encode(this);
   }
 }
