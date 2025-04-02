@@ -5,10 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   test('read sketchpalette file', () {
-    final sketchpaletteFile1 =
-        File('./assets/sketchpalette1_v1.4.sketchpalette');
-    final sketchpalette1 =
-        SketchPalette.fromBytes(sketchpaletteFile1.readAsBytesSync());
+    final sketchpaletteFile1 = File(
+      './assets/sketchpalette1_v1.4.sketchpalette',
+    );
+    final sketchpalette1 = SketchPalette.fromBytes(
+      sketchpaletteFile1.readAsBytesSync(),
+    );
     // print(sketchpalette1.toJson());
 
     expect(
@@ -18,10 +20,12 @@ Future<void> main() async {
     expect(sketchpalette1.pluginVersion, equals(supportedSketchPaletteVersion));
     expect(sketchpalette1.colors.length, equals(6));
 
-    final sketchpaletteFile2 =
-        File('./assets/sketchpalette2_v1.4.sketchpalette');
-    final sketchpalette2 =
-        SketchPalette.fromBytes(sketchpaletteFile2.readAsBytesSync());
+    final sketchpaletteFile2 = File(
+      './assets/sketchpalette2_v1.4.sketchpalette',
+    );
+    final sketchpalette2 = SketchPalette.fromBytes(
+      sketchpaletteFile2.readAsBytesSync(),
+    );
     // print(sketchpalette2.toJson());
 
     expect(
@@ -37,24 +41,9 @@ Future<void> main() async {
       compatibleVersion: supportedSketchPaletteVersion,
       pluginVersion: supportedSketchPaletteVersion,
       colors: [
-        SketchPaletteColor(
-          red: 1,
-          green: 0,
-          blue: 0,
-          alpha: 1,
-        ),
-        SketchPaletteColor(
-          red: 0,
-          green: 1,
-          blue: 0,
-          alpha: 1,
-        ),
-        SketchPaletteColor(
-          red: 0,
-          green: 0,
-          blue: 1,
-          alpha: 1,
-        ),
+        SketchPaletteColor(red: 1, green: 0, blue: 0, alpha: 1),
+        SketchPaletteColor(red: 0, green: 1, blue: 0, alpha: 1),
+        SketchPaletteColor(red: 0, green: 0, blue: 1, alpha: 1),
       ],
     );
 
@@ -63,8 +52,9 @@ Future<void> main() async {
     sketchPaletteFile.writeAsBytesSync(sketchPalette.toBytes());
     // print(sketchPaletteFile.readAsStringSync());
 
-    final decodedSketchPalette =
-        SketchPalette.fromBytes(sketchPaletteFile.readAsBytesSync());
+    final decodedSketchPalette = SketchPalette.fromBytes(
+      sketchPaletteFile.readAsBytesSync(),
+    );
     // print(decodedSketchPalette.toJson());
 
     expect(

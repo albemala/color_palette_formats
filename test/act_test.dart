@@ -26,14 +26,12 @@ Future<void> main() async {
 
   test('write act file', () async {
     final act = AdobeColorTable(
-      colors: List.generate(
-        adobeColorTableColorsCount,
-        (index) => AdobeColorTableColor(
-          green: index,
-          blue: index,
-          red: index,
-        ),
-      ).toList(),
+      colors:
+          List.generate(
+            adobeColorTableColorsCount,
+            (index) =>
+                AdobeColorTableColor(green: index, blue: index, red: index),
+          ).toList(),
     );
 
     // write to temp file

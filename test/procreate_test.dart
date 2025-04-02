@@ -6,15 +6,17 @@ import 'package:flutter_test/flutter_test.dart';
 Future<void> main() async {
   test('read procreate file', () {
     final procreateFile1 = File('./assets/procreate1.swatches');
-    final procreate1 =
-        decodeProcreateSwatches(procreateFile1.readAsBytesSync());
+    final procreate1 = decodeProcreateSwatches(
+      procreateFile1.readAsBytesSync(),
+    );
     // print(procreate1.first.toJson());
 
     expect(procreate1.first.swatches.length, equals(30));
 
     final procreateFile2 = File('./assets/procreate2.swatches');
-    final procreate2 =
-        decodeProcreateSwatches(procreateFile2.readAsBytesSync());
+    final procreate2 = decodeProcreateSwatches(
+      procreateFile2.readAsBytesSync(),
+    );
     // print(procreate2.first.toJson());
 
     expect(procreate2.first.swatches.length, equals(30));
@@ -52,8 +54,9 @@ Future<void> main() async {
     final procreateFile = File('./test/test.procreate');
     procreateFile.writeAsBytesSync(encodeProcreateSwatches([procreate]));
 
-    final decodedProcreate =
-        decodeProcreateSwatches(procreateFile.readAsBytesSync());
+    final decodedProcreate = decodeProcreateSwatches(
+      procreateFile.readAsBytesSync(),
+    );
     // print(decodedProcreate.first.toJson());
 
     expect(decodedProcreate.first.swatches.length, equals(3));

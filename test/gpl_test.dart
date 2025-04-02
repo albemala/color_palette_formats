@@ -27,24 +27,9 @@ Future<void> main() async {
       name: 'gpl',
       comments: ' test',
       colors: [
-        GimpPaletteColor(
-          name: 'red',
-          red: 255,
-          green: 0,
-          blue: 0,
-        ),
-        GimpPaletteColor(
-          name: '',
-          red: 0,
-          green: 255,
-          blue: 255,
-        ),
-        GimpPaletteColor(
-          name: 'gray',
-          red: 128,
-          green: 128,
-          blue: 128,
-        ),
+        GimpPaletteColor(name: 'red', red: 255, green: 0, blue: 0),
+        GimpPaletteColor(name: '', red: 0, green: 255, blue: 255),
+        GimpPaletteColor(name: 'gray', red: 128, green: 128, blue: 128),
       ],
     );
     // print(gpl.toJson());
