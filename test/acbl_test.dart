@@ -11,26 +11,26 @@ Future<void> main() async {
 
     expect(acbl.version, equals(1));
     expect(acbl.bookId, equals(3002));
-    
+
     // Test prefix/postfix pairs
     expect(acbl.prefixPostfixPairs.length, equals(2));
     expect(acbl.prefixPostfixPairs[0].prefix, equals('PANTONE '));
     expect(acbl.prefixPostfixPairs[0].postfix, equals(' C'));
     expect(acbl.prefixPostfixPairs[1].id, equals('LegacyCVC'));
-    
+
     // Test formats
     expect(acbl.formats.length, equals(1));
     expect(acbl.formats[0].colorSpace, equals('CMYK'));
     expect(acbl.formats[0].encoding, equals('Float'));
     expect(acbl.formats[0].channels, equals(4));
-    
+
     // Test colors
     expect(acbl.colors.length, equals(11));
-    
+
     // Test specific color values
     expect(acbl.colors[0].name, equals('Yellow'));
     expect(listEquals(acbl.colors[0].values, [0, 0.01, 1, 0]), isTrue);
-    
+
     expect(acbl.colors[10].name, equals('8321'));
     expect(listEquals(acbl.colors[10].values, [0.2, 0, 0.3, 0.25]), isTrue);
   });
@@ -67,18 +67,20 @@ Future<void> main() async {
     acblFile.writeAsStringSync(acbl.toBytes());
 
     // Read back and verify
-    final decodedAcbl = AdobeColorBookLegacy.fromBytes(acblFile.readAsBytesSync());
+    final decodedAcbl = AdobeColorBookLegacy.fromBytes(
+      acblFile.readAsBytesSync(),
+    );
 
     expect(decodedAcbl.version, equals(acbl.version));
     expect(decodedAcbl.bookId, equals(acbl.bookId));
-    
+
     expect(decodedAcbl.prefixPostfixPairs.length, equals(1));
     expect(decodedAcbl.prefixPostfixPairs[0].prefix, equals('TEST '));
     expect(decodedAcbl.prefixPostfixPairs[0].postfix, equals(' X'));
-    
+
     expect(decodedAcbl.formats.length, equals(1));
     expect(decodedAcbl.formats[0].colorSpace, equals('CMYK'));
-    
+
     expect(decodedAcbl.colors.length, equals(2));
     expect(decodedAcbl.colors[0].name, equals('Test Color 1'));
     expect(
