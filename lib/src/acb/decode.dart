@@ -54,10 +54,10 @@ Unsupported version $version. Supported version: ${AdobeColorBook.version}''');
 
 /// Reads the metadata of an Adobe Color Book
 _AcbMetadata _readMetadata(ByteDataReader buffer) {
-  final title = _readPascalUtf16String(buffer);
-  final prefix = _readPascalUtf16String(buffer);
-  final suffix = _readPascalUtf16String(buffer);
-  final description = _readPascalUtf16String(buffer);
+  final title = readPascalUtf16String(buffer);
+  final prefix = readPascalUtf16String(buffer);
+  final suffix = readPascalUtf16String(buffer);
+  final description = readPascalUtf16String(buffer);
 
   return _AcbMetadata(
     title: title,
@@ -83,12 +83,6 @@ _AcbProperties _readProperties(ByteDataReader buffer) {
   );
 }
 
-/// Reads a Pascal-style UTF-16 string (length-prefixed)
-String _readPascalUtf16String(ByteDataReader buffer) {
-  final length = buffer.readUint32();
-  return readUtf16String(buffer, length);
-}
-
 /// Reads all colors from the Adobe Color Book
 List<AdobeColorBookColor> _readColors(
   ByteDataReader buffer,
@@ -108,7 +102,7 @@ AdobeColorBookColor _readSingleColor(
   AdobeColorBookColorSpace colorSpace,
   int channels,
 ) {
-  final colorName = _readPascalUtf16String(buffer);
+  final colorName = readPascalUtf16String(buffer);
   final colorCode = readUtf8String(buffer, 6);
 
   final rawValues = buffer.read(channels);

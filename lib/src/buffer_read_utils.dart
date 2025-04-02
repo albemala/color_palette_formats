@@ -1,5 +1,11 @@
 import 'package:buffer/buffer.dart';
 
+/// Reads a Pascal-style UTF-16 string (length-prefixed)
+String readPascalUtf16String(ByteDataReader buffer) {
+  final length = buffer.readUint32();
+  return readUtf16String(buffer, length);
+}
+
 String readUtf16String(
   ByteDataReader buffer,
   int length, {
@@ -24,23 +30,4 @@ String readUtf8String(ByteDataReader buffer, int length) {
     string.writeCharCode(buffer.readUint8());
   }
   return string.toString();
-}
-
-void writeUtf16String(
-  ByteDataWriter writer,
-  String string, {
-  bool includeTerminator = false,
-}) {
-  for (var i = 0; i < string.length; i++) {
-    writer.writeUint16(string.codeUnitAt(i));
-  }
-  if (includeTerminator) {
-    writer.writeUint16(0x0000);
-  }
-}
-
-void writeUtf8String(ByteDataWriter buffer, String string) {
-  for (var i = 0; i < string.length; i++) {
-    buffer.writeUint8(string.codeUnitAt(i));
-  }
 }
