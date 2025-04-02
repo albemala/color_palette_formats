@@ -96,6 +96,11 @@ void main() {
     ScribusPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<StarOfficeColorTable>(
+    ['assets/soc/cmyk.soc', 'assets/soc/gallery.soc', 'assets/soc/html.soc'],
+    StarOfficeColorTable.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(
