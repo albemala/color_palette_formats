@@ -8,7 +8,6 @@ void main() {
   // Example: Reading an ACB (Adobe Color Book) file.
   final acbFile = File('path/to/acb1_v1.acb');
   final acb = AdobeColorBook.fromBytes(acbFile.readAsBytesSync());
-  assert(acb.version == supportedAdobeColorBookVersion);
   assert(acb.colors.length == 300);
 
   // Example: Reading an ACBL (Adobe Color Book Legacy) file.
@@ -55,8 +54,9 @@ void main() {
 
   // Example: Reading a Paint.NET Palette file.
   final paintDotNetFile = File('path/to/paint-dot-net1.txt');
-  final paintDotNet =
-      PaintDotNetPalette.fromBytes(paintDotNetFile.readAsBytesSync());
+  final paintDotNet = PaintDotNetPalette.fromBytes(
+    paintDotNetFile.readAsBytesSync(),
+  );
   assert(paintDotNet.colors.length == 96);
 
   // Example: Reading a Procreate Swatches file.
@@ -66,15 +66,17 @@ void main() {
 
   // Example: Reading a RIFF (Resource Interchange File Format) Palette file.
   final riffFile = File('path/to/riff1_v3.pal');
-  final riff =
-      ResourceInterchangeFileFormat.fromBytes(riffFile.readAsBytesSync());
+  final riff = ResourceInterchangeFileFormat.fromBytes(
+    riffFile.readAsBytesSync(),
+  );
   assert(riff.version == supportedResourceInterchangeFileFormatVersion);
   assert(riff.colors.length == 16);
 
   // Example: Reading a Sketch Palette file.
   final sketchpaletteFile = File('path/to/sketchpalette1_v1.4.sketchpalette');
-  final sketchpalette =
-      SketchPalette.fromBytes(sketchpaletteFile.readAsBytesSync());
+  final sketchpalette = SketchPalette.fromBytes(
+    sketchpaletteFile.readAsBytesSync(),
+  );
   assert(sketchpalette.compatibleVersion == supportedSketchPaletteVersion);
   assert(sketchpalette.pluginVersion == supportedSketchPaletteVersion);
   assert(sketchpalette.colors.length == 6);

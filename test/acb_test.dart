@@ -8,12 +8,10 @@ Future<void> main() async {
     final acbFile1 = File('./assets/acb1_v1.acb');
     final acb1 = AdobeColorBook.fromBytes(acbFile1.readAsBytesSync());
     // print(acb1.toJson());
-
-    expect(acb1.version, equals(supportedAdobeColorBookVersion));
     expect(acb1.colors.length, equals(300));
   });
 
-/*
+  /*
 test('write acb file', () async {
     final acb = AdobeColorSwatch(
       version: supportedAdobeColorSwatchVersion,

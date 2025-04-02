@@ -48,7 +48,7 @@ class AdobeColorBookColorSpaceMapper
       case r'hks':
         return AdobeColorBookColorSpace.hks;
       default:
-        throw MapperException.unknownEnumValue(value);
+        return AdobeColorBookColorSpace.values[0];
     }
   }
 
@@ -233,9 +233,6 @@ class AdobeColorBookMapper extends ClassMapperBase<AdobeColorBook> {
   @override
   final String id = 'AdobeColorBook';
 
-  static int _$version(AdobeColorBook v) => v.version;
-  static const Field<AdobeColorBook, int> _f$version =
-      Field('version', _$version);
   static int _$identifier(AdobeColorBook v) => v.identifier;
   static const Field<AdobeColorBook, int> _f$identifier =
       Field('identifier', _$identifier);
@@ -269,7 +266,6 @@ class AdobeColorBookMapper extends ClassMapperBase<AdobeColorBook> {
 
   @override
   final MappableFields<AdobeColorBook> fields = const {
-    #version: _f$version,
     #identifier: _f$identifier,
     #title: _f$title,
     #description: _f$description,
@@ -284,7 +280,6 @@ class AdobeColorBookMapper extends ClassMapperBase<AdobeColorBook> {
 
   static AdobeColorBook _instantiate(DecodingData data) {
     return AdobeColorBook(
-        version: data.dec(_f$version),
         identifier: data.dec(_f$identifier),
         title: data.dec(_f$title),
         description: data.dec(_f$description),
@@ -357,8 +352,7 @@ abstract class AdobeColorBookCopyWith<$R, $In extends AdobeColorBook, $Out>
       AdobeColorBookColorCopyWith<$R, AdobeColorBookColor,
           AdobeColorBookColor>> get colors;
   $R call(
-      {int? version,
-      int? identifier,
+      {int? identifier,
       String? title,
       String? description,
       String? colorNamePrefix,
@@ -389,8 +383,7 @@ class _AdobeColorBookCopyWithImpl<$R, $Out>
       $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
   @override
   $R call(
-          {int? version,
-          int? identifier,
+          {int? identifier,
           String? title,
           String? description,
           String? colorNamePrefix,
@@ -401,7 +394,6 @@ class _AdobeColorBookCopyWithImpl<$R, $Out>
           AdobeColorBookColorSpace? colorSpace,
           List<AdobeColorBookColor>? colors}) =>
       $apply(FieldCopyWithData({
-        if (version != null) #version: version,
         if (identifier != null) #identifier: identifier,
         if (title != null) #title: title,
         if (description != null) #description: description,
@@ -415,7 +407,6 @@ class _AdobeColorBookCopyWithImpl<$R, $Out>
       }));
   @override
   AdobeColorBook $make(CopyWithData data) => AdobeColorBook(
-      version: data.get(#version, or: $value.version),
       identifier: data.get(#identifier, or: $value.identifier),
       title: data.get(#title, or: $value.title),
       description: data.get(#description, or: $value.description),

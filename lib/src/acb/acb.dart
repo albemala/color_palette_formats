@@ -5,6 +5,8 @@ import 'package:dart_mappable/dart_mappable.dart';
 part 'acb.mapper.dart';
 part 'decode.dart';
 
+typedef ColorValueConverter = List<int> Function(List<int> rawValues);
+
 /*
 * Adobe Color Book (ACB) (.acb)
 *
@@ -13,20 +15,37 @@ part 'decode.dart';
 * - https://magnetiq.ca/pages/acb-spec/
 */
 
-const supportedAdobeColorBookVersion = 1;
-
-@MappableEnum()
+@MappableEnum(defaultValue: AdobeColorBookColorSpace.rgb)
 enum AdobeColorBookColorSpace {
-  rgb,
-  hsb,
-  cmyk,
-  pantone,
-  focoltone,
-  trumatch,
-  toyo,
-  lab,
-  grayscale,
-  hks,
+  rgb(value: 0, channels: 3, convertColorValues: _convertRgbValues),
+  hsb(value: 1, channels: 3, convertColorValues: _convertHsbValues),
+  cmyk(value: 2, channels: 4, convertColorValues: _convertCmykValues),
+  pantone(value: 3, channels: 3, convertColorValues: _unsupportedConversion),
+  focoltone(value: 4, channels: 3, convertColorValues: _unsupportedConversion),
+  trumatch(value: 5, channels: 3, convertColorValues: _unsupportedConversion),
+  toyo(value: 6, channels: 3, convertColorValues: _unsupportedConversion),
+  lab(value: 7, channels: 3, convertColorValues: _convertLabValues),
+  grayscale(value: 8, channels: 1, convertColorValues: _unsupportedConversion),
+  hks(value: 10, channels: 3, convertColorValues: _unsupportedConversion);
+
+  final int value;
+  final int channels;
+  final ColorValueConverter convertColorValues;
+
+  const AdobeColorBookColorSpace({
+    required this.value,
+    required this.channels,
+    required this.convertColorValues,
+  });
+
+  static AdobeColorBookColorSpace fromValue(int value) {
+    return values.firstWhere(
+      (e) => e.value == value,
+      orElse: () {
+        throw FormatException('Unsupported color space value: $value');
+      },
+    );
+  }
 }
 
 @MappableClass()
@@ -49,7 +68,9 @@ class AdobeColorBookColor with AdobeColorBookColorMappable {
 
 @MappableClass()
 class AdobeColorBook with AdobeColorBookMappable {
-  final int version;
+  static const fileSignature = '8BCB';
+  static const version = 1;
+
   final int identifier;
   final String title;
   final String description;
@@ -62,7 +83,6 @@ class AdobeColorBook with AdobeColorBookMappable {
   final List<AdobeColorBookColor> colors;
 
   AdobeColorBook({
-    required this.version,
     required this.identifier,
     required this.title,
     required this.description,
@@ -80,41 +100,34 @@ class AdobeColorBook with AdobeColorBookMappable {
   }
 }
 
-// TODO encode
+/// Represents the metadata of an Adobe Color Book
+class _AcbMetadata {
+  final String title;
+  final String prefix;
+  final String suffix;
+  final String description;
 
-const _fileSignature = '8BCB';
-
-const _colorSpaceRgb = 0;
-const _colorSpaceHsb = 1;
-const _colorSpaceCmyk = 2;
-const _colorSpacePantone = 3;
-const _colorSpaceFocoltone = 4;
-const _colorSpaceTrumatch = 5;
-const _colorSpaceToyo = 6;
-const _colorSpaceLab = 7;
-const _colorSpaceGrayscale = 8;
-const _colorSpaceHks = 10;
-
-int _getChannels(int colorSpace) {
-  switch (colorSpace) {
-    case _colorSpaceCmyk:
-      return 4;
-    case _colorSpaceGrayscale:
-      return 1;
-    default:
-      return 3;
-  }
+  _AcbMetadata({
+    required this.title,
+    required this.prefix,
+    required this.suffix,
+    required this.description,
+  });
 }
 
-const _readColorSpace = {
-  _colorSpaceRgb: AdobeColorBookColorSpace.rgb,
-  _colorSpaceHsb: AdobeColorBookColorSpace.hsb,
-  _colorSpaceCmyk: AdobeColorBookColorSpace.cmyk,
-  _colorSpacePantone: AdobeColorBookColorSpace.pantone,
-  _colorSpaceFocoltone: AdobeColorBookColorSpace.focoltone,
-  _colorSpaceTrumatch: AdobeColorBookColorSpace.trumatch,
-  _colorSpaceToyo: AdobeColorBookColorSpace.toyo,
-  _colorSpaceLab: AdobeColorBookColorSpace.lab,
-  _colorSpaceGrayscale: AdobeColorBookColorSpace.grayscale,
-  _colorSpaceHks: AdobeColorBookColorSpace.hks,
-};
+/// Represents the properties of an Adobe Color Book
+class _AcbProperties {
+  final int colorCount;
+  final int pageSize;
+  final int pageSelectorOffset;
+  final AdobeColorBookColorSpace colorSpace;
+
+  _AcbProperties({
+    required this.colorCount,
+    required this.pageSize,
+    required this.pageSelectorOffset,
+    required this.colorSpace,
+  });
+}
+
+// TODO encode
