@@ -41,9 +41,9 @@ void main() {
     [
       'assets/gpl/gpl1.gimp',
       'assets/gpl/gpl2.gpl',
-      // 'assets/gpl/cromatica.gpl',
-      // 'assets/gpl/shido-10.gpl',
-      // 'assets/gpl/sunfall.gpl',
+      'assets/gpl/cromatica.gpl',
+      'assets/gpl/shido-10.gpl',
+      'assets/gpl/sunfall.gpl',
     ],
     GimpPalette.fromBytes,
     (e) => e.toMap(),

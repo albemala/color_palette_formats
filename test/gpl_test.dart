@@ -9,23 +9,21 @@ Future<void> main() async {
     final gpl1 = GimpPalette.fromBytes(gplFile1.readAsBytesSync());
     // print(gpl1.toJson());
 
-    expect(gpl1.name, equals('Visibone2'));
-    expect(gpl1.columns, equals(16));
+    expect(gpl1.info.first, equals('Name: Visibone2'));
     expect(gpl1.colors.length, equals(256));
 
     final gplFile2 = File('./assets/gpl/gpl2.gpl');
     final gpl2 = GimpPalette.fromBytes(gplFile2.readAsBytesSync());
     // print(gpl2.toJson());
 
-    expect(gpl2.name, equals('Oxygen'));
-    expect(gpl2.columns, equals(1));
+    expect(gpl2.info.first, equals('Name: Oxygen'));
     expect(gpl2.colors.length, equals(126));
   });
 
   test('write gpl file', () async {
     final gpl = GimpPalette(
-      name: 'gpl',
-      comments: ' test',
+      info: ['Name: Test Gimp Palette'],
+      comments: ['Comment: Test comment'],
       colors: [
         GimpPaletteColor(name: 'red', red: 255, green: 0, blue: 0),
         GimpPaletteColor(name: '', red: 0, green: 255, blue: 255),
@@ -42,9 +40,8 @@ Future<void> main() async {
     final decodedGpl = GimpPalette.fromBytes(gplFile.readAsBytesSync());
     // print(decodedGpl.toJson());
 
-    expect(decodedGpl.name, equals('gpl'));
-    expect(decodedGpl.columns, equals(1));
-    expect(decodedGpl.comments, equals(' test\n'));
+    expect(decodedGpl.info.first, equals('Name: Test Gimp Palette'));
+    expect(decodedGpl.comments, equals(['Comment: Test comment']));
     expect(decodedGpl.colors.length, equals(3));
 
     expect(decodedGpl.colors[0].name, equals('red'));

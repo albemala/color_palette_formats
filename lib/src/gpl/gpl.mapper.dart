@@ -149,32 +149,28 @@ class GimpPaletteMapper extends ClassMapperBase<GimpPalette> {
   @override
   final String id = 'GimpPalette';
 
-  static String _$name(GimpPalette v) => v.name;
-  static const Field<GimpPalette, String> _f$name = Field('name', _$name);
-  static int _$columns(GimpPalette v) => v.columns;
-  static const Field<GimpPalette, int> _f$columns =
-      Field('columns', _$columns, opt: true, def: 1);
-  static String _$comments(GimpPalette v) => v.comments;
-  static const Field<GimpPalette, String> _f$comments =
-      Field('comments', _$comments, opt: true, def: '');
   static List<GimpPaletteColor> _$colors(GimpPalette v) => v.colors;
   static const Field<GimpPalette, List<GimpPaletteColor>> _f$colors =
       Field('colors', _$colors);
+  static List<String> _$info(GimpPalette v) => v.info;
+  static const Field<GimpPalette, List<String>> _f$info =
+      Field('info', _$info, opt: true, def: const []);
+  static List<String> _$comments(GimpPalette v) => v.comments;
+  static const Field<GimpPalette, List<String>> _f$comments =
+      Field('comments', _$comments, opt: true, def: const []);
 
   @override
   final MappableFields<GimpPalette> fields = const {
-    #name: _f$name,
-    #columns: _f$columns,
-    #comments: _f$comments,
     #colors: _f$colors,
+    #info: _f$info,
+    #comments: _f$comments,
   };
 
   static GimpPalette _instantiate(DecodingData data) {
     return GimpPalette(
-        name: data.dec(_f$name),
-        columns: data.dec(_f$columns),
-        comments: data.dec(_f$comments),
-        colors: data.dec(_f$colors));
+        colors: data.dec(_f$colors),
+        info: data.dec(_f$info),
+        comments: data.dec(_f$comments));
   }
 
   @override
@@ -232,11 +228,12 @@ abstract class GimpPaletteCopyWith<$R, $In extends GimpPalette, $Out>
   ListCopyWith<$R, GimpPaletteColor,
           GimpPaletteColorCopyWith<$R, GimpPaletteColor, GimpPaletteColor>>
       get colors;
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get info;
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get comments;
   $R call(
-      {String? name,
-      int? columns,
-      String? comments,
-      List<GimpPaletteColor>? colors});
+      {List<GimpPaletteColor>? colors,
+      List<String>? info,
+      List<String>? comments});
   GimpPaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -254,23 +251,28 @@ class _GimpPaletteCopyWithImpl<$R, $Out>
       get colors => ListCopyWith($value.colors, (v, t) => v.copyWith.$chain(t),
           (v) => call(colors: v));
   @override
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get info =>
+      ListCopyWith($value.info, (v, t) => ObjectCopyWith(v, $identity, t),
+          (v) => call(info: v));
+  @override
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get comments =>
+      ListCopyWith($value.comments, (v, t) => ObjectCopyWith(v, $identity, t),
+          (v) => call(comments: v));
+  @override
   $R call(
-          {String? name,
-          int? columns,
-          String? comments,
-          List<GimpPaletteColor>? colors}) =>
+          {List<GimpPaletteColor>? colors,
+          List<String>? info,
+          List<String>? comments}) =>
       $apply(FieldCopyWithData({
-        if (name != null) #name: name,
-        if (columns != null) #columns: columns,
-        if (comments != null) #comments: comments,
-        if (colors != null) #colors: colors
+        if (colors != null) #colors: colors,
+        if (info != null) #info: info,
+        if (comments != null) #comments: comments
       }));
   @override
   GimpPalette $make(CopyWithData data) => GimpPalette(
-      name: data.get(#name, or: $value.name),
-      columns: data.get(#columns, or: $value.columns),
-      comments: data.get(#comments, or: $value.comments),
-      colors: data.get(#colors, or: $value.colors));
+      colors: data.get(#colors, or: $value.colors),
+      info: data.get(#info, or: $value.info),
+      comments: data.get(#comments, or: $value.comments));
 
   @override
   GimpPaletteCopyWith<$R2, GimpPalette, $Out2> $chain<$R2, $Out2>(

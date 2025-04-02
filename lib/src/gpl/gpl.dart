@@ -48,16 +48,14 @@ class GimpPaletteColor with GimpPaletteColorMappable {
 
 @MappableClass()
 class GimpPalette with GimpPaletteMappable {
-  final String name;
-  final int columns;
-  final String comments;
+  final List<String> info;
+  final List<String> comments;
   final List<GimpPaletteColor> colors;
 
   GimpPalette({
-    required this.name,
-    this.columns = 1,
-    this.comments = '',
     required this.colors,
+    this.info = const [],
+    this.comments = const [],
   });
 
   factory GimpPalette.fromBytes(List<int> bytes) {
