@@ -285,9 +285,6 @@ class AdobeSwatchExchangeMapper extends ClassMapperBase<AdobeSwatchExchange> {
   @override
   final String id = 'AdobeSwatchExchange';
 
-  static String _$version(AdobeSwatchExchange v) => v.version;
-  static const Field<AdobeSwatchExchange, String> _f$version =
-      Field('version', _$version);
   static List<dynamic> _$groups(AdobeSwatchExchange v) => v.groups;
   static const Field<AdobeSwatchExchange, List<dynamic>> _f$groups =
       Field('groups', _$groups, opt: true, def: const []);
@@ -298,16 +295,13 @@ class AdobeSwatchExchangeMapper extends ClassMapperBase<AdobeSwatchExchange> {
 
   @override
   final MappableFields<AdobeSwatchExchange> fields = const {
-    #version: _f$version,
     #groups: _f$groups,
     #colors: _f$colors,
   };
 
   static AdobeSwatchExchange _instantiate(DecodingData data) {
     return AdobeSwatchExchange(
-        version: data.dec(_f$version),
-        groups: data.dec(_f$groups),
-        colors: data.dec(_f$colors));
+        groups: data.dec(_f$groups), colors: data.dec(_f$colors));
   }
 
   @override
@@ -371,10 +365,7 @@ abstract class AdobeSwatchExchangeCopyWith<$R, $In extends AdobeSwatchExchange,
       AdobeSwatchExchangeColor,
       AdobeSwatchExchangeColorCopyWith<$R, AdobeSwatchExchangeColor,
           AdobeSwatchExchangeColor>> get colors;
-  $R call(
-      {String? version,
-      List<dynamic>? groups,
-      List<AdobeSwatchExchangeColor>? colors});
+  $R call({List<dynamic>? groups, List<AdobeSwatchExchangeColor>? colors});
   AdobeSwatchExchangeCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -399,18 +390,13 @@ class _AdobeSwatchExchangeCopyWithImpl<$R, $Out>
           AdobeSwatchExchangeColor>> get colors => ListCopyWith(
       $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
   @override
-  $R call(
-          {String? version,
-          List<dynamic>? groups,
-          List<AdobeSwatchExchangeColor>? colors}) =>
+  $R call({List<dynamic>? groups, List<AdobeSwatchExchangeColor>? colors}) =>
       $apply(FieldCopyWithData({
-        if (version != null) #version: version,
         if (groups != null) #groups: groups,
         if (colors != null) #colors: colors
       }));
   @override
   AdobeSwatchExchange $make(CopyWithData data) => AdobeSwatchExchange(
-      version: data.get(#version, or: $value.version),
       groups: data.get(#groups, or: $value.groups),
       colors: data.get(#colors, or: $value.colors));
 

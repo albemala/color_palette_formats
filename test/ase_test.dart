@@ -9,7 +9,6 @@ Future<void> main() async {
     final bytes = File(filePath).readAsBytesSync();
     final ase = AdobeSwatchExchange.fromBytes(bytes);
 
-    expect(ase.version, equals(supportedAdobeSwatchExchangeVersion));
     expect(ase.groups.length, equals(0));
     expect(ase.colors.length, equals(122));
   });
@@ -19,7 +18,6 @@ Future<void> main() async {
     final bytes = File(filePath).readAsBytesSync();
     final ase = AdobeSwatchExchange.fromBytes(bytes);
 
-    expect(ase.version, equals(supportedAdobeSwatchExchangeVersion));
     expect(ase.groups.length, equals(0));
     expect(ase.colors.length, equals(6));
   });
@@ -29,14 +27,12 @@ Future<void> main() async {
     final bytes = File(filePath).readAsBytesSync();
     final ase = AdobeSwatchExchange.fromBytes(bytes);
 
-    expect(ase.version, equals(supportedAdobeSwatchExchangeVersion));
     expect(ase.groups.length, equals(0));
     expect(ase.colors.length, equals(16));
   });
 
   test('write ase file', () async {
     final ase = AdobeSwatchExchange(
-      version: supportedAdobeSwatchExchangeVersion,
       colors: [
         AdobeSwatchExchangeColor(
           name: 'red',
@@ -62,8 +58,6 @@ Future<void> main() async {
 
     final decodedAse = AdobeSwatchExchange.fromBytes(aseFile.readAsBytesSync());
     // print(decodedAse.toJson());
-
-    expect(decodedAse.version, equals(supportedAdobeSwatchExchangeVersion));
 
     expect(decodedAse.groups.length, equals(0));
 

@@ -5,7 +5,7 @@ List<int> _encode(AdobeSwatchExchange swatch) {
   // file signature
   writeUtf8String(buffer, _fileSignature);
   // version
-  supportedAdobeSwatchExchangeVersion.split('.').forEach((part) {
+  AdobeSwatchExchange.version.split('.').forEach((part) {
     buffer.writeUint16(int.parse(part));
   });
   // colors length
@@ -21,11 +21,7 @@ List<int> _encode(AdobeSwatchExchange swatch) {
     // color name
     writeUtf16String(colorBuffer, color.name, includeTerminator: true);
     // color model
-    final model = _writeColorModel[color.model];
-    if (model == null) {
-      throw Exception('Unknown color model: ${color.model}');
-    }
-    writeUtf8String(colorBuffer, model);
+    writeUtf8String(colorBuffer, color.model.value);
     // color values
     switch (color.model) {
       case AdobeSwatchExchangeColorModel.cmyk:
@@ -41,11 +37,7 @@ List<int> _encode(AdobeSwatchExchange swatch) {
         colorBuffer.writeFloat32(color.values[0]); // gray
     }
     // color type
-    final type = _writeColorType[color.type];
-    if (type == null) {
-      throw Exception('Unknown color type: ${color.type}');
-    }
-    colorBuffer.writeInt16(type);
+    colorBuffer.writeInt16(color.type.value);
     // block length
     buffer.writeInt32(colorBuffer.bufferLength);
     // block data

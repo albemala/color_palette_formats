@@ -30,7 +30,6 @@ void main() {
   // Example: Reading an ASE (Adobe Swatch Exchange) file.
   final aseFile = File('path/to/ase1_v1.0.ase');
   final ase = AdobeSwatchExchange.fromBytes(aseFile.readAsBytesSync());
-  assert(ase.version == supportedAdobeSwatchExchangeVersion);
   assert(ase.colors.length == 122);
 
   // Example: Reading a GPL (GIMP Palette) file.

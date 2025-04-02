@@ -3,21 +3,8 @@ part of 'ase.dart';
 AdobeSwatchExchange _decode(List<int> bytes) {
   final buffer = ByteDataReader()..add(bytes);
 
-  final header = readUtf8String(buffer, 4);
-  if (header != _fileSignature) {
-    throw Exception('Not a valid Adobe Swatch Exchange file');
-  }
-  // print('Header: $header');
-
-  final version = [
-    buffer.readInt16(),
-    buffer.readInt16(),
-  ].join('.');
-  if (version != supportedAdobeSwatchExchangeVersion) {
-    throw Exception('''
-Unsupported version $version. Supported version: $supportedAdobeSwatchExchangeVersion''');
-  }
-  // print('Version: $version');
+  _validateHeader(buffer);
+  _validateVersion(buffer);
 
   final groups = <dynamic>[];
   final colors = <AdobeSwatchExchangeColor>[];
@@ -49,49 +36,57 @@ Unsupported version $version. Supported version: $supportedAdobeSwatchExchangeVe
     }
   }
 
-  return AdobeSwatchExchange(
-    version: version,
-    groups: groups,
-    colors: colors,
-  );
+  return AdobeSwatchExchange(groups: groups, colors: colors);
+}
+
+void _validateHeader(ByteDataReader buffer) {
+  final header = readUtf8String(buffer, 4);
+  if (header != _fileSignature) {
+    throw const FormatException('''
+Not a valid Adobe Swatch Exchange file''');
+  }
+}
+
+void _validateVersion(ByteDataReader buffer) {
+  final version = [buffer.readInt16(), buffer.readInt16()].join('.');
+  if (version != AdobeSwatchExchange.version) {
+    throw UnsupportedError(
+      '''
+Unsupported version $version. Supported version: ${AdobeSwatchExchange.version}''',
+    );
+  }
 }
 
 AdobeSwatchExchangeColor _decodeColor(ByteDataReader buffer) {
-  final name = _decodeName(buffer);
-  final model = readUtf8String(buffer, 4);
-  final values = <double>[];
-  switch (model) {
-    case _colorModelCmyk:
-      values.add(buffer.readFloat32()); // cyan
-      values.add(buffer.readFloat32()); // magenta
-      values.add(buffer.readFloat32()); // yellow
-      values.add(buffer.readFloat32()); // key
-    case _colorModelRgb:
-      values.add(buffer.readFloat32()); // red
-      values.add(buffer.readFloat32()); // green
-      values.add(buffer.readFloat32()); // blue
-    case _colorModelGrayscale:
-      values.add(buffer.readFloat32()); // gray
-    default:
-      throw Exception('Unknown color model: $model');
-  }
-  final type = buffer.readInt16();
+  final colorName = _decodeName(buffer);
 
-  final modelAsEnum = _readColorModel[model];
-  if (modelAsEnum == null) {
-    throw Exception('Unknown color model: $model');
+  final colorModelString = readUtf8String(buffer, 4);
+  final colorModel = AdobeSwatchExchangeColorModel.fromValue(colorModelString);
+
+  final colorValues = <double>[];
+  switch (colorModel) {
+    case AdobeSwatchExchangeColorModel.cmyk:
+      colorValues.add(buffer.readFloat32()); // cyan
+      colorValues.add(buffer.readFloat32()); // magenta
+      colorValues.add(buffer.readFloat32()); // yellow
+      colorValues.add(buffer.readFloat32()); // key
+    case AdobeSwatchExchangeColorModel.rgb:
+      colorValues.add(buffer.readFloat32()); // red
+      colorValues.add(buffer.readFloat32()); // green
+      colorValues.add(buffer.readFloat32()); // blue
+    case AdobeSwatchExchangeColorModel.gray:
+      colorValues.add(buffer.readFloat32()); // gray
   }
-  final typeAsEnum = _readColorType[type];
-  if (typeAsEnum == null) {
-    throw Exception('Unknown color type: $type');
-  }
-  final color = AdobeSwatchExchangeColor(
-    name: name,
-    model: modelAsEnum,
-    values: values,
-    type: typeAsEnum,
+
+  final colorTypeRawValue = buffer.readInt16();
+  final colorType = AdobeSwatchExchangeColorType.fromValue(colorTypeRawValue);
+
+  return AdobeSwatchExchangeColor(
+    name: colorName,
+    model: colorModel,
+    values: colorValues,
+    type: colorType,
   );
-  return color;
 }
 
 String _decodeName(ByteDataReader buffer) {
