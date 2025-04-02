@@ -3,10 +3,7 @@ part of 'gpl.dart';
 GimpPalette _decode(List<int> bytes) {
   final lines = utf8.decode(bytes).split('\n');
 
-  final header = lines.elementAt(0);
-  if (header != _fileSignature) {
-    throw Exception('Not a valid Gimp palette file');
-  }
+  _validateHeader(lines.elementAt(0));
 
   var name = '';
   var columns = 1;
@@ -43,12 +40,7 @@ GimpPalette _decode(List<int> bytes) {
     final blue = int.tryParse(match?.group(3) ?? '') ?? 0;
     final colorName = match?.group(4) ?? '';
     colors.add(
-      GimpPaletteColor(
-        red: red,
-        green: green,
-        blue: blue,
-        name: colorName,
-      ),
+      GimpPaletteColor(red: red, green: green, blue: blue, name: colorName),
     );
   }
 
@@ -58,4 +50,11 @@ GimpPalette _decode(List<int> bytes) {
     comments: comments.toString(),
     colors: colors,
   );
+}
+
+void _validateHeader(String header) {
+  if (header != _fileSignature) {
+    throw const FormatException('''
+Not a valid Gimp palette file''');
+  }
 }

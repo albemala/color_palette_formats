@@ -41,7 +41,6 @@ void main() {
   // Example: Reading an HPL (Homesite Palette) file.
   final hplFile = File('path/to/hpl1_v4.0.hpl');
   final hpl = HomesitePalette.fromBytes(hplFile.readAsBytesSync());
-  assert(hpl.version == supportedHomesitePaletteVersion);
   assert(hpl.colors.length == 287);
 
   // Example: Reading a PAL (JASC Palette) file.

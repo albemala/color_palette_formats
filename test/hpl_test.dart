@@ -9,36 +9,21 @@ Future<void> main() async {
     final hpl1 = HomesitePalette.fromBytes(hplFile1.readAsBytesSync());
     // print(hpl1.toJson());
 
-    expect(hpl1.version, equals(supportedHomesitePaletteVersion));
     expect(hpl1.colors.length, equals(287));
 
     final hplFile2 = File('./assets/hpl2_v4.0.hpl');
     final hpl2 = HomesitePalette.fromBytes(hplFile2.readAsBytesSync());
     // print(hpl2.toJson());
 
-    expect(hpl2.version, equals(supportedHomesitePaletteVersion));
     expect(hpl2.colors.length, equals(256));
   });
 
   test('write hpl file', () async {
     final hpl = HomesitePalette(
-      version: supportedHomesitePaletteVersion,
       colors: [
-        HomesitePaletteColor(
-          red: 255,
-          green: 0,
-          blue: 0,
-        ),
-        HomesitePaletteColor(
-          red: 0,
-          green: 255,
-          blue: 255,
-        ),
-        HomesitePaletteColor(
-          red: 128,
-          green: 128,
-          blue: 128,
-        ),
+        HomesitePaletteColor(red: 255, green: 0, blue: 0),
+        HomesitePaletteColor(red: 0, green: 255, blue: 255),
+        HomesitePaletteColor(red: 128, green: 128, blue: 128),
       ],
     );
 
@@ -49,8 +34,6 @@ Future<void> main() async {
 
     final decodedHpl = HomesitePalette.fromBytes(hplFile.readAsBytesSync());
     // print(decodedHpl.toJson());
-
-    expect(decodedHpl.version, equals(supportedHomesitePaletteVersion));
 
     expect(decodedHpl.colors.length, equals(3));
 

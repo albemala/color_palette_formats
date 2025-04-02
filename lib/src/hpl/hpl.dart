@@ -28,8 +28,6 @@ Version 4.0
 * - http://www.selapa.net/swatches/colors/fileformats.php
 */
 
-const supportedHomesitePaletteVersion = '4.0';
-
 @MappableClass()
 class HomesitePaletteColor with HomesitePaletteColorMappable {
   /// Value: [0..255]
@@ -50,13 +48,11 @@ class HomesitePaletteColor with HomesitePaletteColorMappable {
 
 @MappableClass()
 class HomesitePalette with HomesitePaletteMappable {
-  final String version;
+  static const version = '4.0';
+
   final List<HomesitePaletteColor> colors;
 
-  HomesitePalette({
-    required this.version,
-    required this.colors,
-  });
+  HomesitePalette({required this.colors});
 
   factory HomesitePalette.fromBytes(List<int> bytes) {
     return _decode(bytes);

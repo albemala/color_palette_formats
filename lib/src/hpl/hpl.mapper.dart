@@ -145,22 +145,17 @@ class HomesitePaletteMapper extends ClassMapperBase<HomesitePalette> {
   @override
   final String id = 'HomesitePalette';
 
-  static String _$version(HomesitePalette v) => v.version;
-  static const Field<HomesitePalette, String> _f$version =
-      Field('version', _$version);
   static List<HomesitePaletteColor> _$colors(HomesitePalette v) => v.colors;
   static const Field<HomesitePalette, List<HomesitePaletteColor>> _f$colors =
       Field('colors', _$colors);
 
   @override
   final MappableFields<HomesitePalette> fields = const {
-    #version: _f$version,
     #colors: _f$colors,
   };
 
   static HomesitePalette _instantiate(DecodingData data) {
-    return HomesitePalette(
-        version: data.dec(_f$version), colors: data.dec(_f$colors));
+    return HomesitePalette(colors: data.dec(_f$colors));
   }
 
   @override
@@ -222,7 +217,7 @@ abstract class HomesitePaletteCopyWith<$R, $In extends HomesitePalette, $Out>
       HomesitePaletteColor,
       HomesitePaletteColorCopyWith<$R, HomesitePaletteColor,
           HomesitePaletteColor>> get colors;
-  $R call({String? version, List<HomesitePaletteColor>? colors});
+  $R call({List<HomesitePaletteColor>? colors});
   HomesitePaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -243,15 +238,11 @@ class _HomesitePaletteCopyWithImpl<$R, $Out>
           HomesitePaletteColor>> get colors => ListCopyWith(
       $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
   @override
-  $R call({String? version, List<HomesitePaletteColor>? colors}) =>
-      $apply(FieldCopyWithData({
-        if (version != null) #version: version,
-        if (colors != null) #colors: colors
-      }));
+  $R call({List<HomesitePaletteColor>? colors}) =>
+      $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
   @override
-  HomesitePalette $make(CopyWithData data) => HomesitePalette(
-      version: data.get(#version, or: $value.version),
-      colors: data.get(#colors, or: $value.colors));
+  HomesitePalette $make(CopyWithData data) =>
+      HomesitePalette(colors: data.get(#colors, or: $value.colors));
 
   @override
   HomesitePaletteCopyWith<$R2, HomesitePalette, $Out2> $chain<$R2, $Out2>(
