@@ -36,9 +36,7 @@ class AdobeColorTableColor with AdobeColorTableColorMappable {
 class AdobeColorTable with AdobeColorTableMappable {
   final List<AdobeColorTableColor> colors;
 
-  AdobeColorTable({
-    required this.colors,
-  });
+  AdobeColorTable({required this.colors});
 
   factory AdobeColorTable.fromBytes(List<int> bytes) {
     return _decode(bytes);

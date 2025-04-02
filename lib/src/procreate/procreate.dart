@@ -40,12 +40,8 @@ part 'encode.dart';
 * - ...
 */
 
-@MappableEnum(
-  mode: ValuesMode.indexed,
-)
-enum ProcreateSwatchesColorSpace {
-  hsb,
-}
+@MappableEnum(mode: ValuesMode.indexed)
+enum ProcreateSwatchesColorSpace { hsb }
 
 @MappableClass()
 class ProcreateSwatchesSwatch with ProcreateSwatchesSwatchMappable {
@@ -76,10 +72,7 @@ class ProcreateSwatches with ProcreateSwatchesMappable {
   final String name;
   final List<ProcreateSwatchesSwatch> swatches;
 
-  ProcreateSwatches({
-    this.name = '',
-    required this.swatches,
-  });
+  ProcreateSwatches({this.name = '', required this.swatches});
 
   List<int> toBytes() {
     return encodeProcreateSwatches([this]);

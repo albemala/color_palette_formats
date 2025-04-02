@@ -56,9 +56,7 @@ class PaintDotNetPaletteColor with PaintDotNetPaletteColorMappable {
 class PaintDotNetPalette with PaintDotNetPaletteMappable {
   final List<PaintDotNetPaletteColor> colors;
 
-  PaintDotNetPalette({
-    required this.colors,
-  });
+  PaintDotNetPalette({required this.colors});
 
   factory PaintDotNetPalette.fromBytes(List<int> bytes) {
     return _decode(bytes);

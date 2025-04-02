@@ -13,16 +13,8 @@ AdobeColorTable _decode(List<int> bytes) {
     final r = buffer.readUint8();
     final g = buffer.readUint8();
     final b = buffer.readUint8();
-    colors.add(
-      AdobeColorTableColor(
-        red: r,
-        green: g,
-        blue: b,
-      ),
-    );
+    colors.add(AdobeColorTableColor(red: r, green: g, blue: b));
   }
 
-  return AdobeColorTable(
-    colors: colors,
-  );
+  return AdobeColorTable(colors: colors);
 }

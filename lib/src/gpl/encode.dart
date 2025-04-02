@@ -5,7 +5,8 @@ List<int> _encode(GimpPalette gimpPalette) {
   buffer.writeln(_fileSignature);
   buffer.writeln('Name: ${gimpPalette.name}');
   buffer.writeln('Columns: ${gimpPalette.columns}');
-  gimpPalette.comments //
+  gimpPalette
+      .comments //
       .split('\n')
       .forEach((line) => buffer.writeln('# $line'));
   for (final color in gimpPalette.colors) {

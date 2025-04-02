@@ -19,16 +19,9 @@ PaintDotNetPalette _decode(List<int> bytes) {
     final green = int.parse(line.substring(4, 6), radix: 16);
     final blue = int.parse(line.substring(6, 8), radix: 16);
     colors.add(
-      PaintDotNetPaletteColor(
-        red: red,
-        green: green,
-        blue: blue,
-        alpha: alpha,
-      ),
+      PaintDotNetPaletteColor(red: red, green: green, blue: blue, alpha: alpha),
     );
   }
 
-  return PaintDotNetPalette(
-    colors: colors,
-  );
+  return PaintDotNetPalette(colors: colors);
 }
