@@ -69,7 +69,7 @@ void _buildPrefixPostfixPair(
       builder.attribute(AcblConstants.prefixAttr, pair.prefix);
       builder.attribute(AcblConstants.postfixAttr, pair.postfix);
       if (pair.id != null) {
-        builder.attribute(AcblConstants.idAttr, pair.id!);
+        builder.attribute(AcblConstants.idAttr, pair.id);
       }
     },
   );

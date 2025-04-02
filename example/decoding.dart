@@ -67,6 +67,9 @@ void main() {
     'assets/procreate/procreate1.swatches',
     'assets/procreate/procreate2.swatches',
     // 'assets/procreate/procreate3.swatches',
+    // 'assets/procreate/cromatica.swatches',
+    // 'assets/procreate/shido-10.swatches',
+    // 'assets/procreate/sunfall.swatches',
   ]) {
     final file = File(path);
     final procreate = decodeProcreateSwatches(file.readAsBytesSync());

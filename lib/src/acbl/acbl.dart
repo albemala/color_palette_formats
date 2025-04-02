@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:xml/xml.dart';
