@@ -9,4 +9,5 @@ export 'src/jasc-pal/jasc-pal.dart';
 export 'src/paint-dot-net/paint-dot-net.dart';
 export 'src/procreate/procreate.dart';
 export 'src/riff/riff.dart';
+export 'src/scribus/scribus.dart';
 export 'src/sketchpalette/sketchpalette.dart';

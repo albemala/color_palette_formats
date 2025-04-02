@@ -91,6 +91,11 @@ void main() {
     SketchPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<ScribusPalette>(
+    ['assets/scribus/Scribus.xml'],
+    ScribusPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

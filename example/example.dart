@@ -75,4 +75,10 @@ void main() {
   assert(sketchpalette.compatibleVersion == supportedSketchPaletteVersion);
   assert(sketchpalette.pluginVersion == supportedSketchPaletteVersion);
   assert(sketchpalette.colors.length == 6);
+
+  // Example: Reading a Scribus XML Palette file.
+  final scribusFile = File('path/to/Scribus.xml');
+  final scribus = ScribusPalette.fromBytes(scribusFile.readAsBytesSync());
+  assert(scribus.name == 'tango');
+  assert(scribus.colors.length == 52);
 }
