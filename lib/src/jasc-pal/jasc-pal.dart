@@ -25,8 +25,6 @@ JASC-PAL
 * - http://www.selapa.net/swatches/colors/fileformats.php
 */
 
-const supportedJascPaletteVersion = '0100';
-
 @MappableClass()
 class JascPaletteColor with JascPaletteColorMappable {
   /// Value: [0..255]
@@ -47,13 +45,11 @@ class JascPaletteColor with JascPaletteColorMappable {
 
 @MappableClass()
 class JascPalette with JascPaletteMappable {
-  final String version;
+  static const version = '0100';
+
   final List<JascPaletteColor> colors;
 
-  JascPalette({
-    required this.version,
-    required this.colors,
-  });
+  JascPalette({required this.colors});
 
   factory JascPalette.fromBytes(List<int> bytes) {
     return _decode(bytes);

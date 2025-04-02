@@ -9,29 +9,15 @@ Future<void> main() async {
     final pal1 = JascPalette.fromBytes(palFile1.readAsBytesSync());
     // print(pal1.toJson());
 
-    expect(pal1.version, equals(supportedJascPaletteVersion));
     expect(pal1.colors.length, equals(3));
   });
 
   test('write pal file', () async {
     final pal = JascPalette(
-      version: supportedJascPaletteVersion,
       colors: [
-        JascPaletteColor(
-          red: 255,
-          green: 0,
-          blue: 0,
-        ),
-        JascPaletteColor(
-          red: 0,
-          green: 255,
-          blue: 0,
-        ),
-        JascPaletteColor(
-          red: 0,
-          green: 0,
-          blue: 255,
-        ),
+        JascPaletteColor(red: 255, green: 0, blue: 0),
+        JascPaletteColor(red: 0, green: 255, blue: 0),
+        JascPaletteColor(red: 0, green: 0, blue: 255),
       ],
     );
 
@@ -42,8 +28,6 @@ Future<void> main() async {
 
     final decodedPal = JascPalette.fromBytes(palFile.readAsBytesSync());
     // print(decodedPal.toJson());
-
-    expect(decodedPal.version, equals(supportedJascPaletteVersion));
 
     expect(decodedPal.colors.length, equals(3));
 

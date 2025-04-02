@@ -142,22 +142,17 @@ class JascPaletteMapper extends ClassMapperBase<JascPalette> {
   @override
   final String id = 'JascPalette';
 
-  static String _$version(JascPalette v) => v.version;
-  static const Field<JascPalette, String> _f$version =
-      Field('version', _$version);
   static List<JascPaletteColor> _$colors(JascPalette v) => v.colors;
   static const Field<JascPalette, List<JascPaletteColor>> _f$colors =
       Field('colors', _$colors);
 
   @override
   final MappableFields<JascPalette> fields = const {
-    #version: _f$version,
     #colors: _f$colors,
   };
 
   static JascPalette _instantiate(DecodingData data) {
-    return JascPalette(
-        version: data.dec(_f$version), colors: data.dec(_f$colors));
+    return JascPalette(colors: data.dec(_f$colors));
   }
 
   @override
@@ -215,7 +210,7 @@ abstract class JascPaletteCopyWith<$R, $In extends JascPalette, $Out>
   ListCopyWith<$R, JascPaletteColor,
           JascPaletteColorCopyWith<$R, JascPaletteColor, JascPaletteColor>>
       get colors;
-  $R call({String? version, List<JascPaletteColor>? colors});
+  $R call({List<JascPaletteColor>? colors});
   JascPaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -233,15 +228,11 @@ class _JascPaletteCopyWithImpl<$R, $Out>
       get colors => ListCopyWith($value.colors, (v, t) => v.copyWith.$chain(t),
           (v) => call(colors: v));
   @override
-  $R call({String? version, List<JascPaletteColor>? colors}) =>
-      $apply(FieldCopyWithData({
-        if (version != null) #version: version,
-        if (colors != null) #colors: colors
-      }));
+  $R call({List<JascPaletteColor>? colors}) =>
+      $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
   @override
-  JascPalette $make(CopyWithData data) => JascPalette(
-      version: data.get(#version, or: $value.version),
-      colors: data.get(#colors, or: $value.colors));
+  JascPalette $make(CopyWithData data) =>
+      JascPalette(colors: data.get(#colors, or: $value.colors));
 
   @override
   JascPaletteCopyWith<$R2, JascPalette, $Out2> $chain<$R2, $Out2>(

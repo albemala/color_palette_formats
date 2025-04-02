@@ -46,7 +46,6 @@ void main() {
   // Example: Reading a PAL (JASC Palette) file.
   final palFile = File('path/to/pal1_v0100.pal');
   final pal = JascPalette.fromBytes(palFile.readAsBytesSync());
-  assert(pal.version == supportedJascPaletteVersion);
   assert(pal.colors.length == 3);
 
   // Example: Reading a Paint.NET Palette file.
