@@ -90,6 +90,18 @@ class AdobeSwatchExchange with AdobeSwatchExchangeMappable {
   List<int> toBytes() {
     return _encode(this);
   }
+
+  /// Checks if the provided bytes represent a valid Adobe Swatch Exchange file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      final buffer = ByteDataReader()..add(bytes);
+      _validateHeader(buffer);
+      _validateVersion(buffer);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }
 
 const _fileSignature = 'ASEF';

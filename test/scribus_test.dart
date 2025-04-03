@@ -4,6 +4,17 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  test('isValidFormat returns true for valid Scribus Palette file', () {
+    final scribusFile = File('./assets/scribus/Scribus.xml');
+    final bytes = scribusFile.readAsBytesSync();
+    expect(ScribusPalette.isValidFormat(bytes), isTrue);
+  });
+
+  test('isValidFormat returns false for invalid Scribus Palette file', () {
+    final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
+    expect(ScribusPalette.isValidFormat(invalidBytes), isFalse);
+  });
+
   test('read scribus file', () {
     final scribusFile = File('./assets/scribus/Scribus.xml');
     final palette = ScribusPalette.fromBytes(scribusFile.readAsBytesSync());

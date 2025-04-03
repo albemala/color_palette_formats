@@ -39,6 +39,16 @@ class StarOfficeColorTable with StarOfficeColorTableMappable {
   List<int> toBytes() {
     return _encode(this);
   }
+
+  /// Checks if the provided bytes represent a valid StarOffice ColorTable file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      _decode(bytes);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }
 
 // XML Element, Attribute, and Namespace Constants

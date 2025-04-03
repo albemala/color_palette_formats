@@ -71,4 +71,15 @@ class AdobeColorSwatch with AdobeColorSwatchMappable {
   List<int> toBytes() {
     return _encode(this);
   }
+
+  /// Checks if the provided bytes represent a valid Adobe Color Swatch file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      final buffer = ByteDataReader()..add(bytes);
+      _validateVersion(buffer);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }

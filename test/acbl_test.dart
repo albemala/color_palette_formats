@@ -5,6 +5,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  test('isValidFormat returns true for valid ACBL file', () {
+    final acblFile = File('./assets/acbl/ACBL.acbl');
+    final bytes = acblFile.readAsBytesSync();
+    expect(AdobeColorBookLegacy.isValidFormat(bytes), isTrue);
+  });
+
+  test('isValidFormat returns false for invalid ACBL file', () {
+    final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
+    expect(AdobeColorBookLegacy.isValidFormat(invalidBytes), isFalse);
+  });
+
   test('read acbl file', () {
     final acblFile = File('./assets/acbl/ACBL.acbl');
     final acbl = AdobeColorBookLegacy.fromBytes(acblFile.readAsBytesSync());

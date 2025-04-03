@@ -57,4 +57,14 @@ class CorelDraw4Palette with CorelDraw4PaletteMappable {
   List<int> toBytes() {
     return _encode(this);
   }
+
+  /// Checks if the provided bytes represent a valid CorelDraw 4 Palette file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      final decoded = _decode(bytes);
+      return decoded.colors.isNotEmpty;
+    } catch (_) {
+      return false;
+    }
+  }
 }

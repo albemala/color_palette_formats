@@ -4,6 +4,26 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  test(
+    'isValidFormat returns true for valid ResourceInterchangeFileFormat file',
+    () {
+      final riffFile = File('./assets/riff/riff1_v3.pal');
+      final bytes = riffFile.readAsBytesSync();
+      expect(ResourceInterchangeFileFormat.isValidFormat(bytes), isTrue);
+    },
+  );
+
+  test(
+    'isValidFormat returns false for invalid ResourceInterchangeFileFormat file',
+    () {
+      final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8]; // Example invalid data
+      expect(
+        ResourceInterchangeFileFormat.isValidFormat(invalidBytes),
+        isFalse,
+      );
+    },
+  );
+
   test('read riff file', () {
     final riffFile1 = File('./assets/riff/riff1_v3.pal');
     final riff1 = ResourceInterchangeFileFormat.fromBytes(

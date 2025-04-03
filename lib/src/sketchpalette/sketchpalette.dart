@@ -56,4 +56,14 @@ class SketchPalette with SketchPaletteMappable {
   List<int> toBytes() {
     return _encode(this);
   }
+
+  /// Checks if the provided bytes represent a valid SketchPalette file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      _decode(bytes);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }

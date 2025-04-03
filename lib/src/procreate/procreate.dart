@@ -57,4 +57,14 @@ class ProcreateSwatches with ProcreateSwatchesMappable {
   List<int> toBytes() {
     return encodeProcreateSwatches([this]);
   }
+
+  /// Checks if the provided bytes represent a valid Procreate Swatches file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      decodeProcreateSwatches(bytes);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }

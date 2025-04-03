@@ -4,6 +4,17 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  test('isValidFormat returns true for valid KOfficePalette file', () {
+    final kofficeFile = File('./assets/koffice/KDE40.colors');
+    final bytes = kofficeFile.readAsBytesSync();
+    expect(KOfficePalette.isValidFormat(bytes), isTrue);
+  });
+
+  test('isValidFormat returns false for invalid KOfficePalette file', () {
+    final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
+    expect(KOfficePalette.isValidFormat(invalidBytes), isFalse);
+  });
+
   test('read koffice file', () {
     final kofficeFile = File('./assets/koffice/KDE40.colors');
     final kofficePalette = KOfficePalette.fromBytes(

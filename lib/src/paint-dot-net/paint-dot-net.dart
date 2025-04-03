@@ -49,6 +49,16 @@ class PaintDotNetPalette with PaintDotNetPaletteMappable {
   List<int> toBytes() {
     return _encode(this);
   }
+
+  /// Checks if the provided bytes represent a valid Paint.NET Palette file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      _decode(bytes);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }
 
 const _header = '''

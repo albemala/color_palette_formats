@@ -98,6 +98,18 @@ class AdobeColorBook with AdobeColorBookMappable {
   factory AdobeColorBook.fromBytes(List<int> bytes) {
     return _decode(bytes);
   }
+
+  /// Checks if the provided bytes represent a valid Adobe Color Book file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      final buffer = ByteDataReader()..add(bytes);
+      _validateHeader(buffer);
+      _validateVersion(buffer);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }
 
 /// Represents the metadata of an Adobe Color Book

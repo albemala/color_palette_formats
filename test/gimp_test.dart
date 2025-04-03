@@ -4,6 +4,17 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  test('isValidFormat returns true for valid GimpPalette file', () {
+    final gimpFile = File('./assets/gimp/gpl1.gimp');
+    final bytes = gimpFile.readAsBytesSync();
+    expect(GimpPalette.isValidFormat(bytes), isTrue);
+  });
+
+  test('isValidFormat returns false for invalid GimpPalette file', () {
+    final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
+    expect(GimpPalette.isValidFormat(invalidBytes), isFalse);
+  });
+
   test('read gimp file', () {
     final gimpFile1 = File('./assets/gimp/gpl1.gimp');
     final gimp1 = GimpPalette.fromBytes(gimpFile1.readAsBytesSync());

@@ -76,6 +76,18 @@ class AdobeColorBookLegacy with AdobeColorBookLegacyMappable {
   List<int> toBytes() {
     return _encode(this);
   }
+
+  /// Checks if the provided bytes represent a valid Adobe Color Book file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      final xmlString = utf8.decode(bytes);
+      final document = parseXml(xmlString);
+      validateRootElement(document, AcblConstants.adobeSwatchbook);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }
 
 // XML Element and Attribute Constants

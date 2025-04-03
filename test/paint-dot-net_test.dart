@@ -4,6 +4,17 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  test('isValidFormat returns true for valid PaintDotNetPalette file', () {
+    final paintDotNetFile = File('./assets/paint-dot-net/paint-dot-net1.txt');
+    final bytes = paintDotNetFile.readAsBytesSync();
+    expect(PaintDotNetPalette.isValidFormat(bytes), isTrue);
+  });
+
+  test('isValidFormat returns false for invalid PaintDotNetPalette file', () {
+    final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
+    expect(PaintDotNetPalette.isValidFormat(invalidBytes), isFalse);
+  });
+
   test('read paint-dot-net file', () {
     final paintDotNetFile1 = File('./assets/paint-dot-net/paint-dot-net1.txt');
     final paintDotNet1 = PaintDotNetPalette.fromBytes(

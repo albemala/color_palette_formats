@@ -5,6 +5,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  test('isValidFormat returns true for valid ACO file', () {
+    final acoFile = File('./assets/aco/aco1_v1.aco');
+    final bytes = acoFile.readAsBytesSync();
+    expect(AdobeColorSwatch.isValidFormat(bytes), isTrue);
+  });
+
+  test('isValidFormat returns false for invalid ACO file', () {
+    final invalidBytes = [1, 1, 1, 1, 1, 1]; // Example invalid data
+    expect(AdobeColorSwatch.isValidFormat(invalidBytes), isFalse);
+  });
+
   test('read aco file', () {
     final acoFile1 = File('./assets/aco/aco1_v1.aco');
     final aco1 = AdobeColorSwatch.fromBytes(acoFile1.readAsBytesSync());

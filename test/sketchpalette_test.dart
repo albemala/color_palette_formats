@@ -4,6 +4,19 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  test('isValidFormat returns true for valid SketchPalette file', () {
+    final sketchpaletteFile = File(
+      './assets/sketchpalette/sketchpalette1_v1.4.sketchpalette',
+    );
+    final bytes = sketchpaletteFile.readAsBytesSync();
+    expect(SketchPalette.isValidFormat(bytes), isTrue);
+  });
+
+  test('isValidFormat returns false for invalid SketchPalette file', () {
+    final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
+    expect(SketchPalette.isValidFormat(invalidBytes), isFalse);
+  });
+
   test('read sketchpalette file', () {
     final sketchpaletteFile1 = File(
       './assets/sketchpalette/sketchpalette1_v1.4.sketchpalette',

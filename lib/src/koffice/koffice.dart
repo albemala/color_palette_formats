@@ -48,6 +48,16 @@ class KOfficePalette with KOfficePaletteMappable {
   List<int> toBytes() {
     return _encode(this);
   }
+
+  /// Checks if the provided bytes represent a valid KOffice Palette file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      _decode(bytes);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }
 
 // Signature found at the beginning of .colors files

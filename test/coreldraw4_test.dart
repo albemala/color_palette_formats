@@ -4,6 +4,17 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
+  test('isValidFormat returns true for valid CorelDraw4Palette file', () {
+    final corelFile = File('./assets/coreldraw4/coreldraw.pal');
+    final bytes = corelFile.readAsBytesSync();
+    expect(CorelDraw4Palette.isValidFormat(bytes), isTrue);
+  });
+
+  test('isValidFormat returns false for invalid CorelDraw4Palette file', () {
+    final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
+    expect(CorelDraw4Palette.isValidFormat(invalidBytes), isFalse);
+  });
+
   test('read coreldraw4 pal file', () {
     final corelFile = File('./assets/coreldraw4/coreldraw.pal');
     final corelPalette = CorelDraw4Palette.fromBytes(

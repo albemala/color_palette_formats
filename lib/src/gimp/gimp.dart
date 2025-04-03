@@ -56,6 +56,16 @@ class GimpPalette with GimpPaletteMappable {
   List<int> toBytes() {
     return _encode(this);
   }
+
+  /// Checks if the provided bytes represent a valid Gimp Palette file.
+  static bool isValidFormat(List<int> bytes) {
+    try {
+      _decode(bytes);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }
 
 const _fileSignature = 'GIMP Palette';
