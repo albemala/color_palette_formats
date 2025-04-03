@@ -7,27 +7,7 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Paint.NET Palette (.txt) (Paint.NET)
-*
-* Content example:
-*
-
-; paint.net Palette File
-; Lines that start with a semicolon are comments
-; Colors are written as 8-digit hexadecimal numbers: aarrggbb
-; For example, this would specify green: FF00FF00
-; The alpha ('aa') value specifies how transparent a color is.
-; FF is fully opaque, 00 is fully transparent.
-FF000000
-FF404040
-FFFF0000
-FFFF6A00
-FFFFD800
-FFB6FF00
-
-*
-* References:
-* - ...
+* Paint.NET Palette (.txt) 
 */
 
 @MappableClass()

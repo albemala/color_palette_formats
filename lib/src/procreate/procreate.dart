@@ -8,36 +8,7 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Procreate swatches (.swatches) (Procreate)
-*
-* Content example:
-*
-
-[
-  {
-    "name" : "Retro & Vintage",
-    "swatches" : [
-      {
-        "hue" : 0.096825396825396814,
-        "saturation" : 0.41338580203493147,
-        "brightness" : 0.99607843160629272,
-        "alpha" : 1,
-        "colorSpace" : 0
-      },
-      {
-        "hue" : 0.4381720505892564,
-        "saturation" : 0.40000000980592509,
-        "brightness" : 0.60784316062927246,
-        "alpha" : 1,
-        "colorSpace" : 0
-      }
-    ]
-  }
-]
-
-*
-* References:
-* - ...
+* Procreate swatches (.swatches)
 */
 
 @MappableEnum(mode: ValuesMode.indexed)

@@ -7,22 +7,8 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Homesite Palette (HPL) (.hpl) (Allaire Homesite, Macromedia ColdFusion)
-*
-* Content example:
-*
-
-Palette
-Version 4.0
-
-0 0 0
-255 255 255
-204 204 204
-153 153 153
-102 102 102
-51 51 51
-0 0 0
-
+* Homesite Palette (HPL) (.hpl) 
+* Allaire Homesite, Macromedia ColdFusion
 *
 * References:
 * - http://www.selapa.net/swatches/colors/fileformats.php

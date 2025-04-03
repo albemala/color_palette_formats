@@ -11,6 +11,7 @@ part 'encode.dart';
 
 /*
 * StarOffice Colors (SOC) (.soc)
+* StarOffice / OpenOffice.org / LibreOffice
 *
 * References:
 * - Based on observed format in example files (e.g., assets/soc/cmyk.soc)

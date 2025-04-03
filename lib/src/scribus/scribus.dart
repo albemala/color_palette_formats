@@ -11,9 +11,6 @@ part 'encode.dart';
 
 /*
 * Scribus Swatch (.xml)
-*
-* References:
-* - Based on the provided example file 'assets/scribus/Scribus.xml'
 */
 
 @MappableClass()

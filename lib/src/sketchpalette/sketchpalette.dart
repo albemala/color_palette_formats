@@ -7,33 +7,7 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Sketch Palette (.sketchpalette) (Sketch)
-*
-* Content example:
-*
-
-{
-  "compatibleVersion": "1.4",
-  "pluginVersion": "1.4",
-  "colors": [
-    {
-      "red": 0.28,
-      "green": 0.16,
-      "blue": 0.18,
-      "alpha": 1
-    },
-    {
-      "red": 0.47,
-      "green": 0.45,
-      "blue": 0.56,
-      "alpha": 1
-    }
-  ]
-}
-
-*
-* References:
-* - ...
+* Sketch Palette (.sketchpalette)
 */
 
 const supportedSketchPaletteVersion = '1.4';

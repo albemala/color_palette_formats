@@ -7,19 +7,8 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Jasc / Corel Paint Shop Pro
-* (.pal, .psppalette) (Paint Shop Pro, Jasc Software, Corel)
-*
-* Content example:
-*
-
-JASC-PAL
-0100
-256
-71 41 45
-119 115 142
-209 132 31
-
+* Jasc / Corel Paint Shop Pro (.pal, .psppalette)
+* Paint Shop Pro, Jasc Software, Corel
 *
 * References:
 * - http://www.selapa.net/swatches/colors/fileformats.php
