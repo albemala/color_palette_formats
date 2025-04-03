@@ -1,13 +1,9 @@
 part of 'soc.dart';
 
 List<int> _encode(StarOfficeColorTable table) {
-  final builder = XmlBuilder();
-  builder.processing('xml', 'version="1.0" encoding="UTF-8"');
-
-  builder.element(
-    SocConstants.officeColorTable,
+  return buildXmlDocument(
+    rootElementName: SocConstants.officeColorTable,
     namespace: SocConstants.officeNs,
-    // Define all required namespaces on the root element
     namespaces: {
       SocConstants.officeNs: SocConstants.officePrefix,
       SocConstants.styleNs: SocConstants.stylePrefix,
@@ -26,16 +22,13 @@ List<int> _encode(StarOfficeColorTable table) {
       SocConstants.formNs: SocConstants.formPrefix,
       SocConstants.scriptNs: SocConstants.scriptPrefix,
     },
-    nest: () {
-      // Build color elements
+    buildContent: (builder) {
+      // Build color elements using the generic helper
       for (final color in table.colors) {
         _buildColor(builder, color);
       }
     },
   );
-
-  // Use pretty: true for readability, similar to the example file.
-  return utf8.encode(builder.buildDocument().toXmlString(pretty: true));
 }
 
 // Helper to build a draw:color element.

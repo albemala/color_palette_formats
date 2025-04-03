@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:color_palette_formats/src/xml_decode_utils.dart';
+import 'package:color_palette_formats/src/xml_encode_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:xml/xml.dart';
 

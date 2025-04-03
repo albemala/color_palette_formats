@@ -1,32 +1,29 @@
 part of 'acbl.dart';
 
 List<int> _encode(AdobeColorBookLegacy book) {
-  final builder = XmlBuilder();
-  builder.processing('xml', 'version="1.0" encoding="UTF-8"');
-
-  builder.element(
-    AcblConstants.adobeSwatchbook,
-    nest: () {
+  return buildXmlDocument(
+    rootElementName: AcblConstants.adobeSwatchbook,
+    buildContent: (builder) {
       // Attributes for the root element
       builder.attribute(AcblConstants.versionAttr, book.version.toString());
       builder.attribute(AcblConstants.bookIdAttr, book.bookId.toString());
 
       // Build child element lists using the generic helper
-      _buildElementList(
+      buildElementList(
         builder,
         book.prefixPostfixPairs,
         AcblConstants.prefixPostfixPairs,
         _buildPrefixPostfixPair,
       );
 
-      _buildElementList(
+      buildElementList(
         builder,
         book.formats,
         AcblConstants.formats,
         _buildFormat,
       );
 
-      _buildElementList(
+      buildElementList(
         builder,
         book.colors,
         AcblConstants.swatches,
@@ -34,28 +31,6 @@ List<int> _encode(AdobeColorBookLegacy book) {
       );
     },
   );
-
-  // Use pretty: true for readability, matching original behavior.
-  return utf8.encode(builder.buildDocument().toXmlString(pretty: true));
-}
-
-// Generic function to build a list of elements within a container
-void _buildElementList<T>(
-  XmlBuilder builder,
-  List<T> items,
-  String containerName,
-  void Function(XmlBuilder, T) buildItem,
-) {
-  if (items.isNotEmpty) {
-    builder.element(
-      containerName,
-      nest: () {
-        for (final item in items) {
-          buildItem(builder, item);
-        }
-      },
-    );
-  }
 }
 
 // Helper to build a PrefixPostfixPair element.
@@ -68,9 +43,7 @@ void _buildPrefixPostfixPair(
     nest: () {
       builder.attribute(AcblConstants.prefixAttr, pair.prefix);
       builder.attribute(AcblConstants.postfixAttr, pair.postfix);
-      if (pair.id != null) {
-        builder.attribute(AcblConstants.idAttr, pair.id);
-      }
+      builder.attribute(AcblConstants.idAttr, pair.id);
     },
   );
 }

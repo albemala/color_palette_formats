@@ -1,24 +1,18 @@
 part of 'scribus.dart';
 
 List<int> _encode(ScribusPalette palette) {
-  final builder = XmlBuilder();
-  builder.processing('xml', 'version="1.0" encoding="UTF-8"');
-
-  builder.element(
-    ScribusConstants.scribusColors,
-    nest: () {
+  return buildXmlDocument(
+    rootElementName: ScribusConstants.scribusColors,
+    buildContent: (builder) {
       // Attribute for the root element
       builder.attribute(ScribusConstants.nameAttr, palette.name);
 
-      // Build COLOR elements
+      // Build COLOR elements using the generic helper
       for (final color in palette.colors) {
         _buildColorElement(builder, color);
       }
     },
   );
-
-  // Use pretty: true for readability, similar to the example.
-  return utf8.encode(builder.buildDocument().toXmlString(pretty: true));
 }
 
 // Helper to build a COLOR element.
