@@ -35,7 +35,16 @@ class ProcreateSwatchesSwatch with ProcreateSwatchesSwatchMappable {
     required this.brightness,
     required this.alpha,
     required this.colorSpace,
-  });
+  }) : assert(hue >= 0 && hue <= 1, 'hue must be between 0 and 1'),
+       assert(
+         saturation >= 0 && saturation <= 1,
+         'saturation must be between 0 and 1',
+       ),
+       assert(
+         brightness >= 0 && brightness <= 1,
+         'brightness must be between 0 and 1',
+       ),
+       assert(alpha >= 0 && alpha <= 1, 'alpha must be between 0 and 1');
 }
 
 @MappableClass()

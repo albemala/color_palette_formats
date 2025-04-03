@@ -30,7 +30,9 @@ class PaintShopProPaletteColor with PaintShopProPaletteColorMappable {
     required this.red,
     required this.green,
     required this.blue,
-  });
+  }) : assert(red >= 0 && red <= 255, 'red must be between 0 and 255'),
+       assert(green >= 0 && green <= 255, 'green must be between 0 and 255'),
+       assert(blue >= 0 && blue <= 255, 'blue must be between 0 and 255');
 }
 
 @MappableClass()

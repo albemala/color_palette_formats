@@ -30,7 +30,9 @@ class KOfficePaletteColor with KOfficePaletteColorMappable {
     required this.g,
     required this.b,
     required this.name,
-  });
+  }) : assert(r >= 0 && r <= 255, 'r must be between 0 and 255'),
+       assert(g >= 0 && g <= 255, 'g must be between 0 and 255'),
+       assert(b >= 0 && b <= 255, 'b must be between 0 and 255');
 }
 
 @MappableClass()

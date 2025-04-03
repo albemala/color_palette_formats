@@ -35,7 +35,13 @@ class CorelDraw4PaletteColor with CorelDraw4PaletteColorMappable {
     required this.yellow,
     required this.black,
     required this.name,
-  });
+  }) : assert(cyan >= 0 && cyan <= 100, 'cyan must be between 0 and 100'),
+       assert(
+         magenta >= 0 && magenta <= 100,
+         'magenta must be between 0 and 100',
+       ),
+       assert(yellow >= 0 && yellow <= 100, 'yellow must be between 0 and 100'),
+       assert(black >= 0 && black <= 100, 'black must be between 0 and 100');
 }
 
 @MappableClass()

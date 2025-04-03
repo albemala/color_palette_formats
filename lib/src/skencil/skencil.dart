@@ -32,7 +32,12 @@ class SkencilPaletteColor with SkencilPaletteColorMappable {
     required this.green,
     required this.blue,
     required this.name,
-  });
+  }) : assert(red >= 0.0 && red <= 1.0, 'red must be between 0.0 and 1.0'),
+       assert(
+         green >= 0.0 && green <= 1.0,
+         'green must be between 0.0 and 1.0',
+       ),
+       assert(blue >= 0.0 && blue <= 1.0, 'blue must be between 0.0 and 1.0');
 }
 
 @MappableClass()

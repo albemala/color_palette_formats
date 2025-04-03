@@ -68,7 +68,10 @@ class AdobeSwatchExchangeColor with AdobeSwatchExchangeColorMappable {
     required this.model,
     required this.values,
     this.type = AdobeSwatchExchangeColorType.global,
-  });
+  }) : assert(
+         values.every((value) => value >= 0 && value <= 1),
+         'Color values must be in the range [0..1]',
+       );
 }
 
 @MappableClass()
