@@ -1,3 +1,20 @@
+## 3.0.0
+
+### Breaking Changes
+- Renamed Jasc format to Paint Shop Pro.
+- Reworked GIMP palette API.
+- Now targeting Dart >= 3.7 and Flutter >= 3.29.
+
+### Added
+- Added support for Adobe Color Book Legacy (ACBL) format.
+- Added support for CorelDraw 4 Palette (PAL) format.
+- Added support for KOffice Palette (.colors) format.
+- Added support for Scribus Swatch (.xml) format.
+- Added support for Skencil Palette (.spl) format.
+- Added support for StarOffice Colors (SOC) format.
+- Added functions to validate palette formats.
+- Added parameters validation in constructors.
+
 ## 2.0.3
 
 - Upgraded dependencies

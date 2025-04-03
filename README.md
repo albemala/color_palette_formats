@@ -8,17 +8,22 @@ across a wide range of industry-standard formats.
 Currently, the package supports the following formats:
 
 - Adobe Color Book (ACB)
+- Adobe Color Book Legacy (ACBL)
 - Adobe Color Swatch (ACO)
 - Adobe Color Table (ACT)
 - Adobe Swatch Exchange (ASE)
+- CorelDraw 4 Palette (PAL)
 - GIMP Palette (GPL)
 - Homesite Palette (HPL)
-- Jasc / Corel Paint Shop Pro
-- Palette (PAL)
-- Paint.NET Palette
-- Procreate Swatches
+- KOffice Palette (.colors)
+- Paint.NET Palette (.txt)
+- Procreate Swatches (.swatches)
+- Jasc / Corel Paint Shop Pro (.pal, .psppalette)
 - Resource Interchange File Format (RIFF)
-- Sketch Palette
+- Scribus Swatch (.xml)
+- Skencil Palette (.spl)
+- Sketch Palette (.sketchpalette)
+- StarOffice Colors (SOC)
 
 ## Examples
 
