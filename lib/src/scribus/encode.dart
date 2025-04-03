@@ -18,8 +18,7 @@ List<int> _encode(ScribusPalette palette) {
   );
 
   // Use pretty: true for readability, similar to the example.
-  // Add a newline at the end for consistency with other formats.
-  return utf8.encode(builder.buildDocument().toXmlString(pretty: true) + '\n');
+  return utf8.encode(builder.buildDocument().toXmlString(pretty: true));
 }
 
 // Helper to build a COLOR element.

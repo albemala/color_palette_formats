@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:color_palette_formats/src/xml_decode_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:xml/xml.dart';
 
@@ -25,8 +26,8 @@ class ScribusColor with ScribusColorMappable {
   ScribusColor({
     required this.name,
     required this.rgb,
-    this.spot = "0", // Default based on example
-    this.register = "0", // Default based on example
+    this.spot = '0', // Default based on example
+    this.register = '0', // Default based on example
   });
 }
 
