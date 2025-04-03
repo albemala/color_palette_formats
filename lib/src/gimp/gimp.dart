@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:dart_mappable/dart_mappable.dart';
 
-part 'gpl.mapper.dart';
+part 'gimp.mapper.dart';
 part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Gimp Palette (GPL) (.gpl) 
+* Gimp Palette (GPL) (.gpl, .gimp) 
 * Gimp, Inkscape, Krita, KolourPaint, Scribus, CinePaint, MyPaint
 *
 *   References:

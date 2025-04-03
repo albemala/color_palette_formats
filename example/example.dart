@@ -33,9 +33,9 @@ void main() {
   assert(ase.colors.length == 122);
 
   // Example: Reading a GPL (GIMP Palette) file.
-  final gplFile = File('path/to/file.gimp');
-  final gpl = GimpPalette.fromBytes(gplFile.readAsBytesSync());
-  assert(gpl.colors.length == 256);
+  final gimpFile = File('path/to/file.gpl');
+  final gimp = GimpPalette.fromBytes(gimpFile.readAsBytesSync());
+  assert(gimp.colors.length == 256);
 
   // Example: Reading an HPL (Homesite Palette) file.
   final hplFile = File('path/to/file.hpl');

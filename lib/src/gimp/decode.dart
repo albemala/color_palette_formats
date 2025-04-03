@@ -1,4 +1,4 @@
-part of 'gpl.dart';
+part of 'gimp.dart';
 
 GimpPalette _decode(List<int> bytes) {
   final lines = utf8.decode(bytes).split(RegExp(r'\r?\n'));

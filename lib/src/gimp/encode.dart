@@ -1,4 +1,4 @@
-part of 'gpl.dart';
+part of 'gimp.dart';
 
 List<int> _encode(GimpPalette gimpPalette) {
   final buffer = StringBuffer();

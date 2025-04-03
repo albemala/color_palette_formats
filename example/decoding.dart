@@ -39,11 +39,11 @@ void main() {
   );
   processPaletteFiles<GimpPalette>(
     [
-      'assets/gpl/gpl1.gimp',
-      'assets/gpl/gpl2.gpl',
-      'assets/gpl/cromatica.gpl',
-      'assets/gpl/shido-10.gpl',
-      'assets/gpl/sunfall.gpl',
+      'assets/gimp/gpl1.gimp',
+      'assets/gimp/gpl2.gpl',
+      'assets/gimp/cromatica.gpl',
+      'assets/gimp/shido-10.gpl',
+      'assets/gimp/sunfall.gpl',
     ],
     GimpPalette.fromBytes,
     (e) => e.toMap(),
