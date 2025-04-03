@@ -3,17 +3,12 @@ part of 'coreldraw4.dart';
 List<int> _encode(CorelDraw4Palette palette) {
   final buffer = StringBuffer();
 
-  // CorelDraw .pal files don't have headers or info/comment sections.
-  // Just write the color lines directly.
-
   for (final color in palette.colors) {
+    final c = color.cyan;
+    final m = color.magenta;
+    final y = color.yellow;
+    final k = color.black;
     // Format: "Name" C M Y K
-    // Ensure values are within the valid 0-100 range, although the class constructor should handle this.
-    final c = color.cyan.clamp(0, 100);
-    final m = color.magenta.clamp(0, 100);
-    final y = color.yellow.clamp(0, 100);
-    final k = color.black.clamp(0, 100);
-
     // Pad values with spaces for alignment, similar to the example file.
     // This might not be strictly necessary but mimics the example.
     // A simple approach is just space separation.
