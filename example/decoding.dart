@@ -106,6 +106,11 @@ void main() {
     ScribusPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<SkencilPalette>(
+    ['assets/skencil/mini.spl', 'assets/skencil/www.spl'],
+    SkencilPalette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<StarOfficeColorTable>(
     ['assets/soc/cmyk.soc', 'assets/soc/gallery.soc', 'assets/soc/html.soc'],
     StarOfficeColorTable.fromBytes,

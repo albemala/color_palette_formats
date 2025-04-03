@@ -93,6 +93,11 @@ void main() {
   assert(scribus.name == 'tango');
   assert(scribus.colors.length == 52);
 
+  // Example: Reading a Skencil Palette (.spl) file.
+  final skencilFile = File('path/to/file.spl');
+  final skencil = SkencilPalette.fromBytes(skencilFile.readAsBytesSync());
+  assert(skencil.colors.length == 23);
+
   // Example: Reading an SOC (StarOffice Color) file.
   final socFile = File('path/to/file.soc');
   final soc = StarOfficeColorTable.fromBytes(socFile.readAsBytesSync());
