@@ -8,11 +8,14 @@ GimpPalette _decode(List<int> bytes) {
   final info = <String>[];
   final comments = <String>[];
   final colors = <GimpPaletteColor>[];
+  // Start from the second line (index 1)
   for (var i = 1; i < lines.length; i++) {
     final line = lines.elementAt(i);
 
-    // skip empty lines
-    if (line.isEmpty) continue;
+    if (line.isEmpty) {
+      // skip empty lines
+      continue;
+    }
 
     final regex = RegExp(r'(\d+)\s+(\d+)\s+(\d+)\s*(.*)');
     final match = regex.firstMatch(line);

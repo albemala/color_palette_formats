@@ -53,6 +53,11 @@ void main() {
     HomesitePalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<KOfficePalette>(
+    ['assets/koffice/KDE40.colors'],
+    KOfficePalette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<PaintDotNetPalette>(
     ['assets/paint-dot-net/paint-dot-net1.txt'],
     PaintDotNetPalette.fromBytes,
@@ -111,7 +116,10 @@ void processPaletteFiles<T>(
   for (final path in paths) {
     final file = File(path);
     final palette = fromBytes(file.readAsBytesSync());
-    print('--- $path ---');
+    print('\n');
+    print('======================================');
+    print('PALETTE: $path');
+    print('======================================');
     print(jsonEncode(toMap(palette)));
   }
 }

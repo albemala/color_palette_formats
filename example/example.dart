@@ -42,6 +42,11 @@ void main() {
   final hpl = HomesitePalette.fromBytes(hplFile.readAsBytesSync());
   assert(hpl.colors.length == 287);
 
+  // Example: Reading a KOffice Palette (.colors) file.
+  final kofficeFile = File('assets/koffice/KDE40.colors');
+  final koffice = KOfficePalette.fromBytes(kofficeFile.readAsBytesSync());
+  assert(koffice.colors.length == 40);
+
   // Example: Reading a PAL (Paint Shop Pro Palette) file.
   final palFile = File('path/to/file.pal');
   final pal = PaintShopProPalette.fromBytes(palFile.readAsBytesSync());
