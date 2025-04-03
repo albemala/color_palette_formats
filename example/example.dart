@@ -32,6 +32,13 @@ void main() {
   final ase = AdobeSwatchExchange.fromBytes(aseFile.readAsBytesSync());
   assert(ase.colors.length == 122);
 
+  // Example: Reading a CorelDraw 4 Palette (.pal) file.
+  final corelDraw4File = File('path/to/file.pal');
+  final corelDraw4 = CorelDraw4Palette.fromBytes(
+    corelDraw4File.readAsBytesSync(),
+  );
+  assert(corelDraw4.colors.length == 12);
+
   // Example: Reading a GPL (GIMP Palette) file.
   final gimpFile = File('path/to/file.gpl');
   final gimp = GimpPalette.fromBytes(gimpFile.readAsBytesSync());

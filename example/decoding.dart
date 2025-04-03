@@ -37,6 +37,11 @@ void main() {
     AdobeSwatchExchange.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<CorelDraw4Palette>(
+    ['assets/coreldraw4/coreldraw.pal'],
+    CorelDraw4Palette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<GimpPalette>(
     [
       'assets/gimp/gpl1.gimp',
