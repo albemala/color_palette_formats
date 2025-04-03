@@ -1,19 +1,24 @@
 part of 'hpl.dart';
 
 HomesitePalette _decode(List<int> bytes) {
-  final lines = utf8.decode(bytes).split('\n');
+  final lines = splitLines(bytes);
 
-  _validateHeader(lines.elementAt(0));
-  _validateVersion(lines.elementAt(1));
+  const paletteName = 'Homesite Palette';
+  validateHeader(lines.elementAt(0), _fileSignature, paletteName);
+  validateVersion(
+    lines.elementAt(1),
+    'Version ${HomesitePalette.version}',
+    paletteName,
+  );
 
   final colors =
-      lines //
-          // skip header and version
+      lines
+          // Skip header
           .skip(3)
-          // remove empty lines
+          // Skip empty lines
           .where((line) => line.isNotEmpty)
+          // Parse color values
           .map((line) {
-            // split line into 3 values: red, green, blue
             final values = line.split(' ').map(int.parse).toList();
             return HomesitePaletteColor(
               red: values[0],
@@ -24,20 +29,4 @@ HomesitePalette _decode(List<int> bytes) {
           .toList();
 
   return HomesitePalette(colors: colors);
-}
-
-void _validateHeader(String header) {
-  if (header != _fileSignature) {
-    throw const FormatException('''
-Not a valid HPL file''');
-  }
-}
-
-void _validateVersion(String versionLine) {
-  if (versionLine != 'Version ${HomesitePalette.version}') {
-    throw FormatException(
-      '''
-Unsupported version. Expected Version ${HomesitePalette.version}, got $versionLine''',
-    );
-  }
 }

@@ -1,9 +1,13 @@
 part of 'koffice.dart';
 
 KOfficePalette _decode(List<int> bytes) {
-  final lines = utf8.decode(bytes).split(RegExp(r'\r?\n'));
+  final lines = splitLines(bytes);
 
-  _validateHeader(lines.elementAt(0));
+  validateHeader(lines.elementAt(0), _fileSignature, 'KOffice palette file');
+
+  // the first 3 parts are red, green and blue
+  // the rest is the color name
+  final colorMatchRegex = RegExp(r'^(\d+)\s+(\d+)\s+(\d+)\s+(.*)$');
 
   final colors = <KOfficePaletteColor>[];
   // Start from the second line (index 1)
@@ -15,26 +19,16 @@ KOfficePalette _decode(List<int> bytes) {
       continue;
     }
 
-    final regex = RegExp(r'^(\d+)\s+(\d+)\s+(\d+)\s+(.*)$');
-    final match = regex.firstMatch(line);
+    final match = colorMatchRegex.firstMatch(line);
     if (match != null) {
       // line is a color
-      // the first 3 parts are red, green and blue
-      // the rest is the color name
-      final r = int.tryParse(match.group(1) ?? '') ?? 0;
-      final g = int.tryParse(match.group(2) ?? '') ?? 0;
-      final b = int.tryParse(match.group(3) ?? '') ?? 0;
-      final name = match.group(4)?.trim() ?? '';
+      final r = parseIntValue(match, 1);
+      final g = parseIntValue(match, 2);
+      final b = parseIntValue(match, 3);
+      final name = parseStringValue(match, 4);
       colors.add(KOfficePaletteColor(r: r, g: g, b: b, name: name));
     }
   }
 
   return KOfficePalette(colors: colors);
-}
-
-void _validateHeader(String header) {
-  if (header != _fileSignature) {
-    throw const FormatException('''
-Not a valid KOffice palette file''');
-  }
 }

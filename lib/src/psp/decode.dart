@@ -1,19 +1,20 @@
 part of 'psp.dart';
 
 PaintShopProPalette _decode(List<int> bytes) {
-  final lines = utf8.decode(bytes).split('\n');
+  final lines = splitLines(bytes);
 
-  _validateHeader(lines.elementAt(0));
-  _validateVersion(lines.elementAt(1));
+  const paletteName = 'Paint Shop Pro palette';
+  validateHeader(lines.elementAt(0), _fileSignature, paletteName);
+  validateVersion(lines.elementAt(1), PaintShopProPalette.version, paletteName);
 
   final colors =
       lines
-          // skip header and version
+          // Skip header
           .skip(3)
-          // remove empty lines
+          // Skip empty lines
           .where((line) => line.isNotEmpty)
+          // Parse color values
           .map((line) {
-            // split line into 3 values: red, green, blue
             final values = line.split(' ').map(int.parse).toList();
             return PaintShopProPaletteColor(
               red: values[0],
@@ -24,20 +25,4 @@ PaintShopProPalette _decode(List<int> bytes) {
           .toList();
 
   return PaintShopProPalette(colors: colors);
-}
-
-void _validateHeader(String header) {
-  if (header != _fileSignature) {
-    throw const FormatException('''
-Not a valid Paint Shop Pro file''');
-  }
-}
-
-void _validateVersion(String version) {
-  if (version != PaintShopProPalette.version) {
-    throw FormatException(
-      '''
-Unsupported version $version. Supported version: ${PaintShopProPalette.version}''',
-    );
-  }
 }

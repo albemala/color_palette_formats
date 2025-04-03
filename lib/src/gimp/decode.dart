@@ -1,9 +1,13 @@
 part of 'gimp.dart';
 
 GimpPalette _decode(List<int> bytes) {
-  final lines = utf8.decode(bytes).split(RegExp(r'\r?\n'));
+  final lines = splitLines(bytes);
 
-  _validateHeader(lines.elementAt(0));
+  validateHeader(lines.elementAt(0), _fileSignature, 'Gimp palette file');
+
+  // the first 3 parts are red, green and blue
+  // the rest is the color name
+  final colorMatchRegex = RegExp(r'(\d+)\s+(\d+)\s+(\d+)\s*(.*)');
 
   final info = <String>[];
   final comments = <String>[];
@@ -17,16 +21,13 @@ GimpPalette _decode(List<int> bytes) {
       continue;
     }
 
-    final regex = RegExp(r'(\d+)\s+(\d+)\s+(\d+)\s*(.*)');
-    final match = regex.firstMatch(line);
+    final match = colorMatchRegex.firstMatch(line);
     if (match != null) {
       // line is a color
-      // the first 3 parts are red, green and blue
-      // the rest is the color name
-      final red = int.tryParse(match.group(1) ?? '') ?? 0;
-      final green = int.tryParse(match.group(2) ?? '') ?? 0;
-      final blue = int.tryParse(match.group(3) ?? '') ?? 0;
-      final colorName = match.group(4) ?? '';
+      final red = parseIntValue(match, 1);
+      final green = parseIntValue(match, 2);
+      final blue = parseIntValue(match, 3);
+      final colorName = parseStringValue(match, 4);
       colors.add(
         GimpPaletteColor(red: red, green: green, blue: blue, name: colorName),
       );
@@ -45,11 +46,4 @@ GimpPalette _decode(List<int> bytes) {
   }
 
   return GimpPalette(info: info, comments: comments, colors: colors);
-}
-
-void _validateHeader(String header) {
-  if (header != _fileSignature) {
-    throw const FormatException('''
-Not a valid Gimp palette file''');
-  }
 }
