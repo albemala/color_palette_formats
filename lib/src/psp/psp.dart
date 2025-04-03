@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:dart_mappable/dart_mappable.dart';
 
-part 'jasc-pal.mapper.dart';
+part 'psp.mapper.dart';
 part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Jasc Palette (JASC PAL)
+* Jasc / Corel Paint Shop Pro
 * (.pal, .psppalette) (Paint Shop Pro, Jasc Software, Corel)
 *
 * Content example:
@@ -26,7 +26,7 @@ JASC-PAL
 */
 
 @MappableClass()
-class JascPaletteColor with JascPaletteColorMappable {
+class PaintShopProPaletteColor with PaintShopProPaletteColorMappable {
   /// Value: [0..255]
   final int red;
 
@@ -36,7 +36,7 @@ class JascPaletteColor with JascPaletteColorMappable {
   /// Value: [0..255]
   final int blue;
 
-  JascPaletteColor({
+  PaintShopProPaletteColor({
     required this.red,
     required this.green,
     required this.blue,
@@ -44,14 +44,14 @@ class JascPaletteColor with JascPaletteColorMappable {
 }
 
 @MappableClass()
-class JascPalette with JascPaletteMappable {
+class PaintShopProPalette with PaintShopProPaletteMappable {
   static const version = '0100';
 
-  final List<JascPaletteColor> colors;
+  final List<PaintShopProPaletteColor> colors;
 
-  JascPalette({required this.colors});
+  PaintShopProPalette({required this.colors});
 
-  factory JascPalette.fromBytes(List<int> bytes) {
+  factory PaintShopProPalette.fromBytes(List<int> bytes) {
     return _decode(bytes);
   }
 

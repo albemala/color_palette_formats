@@ -5,19 +5,19 @@ import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   test('read pal file', () {
-    final palFile1 = File('./assets/jasc-pal/pal1_v0100.pal');
-    final pal1 = JascPalette.fromBytes(palFile1.readAsBytesSync());
+    final palFile1 = File('./assets/psp/pal1_v0100.pal');
+    final pal1 = PaintShopProPalette.fromBytes(palFile1.readAsBytesSync());
     // print(pal1.toJson());
 
     expect(pal1.colors.length, equals(3));
   });
 
   test('write pal file', () async {
-    final pal = JascPalette(
+    final pal = PaintShopProPalette(
       colors: [
-        JascPaletteColor(red: 255, green: 0, blue: 0),
-        JascPaletteColor(red: 0, green: 255, blue: 0),
-        JascPaletteColor(red: 0, green: 0, blue: 255),
+        PaintShopProPaletteColor(red: 255, green: 0, blue: 0),
+        PaintShopProPaletteColor(red: 0, green: 255, blue: 0),
+        PaintShopProPaletteColor(red: 0, green: 0, blue: 255),
       ],
     );
 
@@ -26,7 +26,7 @@ Future<void> main() async {
     palFile.writeAsBytesSync(pal.toBytes());
     // print(palFile.readAsStringSync());
 
-    final decodedPal = JascPalette.fromBytes(palFile.readAsBytesSync());
+    final decodedPal = PaintShopProPalette.fromBytes(palFile.readAsBytesSync());
     // print(decodedPal.toJson());
 
     expect(decodedPal.colors.length, equals(3));

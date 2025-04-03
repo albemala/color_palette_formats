@@ -58,9 +58,9 @@ void main() {
     PaintDotNetPalette.fromBytes,
     (e) => e.toMap(),
   );
-  processPaletteFiles<JascPalette>(
-    ['assets/jasc-pal/pal1_v0100.pal'],
-    JascPalette.fromBytes,
+  processPaletteFiles<PaintShopProPalette>(
+    ['assets/psp/pal1_v0100.pal'],
+    PaintShopProPalette.fromBytes,
     (e) => e.toMap(),
   );
   for (final path in [

@@ -13,7 +13,7 @@ Currently, the package supports the following formats:
 - Adobe Swatch Exchange (ASE)
 - GIMP Palette (GPL)
 - Homesite Palette (HPL)
-- JASC
+- Jasc / Corel Paint Shop Pro
 - Palette (PAL)
 - Paint.NET Palette
 - Procreate Swatches

@@ -26,10 +26,10 @@ class ScribusColorMapper extends ClassMapperBase<ScribusColor> {
   static const Field<ScribusColor, String> _f$rgb = Field('rgb', _$rgb);
   static String _$spot(ScribusColor v) => v.spot;
   static const Field<ScribusColor, String> _f$spot =
-      Field('spot', _$spot, opt: true, def: "0");
+      Field('spot', _$spot, opt: true, def: '0');
   static String _$register(ScribusColor v) => v.register;
   static const Field<ScribusColor, String> _f$register =
-      Field('register', _$register, opt: true, def: "0");
+      Field('register', _$register, opt: true, def: '0');
 
   @override
   final MappableFields<ScribusColor> fields = const {

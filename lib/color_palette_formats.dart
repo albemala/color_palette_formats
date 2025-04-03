@@ -5,7 +5,7 @@ export 'src/act/act.dart';
 export 'src/ase/ase.dart';
 export 'src/gpl/gpl.dart';
 export 'src/hpl/hpl.dart';
-export 'src/jasc-pal/jasc-pal.dart';
+export 'src/psp/psp.dart';
 export 'src/paint-dot-net/paint-dot-net.dart';
 export 'src/procreate/procreate.dart';
 export 'src/riff/riff.dart';

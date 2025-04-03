@@ -1,6 +1,6 @@
-part of 'jasc-pal.dart';
+part of 'psp.dart';
 
-JascPalette _decode(List<int> bytes) {
+PaintShopProPalette _decode(List<int> bytes) {
   final lines = utf8.decode(bytes).split('\n');
 
   _validateHeader(lines.elementAt(0));
@@ -15,7 +15,7 @@ JascPalette _decode(List<int> bytes) {
           .map((line) {
             // split line into 3 values: red, green, blue
             final values = line.split(' ').map(int.parse).toList();
-            return JascPaletteColor(
+            return PaintShopProPaletteColor(
               red: values[0],
               green: values[1],
               blue: values[2],
@@ -23,19 +23,21 @@ JascPalette _decode(List<int> bytes) {
           })
           .toList();
 
-  return JascPalette(colors: colors);
+  return PaintShopProPalette(colors: colors);
 }
 
 void _validateHeader(String header) {
   if (header != _fileSignature) {
     throw const FormatException('''
-Not a valid JASC PAL file''');
+Not a valid Paint Shop Pro file''');
   }
 }
 
 void _validateVersion(String version) {
-  if (version != JascPalette.version) {
-    throw FormatException('''
-Unsupported version $version. Supported version: ${JascPalette.version}''');
+  if (version != PaintShopProPalette.version) {
+    throw FormatException(
+      '''
+Unsupported version $version. Supported version: ${PaintShopProPalette.version}''',
+    );
   }
 }

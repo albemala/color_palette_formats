@@ -42,9 +42,9 @@ void main() {
   final hpl = HomesitePalette.fromBytes(hplFile.readAsBytesSync());
   assert(hpl.colors.length == 287);
 
-  // Example: Reading a PAL (JASC Palette) file.
+  // Example: Reading a PAL (Paint Shop Pro Palette) file.
   final palFile = File('path/to/file.pal');
-  final pal = JascPalette.fromBytes(palFile.readAsBytesSync());
+  final pal = PaintShopProPalette.fromBytes(palFile.readAsBytesSync());
   assert(pal.colors.length == 3);
 
   // Example: Reading a Paint.NET Palette file.
