@@ -86,27 +86,3 @@ class Sk1Palette with Sk1PaletteMappable {
 
 // Constants for sK1 text format parsing
 const _fileSignature = '##sK1 palette';
-const _paletteStartCommand = 'palette()';
-const _paletteEndCommand = 'palette_end()';
-const _setNameCommand = 'set_name';
-const _setSourceCommand = 'set_source';
-const _addCommentsCommand = 'add_comments';
-const _setColumnsCommand = 'set_columns';
-const _colorCommand = 'color';
-
-// Regex to parse function-like calls: command('string') or command(number) or command([...])
-// It captures the command name and the argument list within parentheses.
-final _commandRegex = RegExp(r'^([a-zA-Z_][a-zA-Z0-9_]*)\((.*)\)$');
-
-// Regex to parse the argument of set_name, set_source, add_comments (a single string literal)
-final _stringArgRegex = RegExp(r"^'(.*)'$");
-
-// Regex to parse the argument of set_columns (a single integer)
-final _intArgRegex = RegExp(r'^(\d+)$');
-
-// Regex to parse the argument of color(['SPACE', [v1, v2, ...], alpha, 'name'])
-// This is complex due to nested lists and strings. We'll parse it step-by-step.
-// Step 1: Extract the outer list content.
-final _colorArgOuterListRegex = RegExp(r"^\s*\[(.*)\]\s*$");
-// Step 2: Split the inner content by commas, respecting nested structures (crude approach)
-// A more robust parser might be needed for complex cases, but this works for the example.

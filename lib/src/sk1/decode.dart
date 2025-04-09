@@ -15,9 +15,7 @@ Sk1Palette _decode(List<int> bytes) {
   int? columns;
   final colors = <Sk1Color>[];
 
-  // Define regex patterns for extracting data
-  final commandPattern = RegExp(r'^([a-zA-Z_][a-zA-Z0-9_]*)\((.*)\)$');
-
+  // Use the generic command regex from sk1.dart
   var foundPalette = false;
 
   for (final line in lines) {
@@ -29,12 +27,12 @@ Sk1Palette _decode(List<int> bytes) {
     }
 
     // Check for palette markers
-    if (trimmedLine == _paletteStartCommand) {
+    if (trimmedLine == 'palette()') {
       foundPalette = true;
       continue;
     }
 
-    if (trimmedLine == _paletteEndCommand) {
+    if (trimmedLine == 'palette_end()') {
       break;
     }
 
@@ -43,8 +41,11 @@ Sk1Palette _decode(List<int> bytes) {
       continue;
     }
 
+    // Regex to parse function-like calls: command('string') or command(number) or command([...])
+    // It captures the command name and the argument list within parentheses.
+    final commandRegex = RegExp(r'^([a-zA-Z_][a-zA-Z0-9_]*)\((.*)\)$');
     // Parse command
-    final commandMatch = commandPattern.firstMatch(trimmedLine);
+    final commandMatch = commandRegex.firstMatch(trimmedLine);
     if (commandMatch == null) {
       continue;
     }
@@ -54,15 +55,15 @@ Sk1Palette _decode(List<int> bytes) {
 
     try {
       switch (command) {
-        case _setNameCommand:
+        case 'set_name':
           name = _parseStringArgument(args);
-        case _setSourceCommand:
+        case 'set_source':
           source = _parseStringArgument(args);
-        case _addCommentsCommand:
+        case 'add_comments':
           comments.add(_parseStringArgument(args));
-        case _setColumnsCommand:
-          columns = _parseIntArgument(args);
-        case _colorCommand:
+        case 'set_columns':
+          columns = int.parse(args);
+        case 'color':
           colors.add(_parseColorArgument(args));
       }
     } catch (e) {
@@ -93,26 +94,19 @@ Sk1Palette _decode(List<int> bytes) {
 }
 
 String _parseStringArgument(String args) {
-  if (args.startsWith("'") && args.endsWith("'")) {
-    return args.substring(1, args.length - 1).replaceAll(r"\'", "'");
-  } else if (args.startsWith("u'") && args.endsWith("'")) {
+  // Handle unicode string (u'string')
+  if (args.startsWith("u'") && args.endsWith("'")) {
     return args.substring(2, args.length - 1).replaceAll(r"\'", "'");
+  }
+  // Handle regular string ('string')
+  else if (args.startsWith("'") && args.endsWith("'")) {
+    return args.substring(1, args.length - 1).replaceAll(r"\'", "'");
   } else {
     throw FormatException('Invalid string format: $args');
   }
 }
 
-int _parseIntArgument(String args) {
-  final value = int.tryParse(args);
-  if (value == null) {
-    throw FormatException('Invalid integer format: $args');
-  }
-  return value;
-}
-
 Sk1Color _parseColorArgument(String args) {
-  // Example: ['RGB', [0.866, 0.282, 0.078], 1.0, 'Ubuntu orange']
-
   // Basic validation: starts with [ and ends with ]
   if (!args.startsWith('[') || !args.endsWith(']')) {
     throw FormatException('Invalid color format: $args');
@@ -129,9 +123,9 @@ Sk1Color _parseColorArgument(String args) {
 
   try {
     // 1. Parse color space
-    final colorSpaceStr = _parseStringArgument(parts[0]).toUpperCase();
+    final colorSpaceStr = _parseStringArgument(parts[0]);
     final Sk1ColorSpace colorSpace;
-    switch (colorSpaceStr) {
+    switch (colorSpaceStr.toUpperCase()) {
       case 'RGB':
         colorSpace = Sk1ColorSpace.rgb;
       case 'CMYK':

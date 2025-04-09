@@ -4,18 +4,18 @@ List<int> _encode(Sk1Palette palette) {
   final buffer = StringBuffer();
 
   // 1. Write signature and start command
-  buffer.writeln(_fileSignature);
-  buffer.writeln(_paletteStartCommand);
+  buffer.writeln('##sK1 palette');
+  buffer.writeln('palette()');
 
   // 2. Write metadata
-  buffer.writeln("$_setNameCommand('${_escapeString(palette.name)}')");
+  buffer.writeln("set_name('${_escapeString(palette.name)}')");
   if (palette.source != null && palette.source!.isNotEmpty) {
-    buffer.writeln("$_setSourceCommand('${_escapeString(palette.source!)}')");
+    buffer.writeln("set_source('${_escapeString(palette.source!)}')");
   }
   for (final comment in palette.comments) {
-    buffer.writeln("$_addCommentsCommand('${_escapeString(comment)}')");
+    buffer.writeln("add_comments('${_escapeString(comment)}')");
   }
-  buffer.writeln("$_setColumnsCommand(${palette.columns})");
+  buffer.writeln('set_columns(${palette.columns})');
 
   // 3. Write colors
   for (final color in palette.colors) {
@@ -23,7 +23,7 @@ List<int> _encode(Sk1Palette palette) {
   }
 
   // 4. Write end command
-  buffer.writeln(_paletteEndCommand);
+  buffer.writeln('palette_end()');
 
   return utf8.encode(buffer.toString());
 }
@@ -37,11 +37,11 @@ String _encodeColor(Sk1Color color) {
   final alphaStr = color.alpha.toString(); // Usually 1.0
   final nameStr = _escapeString(color.name);
 
-  return "$_colorCommand(['$colorSpaceStr', [$valuesStr], $alphaStr, '$nameStr'])";
+  return "color(['$colorSpaceStr', [$valuesStr], $alphaStr, '$nameStr'])";
 }
 
 // Helper to escape single quotes within string arguments if necessary
 String _escapeString(String value) {
   // sK1 format uses single quotes. Escape any internal single quotes.
-  return value.replaceAll("'", "\\'");
+  return value.replaceAll("'", r"\'");
 }
