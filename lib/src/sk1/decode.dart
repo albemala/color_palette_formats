@@ -2,89 +2,85 @@ part of 'sk1.dart';
 
 Sk1Palette _decode(List<int> bytes) {
   final lines = splitLines(bytes);
-  final iterator = lines.iterator;
 
-  // 1. Validate Header
-  if (!iterator.moveNext() || !iterator.current.startsWith(_fileSignature)) {
-    throw FormatException('Invalid or missing sK1 palette signature.');
+  // Validate header
+  if (lines.isEmpty || !lines.first.startsWith(_fileSignature)) {
+    throw const FormatException('Invalid or missing sK1 palette signature.');
   }
 
-  // 2. Find palette() start
-  while (iterator.moveNext() &&
-      iterator.current.trim() != _paletteStartCommand) {
-    // Skip lines until palette() is found
-  }
-  if (iterator.current.trim() != _paletteStartCommand) {
-    throw FormatException('Missing "$_paletteStartCommand" command.');
-  }
-
-  // 3. Parse palette properties and colors
+  // Find required data
   String? name;
   String? source;
   final comments = <String>[];
   int? columns;
   final colors = <Sk1Color>[];
 
-  while (iterator.moveNext()) {
-    final line = iterator.current.trim();
+  // Define regex patterns for extracting data
+  final commandPattern = RegExp(r'^([a-zA-Z_][a-zA-Z0-9_]*)\((.*)\)$');
 
-    if (line.isEmpty || line.startsWith('#')) {
-      // Skip empty lines and comments (though ##sK1 palette is the official header)
+  var foundPalette = false;
+
+  for (final line in lines) {
+    final trimmedLine = line.trim();
+
+    // Skip empty lines and comments
+    if (trimmedLine.isEmpty || trimmedLine.startsWith('#')) {
       continue;
     }
 
-    if (line == _paletteEndCommand) {
-      // Found the end
+    // Check for palette markers
+    if (trimmedLine == _paletteStartCommand) {
+      foundPalette = true;
+      continue;
+    }
+
+    if (trimmedLine == _paletteEndCommand) {
       break;
     }
 
-    final commandMatch = _commandRegex.firstMatch(line);
+    // Only process commands after palette() is found
+    if (!foundPalette) {
+      continue;
+    }
+
+    // Parse command
+    final commandMatch = commandPattern.firstMatch(trimmedLine);
     if (commandMatch == null) {
-      // Might be a malformed line or unexpected content
-      // For now, we'll ignore it, but stricter parsing could throw here.
-      // print('Warning: Skipping unrecognized line: $line');
       continue;
     }
 
     final command = commandMatch.group(1)!;
-    final argsString = commandMatch.group(2)!.trim();
+    final args = commandMatch.group(2)!.trim();
 
     try {
       switch (command) {
         case _setNameCommand:
-          name = _parseStringArgument(argsString, _setNameCommand);
-          break;
+          name = _parseStringArgument(args);
         case _setSourceCommand:
-          source = _parseStringArgument(argsString, _setSourceCommand);
-          break;
+          source = _parseStringArgument(args);
         case _addCommentsCommand:
-          comments.add(_parseStringArgument(argsString, _addCommentsCommand));
-          break;
+          comments.add(_parseStringArgument(args));
         case _setColumnsCommand:
-          columns = _parseIntArgument(argsString, _setColumnsCommand);
-          break;
+          columns = _parseIntArgument(args);
         case _colorCommand:
-          colors.add(_parseColorArgument(argsString));
-          break;
-        default:
-          // Unknown command, ignore for now
-          // print('Warning: Skipping unknown command: $command');
-          break;
+          colors.add(_parseColorArgument(args));
       }
-    } on FormatException catch (e) {
-      // Add line context to the exception
-      throw FormatException(
-        'Error parsing line "${iterator.current}": ${e.message}',
-      );
+    } catch (e) {
+      throw FormatException('Error parsing line "$trimmedLine": $e');
     }
   }
 
-  // 4. Validate required fields
-  if (name == null) {
-    throw FormatException('Missing required "$_setNameCommand" command.');
+  // Validate required data
+  if (!foundPalette) {
+    throw const FormatException('Missing palette start marker.');
   }
+
+  if (name == null) {
+    throw const FormatException('Missing palette name.');
+  }
+
   if (columns == null) {
-    throw FormatException('Missing required "$_setColumnsCommand" command.');
+    throw const FormatException('Missing columns value.');
   }
 
   return Sk1Palette(
@@ -96,126 +92,72 @@ Sk1Palette _decode(List<int> bytes) {
   );
 }
 
-String _parseStringArgument(String argsString, String command) {
-  final match = _stringArgRegex.firstMatch(argsString);
-  if (match == null || match.groupCount < 1) {
-    throw FormatException(
-      'Invalid argument for $command: Expected a single string like \'value\', got "$argsString"',
-    );
+String _parseStringArgument(String args) {
+  if (args.startsWith("'") && args.endsWith("'")) {
+    return args.substring(1, args.length - 1).replaceAll(r"\'", "'");
+  } else if (args.startsWith("u'") && args.endsWith("'")) {
+    return args.substring(2, args.length - 1).replaceAll(r"\'", "'");
+  } else {
+    throw FormatException('Invalid string format: $args');
   }
-  // Unescape any escaped single quotes
-  return match.group(1)!.replaceAll("\\'", "'");
 }
 
-int _parseIntArgument(String argsString, String command) {
-  final match = _intArgRegex.firstMatch(argsString);
-  if (match == null || match.groupCount < 1) {
-    throw FormatException(
-      'Invalid argument for $command: Expected a single integer like 1, got "$argsString"',
-    );
-  }
-  final value = int.tryParse(match.group(1)!);
+int _parseIntArgument(String args) {
+  final value = int.tryParse(args);
   if (value == null) {
-    throw FormatException(
-      'Invalid argument for $command: Could not parse integer from "$argsString"',
-    );
+    throw FormatException('Invalid integer format: $args');
   }
   return value;
 }
 
-Sk1Color _parseColorArgument(String argsString) {
+Sk1Color _parseColorArgument(String args) {
   // Example: ['RGB', [0.866, 0.282, 0.078], 1.0, 'Ubuntu orange']
-  // Example: ['RGB', [0.235..., 0.431..., 0.705...], 1.0, u'Fedora Blue']
 
   // Basic validation: starts with [ and ends with ]
-  if (!argsString.startsWith('[') || !argsString.endsWith(']')) {
-    throw FormatException(
-      'Invalid argument for $_colorCommand: Expected a list like [...], got "$argsString"',
-    );
+  if (!args.startsWith('[') || !args.endsWith(']')) {
+    throw FormatException('Invalid color format: $args');
   }
 
   // Remove outer brackets
-  String content = argsString.substring(1, argsString.length - 1).trim();
+  final content = args.substring(1, args.length - 1).trim();
+
+  // Split the content into parts manually
+  final parts = _splitColorParts(content);
+  if (parts.length != 4) {
+    throw FormatException('Color requires 4 parts: $args');
+  }
 
   try {
-    // 1. Parse Color Space String (e.g., 'RGB')
-    if (!content.startsWith('\'')) {
-      throw FormatException('Expected color space string starting with \'.');
-    }
-    final spaceEndIndex = content.indexOf('\'', 1);
-    if (spaceEndIndex == -1) {
-      throw FormatException('Could not find end quote for color space string.');
-    }
-    final colorSpaceStr = content.substring(1, spaceEndIndex).toUpperCase();
+    // 1. Parse color space
+    final colorSpaceStr = _parseStringArgument(parts[0]).toUpperCase();
     final Sk1ColorSpace colorSpace;
     switch (colorSpaceStr) {
       case 'RGB':
         colorSpace = Sk1ColorSpace.rgb;
-        break;
       case 'CMYK':
         colorSpace = Sk1ColorSpace.cmyk;
-        break;
       case 'GRAY':
         colorSpace = Sk1ColorSpace.gray;
-        break;
       default:
-        throw FormatException('Unknown color space "$colorSpaceStr".');
+        throw FormatException('Unknown color space: $colorSpaceStr');
     }
-    // Move content past the parsed part + comma
-    content = content.substring(spaceEndIndex + 1).trim();
-    if (!content.startsWith(',')) {
-      throw FormatException('Expected comma after color space string.');
-    }
-    content = content.substring(1).trim();
 
-    // 2. Parse Values List (e.g., [0.866, 0.282, 0.078])
-    if (!content.startsWith('[')) {
-      throw FormatException('Expected values list starting with [.');
+    // 2. Parse values list
+    final valuesList = parts[1].trim();
+    if (!valuesList.startsWith('[') || !valuesList.endsWith(']')) {
+      throw FormatException('Invalid values list: $valuesList');
     }
-    final valuesEndIndex = content.indexOf(']');
-    if (valuesEndIndex == -1) {
-      throw FormatException('Could not find end bracket for values list.');
-    }
-    final valuesListStr = content.substring(1, valuesEndIndex);
+
+    final valuesStr = valuesList.substring(1, valuesList.length - 1);
     final values =
-        valuesListStr.split(',').map((s) => double.parse(s.trim())).toList();
-    // Move content past the parsed part + comma
-    content = content.substring(valuesEndIndex + 1).trim();
-    if (!content.startsWith(',')) {
-      throw FormatException('Expected comma after values list.');
-    }
-    content = content.substring(1).trim();
+        valuesStr.split(',').map((s) => double.parse(s.trim())).toList();
 
-    // 3. Parse Alpha (e.g., 1.0)
-    final alphaEndIndex = content.indexOf(',');
-    if (alphaEndIndex == -1) {
-      throw FormatException('Could not find comma after alpha value.');
-    }
-    final alphaStr = content.substring(0, alphaEndIndex).trim();
-    final double alpha;
-    try {
-      alpha = double.parse(alphaStr);
-    } catch (e) {
-      throw FormatException('Could not parse alpha value "$alphaStr": $e');
-    }
-    // Move content past the parsed part + comma
-    content = content.substring(alphaEndIndex + 1).trim();
+    // 3. Parse alpha
+    final alpha = double.parse(parts[2].trim());
 
-    // 4. Parse Name String (e.g., 'Ubuntu orange' or u'Fedora Blue')
-    String name;
-    if (content.startsWith('u\'') && content.endsWith('\'')) {
-      name = content.substring(2, content.length - 1);
-    } else if (content.startsWith('\'') && content.endsWith('\'')) {
-      name = content.substring(1, content.length - 1);
-    } else {
-      throw FormatException(
-        'Could not parse name string: Expected \'...\' or u\'...\', got "$content"',
-      );
-    }
-    // Unescape any escaped single quotes potentially added during encoding
-    name = name.replaceAll("\\'", "'");
+    // 4. Parse name
+    final name = _parseStringArgument(parts[3]);
 
-    // 5. Construct Sk1Color
     return Sk1Color(
       colorSpace: colorSpace,
       values: values,
@@ -223,9 +165,31 @@ Sk1Color _parseColorArgument(String argsString) {
       name: name,
     );
   } catch (e) {
-    // Catch parsing errors (double.parse, indexing, FormatException, etc.)
-    throw FormatException(
-      'Error parsing $_colorCommand arguments "$argsString": ${e.toString()}',
-    );
+    throw FormatException('Error parsing color data: $e');
   }
+}
+
+// Helper method to split color parts respecting nested structures
+List<String> _splitColorParts(String content) {
+  final parts = <String>[];
+  var depth = 0;
+  var start = 0;
+
+  for (var i = 0; i < content.length; i++) {
+    final char = content[i];
+
+    if (char == '[') {
+      depth++;
+    } else if (char == ']') {
+      depth--;
+    } else if (char == ',' && depth == 0) {
+      // Only split at top level commas
+      parts.add(content.substring(start, i).trim());
+      start = i + 1;
+    }
+  }
+
+  // Add the last part
+  parts.add(content.substring(start).trim());
+  return parts;
 }
