@@ -12,6 +12,7 @@ export 'src/procreate/procreate.dart';
 export 'src/psp/psp.dart';
 export 'src/riff/riff.dart';
 export 'src/scribus/scribus.dart';
+export 'src/sk1/sk1.dart';
 export 'src/skencil/skencil.dart';
 export 'src/sketchpalette/sketchpalette.dart';
 export 'src/soc/soc.dart';

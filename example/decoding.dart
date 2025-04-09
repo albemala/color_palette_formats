@@ -111,6 +111,16 @@ void main() {
     SkencilPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<Sk1Palette>(
+    [
+      'assets/sk1/Fedora_color_palette.skp',
+      'assets/sk1/Lible_Colors.skp',
+      'assets/sk1/Ubuntu_colors.skp',
+      'assets/sk1/openSUSE_colors.skp',
+    ],
+    Sk1Palette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<StarOfficeColorTable>(
     ['assets/soc/cmyk.soc', 'assets/soc/gallery.soc', 'assets/soc/html.soc'],
     StarOfficeColorTable.fromBytes,

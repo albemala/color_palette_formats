@@ -98,6 +98,21 @@ void main() {
   final skencil = SkencilPalette.fromBytes(skencilFile.readAsBytesSync());
   assert(skencil.colors.length == 23);
 
+  // Example: Reading an sK1 Palette (.skp) file.
+  // Using the Ubuntu colors example file.
+  final sk1File = File('assets/sk1/Ubuntu_colors.skp');
+  final sk1 = Sk1Palette.fromBytes(sk1File.readAsBytesSync());
+  assert(sk1.name == 'Ubuntu colors');
+  assert(sk1.source == 'Canonical');
+  assert(sk1.comments.length == 2);
+  assert(sk1.columns == 1);
+  assert(sk1.colors.length == 9);
+  // Check first color details (Ubuntu orange)
+  assert(sk1.colors.first.name == 'Ubuntu orange');
+  assert(sk1.colors.first.colorSpace == Sk1ColorSpace.rgb);
+  assert(sk1.colors.first.values.length == 3);
+  assert(sk1.colors.first.alpha == 1.0);
+
   // Example: Reading an SOC (StarOffice Color) file.
   final socFile = File('path/to/file.soc');
   final soc = StarOfficeColorTable.fromBytes(socFile.readAsBytesSync());
