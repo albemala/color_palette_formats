@@ -18,7 +18,7 @@ AdobeColorSwatch _decode(List<int> bytes) {
     try {
       colorSpace = AdobeColorSwatchColorSpace.fromValue(colorSpaceValue);
     } catch (e) {
-      throw Exception('Unsupported color space value: $colorSpaceValue');
+      throw FormatException('Unsupported color space value: $colorSpaceValue');
     }
 
     final colorValues = switch (colorSpace) {
@@ -40,7 +40,7 @@ AdobeColorSwatch _decode(List<int> bytes) {
 void _validateVersion(ByteDataReader buffer) {
   final version = buffer.readUint16();
   if (version != AdobeColorSwatch.version) {
-    throw Exception(
+    throw FormatException(
       '''
 Unsupported version: $version. Supported version: ${AdobeColorSwatch.version}''',
     );

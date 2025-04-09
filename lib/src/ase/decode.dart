@@ -29,7 +29,7 @@ AdobeSwatchExchange _decode(List<int> bytes) {
       case _blockTypeGroupEnd:
         break;
       default:
-        // throw Exception('Unknown block type: $blockType');
+        // throw FormatException('Unknown block type: $blockType');
         // print('Unknown block type: $blockType');
         // read the block data and ignore it
         buffer.read(blockLength);

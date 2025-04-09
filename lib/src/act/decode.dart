@@ -3,7 +3,7 @@ part of 'act.dart';
 AdobeColorTable _decode(List<int> bytes) {
   // should be 768 or 772 bytes long
   // if (bytes.length != 768 && bytes.length != 772) {
-  //   throw Exception('Not a valid Adobe Color Table file');
+  //   throw FormatException('Not a valid Adobe Color Table file');
   // }
 
   final buffer = ByteDataReader()..add(bytes);
