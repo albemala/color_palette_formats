@@ -48,42 +48,39 @@ extension ProcreateV1ColorSpaceMapperExtension on ProcreateV1ColorSpace {
   }
 }
 
-class ProcreateV1PaletteColorMapper
-    extends ClassMapperBase<ProcreateV1PaletteColor> {
-  ProcreateV1PaletteColorMapper._();
+class ProcreateV1SwatchMapper extends ClassMapperBase<ProcreateV1Swatch> {
+  ProcreateV1SwatchMapper._();
 
-  static ProcreateV1PaletteColorMapper? _instance;
-  static ProcreateV1PaletteColorMapper ensureInitialized() {
+  static ProcreateV1SwatchMapper? _instance;
+  static ProcreateV1SwatchMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals
-          .use(_instance = ProcreateV1PaletteColorMapper._());
+      MapperContainer.globals.use(_instance = ProcreateV1SwatchMapper._());
       ProcreateV1ColorSpaceMapper.ensureInitialized();
     }
     return _instance!;
   }
 
   @override
-  final String id = 'ProcreateV1PaletteColor';
+  final String id = 'ProcreateV1Swatch';
 
-  static double _$hue(ProcreateV1PaletteColor v) => v.hue;
-  static const Field<ProcreateV1PaletteColor, double> _f$hue =
-      Field('hue', _$hue);
-  static double _$saturation(ProcreateV1PaletteColor v) => v.saturation;
-  static const Field<ProcreateV1PaletteColor, double> _f$saturation =
+  static double _$hue(ProcreateV1Swatch v) => v.hue;
+  static const Field<ProcreateV1Swatch, double> _f$hue = Field('hue', _$hue);
+  static double _$saturation(ProcreateV1Swatch v) => v.saturation;
+  static const Field<ProcreateV1Swatch, double> _f$saturation =
       Field('saturation', _$saturation);
-  static double _$brightness(ProcreateV1PaletteColor v) => v.brightness;
-  static const Field<ProcreateV1PaletteColor, double> _f$brightness =
+  static double _$brightness(ProcreateV1Swatch v) => v.brightness;
+  static const Field<ProcreateV1Swatch, double> _f$brightness =
       Field('brightness', _$brightness);
-  static double _$alpha(ProcreateV1PaletteColor v) => v.alpha;
-  static const Field<ProcreateV1PaletteColor, double> _f$alpha =
+  static double _$alpha(ProcreateV1Swatch v) => v.alpha;
+  static const Field<ProcreateV1Swatch, double> _f$alpha =
       Field('alpha', _$alpha);
-  static ProcreateV1ColorSpace _$colorSpace(ProcreateV1PaletteColor v) =>
+  static ProcreateV1ColorSpace _$colorSpace(ProcreateV1Swatch v) =>
       v.colorSpace;
-  static const Field<ProcreateV1PaletteColor, ProcreateV1ColorSpace>
-      _f$colorSpace = Field('colorSpace', _$colorSpace);
+  static const Field<ProcreateV1Swatch, ProcreateV1ColorSpace> _f$colorSpace =
+      Field('colorSpace', _$colorSpace);
 
   @override
-  final MappableFields<ProcreateV1PaletteColor> fields = const {
+  final MappableFields<ProcreateV1Swatch> fields = const {
     #hue: _f$hue,
     #saturation: _f$saturation,
     #brightness: _f$brightness,
@@ -91,8 +88,8 @@ class ProcreateV1PaletteColorMapper
     #colorSpace: _f$colorSpace,
   };
 
-  static ProcreateV1PaletteColor _instantiate(DecodingData data) {
-    return ProcreateV1PaletteColor(
+  static ProcreateV1Swatch _instantiate(DecodingData data) {
+    return ProcreateV1Swatch(
         hue: data.dec(_f$hue),
         saturation: data.dec(_f$saturation),
         brightness: data.dec(_f$brightness),
@@ -103,60 +100,58 @@ class ProcreateV1PaletteColorMapper
   @override
   final Function instantiate = _instantiate;
 
-  static ProcreateV1PaletteColor fromMap(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<ProcreateV1PaletteColor>(map);
+  static ProcreateV1Swatch fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<ProcreateV1Swatch>(map);
   }
 
-  static ProcreateV1PaletteColor fromJson(String json) {
-    return ensureInitialized().decodeJson<ProcreateV1PaletteColor>(json);
+  static ProcreateV1Swatch fromJson(String json) {
+    return ensureInitialized().decodeJson<ProcreateV1Swatch>(json);
   }
 }
 
-mixin ProcreateV1PaletteColorMappable {
+mixin ProcreateV1SwatchMappable {
   String toJson() {
-    return ProcreateV1PaletteColorMapper.ensureInitialized()
-        .encodeJson<ProcreateV1PaletteColor>(this as ProcreateV1PaletteColor);
+    return ProcreateV1SwatchMapper.ensureInitialized()
+        .encodeJson<ProcreateV1Swatch>(this as ProcreateV1Swatch);
   }
 
   Map<String, dynamic> toMap() {
-    return ProcreateV1PaletteColorMapper.ensureInitialized()
-        .encodeMap<ProcreateV1PaletteColor>(this as ProcreateV1PaletteColor);
+    return ProcreateV1SwatchMapper.ensureInitialized()
+        .encodeMap<ProcreateV1Swatch>(this as ProcreateV1Swatch);
   }
 
-  ProcreateV1PaletteColorCopyWith<ProcreateV1PaletteColor,
-          ProcreateV1PaletteColor, ProcreateV1PaletteColor>
-      get copyWith => _ProcreateV1PaletteColorCopyWithImpl<
-              ProcreateV1PaletteColor, ProcreateV1PaletteColor>(
-          this as ProcreateV1PaletteColor, $identity, $identity);
+  ProcreateV1SwatchCopyWith<ProcreateV1Swatch, ProcreateV1Swatch,
+          ProcreateV1Swatch>
+      get copyWith =>
+          _ProcreateV1SwatchCopyWithImpl<ProcreateV1Swatch, ProcreateV1Swatch>(
+              this as ProcreateV1Swatch, $identity, $identity);
   @override
   String toString() {
-    return ProcreateV1PaletteColorMapper.ensureInitialized()
-        .stringifyValue(this as ProcreateV1PaletteColor);
+    return ProcreateV1SwatchMapper.ensureInitialized()
+        .stringifyValue(this as ProcreateV1Swatch);
   }
 
   @override
   bool operator ==(Object other) {
-    return ProcreateV1PaletteColorMapper.ensureInitialized()
-        .equalsValue(this as ProcreateV1PaletteColor, other);
+    return ProcreateV1SwatchMapper.ensureInitialized()
+        .equalsValue(this as ProcreateV1Swatch, other);
   }
 
   @override
   int get hashCode {
-    return ProcreateV1PaletteColorMapper.ensureInitialized()
-        .hashValue(this as ProcreateV1PaletteColor);
+    return ProcreateV1SwatchMapper.ensureInitialized()
+        .hashValue(this as ProcreateV1Swatch);
   }
 }
 
-extension ProcreateV1PaletteColorValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, ProcreateV1PaletteColor, $Out> {
-  ProcreateV1PaletteColorCopyWith<$R, ProcreateV1PaletteColor, $Out>
-      get $asProcreateV1PaletteColor => $base.as((v, t, t2) =>
-          _ProcreateV1PaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
+extension ProcreateV1SwatchValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ProcreateV1Swatch, $Out> {
+  ProcreateV1SwatchCopyWith<$R, ProcreateV1Swatch, $Out>
+      get $asProcreateV1Swatch => $base
+          .as((v, t, t2) => _ProcreateV1SwatchCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
-abstract class ProcreateV1PaletteColorCopyWith<
-    $R,
-    $In extends ProcreateV1PaletteColor,
+abstract class ProcreateV1SwatchCopyWith<$R, $In extends ProcreateV1Swatch,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
   $R call(
       {double? hue,
@@ -164,19 +159,18 @@ abstract class ProcreateV1PaletteColorCopyWith<
       double? brightness,
       double? alpha,
       ProcreateV1ColorSpace? colorSpace});
-  ProcreateV1PaletteColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+  ProcreateV1SwatchCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
 
-class _ProcreateV1PaletteColorCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, ProcreateV1PaletteColor, $Out>
-    implements
-        ProcreateV1PaletteColorCopyWith<$R, ProcreateV1PaletteColor, $Out> {
-  _ProcreateV1PaletteColorCopyWithImpl(super.value, super.then, super.then2);
+class _ProcreateV1SwatchCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ProcreateV1Swatch, $Out>
+    implements ProcreateV1SwatchCopyWith<$R, ProcreateV1Swatch, $Out> {
+  _ProcreateV1SwatchCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<ProcreateV1PaletteColor> $mapper =
-      ProcreateV1PaletteColorMapper.ensureInitialized();
+  late final ClassMapperBase<ProcreateV1Swatch> $mapper =
+      ProcreateV1SwatchMapper.ensureInitialized();
   @override
   $R call(
           {double? hue,
@@ -192,7 +186,7 @@ class _ProcreateV1PaletteColorCopyWithImpl<$R, $Out>
         if (colorSpace != null) #colorSpace: colorSpace
       }));
   @override
-  ProcreateV1PaletteColor $make(CopyWithData data) => ProcreateV1PaletteColor(
+  ProcreateV1Swatch $make(CopyWithData data) => ProcreateV1Swatch(
       hue: data.get(#hue, or: $value.hue),
       saturation: data.get(#saturation, or: $value.saturation),
       brightness: data.get(#brightness, or: $value.brightness),
@@ -200,9 +194,9 @@ class _ProcreateV1PaletteColorCopyWithImpl<$R, $Out>
       colorSpace: data.get(#colorSpace, or: $value.colorSpace));
 
   @override
-  ProcreateV1PaletteColorCopyWith<$R2, ProcreateV1PaletteColor, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _ProcreateV1PaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  ProcreateV1SwatchCopyWith<$R2, ProcreateV1Swatch, $Out2> $chain<$R2, $Out2>(
+          Then<$Out2, $R2> t) =>
+      _ProcreateV1SwatchCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ProcreateV1PaletteMapper extends ClassMapperBase<ProcreateV1Palette> {
@@ -212,7 +206,7 @@ class ProcreateV1PaletteMapper extends ClassMapperBase<ProcreateV1Palette> {
   static ProcreateV1PaletteMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = ProcreateV1PaletteMapper._());
-      ProcreateV1PaletteColorMapper.ensureInitialized();
+      ProcreateV1SwatchMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -223,20 +217,19 @@ class ProcreateV1PaletteMapper extends ClassMapperBase<ProcreateV1Palette> {
   static String _$name(ProcreateV1Palette v) => v.name;
   static const Field<ProcreateV1Palette, String> _f$name =
       Field('name', _$name, opt: true, def: '');
-  static List<ProcreateV1PaletteColor> _$colors(ProcreateV1Palette v) =>
-      v.colors;
-  static const Field<ProcreateV1Palette, List<ProcreateV1PaletteColor>>
-      _f$colors = Field('colors', _$colors, key: r'swatches');
+  static List<ProcreateV1Swatch> _$swatches(ProcreateV1Palette v) => v.swatches;
+  static const Field<ProcreateV1Palette, List<ProcreateV1Swatch>> _f$swatches =
+      Field('swatches', _$swatches);
 
   @override
   final MappableFields<ProcreateV1Palette> fields = const {
     #name: _f$name,
-    #colors: _f$colors,
+    #swatches: _f$swatches,
   };
 
   static ProcreateV1Palette _instantiate(DecodingData data) {
     return ProcreateV1Palette(
-        name: data.dec(_f$name), colors: data.dec(_f$colors));
+        name: data.dec(_f$name), swatches: data.dec(_f$swatches));
   }
 
   @override
@@ -294,12 +287,10 @@ extension ProcreateV1PaletteValueCopy<$R, $Out>
 
 abstract class ProcreateV1PaletteCopyWith<$R, $In extends ProcreateV1Palette,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<
-      $R,
-      ProcreateV1PaletteColor,
-      ProcreateV1PaletteColorCopyWith<$R, ProcreateV1PaletteColor,
-          ProcreateV1PaletteColor>> get colors;
-  $R call({String? name, List<ProcreateV1PaletteColor>? colors});
+  ListCopyWith<$R, ProcreateV1Swatch,
+          ProcreateV1SwatchCopyWith<$R, ProcreateV1Swatch, ProcreateV1Swatch>>
+      get swatches;
+  $R call({String? name, List<ProcreateV1Swatch>? swatches});
   ProcreateV1PaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -313,22 +304,20 @@ class _ProcreateV1PaletteCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ProcreateV1Palette> $mapper =
       ProcreateV1PaletteMapper.ensureInitialized();
   @override
-  ListCopyWith<
-      $R,
-      ProcreateV1PaletteColor,
-      ProcreateV1PaletteColorCopyWith<$R, ProcreateV1PaletteColor,
-          ProcreateV1PaletteColor>> get colors => ListCopyWith(
-      $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
+  ListCopyWith<$R, ProcreateV1Swatch,
+          ProcreateV1SwatchCopyWith<$R, ProcreateV1Swatch, ProcreateV1Swatch>>
+      get swatches => ListCopyWith($value.swatches,
+          (v, t) => v.copyWith.$chain(t), (v) => call(swatches: v));
   @override
-  $R call({String? name, List<ProcreateV1PaletteColor>? colors}) =>
+  $R call({String? name, List<ProcreateV1Swatch>? swatches}) =>
       $apply(FieldCopyWithData({
         if (name != null) #name: name,
-        if (colors != null) #colors: colors
+        if (swatches != null) #swatches: swatches
       }));
   @override
   ProcreateV1Palette $make(CopyWithData data) => ProcreateV1Palette(
       name: data.get(#name, or: $value.name),
-      colors: data.get(#colors, or: $value.colors));
+      swatches: data.get(#swatches, or: $value.swatches));
 
   @override
   ProcreateV1PaletteCopyWith<$R2, ProcreateV1Palette, $Out2> $chain<$R2, $Out2>(

@@ -74,12 +74,9 @@ void main() {
     (e) => e.toMap(),
   );
   for (final path in [
+    // v1
     'assets/procreate/procreate1.swatches',
     'assets/procreate/procreate2.swatches',
-    // 'assets/procreate/procreate3.swatches',
-    // 'assets/procreate/cromatica.swatches',
-    // 'assets/procreate/shido-10.swatches',
-    // 'assets/procreate/sunfall.swatches',
   ]) {
     final file = File(path);
     final procreate = decodeProcreateV1Palettes(file.readAsBytesSync());
@@ -88,6 +85,17 @@ void main() {
       print(swatch.toMap());
     }
   }
+  processPaletteFiles<ProcreateV5Palette>(
+    [
+      // v5
+      'assets/procreate/procreate3.swatches',
+      'assets/procreate/shido-10.swatches',
+      'assets/procreate/sunfall.swatches',
+      'assets/procreate/cromatica.swatches',
+    ],
+    ProcreateV5Palette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<ResourceInterchangeFileFormat>(
     ['assets/riff/riff1_v3.pal', 'assets/riff/riff2_v3.pal'],
     ResourceInterchangeFileFormat.fromBytes,

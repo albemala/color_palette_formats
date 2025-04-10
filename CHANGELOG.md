@@ -14,6 +14,7 @@
 - Added support for Skencil Palette (.spl) format.
 - Added support for StarOffice Colors (SOC) format.
 - Added support for sK1 Palette (.skp) format.
+- Added support for Procreate v5 Swatches (.swatches) format.
 - Added functions to validate palette formats.
 - Added parameters validation in constructors.
 

@@ -66,10 +66,17 @@ void main() {
   );
   assert(paintDotNet.colors.length == 96);
 
-  // Example: Reading a Procreate Swatches file.
+  // Example: Reading a Procreate V1 Swatches file.
   final procreateFile = File('path/to/file.swatches');
   final procreate = decodeProcreateV1Palettes(procreateFile.readAsBytesSync());
-  assert(procreate.first.colors.length == 30);
+  assert(procreate.first.swatches.length == 30);
+
+  // Example: Reading a Procreate V5 Swatches file.
+  final procreateV5File = File('path/to/file.swatches');
+  final procreateV5 = ProcreateV5Palette.fromBytes(
+    procreateV5File.readAsBytesSync(),
+  );
+  assert(procreateV5.swatches.length == 23);
 
   // Example: Reading a RIFF (Resource Interchange File Format) Palette file.
   final riffFile = File('path/to/file.pal');

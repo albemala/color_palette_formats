@@ -15,7 +15,7 @@ part 'encode.dart';
 enum ProcreateV1ColorSpace { hsb }
 
 @MappableClass()
-class ProcreateV1PaletteColor with ProcreateV1PaletteColorMappable {
+class ProcreateV1Swatch with ProcreateV1SwatchMappable {
   /// Value: [0..1]
   final double hue;
 
@@ -29,7 +29,7 @@ class ProcreateV1PaletteColor with ProcreateV1PaletteColorMappable {
   final double alpha;
   final ProcreateV1ColorSpace colorSpace;
 
-  ProcreateV1PaletteColor({
+  ProcreateV1Swatch({
     required this.hue,
     required this.saturation,
     required this.brightness,
@@ -50,10 +50,9 @@ class ProcreateV1PaletteColor with ProcreateV1PaletteColorMappable {
 @MappableClass()
 class ProcreateV1Palette with ProcreateV1PaletteMappable {
   final String name;
-  @MappableField(key: 'swatches')
-  final List<ProcreateV1PaletteColor> colors;
+  final List<ProcreateV1Swatch> swatches;
 
-  ProcreateV1Palette({this.name = '', required this.colors});
+  ProcreateV1Palette({this.name = '', required this.swatches});
 
   List<int> toBytes() {
     return encodeProcreateV1Palette([this]);
