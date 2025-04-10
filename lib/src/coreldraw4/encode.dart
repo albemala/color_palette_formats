@@ -15,6 +15,9 @@ List<int> _encode(CorelDraw4Palette palette) {
     buffer.writeln('"${color.name}"    $c    $m    $y    $k');
   }
 
+  // Add a newline at the end.
+  buffer.writeln();
+
   // Return the UTF-8 encoded bytes.
   return utf8.encode(buffer.toString());
 }
