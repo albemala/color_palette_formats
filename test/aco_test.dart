@@ -5,29 +5,33 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid ACO file', () {
-    final acoFile = File('./assets/aco/aco1_v1.aco');
-    final bytes = acoFile.readAsBytesSync();
-    expect(AdobeColorSwatch.isValidFormat(bytes), isTrue);
-  });
+  final validAcoFiles = [
+    './assets/aco/aco1_v1.aco',
+    './assets/aco/aco2_v1.aco',
+  ];
+
+  for (final filePath in validAcoFiles) {
+    test('isValidFormat returns true for valid ACO file: $filePath', () {
+      final acoFile = File(filePath);
+      final bytes = acoFile.readAsBytesSync();
+      expect(AdobeColorSwatch.isValidFormat(bytes), isTrue);
+    });
+
+    test('read aco file: $filePath', () {
+      final acoFile = File(filePath);
+      final aco = AdobeColorSwatch.fromBytes(acoFile.readAsBytesSync());
+
+      if (filePath == './assets/aco/aco1_v1.aco') {
+        expect(aco.colors.length, equals(52));
+      } else if (filePath == './assets/aco/aco2_v1.aco') {
+        expect(aco.colors.length, equals(256));
+      }
+    });
+  }
 
   test('isValidFormat returns false for invalid ACO file', () {
     final invalidBytes = [1, 1, 1, 1, 1, 1]; // Example invalid data
     expect(AdobeColorSwatch.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read aco file', () {
-    final acoFile1 = File('./assets/aco/aco1_v1.aco');
-    final aco1 = AdobeColorSwatch.fromBytes(acoFile1.readAsBytesSync());
-    // print(aco1.toJson());
-
-    expect(aco1.colors.length, equals(52));
-
-    final acoFile2 = File('./assets/aco/aco2_v1.aco');
-    final aco2 = AdobeColorSwatch.fromBytes(acoFile2.readAsBytesSync());
-    // print(aco2.toJson());
-
-    expect(aco2.colors.length, equals(256));
   });
 
   test('write aco file', () async {

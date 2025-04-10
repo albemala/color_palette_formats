@@ -4,23 +4,30 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid PaintShopProPalette file', () {
-    final palFile = File('./assets/psp/pal1_v0100.pal');
-    final bytes = palFile.readAsBytesSync();
-    expect(PaintShopProPalette.isValidFormat(bytes), isTrue);
-  });
+  final validPaintShopProFiles = ['./assets/psp/pal1_v0100.pal'];
+
+  for (final filePath in validPaintShopProFiles) {
+    test(
+      'isValidFormat returns true for valid PaintShopProPalette file: $filePath',
+      () {
+        final palFile = File(filePath);
+        final bytes = palFile.readAsBytesSync();
+        expect(PaintShopProPalette.isValidFormat(bytes), isTrue);
+      },
+    );
+
+    test('read pal file: $filePath', () {
+      final palFile = File(filePath);
+      final pal = PaintShopProPalette.fromBytes(palFile.readAsBytesSync());
+      // print(pal.toJson());
+
+      expect(pal.colors.length, equals(3));
+    });
+  }
 
   test('isValidFormat returns false for invalid PaintShopProPalette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(PaintShopProPalette.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read pal file', () {
-    final palFile1 = File('./assets/psp/pal1_v0100.pal');
-    final pal1 = PaintShopProPalette.fromBytes(palFile1.readAsBytesSync());
-    // print(pal1.toJson());
-
-    expect(pal1.colors.length, equals(3));
   });
 
   test('write pal file', () async {

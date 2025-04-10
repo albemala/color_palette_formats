@@ -4,61 +4,65 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid SkencilPalette file', () {
-    final skencilFile = File('./assets/skencil/mini.spl');
-    final bytes = skencilFile.readAsBytesSync();
-    expect(SkencilPalette.isValidFormat(bytes), isTrue);
-  });
+  final validSkencilFiles = [
+    './assets/skencil/mini.spl',
+    './assets/skencil/www.spl',
+  ];
+
+  for (final filePath in validSkencilFiles) {
+    test(
+      'isValidFormat returns true for valid SkencilPalette file: $filePath',
+      () {
+        final skencilFile = File(filePath);
+        final bytes = skencilFile.readAsBytesSync();
+        expect(SkencilPalette.isValidFormat(bytes), isTrue);
+      },
+    );
+
+    test('read skencil file: $filePath', () {
+      final skencilFile = File(filePath);
+      final skencilPalette = SkencilPalette.fromBytes(
+        skencilFile.readAsBytesSync(),
+      );
+      // print(skencilPalette.toJson()); // Optional: for debugging
+
+      if (filePath == './assets/skencil/mini.spl') {
+        // Based on the content of assets/skencil/mini.spl
+        expect(skencilPalette.colors.length, equals(23));
+
+        // Check first color (Black)
+        expect(skencilPalette.colors[0].name, equals('Black'));
+        expect(skencilPalette.colors[0].red, closeTo(0.0, 0.000001));
+        expect(skencilPalette.colors[0].green, closeTo(0.0, 0.000001));
+        expect(skencilPalette.colors[0].blue, closeTo(0.0, 0.000001));
+
+        // Check last color (Dark Yellow)
+        expect(skencilPalette.colors[22].name, equals('Dark Yellow'));
+        expect(skencilPalette.colors[22].red, closeTo(0.5, 0.000001));
+        expect(skencilPalette.colors[22].green, closeTo(0.5, 0.000001));
+        expect(skencilPalette.colors[22].blue, closeTo(0.0, 0.000001));
+      } else if (filePath == './assets/skencil/www.spl') {
+        // Based on the content of assets/skencil/www.spl
+        expect(skencilPalette.colors.length, equals(216)); // 6x6x6 color cube
+
+        // Check first color (#000000)
+        expect(skencilPalette.colors[0].name, equals('#000000'));
+        expect(skencilPalette.colors[0].red, closeTo(0.0, 0.000001));
+        expect(skencilPalette.colors[0].green, closeTo(0.0, 0.000001));
+        expect(skencilPalette.colors[0].blue, closeTo(0.0, 0.000001));
+
+        // Check last color (#ffffff)
+        expect(skencilPalette.colors[215].name, equals('#ffffff'));
+        expect(skencilPalette.colors[215].red, closeTo(1.0, 0.000001));
+        expect(skencilPalette.colors[215].green, closeTo(1.0, 0.000001));
+        expect(skencilPalette.colors[215].blue, closeTo(1.0, 0.000001));
+      }
+    });
+  }
 
   test('isValidFormat returns false for invalid SkencilPalette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(SkencilPalette.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read skencil file - mini.spl', () {
-    final skencilFile = File('./assets/skencil/mini.spl');
-    final skencilPalette = SkencilPalette.fromBytes(
-      skencilFile.readAsBytesSync(),
-    );
-    // print(skencilPalette.toJson()); // Optional: for debugging
-
-    // Based on the content of assets/skencil/mini.spl
-    expect(skencilPalette.colors.length, equals(23));
-
-    // Check first color (Black)
-    expect(skencilPalette.colors[0].name, equals('Black'));
-    expect(skencilPalette.colors[0].red, closeTo(0.0, 0.000001));
-    expect(skencilPalette.colors[0].green, closeTo(0.0, 0.000001));
-    expect(skencilPalette.colors[0].blue, closeTo(0.0, 0.000001));
-
-    // Check last color (Dark Yellow)
-    expect(skencilPalette.colors[22].name, equals('Dark Yellow'));
-    expect(skencilPalette.colors[22].red, closeTo(0.5, 0.000001));
-    expect(skencilPalette.colors[22].green, closeTo(0.5, 0.000001));
-    expect(skencilPalette.colors[22].blue, closeTo(0.0, 0.000001));
-  });
-
-  test('read skencil file - www.spl', () {
-    final skencilFile = File('./assets/skencil/www.spl');
-    final skencilPalette = SkencilPalette.fromBytes(
-      skencilFile.readAsBytesSync(),
-    );
-    // print(skencilPalette.toJson()); // Optional: for debugging
-
-    // Based on the content of assets/skencil/www.spl
-    expect(skencilPalette.colors.length, equals(216)); // 6x6x6 color cube
-
-    // Check first color (#000000)
-    expect(skencilPalette.colors[0].name, equals('#000000'));
-    expect(skencilPalette.colors[0].red, closeTo(0.0, 0.000001));
-    expect(skencilPalette.colors[0].green, closeTo(0.0, 0.000001));
-    expect(skencilPalette.colors[0].blue, closeTo(0.0, 0.000001));
-
-    // Check last color (#ffffff)
-    expect(skencilPalette.colors[215].name, equals('#ffffff'));
-    expect(skencilPalette.colors[215].red, closeTo(1.0, 0.000001));
-    expect(skencilPalette.colors[215].green, closeTo(1.0, 0.000001));
-    expect(skencilPalette.colors[215].blue, closeTo(1.0, 0.000001));
   });
 
   test('write skencil file', () async {

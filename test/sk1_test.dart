@@ -5,31 +5,82 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  final assetsDir = Directory('./assets/sk1');
-  final sk1Files =
-      assetsDir
-          .listSync()
-          .where((item) => item.path.endsWith('.skp'))
-          .map((item) => File(item.path))
-          .toList();
+  final validSk1Files = [
+    './assets/sk1/Fedora_color_palette.skp',
+    './assets/sk1/Lible_Colors.skp',
+    './assets/sk1/openSUSE_colors.skp',
+    './assets/sk1/Ubuntu_colors.skp',
+  ];
 
-  test('isValidFormat returns true for all valid sK1 Palette files', () {
-    expect(
-      sk1Files.isNotEmpty,
-      isTrue,
-      reason: 'No .skp files found in assets/sk1/',
+  for (final filePath in validSk1Files) {
+    test(
+      'isValidFormat returns true for valid sK1 Palette file: $filePath',
+      () {
+        final sk1File = File(filePath);
+        final bytes = sk1File.readAsBytesSync();
+        expect(Sk1Palette.isValidFormat(bytes), isTrue);
+      },
     );
-    for (final file in sk1Files) {
-      final bytes = file.readAsBytesSync();
-      expect(
-        Sk1Palette.isValidFormat(bytes),
-        isTrue,
-        reason: 'Failed for ${file.path}',
-      );
-    }
-  });
 
-  test('isValidFormat returns false for invalid sK1 Palette data', () {
+    test('read sk1 file: $filePath', () {
+      final sk1File = File(filePath);
+      final palette = Sk1Palette.fromBytes(sk1File.readAsBytesSync());
+
+      // Basic verification for each file based on the new structure
+      expect(
+        palette.name,
+        isNotEmpty,
+        reason: 'Missing name (from set_name) in $filePath',
+      );
+      // Source and comments are optional, so we don't strictly check isNotEmpty
+      expect(
+        palette.columns,
+        isPositive, // Columns should be a positive integer
+        reason: 'Missing or invalid columns (from set_columns) in $filePath',
+      );
+      expect(
+        palette.colors,
+        isNotEmpty,
+        reason: 'No colors found in $filePath',
+      );
+
+      // Verify first color has all required properties
+      final firstColor = palette.colors.first;
+      expect(
+        firstColor.name,
+        isNotEmpty, // Name should not be empty
+        reason: 'First color missing name in $filePath',
+      );
+      expect(
+        firstColor.colorSpace,
+        isNotNull, // Enum should be set
+        reason: 'First color missing colorSpace in $filePath',
+      );
+      expect(
+        firstColor.values,
+        isNotEmpty, // Should have at least one value
+        reason: 'First color missing values in $filePath',
+      );
+      expect(
+        firstColor.alpha,
+        isNotNull, // Alpha should be present
+        reason: 'First color missing alpha in $filePath',
+      );
+      // Check value ranges (0.0 to 1.0)
+      expect(
+        firstColor.values.every((v) => v >= 0.0 && v <= 1.0),
+        isTrue,
+        reason: 'First color has values out of range [0.0, 1.0] in $filePath',
+      );
+      expect(
+        firstColor.alpha >= 0.0 && firstColor.alpha <= 1.0,
+        isTrue,
+        reason: 'First color has alpha out of range [0.0, 1.0] in $filePath',
+      );
+    });
+  }
+
+  test('isValidFormat returns false for invalid sK1 Palette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(Sk1Palette.isValidFormat(invalidBytes), isFalse);
     // Test with incorrect signature
@@ -44,72 +95,6 @@ Future<void> main() async {
     );
     // Test with random text
     expect(Sk1Palette.isValidFormat(utf8.encode('this is just text')), isFalse);
-  });
-
-  test('read all sk1 files from assets', () {
-    expect(
-      sk1Files.isNotEmpty,
-      isTrue,
-      reason: 'No .skp files found in assets/sk1/',
-    );
-    for (final file in sk1Files) {
-      // print('Testing file: ${file.path}'); // Optional: for debugging
-      final bytes = file.readAsBytesSync();
-      final palette = Sk1Palette.fromBytes(bytes);
-
-      // Basic verification for each file based on the new structure
-      expect(
-        palette.name,
-        isNotEmpty,
-        reason: 'Missing name (from set_name) in ${file.path}',
-      );
-      // Source and comments are optional, so we don't strictly check isNotEmpty
-      expect(
-        palette.columns,
-        isPositive, // Columns should be a positive integer
-        reason: 'Missing or invalid columns (from set_columns) in ${file.path}',
-      );
-      expect(
-        palette.colors,
-        isNotEmpty,
-        reason: 'No colors found in ${file.path}',
-      );
-
-      // Verify first color has all required properties
-      final firstColor = palette.colors.first;
-      expect(
-        firstColor.name,
-        isNotEmpty, // Name should not be empty
-        reason: 'First color missing name in ${file.path}',
-      );
-      expect(
-        firstColor.colorSpace,
-        isNotNull, // Enum should be set
-        reason: 'First color missing colorSpace in ${file.path}',
-      );
-      expect(
-        firstColor.values,
-        isNotEmpty, // Should have at least one value
-        reason: 'First color missing values in ${file.path}',
-      );
-      expect(
-        firstColor.alpha,
-        isNotNull, // Alpha should be present
-        reason: 'First color missing alpha in ${file.path}',
-      );
-      // Check value ranges (0.0 to 1.0)
-      expect(
-        firstColor.values.every((v) => v >= 0.0 && v <= 1.0),
-        isTrue,
-        reason:
-            'First color has values out of range [0.0, 1.0] in ${file.path}',
-      );
-      expect(
-        firstColor.alpha >= 0.0 && firstColor.alpha <= 1.0,
-        isTrue,
-        reason: 'First color has alpha out of range [0.0, 1.0] in ${file.path}',
-      );
-    }
   });
 
   test('write sk1 file', () async {

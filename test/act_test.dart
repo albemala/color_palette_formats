@@ -4,35 +4,29 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid ACT file', () {
-    final actFile = File('./assets/act/act1.act');
-    final bytes = actFile.readAsBytesSync();
-    expect(AdobeColorTable.isValidFormat(bytes), isTrue);
-  });
+  final validActFiles = [
+    './assets/act/act1.act',
+    './assets/act/act2.act',
+    './assets/act/act3.act',
+  ];
+
+  for (final filePath in validActFiles) {
+    test('isValidFormat returns true for valid ACT file: $filePath', () {
+      final actFile = File(filePath);
+      final bytes = actFile.readAsBytesSync();
+      expect(AdobeColorTable.isValidFormat(bytes), isTrue);
+    });
+
+    test('read act file: $filePath', () {
+      final actFile = File(filePath);
+      final act = AdobeColorTable.fromBytes(actFile.readAsBytesSync());
+      expect(act.colors.length, equals(adobeColorTableColorsCount));
+    });
+  }
 
   test('isValidFormat returns false for invalid ACT file', () {
-    final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
+    final invalidBytes = [1, 1, 1, 1, 1, 1]; // Example invalid data
     expect(AdobeColorTable.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read act file', () {
-    final actFile1 = File('./assets/act/act1.act');
-    final act1 = AdobeColorTable.fromBytes(actFile1.readAsBytesSync());
-    // print(act1.toJson());
-
-    expect(act1.colors.length, equals(adobeColorTableColorsCount));
-
-    final actFile2 = File('./assets/act/act2.act');
-    final act2 = AdobeColorTable.fromBytes(actFile2.readAsBytesSync());
-    // print(act2.toJson());
-
-    expect(act2.colors.length, equals(adobeColorTableColorsCount));
-
-    final actFile3 = File('./assets/act/act3.act');
-    final act3 = AdobeColorTable.fromBytes(actFile3.readAsBytesSync());
-    // print(act3.toJson());
-
-    expect(act3.colors.length, equals(adobeColorTableColorsCount));
   });
 
   test('write act file', () async {

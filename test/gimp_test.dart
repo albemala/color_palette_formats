@@ -4,31 +4,35 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid GimpPalette file', () {
-    final gimpFile = File('./assets/gimp/gpl1.gimp');
-    final bytes = gimpFile.readAsBytesSync();
-    expect(GimpPalette.isValidFormat(bytes), isTrue);
-  });
+  final validGimpFiles = ['./assets/gimp/gpl1.gimp', './assets/gimp/gpl2.gpl'];
+
+  for (final filePath in validGimpFiles) {
+    test(
+      'isValidFormat returns true for valid GimpPalette file: $filePath',
+      () {
+        final gimpFile = File(filePath);
+        final bytes = gimpFile.readAsBytesSync();
+        expect(GimpPalette.isValidFormat(bytes), isTrue);
+      },
+    );
+
+    test('read gimp file: $filePath', () {
+      final gimpFile = File(filePath);
+      final gimp = GimpPalette.fromBytes(gimpFile.readAsBytesSync());
+
+      if (filePath == './assets/gimp/gpl1.gimp') {
+        expect(gimp.info.first, equals('Name: Visibone2'));
+        expect(gimp.colors.length, equals(256));
+      } else if (filePath == './assets/gimp/gpl2.gpl') {
+        expect(gimp.info.first, equals('Name: Oxygen'));
+        expect(gimp.colors.length, equals(126));
+      }
+    });
+  }
 
   test('isValidFormat returns false for invalid GimpPalette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(GimpPalette.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read gimp file', () {
-    final gimpFile1 = File('./assets/gimp/gpl1.gimp');
-    final gimp1 = GimpPalette.fromBytes(gimpFile1.readAsBytesSync());
-    // print(gimp1.toJson());
-
-    expect(gimp1.info.first, equals('Name: Visibone2'));
-    expect(gimp1.colors.length, equals(256));
-
-    final gimpFile2 = File('./assets/gimp/gpl2.gpl');
-    final gimp2 = GimpPalette.fromBytes(gimpFile2.readAsBytesSync());
-    // print(gimp2.toJson());
-
-    expect(gimp2.info.first, equals('Name: Oxygen'));
-    expect(gimp2.colors.length, equals(126));
   });
 
   test('write gimp file', () async {

@@ -4,14 +4,34 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test(
-    'isValidFormat returns true for valid ResourceInterchangeFileFormat file',
-    () {
-      final riffFile = File('./assets/riff/riff1_v3.pal');
-      final bytes = riffFile.readAsBytesSync();
-      expect(ResourceInterchangeFileFormat.isValidFormat(bytes), isTrue);
-    },
-  );
+  final validRiffFiles = [
+    './assets/riff/riff1_v3.pal',
+    './assets/riff/riff2_v3.pal',
+  ];
+
+  for (final filePath in validRiffFiles) {
+    test(
+      'isValidFormat returns true for valid ResourceInterchangeFileFormat file: $filePath',
+      () {
+        final riffFile = File(filePath);
+        final bytes = riffFile.readAsBytesSync();
+        expect(ResourceInterchangeFileFormat.isValidFormat(bytes), isTrue);
+      },
+    );
+
+    test('read riff file: $filePath', () {
+      final riffFile = File(filePath);
+      final riff = ResourceInterchangeFileFormat.fromBytes(
+        riffFile.readAsBytesSync(),
+      );
+
+      if (filePath == './assets/riff/riff1_v3.pal') {
+        expect(riff.colors.length, equals(16));
+      } else if (filePath == './assets/riff/riff2_v3.pal') {
+        expect(riff.colors.length, equals(256));
+      }
+    });
+  }
 
   test(
     'isValidFormat returns false for invalid ResourceInterchangeFileFormat file',
@@ -23,24 +43,6 @@ Future<void> main() async {
       );
     },
   );
-
-  test('read riff file', () {
-    final riffFile1 = File('./assets/riff/riff1_v3.pal');
-    final riff1 = ResourceInterchangeFileFormat.fromBytes(
-      riffFile1.readAsBytesSync(),
-    );
-    // print(riff1.toJson());
-
-    expect(riff1.colors.length, equals(16));
-
-    final riffFile2 = File('./assets/riff/riff2_v3.pal');
-    final riff2 = ResourceInterchangeFileFormat.fromBytes(
-      riffFile2.readAsBytesSync(),
-    );
-    // print(riff2.toJson());
-
-    expect(riff2.colors.length, equals(256));
-  });
 
   test('write riff file', () async {
     final riff = ResourceInterchangeFileFormat(

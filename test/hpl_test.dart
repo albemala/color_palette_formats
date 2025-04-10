@@ -4,29 +4,33 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid HPL file', () {
-    final hplFile = File('./assets/hpl/hpl1_v4.0.hpl');
-    final bytes = hplFile.readAsBytesSync();
-    expect(HomesitePalette.isValidFormat(bytes), isTrue);
-  });
+  final validHplFiles = [
+    './assets/hpl/hpl1_v4.0.hpl',
+    './assets/hpl/hpl2_v4.0.hpl',
+  ];
+
+  for (final filePath in validHplFiles) {
+    test('isValidFormat returns true for valid HPL file: $filePath', () {
+      final hplFile = File(filePath);
+      final bytes = hplFile.readAsBytesSync();
+      expect(HomesitePalette.isValidFormat(bytes), isTrue);
+    });
+
+    test('read hpl file: $filePath', () {
+      final hplFile = File(filePath);
+      final hpl = HomesitePalette.fromBytes(hplFile.readAsBytesSync());
+
+      if (filePath == './assets/hpl/hpl1_v4.0.hpl') {
+        expect(hpl.colors.length, equals(287));
+      } else if (filePath == './assets/hpl/hpl2_v4.0.hpl') {
+        expect(hpl.colors.length, equals(256));
+      }
+    });
+  }
 
   test('isValidFormat returns false for invalid HPL file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(HomesitePalette.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read hpl file', () {
-    final hplFile1 = File('./assets/hpl/hpl1_v4.0.hpl');
-    final hpl1 = HomesitePalette.fromBytes(hplFile1.readAsBytesSync());
-    // print(hpl1.toJson());
-
-    expect(hpl1.colors.length, equals(287));
-
-    final hplFile2 = File('./assets/hpl/hpl2_v4.0.hpl');
-    final hpl2 = HomesitePalette.fromBytes(hplFile2.readAsBytesSync());
-    // print(hpl2.toJson());
-
-    expect(hpl2.colors.length, equals(256));
   });
 
   test('write hpl file', () async {

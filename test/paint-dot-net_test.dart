@@ -4,25 +4,33 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid PaintDotNetPalette file', () {
-    final paintDotNetFile = File('./assets/paint-dot-net/paint-dot-net1.txt');
-    final bytes = paintDotNetFile.readAsBytesSync();
-    expect(PaintDotNetPalette.isValidFormat(bytes), isTrue);
-  });
+  final validPaintDotNetFiles = ['./assets/paint-dot-net/paint-dot-net1.txt'];
+
+  for (final filePath in validPaintDotNetFiles) {
+    test(
+      'isValidFormat returns true for valid PaintDotNetPalette file: $filePath',
+      () {
+        final paintDotNetFile = File(filePath);
+        final bytes = paintDotNetFile.readAsBytesSync();
+        expect(PaintDotNetPalette.isValidFormat(bytes), isTrue);
+      },
+    );
+
+    test('read paint-dot-net file: $filePath', () {
+      final paintDotNetFile = File(filePath);
+      final paintDotNet = PaintDotNetPalette.fromBytes(
+        paintDotNetFile.readAsBytesSync(),
+      );
+
+      if (filePath == './assets/paint-dot-net/paint-dot-net1.txt') {
+        expect(paintDotNet.colors.length, equals(96));
+      }
+    });
+  }
 
   test('isValidFormat returns false for invalid PaintDotNetPalette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(PaintDotNetPalette.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read paint-dot-net file', () {
-    final paintDotNetFile1 = File('./assets/paint-dot-net/paint-dot-net1.txt');
-    final paintDotNet1 = PaintDotNetPalette.fromBytes(
-      paintDotNetFile1.readAsBytesSync(),
-    );
-    // print(paintDotNet1.toJson());
-
-    expect(paintDotNet1.colors.length, equals(96));
   });
 
   test('write paint-dot-net file', () async {

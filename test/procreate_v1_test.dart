@@ -4,33 +4,34 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid Procreate Swatches file', () {
-    final procreateFile = File('./assets/procreate/procreate1.swatches');
-    final bytes = procreateFile.readAsBytesSync();
-    expect(ProcreateV1Palette.isValidFormat(bytes), isTrue);
-  });
+  final validProcreateFiles = [
+    './assets/procreate/procreate1.swatches',
+    './assets/procreate/procreate2.swatches',
+  ];
+
+  for (final filePath in validProcreateFiles) {
+    test(
+      'isValidFormat returns true for valid Procreate Swatches file: $filePath',
+      () {
+        final procreateFile = File(filePath);
+        final bytes = procreateFile.readAsBytesSync();
+        expect(ProcreateV1Palette.isValidFormat(bytes), isTrue);
+      },
+    );
+
+    test('read procreate file: $filePath', () {
+      final procreateFile = File(filePath);
+      final procreatePalettes = decodeProcreateV1Palettes(
+        procreateFile.readAsBytesSync(),
+      );
+
+      expect(procreatePalettes.first.swatches.length, equals(30));
+    });
+  }
 
   test('isValidFormat returns false for invalid Procreate Swatches file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(ProcreateV1Palette.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read procreate file', () {
-    final procreateFile1 = File('./assets/procreate/procreate1.swatches');
-    final procreate1 = decodeProcreateV1Palettes(
-      procreateFile1.readAsBytesSync(),
-    );
-    // print(procreate1.first.toJson());
-
-    expect(procreate1.first.swatches.length, equals(30));
-
-    final procreateFile2 = File('./assets/procreate/procreate2.swatches');
-    final procreate2 = decodeProcreateV1Palettes(
-      procreateFile2.readAsBytesSync(),
-    );
-    // print(procreate2.first.toJson());
-
-    expect(procreate2.first.swatches.length, equals(30));
   });
 
   test('write procreate file', () async {

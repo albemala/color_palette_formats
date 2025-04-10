@@ -4,49 +4,50 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid SketchPalette file', () {
-    final sketchpaletteFile = File(
-      './assets/sketchpalette/sketchpalette1_v1.4.sketchpalette',
+  final validSketchPaletteFiles = [
+    './assets/sketchpalette/sketchpalette1_v1.4.sketchpalette',
+    './assets/sketchpalette/sketchpalette2_v1.4.sketchpalette',
+  ];
+
+  for (final filePath in validSketchPaletteFiles) {
+    test(
+      'isValidFormat returns true for valid SketchPalette file: $filePath',
+      () {
+        final sketchpaletteFile = File(filePath);
+        final bytes = sketchpaletteFile.readAsBytesSync();
+        expect(SketchPalette.isValidFormat(bytes), isTrue);
+      },
     );
-    final bytes = sketchpaletteFile.readAsBytesSync();
-    expect(SketchPalette.isValidFormat(bytes), isTrue);
-  });
+
+    test('read sketchpalette file: $filePath', () {
+      final sketchpaletteFile = File(filePath);
+      final sketchpalette = SketchPalette.fromBytes(
+        sketchpaletteFile.readAsBytesSync(),
+      );
+      // print(sketchpalette.toJson());
+
+      expect(
+        sketchpalette.compatibleVersion,
+        equals(supportedSketchPaletteVersion),
+      );
+      expect(
+        sketchpalette.pluginVersion,
+        equals(supportedSketchPaletteVersion),
+      );
+
+      if (filePath ==
+          './assets/sketchpalette/sketchpalette1_v1.4.sketchpalette') {
+        expect(sketchpalette.colors.length, equals(6));
+      } else if (filePath ==
+          './assets/sketchpalette/sketchpalette2_v1.4.sketchpalette') {
+        expect(sketchpalette.colors.length, equals(10));
+      }
+    });
+  }
 
   test('isValidFormat returns false for invalid SketchPalette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(SketchPalette.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read sketchpalette file', () {
-    final sketchpaletteFile1 = File(
-      './assets/sketchpalette/sketchpalette1_v1.4.sketchpalette',
-    );
-    final sketchpalette1 = SketchPalette.fromBytes(
-      sketchpaletteFile1.readAsBytesSync(),
-    );
-    // print(sketchpalette1.toJson());
-
-    expect(
-      sketchpalette1.compatibleVersion,
-      equals(supportedSketchPaletteVersion),
-    );
-    expect(sketchpalette1.pluginVersion, equals(supportedSketchPaletteVersion));
-    expect(sketchpalette1.colors.length, equals(6));
-
-    final sketchpaletteFile2 = File(
-      './assets/sketchpalette/sketchpalette2_v1.4.sketchpalette',
-    );
-    final sketchpalette2 = SketchPalette.fromBytes(
-      sketchpaletteFile2.readAsBytesSync(),
-    );
-    // print(sketchpalette2.toJson());
-
-    expect(
-      sketchpalette2.compatibleVersion,
-      equals(supportedSketchPaletteVersion),
-    );
-    expect(sketchpalette2.pluginVersion, equals(supportedSketchPaletteVersion));
-    expect(sketchpalette2.colors.length, equals(10));
   });
 
   test('write sketchpalette file', () async {

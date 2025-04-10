@@ -4,42 +4,39 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
-  test('isValidFormat returns true for valid ASE file', () {
-    final aseFile = File('./assets/ase/ase1_v1.0.ase');
-    final bytes = aseFile.readAsBytesSync();
-    expect(AdobeSwatchExchange.isValidFormat(bytes), isTrue);
-  });
+  final validAseFiles = [
+    './assets/ase/ase1_v1.0.ase',
+    './assets/ase/ase2_v1.0.ase',
+    './assets/ase/blue.ase',
+  ];
+
+  for (final filePath in validAseFiles) {
+    test('isValidFormat returns true for valid ASE file: $filePath', () {
+      final aseFile = File(filePath);
+      final bytes = aseFile.readAsBytesSync();
+      expect(AdobeSwatchExchange.isValidFormat(bytes), isTrue);
+    });
+
+    test('read ase file: $filePath', () {
+      final aseFile = File(filePath);
+      final ase = AdobeSwatchExchange.fromBytes(aseFile.readAsBytesSync());
+
+      if (filePath == './assets/ase/ase1_v1.0.ase') {
+        expect(ase.groups.length, equals(0));
+        expect(ase.colors.length, equals(122));
+      } else if (filePath == './assets/ase/ase2_v1.0.ase') {
+        expect(ase.groups.length, equals(0));
+        expect(ase.colors.length, equals(6));
+      } else if (filePath == './assets/ase/blue.ase') {
+        expect(ase.groups.length, equals(0));
+        expect(ase.colors.length, equals(16));
+      }
+    });
+  }
 
   test('isValidFormat returns false for invalid ASE file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(AdobeSwatchExchange.isValidFormat(invalidBytes), isFalse);
-  });
-
-  test('read ase1_v1.0.ase file', () {
-    const filePath = './assets/ase/ase1_v1.0.ase';
-    final bytes = File(filePath).readAsBytesSync();
-    final ase = AdobeSwatchExchange.fromBytes(bytes);
-
-    expect(ase.groups.length, equals(0));
-    expect(ase.colors.length, equals(122));
-  });
-
-  test('read ase2_v1.0.ase file', () {
-    const filePath = './assets/ase/ase2_v1.0.ase';
-    final bytes = File(filePath).readAsBytesSync();
-    final ase = AdobeSwatchExchange.fromBytes(bytes);
-
-    expect(ase.groups.length, equals(0));
-    expect(ase.colors.length, equals(6));
-  });
-
-  test('read blue.ase file', () {
-    const filePath = './assets/ase/blue.ase';
-    final bytes = File(filePath).readAsBytesSync();
-    final ase = AdobeSwatchExchange.fromBytes(bytes);
-
-    expect(ase.groups.length, equals(0));
-    expect(ase.colors.length, equals(16));
   });
 
   test('write ase file', () async {
