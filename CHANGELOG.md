@@ -12,6 +12,7 @@
 - Added support for Scribus Swatch (.xml) format.
 - Added support for Skencil Palette (.spl) format.
 - Added support for StarOffice Colors (SOC) format.
+- Added support for sK1 Palette (.skp) format.
 - Added functions to validate palette formats.
 - Added parameters validation in constructors.
 

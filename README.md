@@ -21,6 +21,7 @@ Currently, the package supports the following formats:
 - Jasc / Corel Paint Shop Pro (.pal, .psppalette)
 - Resource Interchange File Format (RIFF)
 - Scribus Swatch (.xml)
+- sK1 Palette (.skp)
 - Skencil Palette (.spl)
 - Sketch Palette (.sketchpalette)
 - StarOffice Colors (SOC)
