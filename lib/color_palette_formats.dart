@@ -8,7 +8,7 @@ export 'src/gimp/gimp.dart';
 export 'src/hpl/hpl.dart';
 export 'src/koffice/koffice.dart';
 export 'src/paint-dot-net/paint-dot-net.dart';
-export 'src/procreate/procreate.dart';
+export 'src/procreate_v1/procreate.dart';
 export 'src/psp/psp.dart';
 export 'src/riff/riff.dart';
 export 'src/scribus/scribus.dart';

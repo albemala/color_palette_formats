@@ -8,14 +8,14 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Procreate swatches (.swatches)
+* Procreate v1 (.swatches)
 */
 
 @MappableEnum(mode: ValuesMode.indexed)
-enum ProcreateSwatchesColorSpace { hsb }
+enum ProcreateV1ColorSpace { hsb }
 
 @MappableClass()
-class ProcreateSwatchesSwatch with ProcreateSwatchesSwatchMappable {
+class ProcreateV1PaletteColor with ProcreateV1PaletteColorMappable {
   /// Value: [0..1]
   final double hue;
 
@@ -27,9 +27,9 @@ class ProcreateSwatchesSwatch with ProcreateSwatchesSwatchMappable {
 
   /// Value: [0..1]
   final double alpha;
-  final ProcreateSwatchesColorSpace colorSpace;
+  final ProcreateV1ColorSpace colorSpace;
 
-  ProcreateSwatchesSwatch({
+  ProcreateV1PaletteColor({
     required this.hue,
     required this.saturation,
     required this.brightness,
@@ -48,20 +48,21 @@ class ProcreateSwatchesSwatch with ProcreateSwatchesSwatchMappable {
 }
 
 @MappableClass()
-class ProcreateSwatches with ProcreateSwatchesMappable {
+class ProcreateV1Palette with ProcreateV1PaletteMappable {
   final String name;
-  final List<ProcreateSwatchesSwatch> swatches;
+  @MappableField(key: 'swatches')
+  final List<ProcreateV1PaletteColor> colors;
 
-  ProcreateSwatches({this.name = '', required this.swatches});
+  ProcreateV1Palette({this.name = '', required this.colors});
 
   List<int> toBytes() {
-    return encodeProcreateSwatches([this]);
+    return encodeProcreateV1Palette([this]);
   }
 
   /// Checks if the provided bytes represent a valid Procreate Swatches file.
   static bool isValidFormat(List<int> bytes) {
     try {
-      decodeProcreateSwatches(bytes);
+      decodeProcreateV1Palettes(bytes);
       return true;
     } catch (_) {
       return false;

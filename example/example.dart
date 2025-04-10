@@ -68,8 +68,8 @@ void main() {
 
   // Example: Reading a Procreate Swatches file.
   final procreateFile = File('path/to/file.swatches');
-  final procreate = decodeProcreateSwatches(procreateFile.readAsBytesSync());
-  assert(procreate.first.swatches.length == 30);
+  final procreate = decodeProcreateV1Palettes(procreateFile.readAsBytesSync());
+  assert(procreate.first.colors.length == 30);
 
   // Example: Reading a RIFF (Resource Interchange File Format) Palette file.
   final riffFile = File('path/to/file.pal');

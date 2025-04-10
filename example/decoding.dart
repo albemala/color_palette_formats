@@ -82,7 +82,7 @@ void main() {
     // 'assets/procreate/sunfall.swatches',
   ]) {
     final file = File(path);
-    final procreate = decodeProcreateSwatches(file.readAsBytesSync());
+    final procreate = decodeProcreateV1Palettes(file.readAsBytesSync());
     for (final swatch in procreate) {
       print('--- $path ---');
       print(swatch.toMap());

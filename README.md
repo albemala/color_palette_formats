@@ -17,7 +17,7 @@ Currently, the package supports the following formats:
 - Homesite Palette (HPL)
 - KOffice Palette (.colors)
 - Paint.NET Palette (.txt)
-- Procreate Swatches (.swatches)
+- Procreate v1 (.swatches)
 - Jasc / Corel Paint Shop Pro (.pal, .psppalette)
 - Resource Interchange File Format (RIFF)
 - Scribus Swatch (.xml)
