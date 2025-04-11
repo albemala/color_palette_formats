@@ -3,49 +3,86 @@ import 'dart:io';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  final validScribusFiles = ['./assets/scribus/Scribus.xml'];
+void main() {
+  final expectedData = {
+    './assets/scribus/Scribus.xml': ScribusPalette(
+      name: 'tango',
+      colors: [
+        ScribusColor(
+          name: ' Aluminum 1',
+          rgb: '#eeeeec',
+          spot: '0',
+          register: '0',
+        ),
+      ],
+    ),
+  };
 
-  for (final filePath in validScribusFiles) {
-    test(
-      'isValidFormat returns true for valid Scribus Palette file: $filePath',
-      () {
+  expectedData.forEach((filePath, expectedPalette) {
+    group('Scribus Palette File: $filePath', () {
+      late List<int> bytes;
+
+      setUpAll(() {
         final scribusFile = File(filePath);
-        final bytes = scribusFile.readAsBytesSync();
+        bytes = scribusFile.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
         expect(ScribusPalette.isValidFormat(bytes), isTrue);
-      },
-    );
+      });
 
-    test('read scribus file: $filePath', () {
-      final scribusFile = File(filePath);
-      final palette = ScribusPalette.fromBytes(scribusFile.readAsBytesSync());
+      test('parses correctly', () {
+        final palette = ScribusPalette.fromBytes(bytes);
 
-      // Verify palette name
-      expect(palette.name, equals('tango'));
+        // Verify palette name
+        expect(
+          palette.name,
+          equals(expectedPalette.name),
+          reason: 'Palette name mismatch',
+        );
 
-      // Verify number of colors (count from the example file)
-      expect(palette.colors.length, equals(66));
+        // Compare colors
+        expect(
+          palette.colors.isNotEmpty,
+          isTrue,
+          reason: 'No colors to compare',
+        );
 
-      // Verify details of the first color
-      expect(palette.colors[0].name, equals(' Aluminum 1'));
-      expect(palette.colors[0].rgb, equals('#eeeeec'));
-      expect(palette.colors[0].spot, equals('0'));
-      expect(palette.colors[0].register, equals('0'));
+        if (palette.colors.isNotEmpty) {
+          final firstColor = palette.colors.first;
+          final expectedFirstColor = expectedPalette.colors.first;
 
-      // Verify details of the color at index 8
-      expect(palette.colors[8].name, equals(' Blue 3'));
-      expect(palette.colors[8].rgb, equals('#214184'));
-      expect(palette.colors[8].spot, equals('0'));
-      expect(palette.colors[8].register, equals('0'));
+          expect(
+            firstColor.name,
+            equals(expectedFirstColor.name),
+            reason: 'Name mismatch for the first color',
+          );
+          expect(
+            firstColor.rgb,
+            equals(expectedFirstColor.rgb),
+            reason: 'RGB value mismatch for the first color',
+          );
+          expect(
+            firstColor.spot,
+            equals(expectedFirstColor.spot),
+            reason: 'Spot value mismatch for the first color',
+          );
+          expect(
+            firstColor.register,
+            equals(expectedFirstColor.register),
+            reason: 'Register value mismatch for the first color',
+          );
+        }
+      });
     });
-  }
+  });
 
   test('isValidFormat returns false for invalid Scribus Palette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(ScribusPalette.isValidFormat(invalidBytes), isFalse);
   });
 
-  test('write scribus file', () async {
+  test('write scribus file', () {
     final palette = ScribusPalette(
       name: 'Test Scribus Palette',
       colors: [

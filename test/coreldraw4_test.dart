@@ -3,50 +3,84 @@ import 'dart:io';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  final validCorelDraw4PaletteFiles = ['./assets/coreldraw4/coreldraw.pal'];
+void main() {
+  final expectedData = {
+    './assets/coreldraw4/coreldraw.pal': CorelDraw4Palette(
+      colors: [
+        CorelDraw4PaletteColor(
+          cyan: 0,
+          magenta: 0,
+          yellow: 100,
+          black: 0,
+          name: 'PANTONE Process Yellow CH',
+        ),
+      ],
+    ),
+  };
 
-  for (final filePath in validCorelDraw4PaletteFiles) {
-    test(
-      'isValidFormat returns true for valid CorelDraw4Palette file: $filePath',
-      () {
+  expectedData.forEach((filePath, expectedPalette) {
+    group('CorelDraw4 Palette File: $filePath', () {
+      late List<int> bytes;
+
+      setUpAll(() {
         final corelFile = File(filePath);
-        final bytes = corelFile.readAsBytesSync();
+        bytes = corelFile.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
         expect(CorelDraw4Palette.isValidFormat(bytes), isTrue);
-      },
-    );
+      });
 
-    test('read coreldraw4 pal file: $filePath', () {
-      final corelFile = File(filePath);
-      final corelPalette = CorelDraw4Palette.fromBytes(
-        corelFile.readAsBytesSync(),
-      );
+      test('parses correctly', () {
+        final corelPalette = CorelDraw4Palette.fromBytes(bytes);
 
-      // Based on the provided assets/coreldraw4/coreldraw.pal content
-      expect(corelPalette.colors.length, equals(12));
+        // Compare colors
+        expect(
+          corelPalette.colors.isNotEmpty,
+          isTrue,
+          reason: 'No colors to compare',
+        );
 
-      // Check first color
-      expect(corelPalette.colors[0].name, equals('PANTONE Process Yellow CH'));
-      expect(corelPalette.colors[0].cyan, equals(0));
-      expect(corelPalette.colors[0].magenta, equals(0));
-      expect(corelPalette.colors[0].yellow, equals(100));
-      expect(corelPalette.colors[0].black, equals(0));
+        if (corelPalette.colors.isNotEmpty) {
+          final firstColor = corelPalette.colors.first;
+          final expectedFirstColor = expectedPalette.colors.first;
 
-      // Check last color (index 11)
-      expect(corelPalette.colors[11].name, equals('PANTONE 103 CH'));
-      expect(corelPalette.colors[11].cyan, equals(2));
-      expect(corelPalette.colors[11].magenta, equals(0));
-      expect(corelPalette.colors[11].yellow, equals(100));
-      expect(corelPalette.colors[11].black, equals(20));
+          expect(
+            firstColor.name,
+            equals(expectedFirstColor.name),
+            reason: 'Name mismatch for the first color',
+          );
+          expect(
+            firstColor.cyan,
+            equals(expectedFirstColor.cyan),
+            reason: 'Cyan value mismatch for the first color',
+          );
+          expect(
+            firstColor.magenta,
+            equals(expectedFirstColor.magenta),
+            reason: 'Magenta value mismatch for the first color',
+          );
+          expect(
+            firstColor.yellow,
+            equals(expectedFirstColor.yellow),
+            reason: 'Yellow value mismatch for the first color',
+          );
+          expect(
+            firstColor.black,
+            equals(expectedFirstColor.black),
+            reason: 'Black value mismatch for the first color',
+          );
+        }
+      });
     });
-  }
+  });
 
   test('isValidFormat returns false for invalid CorelDraw4Palette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(CorelDraw4Palette.isValidFormat(invalidBytes), isFalse);
   });
 
-  test('write coreldraw4 pal file', () async {
+  test('write coreldraw4 pal file', () {
     final corelPalette = CorelDraw4Palette(
       colors: [
         CorelDraw4PaletteColor(

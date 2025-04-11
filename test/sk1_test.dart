@@ -4,81 +4,138 @@ import 'dart:io';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  final validSk1Files = [
-    './assets/sk1/Fedora_color_palette.skp',
-    './assets/sk1/Lible_Colors.skp',
-    './assets/sk1/openSUSE_colors.skp',
-    './assets/sk1/Ubuntu_colors.skp',
-  ];
+void main() {
+  final expectedData = {
+    './assets/sk1/Fedora_color_palette.skp': Sk1Palette(
+      name: 'Fedora color palette',
+      columns: 2,
+      colors: [
+        Sk1Color(
+          colorSpace: Sk1ColorSpace.rgb,
+          values: [
+            0.23529411764705882,
+            0.43137254901960786,
+            0.7058823529411765,
+          ],
+          alpha: 1.0,
+          name: 'Fedora Blue',
+        ),
+      ],
+    ),
+    './assets/sk1/Lible_Colors.skp': Sk1Palette(
+      name: 'Lible Colors',
+      columns: 4,
+      colors: [
+        Sk1Color(
+          colorSpace: Sk1ColorSpace.rgb,
+          values: [
+            0.09411764705882353,
+            0.6392156862745098,
+            0.011764705882352941,
+          ],
+          alpha: 1.0,
+          name: 'LibreGreen',
+        ),
+      ],
+    ),
+    './assets/sk1/openSUSE_colors.skp': Sk1Palette(
+      name: 'openSUSE colors',
+      columns: 1,
+      colors: [
+        Sk1Color(
+          colorSpace: Sk1ColorSpace.rgb,
+          values: [0.9882352941176471, 0.6823529411764706, 0.10588235294117647],
+          alpha: 1.0,
+          name: 'Light Orange',
+        ),
+      ],
+    ),
+    './assets/sk1/Ubuntu_colors.skp': Sk1Palette(
+      name: 'Ubuntu colors',
+      columns: 1,
+      colors: [
+        Sk1Color(
+          colorSpace: Sk1ColorSpace.rgb,
+          values: [0.8666666666666667, 0.2823529411764706, 0.0784313725490196],
+          alpha: 1.0,
+          name: 'Ubuntu orange',
+        ),
+      ],
+    ),
+  };
 
-  for (final filePath in validSk1Files) {
-    test(
-      'isValidFormat returns true for valid sK1 Palette file: $filePath',
-      () {
+  expectedData.forEach((filePath, expectedPalette) {
+    group('sK1 Palette File: $filePath', () {
+      late List<int> bytes;
+
+      setUpAll(() {
         final sk1File = File(filePath);
-        final bytes = sk1File.readAsBytesSync();
+        bytes = sk1File.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
         expect(Sk1Palette.isValidFormat(bytes), isTrue);
-      },
-    );
+      });
 
-    test('read sk1 file: $filePath', () {
-      final sk1File = File(filePath);
-      final palette = Sk1Palette.fromBytes(sk1File.readAsBytesSync());
+      test('parses correctly', () {
+        final palette = Sk1Palette.fromBytes(bytes);
 
-      // Basic verification for each file based on the new structure
-      expect(
-        palette.name,
-        isNotEmpty,
-        reason: 'Missing name (from set_name) in $filePath',
-      );
-      // Source and comments are optional, so we don't strictly check isNotEmpty
-      expect(
-        palette.columns,
-        isPositive, // Columns should be a positive integer
-        reason: 'Missing or invalid columns (from set_columns) in $filePath',
-      );
-      expect(
-        palette.colors,
-        isNotEmpty,
-        reason: 'No colors found in $filePath',
-      );
+        // Verify palette metadata (name and columns are required)
+        expect(
+          palette.name,
+          equals(expectedPalette.name),
+          reason: 'Palette name mismatch',
+        );
+        expect(
+          palette.columns,
+          equals(expectedPalette.columns),
+          reason: 'Columns mismatch',
+        );
+        // Source and comments are optional, so we don't compare them strictly
 
-      // Verify first color has all required properties
-      final firstColor = palette.colors.first;
-      expect(
-        firstColor.name,
-        isNotEmpty, // Name should not be empty
-        reason: 'First color missing name in $filePath',
-      );
-      expect(
-        firstColor.colorSpace,
-        isNotNull, // Enum should be set
-        reason: 'First color missing colorSpace in $filePath',
-      );
-      expect(
-        firstColor.values,
-        isNotEmpty, // Should have at least one value
-        reason: 'First color missing values in $filePath',
-      );
-      expect(
-        firstColor.alpha,
-        isNotNull, // Alpha should be present
-        reason: 'First color missing alpha in $filePath',
-      );
-      // Check value ranges (0.0 to 1.0)
-      expect(
-        firstColor.values.every((v) => v >= 0.0 && v <= 1.0),
-        isTrue,
-        reason: 'First color has values out of range [0.0, 1.0] in $filePath',
-      );
-      expect(
-        firstColor.alpha >= 0.0 && firstColor.alpha <= 1.0,
-        isTrue,
-        reason: 'First color has alpha out of range [0.0, 1.0] in $filePath',
-      );
+        // Compare colors
+        expect(
+          palette.colors.isNotEmpty,
+          isTrue,
+          reason: 'No colors to compare',
+        );
+
+        if (palette.colors.isNotEmpty) {
+          final firstColor = palette.colors.first;
+          final expectedFirstColor = expectedPalette.colors.first;
+
+          expect(
+            firstColor.name,
+            equals(expectedFirstColor.name),
+            reason: 'Name mismatch for the first color',
+          );
+          expect(
+            firstColor.colorSpace,
+            equals(expectedFirstColor.colorSpace),
+            reason: 'ColorSpace mismatch for the first color',
+          );
+          // Compare values list
+          expect(
+            firstColor.values.length,
+            equals(expectedFirstColor.values.length),
+            reason: 'Values length mismatch for the first color',
+          );
+          for (var i = 0; i < firstColor.values.length; i++) {
+            expect(
+              firstColor.values[i],
+              closeTo(expectedFirstColor.values[i], 1e-9),
+              reason: 'Value mismatch at index $i for the first color',
+            );
+          }
+          expect(
+            firstColor.alpha,
+            closeTo(expectedFirstColor.alpha, 1e-9),
+            reason: 'Alpha value mismatch for the first color',
+          );
+        }
+      });
     });
-  }
+  });
 
   test('isValidFormat returns false for invalid sK1 Palette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
@@ -97,7 +154,7 @@ Future<void> main() async {
     expect(Sk1Palette.isValidFormat(utf8.encode('this is just text')), isFalse);
   });
 
-  test('write sk1 file', () async {
+  test('write sk1 file', () {
     final palette = Sk1Palette(
       name: 'Test SK1 Palette',
       source: 'Unit Test',

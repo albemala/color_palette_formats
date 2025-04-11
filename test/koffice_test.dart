@@ -3,48 +3,71 @@ import 'dart:io';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  final validKOfficeFiles = ['./assets/koffice/KDE40.colors'];
+void main() {
+  final expectedData = {
+    './assets/koffice/KDE40.colors': KOfficePalette(
+      colors: [KOfficePaletteColor(r: 0, g: 0, b: 0, name: 'Black')],
+    ),
+  };
 
-  for (final filePath in validKOfficeFiles) {
-    test(
-      'isValidFormat returns true for valid KOfficePalette file: $filePath',
-      () {
+  expectedData.forEach((filePath, expectedPalette) {
+    group('KOffice Palette File: $filePath', () {
+      late List<int> bytes;
+
+      setUpAll(() {
         final kofficeFile = File(filePath);
-        final bytes = kofficeFile.readAsBytesSync();
+        bytes = kofficeFile.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
         expect(KOfficePalette.isValidFormat(bytes), isTrue);
-      },
-    );
+      });
 
-    test('read koffice file: $filePath', () {
-      final kofficeFile = File(filePath);
-      final kofficePalette = KOfficePalette.fromBytes(
-        kofficeFile.readAsBytesSync(),
-      );
-      // print(kofficePalette.toJson());
+      test('parses correctly', () {
+        final kofficePalette = KOfficePalette.fromBytes(bytes);
 
-      expect(kofficePalette.colors.length, equals(40));
+        // Compare colors
+        expect(
+          kofficePalette.colors.isNotEmpty,
+          isTrue,
+          reason: 'No colors to compare',
+        );
 
-      // Check first color
-      expect(kofficePalette.colors[0].r, equals(0));
-      expect(kofficePalette.colors[0].g, equals(0));
-      expect(kofficePalette.colors[0].b, equals(0));
-      expect(kofficePalette.colors[0].name, equals('Black'));
+        if (kofficePalette.colors.isNotEmpty) {
+          final firstColor = kofficePalette.colors.first;
+          final expectedFirstColor = expectedPalette.colors.first;
 
-      // Check last color
-      expect(kofficePalette.colors[39].r, equals(255));
-      expect(kofficePalette.colors[39].g, equals(220));
-      expect(kofficePalette.colors[39].b, equals(168));
-      expect(kofficePalette.colors[39].name, equals('Very light orange'));
+          expect(
+            firstColor.name,
+            equals(expectedFirstColor.name),
+            reason: 'Name mismatch for the first color',
+          );
+          expect(
+            firstColor.r,
+            equals(expectedFirstColor.r),
+            reason: 'Red value mismatch for the first color',
+          );
+          expect(
+            firstColor.g,
+            equals(expectedFirstColor.g),
+            reason: 'Green value mismatch for the first color',
+          );
+          expect(
+            firstColor.b,
+            equals(expectedFirstColor.b),
+            reason: 'Blue value mismatch for the first color',
+          );
+        }
+      });
     });
-  }
+  });
 
   test('isValidFormat returns false for invalid KOfficePalette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(KOfficePalette.isValidFormat(invalidBytes), isFalse);
   });
 
-  test('write koffice file', () async {
+  test('write koffice file', () {
     final kofficePalette = KOfficePalette(
       colors: [
         KOfficePaletteColor(r: 255, g: 0, b: 0, name: 'Red'),

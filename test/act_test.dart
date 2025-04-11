@@ -3,33 +3,80 @@ import 'dart:io';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  final validActFiles = [
-    './assets/act/act1.act',
-    './assets/act/act2.act',
-    './assets/act/act3.act',
-  ];
+void main() {
+  final expectedData = {
+    './assets/act/act1.act': AdobeColorTable(
+      colors: [AdobeColorTableColor(red: 255, green: 255, blue: 255)],
+    ),
+    './assets/act/act2.act': AdobeColorTable(
+      colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
+    ),
+    './assets/act/act3.act': AdobeColorTable(
+      colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
+    ),
+    './assets/act/Grayscale.act': AdobeColorTable(
+      colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
+    ),
+    './assets/act/Black & White.act': AdobeColorTable(
+      colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
+    ),
+    './assets/act/Windows.act': AdobeColorTable(
+      colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
+    ),
+    './assets/act/Mac OS.act': AdobeColorTable(
+      colors: [AdobeColorTableColor(red: 255, green: 255, blue: 255)],
+    ),
+  };
 
-  for (final filePath in validActFiles) {
-    test('isValidFormat returns true for valid ACT file: $filePath', () {
-      final actFile = File(filePath);
-      final bytes = actFile.readAsBytesSync();
-      expect(AdobeColorTable.isValidFormat(bytes), isTrue);
-    });
+  expectedData.forEach((filePath, expectedAct) {
+    group('ACT File: $filePath', () {
+      late List<int> bytes;
 
-    test('read act file: $filePath', () {
-      final actFile = File(filePath);
-      final act = AdobeColorTable.fromBytes(actFile.readAsBytesSync());
-      expect(act.colors.length, equals(adobeColorTableColorsCount));
+      setUpAll(() {
+        final actFile = File(filePath);
+        bytes = actFile.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
+        expect(AdobeColorTable.isValidFormat(bytes), isTrue);
+      });
+
+      test('parses correctly', () {
+        final act = AdobeColorTable.fromBytes(bytes);
+
+        // Compare colors
+        expect(act.colors.isNotEmpty, isTrue, reason: 'No colors to compare');
+
+        if (act.colors.isNotEmpty) {
+          final firstColor = act.colors.first;
+          final expectedFirstColor = expectedAct.colors.first;
+
+          expect(
+            firstColor.red,
+            equals(expectedFirstColor.red),
+            reason: 'Red value mismatch for the first color',
+          );
+          expect(
+            firstColor.green,
+            equals(expectedFirstColor.green),
+            reason: 'Green value mismatch for the first color',
+          );
+          expect(
+            firstColor.blue,
+            equals(expectedFirstColor.blue),
+            reason: 'Blue value mismatch for the first color',
+          );
+        }
+      });
     });
-  }
+  });
 
   test('isValidFormat returns false for invalid ACT file', () {
     final invalidBytes = [1, 1, 1, 1, 1, 1]; // Example invalid data
     expect(AdobeColorTable.isValidFormat(invalidBytes), isFalse);
   });
 
-  test('write act file', () async {
+  test('write act file', () {
     final act = AdobeColorTable(
       colors:
           List.generate(

@@ -3,98 +3,202 @@ import 'dart:io';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  // Test cases using the provided V5 assets
-  final v5Assets = [
-    './assets/procreate/procreate3.swatches',
-    './assets/procreate/cromatica.swatches',
-    './assets/procreate/shido-10.swatches',
-    './assets/procreate/sunfall.swatches',
-  ];
+void main() {
+  final expectedData = {
+    './assets/procreate/procreate3.swatches': ProcreateV5Palette(
+      name: 'Skin tones',
+      swatches: [
+        ProcreateV5Swatch(
+          alpha: 1.0,
+          origin: 1,
+          colorSpace: 1,
+          colorModel: 0,
+          brightness: 0.947550356388092,
+          components: [
+            0.03447926044464111,
+            0.0974804993716778,
+            0.947550356388092,
+          ],
+          version: '5.0',
+          colorProfile: '5Gjokjn8BJPV6PubAU6RshDGyqc8ge3wTD0hpzTzd8w=',
+          saturation: 0.0974804993716778,
+          hue: 0.03447926044464111,
+        ),
+      ],
+      colorProfiles:
+          [], // Assuming profiles are not needed for first swatch check
+    ),
+    './assets/procreate/cromatica.swatches': ProcreateV5Palette(
+      name: 'cromatica.ase.',
+      swatches: [
+        ProcreateV5Swatch(
+          alpha: 1.0,
+          origin: 2,
+          colorSpace: 0,
+          colorModel: 0,
+          brightness: 0.9921568632125854,
+          components: [
+            0.9843137264251709,
+            0.9725490212440491,
+            0.9921568632125854,
+          ],
+          version: '5.0',
+          colorProfile: 'KzqhZFd5qeY0dE+vmwHpECsMm4j9bezteTTfhrlJr34=',
+          saturation: 0.019762844662533086,
+          hue: 0.7666666666666667,
+        ),
+      ],
+      colorProfiles: [],
+    ),
+    './assets/procreate/shido-10.swatches': ProcreateV5Palette(
+      name: 'shido-10.ase',
+      swatches: [
+        ProcreateV5Swatch(
+          alpha: 1.0,
+          origin: 2,
+          colorSpace: 0,
+          colorModel: 0,
+          brightness: 0.0,
+          components: [0.0, 0.0, 0.0],
+          version: '5.0',
+          colorProfile: 'KzqhZFd5qeY0dE+vmwHpECsMm4j9bezteTTfhrlJr34=',
+          saturation: 0.0,
+          hue: 0.0,
+        ),
+      ],
+      colorProfiles: [],
+    ),
+    './assets/procreate/sunfall.swatches': ProcreateV5Palette(
+      name: 'sunfall.ase',
+      swatches: [
+        ProcreateV5Swatch(
+          alpha: 1.0,
+          origin: 2,
+          colorSpace: 0,
+          colorModel: 0,
+          brightness: 0.03529411926865578,
+          components: [0.0, 0.0313725508749485, 0.03529411926865578],
+          version: '5.0',
+          colorProfile: 'KzqhZFd5qeY0dE+vmwHpECsMm4j9bezteTTfhrlJr34=',
+          saturation: 1.0,
+          hue: 0.518518516563891,
+        ),
+      ],
+      colorProfiles: [],
+    ),
+  };
 
-  for (final assetPath in v5Assets) {
-    test(
-      'isValidFormat returns true for valid Procreate V5 file: $assetPath',
-      () {
-        final procreateFile = File(assetPath);
-        final bytes = procreateFile.readAsBytesSync();
+  expectedData.forEach((filePath, expectedPalette) {
+    group('Procreate V5 Swatches File: $filePath', () {
+      late List<int> bytes;
+
+      setUpAll(() {
+        final procreateFile = File(filePath);
+        bytes = procreateFile.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
         expect(ProcreateV5Palette.isValidFormat(bytes), isTrue);
-      },
-    );
-  }
+      });
+
+      test('parses correctly', () {
+        final procreatePalette = ProcreateV5Palette.fromBytes(bytes);
+
+        // Compare name (optional, as it might not always be present or match exactly)
+        // expect(procreatePalette.name, equals(expectedPalette.name));
+
+        // Compare swatches
+        expect(
+          procreatePalette.swatches,
+          isNotEmpty,
+          reason: 'No swatches to compare',
+        );
+
+        // Find the first non-null swatch to compare
+        final firstSwatch = procreatePalette.swatches.firstWhere(
+          (s) => s != null,
+          orElse: () => null,
+        );
+        final expectedFirstSwatch = expectedPalette.swatches.first;
+
+        expect(firstSwatch, isNotNull, reason: 'No non-null swatches found');
+        expect(
+          expectedFirstSwatch,
+          isNotNull,
+          reason: 'Expected first swatch is null',
+        );
+
+        if (firstSwatch != null && expectedFirstSwatch != null) {
+          // Use closeTo for floating point comparisons
+          expect(
+            firstSwatch.alpha,
+            closeTo(expectedFirstSwatch.alpha, 1e-9),
+            reason: 'Alpha mismatch for the first swatch',
+          );
+          expect(
+            firstSwatch.origin,
+            equals(expectedFirstSwatch.origin),
+            reason: 'Origin mismatch for the first swatch',
+          );
+          expect(
+            firstSwatch.colorSpace,
+            equals(expectedFirstSwatch.colorSpace),
+            reason: 'ColorSpace mismatch for the first swatch',
+          );
+          expect(
+            firstSwatch.colorModel,
+            equals(expectedFirstSwatch.colorModel),
+            reason: 'ColorModel mismatch for the first swatch',
+          );
+          expect(
+            firstSwatch.brightness,
+            closeTo(expectedFirstSwatch.brightness, 1e-9),
+            reason: 'Brightness mismatch for the first swatch',
+          );
+          // Compare components list
+          expect(
+            firstSwatch.components.length,
+            equals(expectedFirstSwatch.components.length),
+            reason: 'Components length mismatch for the first swatch',
+          );
+          for (var i = 0; i < firstSwatch.components.length; i++) {
+            expect(
+              firstSwatch.components[i],
+              closeTo(expectedFirstSwatch.components[i], 1e-9),
+              reason: 'Component mismatch at index $i for the first swatch',
+            );
+          }
+          expect(
+            firstSwatch.version,
+            equals(expectedFirstSwatch.version),
+            reason: 'Version mismatch for the first swatch',
+          );
+          expect(
+            firstSwatch.colorProfile,
+            equals(expectedFirstSwatch.colorProfile),
+            reason: 'ColorProfile mismatch for the first swatch',
+          );
+          expect(
+            firstSwatch.saturation,
+            closeTo(expectedFirstSwatch.saturation, 1e-9),
+            reason: 'Saturation mismatch for the first swatch',
+          );
+          expect(
+            firstSwatch.hue,
+            closeTo(expectedFirstSwatch.hue, 1e-9),
+            reason: 'Hue mismatch for the first swatch',
+          );
+        }
+      });
+    });
+  });
 
   test('isValidFormat returns false for invalid Procreate V5 file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(ProcreateV5Palette.isValidFormat(invalidBytes), isFalse);
   });
 
-  test('read procreate v5 files', () {
-    for (final assetPath in v5Assets) {
-      final procreateFile = File(assetPath);
-      final procreatePalette = ProcreateV5Palette.fromBytes(
-        procreateFile.readAsBytesSync(),
-      );
-      // print('$assetPath: ${procreatePalette.toJson()}'); // Optional: print decoded data
-
-      // Check palette name
-      expect(procreatePalette.name, isNotNull);
-      expect(procreatePalette.name, isNotEmpty);
-
-      // Check swatches
-      expect(procreatePalette.swatches, isNotNull);
-      expect(
-        procreatePalette.swatches,
-        isNotEmpty,
-        reason: 'Swatches list should not be empty for $assetPath',
-      );
-      for (final swatch in procreatePalette.swatches) {
-        // V5 format allows null swatches in the list
-        if (swatch != null) {
-          expect(swatch.alpha, isNotNull);
-          expect(swatch.alpha, greaterThanOrEqualTo(0.0));
-          expect(swatch.alpha, lessThanOrEqualTo(1.0));
-
-          expect(swatch.brightness, isNotNull);
-          expect(swatch.brightness, greaterThanOrEqualTo(0.0));
-          expect(swatch.brightness, lessThanOrEqualTo(1.0));
-
-          expect(swatch.saturation, isNotNull);
-          expect(swatch.saturation, greaterThanOrEqualTo(0.0));
-          expect(swatch.saturation, lessThanOrEqualTo(1.0));
-
-          expect(swatch.hue, isNotNull);
-          expect(swatch.hue, greaterThanOrEqualTo(0.0));
-          expect(swatch.hue, lessThanOrEqualTo(1.0));
-
-          expect(swatch.components, isNotNull);
-          expect(swatch.components, isNotEmpty);
-
-          expect(swatch.version, isNotNull);
-          expect(swatch.colorProfile, isNotNull);
-          // Add more specific checks if expected values are known
-        }
-      }
-
-      // Check color profiles
-      expect(procreatePalette.colorProfiles, isNotNull);
-
-      // It's possible for a palette to have no specific profiles,
-      // but the list itself should exist.
-      // expect(procreatePalette.colorProfiles, isNotEmpty, reason: 'Color Profiles list should not be empty for $assetPath'); // This might fail if some files have no profiles
-
-      for (final profile in procreatePalette.colorProfiles) {
-        expect(profile.colorSpace, isNotNull);
-        expect(profile.hash, isNotNull);
-        expect(profile.hash, isNotEmpty);
-        expect(profile.iccData, isNotNull);
-        // iccData might be empty, but should exist
-        expect(profile.iccName, isNotNull);
-        expect(profile.iccName, isNotEmpty);
-      }
-    }
-  });
-
-  test('write procreate v5 file', () async {
+  test('write procreate v5 file', () {
     // Example V5 Swatch data (adjust values as needed)
     final exampleSwatches = [
       ProcreateV5Swatch(

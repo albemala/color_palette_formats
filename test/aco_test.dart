@@ -4,30 +4,79 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  final validAcoFiles = [
-    './assets/aco/aco1_v1.aco',
-    './assets/aco/aco2_v1.aco',
-  ];
+void main() {
+  final expectedData = {
+    './assets/aco/aco1_v1.aco': AdobeColorSwatch(
+      colors: [
+        AdobeColorSwatchColor(
+          colorSpace: AdobeColorSwatchColorSpace.rgb,
+          values: [124, 124, 124],
+        ),
+      ],
+    ),
+    './assets/aco/aco2_v1.aco': AdobeColorSwatch(
+      colors: [
+        AdobeColorSwatchColor(
+          colorSpace: AdobeColorSwatchColorSpace.rgb,
+          values: [255, 255, 255],
+        ),
+      ],
+    ),
+    './assets/aco/NES.aco': AdobeColorSwatch(
+      colors: [
+        AdobeColorSwatchColor(
+          colorSpace: AdobeColorSwatchColorSpace.rgb,
+          values: [124, 124, 124],
+        ),
+      ],
+    ),
+    './assets/aco/VisiBone2.aco': AdobeColorSwatch(
+      colors: [
+        AdobeColorSwatchColor(
+          colorSpace: AdobeColorSwatchColorSpace.rgb,
+          values: [255, 255, 255],
+        ),
+      ],
+    ),
+  };
 
-  for (final filePath in validAcoFiles) {
-    test('isValidFormat returns true for valid ACO file: $filePath', () {
-      final acoFile = File(filePath);
-      final bytes = acoFile.readAsBytesSync();
-      expect(AdobeColorSwatch.isValidFormat(bytes), isTrue);
+  expectedData.forEach((filePath, expectedAco) {
+    group('ACO File: $filePath', () {
+      late List<int> bytes;
+
+      setUpAll(() {
+        final acoFile = File(filePath);
+        bytes = acoFile.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
+        expect(AdobeColorSwatch.isValidFormat(bytes), isTrue);
+      });
+
+      test('parses correctly', () {
+        final aco = AdobeColorSwatch.fromBytes(bytes);
+
+        // Compare colors
+        expect(aco.colors.isNotEmpty, isTrue, reason: 'No colors to compare');
+
+        if (aco.colors.isNotEmpty) {
+          final firstColor = aco.colors.first;
+          final expectedFirstColor = expectedAco.colors.first;
+
+          expect(
+            firstColor.colorSpace,
+            equals(expectedFirstColor.colorSpace),
+            reason: 'Color space mismatch for the first color',
+          );
+          expect(
+            listEquals(firstColor.values, expectedFirstColor.values),
+            isTrue,
+            reason: 'Color values mismatch for the first color',
+          );
+        }
+      });
     });
-
-    test('read aco file: $filePath', () {
-      final acoFile = File(filePath);
-      final aco = AdobeColorSwatch.fromBytes(acoFile.readAsBytesSync());
-
-      if (filePath == './assets/aco/aco1_v1.aco') {
-        expect(aco.colors.length, equals(52));
-      } else if (filePath == './assets/aco/aco2_v1.aco') {
-        expect(aco.colors.length, equals(256));
-      }
-    });
-  }
+  });
 
   test('isValidFormat returns false for invalid ACO file', () {
     final invalidBytes = [1, 1, 1, 1, 1, 1]; // Example invalid data

@@ -20,6 +20,50 @@ void main() {
         AdobeColorBookColor(name: '71-1', code: ' 71-1D', values: [98, -5, -5]),
       ],
     ),
+    './assets/acb/DIC Color Guide.acb': AdobeColorBook(
+      identifier: 3012,
+      title: r'$$$/colorbook/DIC/title=DIC Color Guide',
+      description:
+          r'$$$/colorbook/DIC/description=Copyright^C 2001, Dainippon Ink and Chemicals, Incorporated',
+      colorNamePrefix: r'$$$/colorbook/DIC/prefix=DIC ',
+      colorNameSuffix: r'$$$/colorbook/DIC/postfix=',
+      colorCount: 1280,
+      pageSize: 5,
+      pageSelectorOffset: 2,
+      colorSpace: AdobeColorBookColorSpace.lab,
+      colors: [
+        AdobeColorBookColor(name: '1s', code: '1     ', values: [88, 12, 17]),
+      ],
+    ),
+    './assets/acb/HKS E.acb': AdobeColorBook(
+      identifier: 3008,
+      title: r'$$$/colorbook/HKSE/title=HKS E',
+      description:
+          r'$$$/colorbook/HKSE/description=Copyright^C 2001, HKS (Hostmann-Steinberg, K+E, Schmincke) - Warenzeichenverband e.V.',
+      colorNamePrefix: r'$$$/colorbook/HKSE/prefix=HKS ',
+      colorNameSuffix: r'$$$/colorbook/HKSE/postfix= E',
+      colorCount: 98,
+      pageSize: 5,
+      pageSelectorOffset: 1,
+      colorSpace: AdobeColorBookColorSpace.lab,
+      colors: [
+        AdobeColorBookColor(name: '1', code: '   01E', values: [88, 4, 59]),
+      ],
+    ),
+    './assets/acb/ANPA Color.acb': AdobeColorBook(
+      identifier: 3000,
+      title: r'$$$/colorbook/ANPA/title=ANPA Color',
+      description: r'$$$/colorbook/ANPA/description=',
+      colorNamePrefix: r'$$$/colorbook/ANPA/prefix=ANPA ',
+      colorNameSuffix: r'$$$/colorbook/ANPA/postfix= AdPro',
+      colorCount: 300,
+      pageSize: 6,
+      pageSelectorOffset: 5,
+      colorSpace: AdobeColorBookColorSpace.lab,
+      colors: [
+        AdobeColorBookColor(name: '71-1', code: ' 71-1D', values: [98, -5, -5]),
+      ],
+    ),
   };
 
   expectedData.forEach((filePath, expectedAcb) {

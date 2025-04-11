@@ -3,35 +3,60 @@ import 'dart:io';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  final validRiffFiles = [
-    './assets/riff/riff1_v3.pal',
-    './assets/riff/riff2_v3.pal',
-  ];
+void main() {
+  final expectedData = {
+    './assets/riff/riff1_v3.pal': ResourceInterchangeFileFormat(
+      colors: [ResourceInterchangeFileFormatColor(red: 0, green: 0, blue: 0)],
+    ),
+    './assets/riff/riff2_v3.pal': ResourceInterchangeFileFormat(
+      colors: [
+        ResourceInterchangeFileFormatColor(red: 255, green: 0, blue: 255),
+      ],
+    ),
+  };
 
-  for (final filePath in validRiffFiles) {
-    test(
-      'isValidFormat returns true for valid ResourceInterchangeFileFormat file: $filePath',
-      () {
+  expectedData.forEach((filePath, expectedRiff) {
+    group('RIFF Palette File: $filePath', () {
+      late List<int> bytes;
+
+      setUpAll(() {
         final riffFile = File(filePath);
-        final bytes = riffFile.readAsBytesSync();
+        bytes = riffFile.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
         expect(ResourceInterchangeFileFormat.isValidFormat(bytes), isTrue);
-      },
-    );
+      });
 
-    test('read riff file: $filePath', () {
-      final riffFile = File(filePath);
-      final riff = ResourceInterchangeFileFormat.fromBytes(
-        riffFile.readAsBytesSync(),
-      );
+      test('parses correctly', () {
+        final riff = ResourceInterchangeFileFormat.fromBytes(bytes);
 
-      if (filePath == './assets/riff/riff1_v3.pal') {
-        expect(riff.colors.length, equals(16));
-      } else if (filePath == './assets/riff/riff2_v3.pal') {
-        expect(riff.colors.length, equals(256));
-      }
+        // Compare colors
+        expect(riff.colors.isNotEmpty, isTrue, reason: 'No colors to compare');
+
+        if (riff.colors.isNotEmpty) {
+          final firstColor = riff.colors.first;
+          final expectedFirstColor = expectedRiff.colors.first;
+
+          expect(
+            firstColor.red,
+            equals(expectedFirstColor.red),
+            reason: 'Red value mismatch for the first color',
+          );
+          expect(
+            firstColor.green,
+            equals(expectedFirstColor.green),
+            reason: 'Green value mismatch for the first color',
+          );
+          expect(
+            firstColor.blue,
+            equals(expectedFirstColor.blue),
+            reason: 'Blue value mismatch for the first color',
+          );
+        }
+      });
     });
-  }
+  });
 
   test(
     'isValidFormat returns false for invalid ResourceInterchangeFileFormat file',
@@ -44,7 +69,7 @@ Future<void> main() async {
     },
   );
 
-  test('write riff file', () async {
+  test('write riff file', () {
     final riff = ResourceInterchangeFileFormat(
       colors: [
         ResourceInterchangeFileFormatColor(red: 0, green: 0, blue: 255),

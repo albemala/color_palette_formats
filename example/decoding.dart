@@ -7,7 +7,12 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 
 void main() {
   processPaletteFiles<AdobeColorBook>(
-    ['assets/acb/acb1_v1.acb'],
+    [
+      'assets/acb/acb1_v1.acb',
+      'assets/acb/DIC Color Guide.acb',
+      'assets/acb/HKS E.acb',
+      'assets/acb/ANPA Color.acb',
+    ],
     AdobeColorBook.fromBytes,
     (e) => e.toMap(),
   );
@@ -17,12 +22,25 @@ void main() {
     (e) => e.toMap(),
   );
   processPaletteFiles<AdobeColorSwatch>(
-    ['assets/aco/aco1_v1.aco', 'assets/aco/aco2_v1.aco'],
+    [
+      'assets/aco/aco1_v1.aco',
+      'assets/aco/aco2_v1.aco',
+      'assets/aco/NES.aco',
+      'assets/aco/VisiBone2.aco',
+    ],
     AdobeColorSwatch.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<AdobeColorTable>(
-    ['assets/act/act1.act', 'assets/act/act2.act', 'assets/act/act3.act'],
+    [
+      'assets/act/act1.act',
+      'assets/act/act2.act',
+      'assets/act/act3.act',
+      'assets/act/Grayscale.act',
+      'assets/act/Black & White.act',
+      'assets/act/Windows.act',
+      'assets/act/Mac OS.act',
+    ],
     AdobeColorTable.fromBytes,
     (e) => e.toMap(),
   );
@@ -33,6 +51,7 @@ void main() {
       'assets/ase/cromatica.ase',
       'assets/ase/shido-10.ase',
       'assets/ase/sunfall.ase',
+      'assets/ase/blue.ase',
     ],
     AdobeSwatchExchange.fromBytes,
     (e) => e.toMap(),
@@ -69,7 +88,7 @@ void main() {
     (e) => e.toMap(),
   );
   processPaletteFiles<PaintShopProPalette>(
-    ['assets/psp/pal1_v0100.pal'],
+    ['assets/psp/pal1_v0100.pal', 'assets/psp/VisiBone2_km.psppalette'],
     PaintShopProPalette.fromBytes,
     (e) => e.toMap(),
   );
@@ -105,6 +124,7 @@ void main() {
     [
       'assets/sketchpalette/sketchpalette1_v1.4.sketchpalette',
       'assets/sketchpalette/sketchpalette2_v1.4.sketchpalette',
+      'assets/sketchpalette/material-design.sketchpalette',
     ],
     SketchPalette.fromBytes,
     (e) => e.toMap(),

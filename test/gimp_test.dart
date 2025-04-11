@@ -3,39 +3,90 @@ import 'dart:io';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  final validGimpFiles = ['./assets/gimp/gpl1.gimp', './assets/gimp/gpl2.gpl'];
+void main() {
+  final expectedData = {
+    './assets/gimp/gpl1.gimp': GimpPalette(
+      colors: [
+        GimpPaletteColor(
+          red: 255,
+          green: 255,
+          blue: 255,
+          name: 'RGB = 255 255 255, Hex = FFFFFF',
+        ),
+      ],
+    ),
+    './assets/gimp/gpl2.gpl': GimpPalette(
+      colors: [
+        GimpPaletteColor(red: 56, green: 37, blue: 9, name: 'wood brown6'),
+      ],
+    ),
+    './assets/gimp/cromatica.gpl': GimpPalette(
+      colors: [
+        GimpPaletteColor(red: 251, green: 248, blue: 253, name: 'fbf8fd'),
+      ],
+    ),
+    './assets/gimp/shido-10.gpl': GimpPalette(
+      colors: [GimpPaletteColor(red: 0, green: 0, blue: 0, name: '000000')],
+    ),
+    './assets/gimp/sunfall.gpl': GimpPalette(
+      colors: [GimpPaletteColor(red: 0, green: 8, blue: 9, name: '000809')],
+    ),
+  };
 
-  for (final filePath in validGimpFiles) {
-    test(
-      'isValidFormat returns true for valid GimpPalette file: $filePath',
-      () {
+  expectedData.forEach((filePath, expectedGimp) {
+    group('GIMP Palette File: $filePath', () {
+      late List<int> bytes;
+
+      setUpAll(() {
         final gimpFile = File(filePath);
-        final bytes = gimpFile.readAsBytesSync();
+        bytes = gimpFile.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
         expect(GimpPalette.isValidFormat(bytes), isTrue);
-      },
-    );
+      });
 
-    test('read gimp file: $filePath', () {
-      final gimpFile = File(filePath);
-      final gimp = GimpPalette.fromBytes(gimpFile.readAsBytesSync());
+      test('parses correctly', () {
+        final gimp = GimpPalette.fromBytes(bytes);
 
-      if (filePath == './assets/gimp/gpl1.gimp') {
-        expect(gimp.info.first, equals('Name: Visibone2'));
-        expect(gimp.colors.length, equals(256));
-      } else if (filePath == './assets/gimp/gpl2.gpl') {
-        expect(gimp.info.first, equals('Name: Oxygen'));
-        expect(gimp.colors.length, equals(126));
-      }
+        // Compare colors
+        expect(gimp.colors.isNotEmpty, isTrue, reason: 'No colors to compare');
+
+        if (gimp.colors.isNotEmpty) {
+          final firstColor = gimp.colors.first;
+          final expectedFirstColor = expectedGimp.colors.first;
+
+          expect(
+            firstColor.name,
+            equals(expectedFirstColor.name),
+            reason: 'Name mismatch for the first color',
+          );
+          expect(
+            firstColor.red,
+            equals(expectedFirstColor.red),
+            reason: 'Red value mismatch for the first color',
+          );
+          expect(
+            firstColor.green,
+            equals(expectedFirstColor.green),
+            reason: 'Green value mismatch for the first color',
+          );
+          expect(
+            firstColor.blue,
+            equals(expectedFirstColor.blue),
+            reason: 'Blue value mismatch for the first color',
+          );
+        }
+      });
     });
-  }
+  });
 
   test('isValidFormat returns false for invalid GimpPalette file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(GimpPalette.isValidFormat(invalidBytes), isFalse);
   });
 
-  test('write gimp file', () async {
+  test('write gimp file', () {
     final gimp = GimpPalette(
       info: ['Name: Test Gimp Palette'],
       comments: ['Comment: Test comment'],

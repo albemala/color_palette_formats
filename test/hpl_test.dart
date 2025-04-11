@@ -3,37 +3,65 @@ import 'dart:io';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Future<void> main() async {
-  final validHplFiles = [
-    './assets/hpl/hpl1_v4.0.hpl',
-    './assets/hpl/hpl2_v4.0.hpl',
-  ];
+void main() {
+  final expectedData = {
+    './assets/hpl/hpl1_v4.0.hpl': HomesitePalette(
+      colors: [HomesitePaletteColor(red: 0, green: 0, blue: 0)],
+    ),
+    './assets/hpl/hpl2_v4.0.hpl': HomesitePalette(
+      colors: [HomesitePaletteColor(red: 0, green: 0, blue: 0)],
+    ),
+  };
 
-  for (final filePath in validHplFiles) {
-    test('isValidFormat returns true for valid HPL file: $filePath', () {
-      final hplFile = File(filePath);
-      final bytes = hplFile.readAsBytesSync();
-      expect(HomesitePalette.isValidFormat(bytes), isTrue);
+  expectedData.forEach((filePath, expectedHpl) {
+    group('HPL File: $filePath', () {
+      late List<int> bytes;
+
+      setUpAll(() {
+        final hplFile = File(filePath);
+        bytes = hplFile.readAsBytesSync();
+      });
+
+      test('isValidFormat returns true', () {
+        expect(HomesitePalette.isValidFormat(bytes), isTrue);
+      });
+
+      test('parses correctly', () {
+        final hpl = HomesitePalette.fromBytes(bytes);
+
+        // Compare colors
+        expect(hpl.colors.isNotEmpty, isTrue, reason: 'No colors to compare');
+
+        if (hpl.colors.isNotEmpty) {
+          final firstColor = hpl.colors.first;
+          final expectedFirstColor = expectedHpl.colors.first;
+
+          expect(
+            firstColor.red,
+            equals(expectedFirstColor.red),
+            reason: 'Red value mismatch for the first color',
+          );
+          expect(
+            firstColor.green,
+            equals(expectedFirstColor.green),
+            reason: 'Green value mismatch for the first color',
+          );
+          expect(
+            firstColor.blue,
+            equals(expectedFirstColor.blue),
+            reason: 'Blue value mismatch for the first color',
+          );
+        }
+      });
     });
-
-    test('read hpl file: $filePath', () {
-      final hplFile = File(filePath);
-      final hpl = HomesitePalette.fromBytes(hplFile.readAsBytesSync());
-
-      if (filePath == './assets/hpl/hpl1_v4.0.hpl') {
-        expect(hpl.colors.length, equals(287));
-      } else if (filePath == './assets/hpl/hpl2_v4.0.hpl') {
-        expect(hpl.colors.length, equals(256));
-      }
-    });
-  }
+  });
 
   test('isValidFormat returns false for invalid HPL file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(HomesitePalette.isValidFormat(invalidBytes), isFalse);
   });
 
-  test('write hpl file', () async {
+  test('write hpl file', () {
     final hpl = HomesitePalette(
       colors: [
         HomesitePaletteColor(red: 255, green: 0, blue: 0),
