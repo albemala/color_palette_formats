@@ -3,7 +3,11 @@ part of 'koffice.dart';
 KOfficePalette _decode(List<int> bytes) {
   final lines = splitLines(bytes);
 
-  validateHeader(lines.elementAt(0), _fileSignature, 'KOffice palette file');
+  validateHeader(
+    lines.elementAt(0),
+    KOfficePalette.validFileSignature,
+    'KOffice palette file',
+  );
 
   // the first 3 parts are red, green and blue
   // the rest is the color name

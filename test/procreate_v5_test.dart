@@ -9,7 +9,7 @@ void main() {
       name: 'Skin tones',
       swatches: [
         ProcreateV5Swatch(
-          alpha: 1.0,
+          alpha: 1,
           origin: 1,
           colorSpace: 1,
           colorModel: 0,
@@ -19,20 +19,26 @@ void main() {
             0.0974804993716778,
             0.947550356388092,
           ],
-          version: '5.0',
+          // version: '5.0', // Uses default
           colorProfile: '5Gjokjn8BJPV6PubAU6RshDGyqc8ge3wTD0hpzTzd8w=',
           saturation: 0.0974804993716778,
           hue: 0.03447926044464111,
         ),
       ],
-      colorProfiles:
-          [], // Assuming profiles are not needed for first swatch check
+      colorProfiles: [
+        ProcreateV5ColorProfile(
+          colorSpace: 1,
+          hash: 'examplehash1',
+          iccData: 'exampleiccdatastring1',
+          iccName: 'Display P3',
+        ),
+      ],
     ),
     './assets/procreate/cromatica.swatches': ProcreateV5Palette(
       name: 'cromatica.ase.',
       swatches: [
         ProcreateV5Swatch(
-          alpha: 1.0,
+          alpha: 1,
           origin: 2,
           colorSpace: 0,
           colorModel: 0,
@@ -42,49 +48,70 @@ void main() {
             0.9725490212440491,
             0.9921568632125854,
           ],
-          version: '5.0',
+          // version: '5.0', // Uses default
           colorProfile: 'KzqhZFd5qeY0dE+vmwHpECsMm4j9bezteTTfhrlJr34=',
           saturation: 0.019762844662533086,
           hue: 0.7666666666666667,
         ),
       ],
-      colorProfiles: [],
+      colorProfiles: [
+        ProcreateV5ColorProfile(
+          colorSpace: 0,
+          hash: 'examplehash1',
+          iccData: 'exampleiccdatastring1',
+          iccName: 'sRGB IEC61966-2.1',
+        ),
+      ],
     ),
     './assets/procreate/shido-10.swatches': ProcreateV5Palette(
       name: 'shido-10.ase',
       swatches: [
         ProcreateV5Swatch(
-          alpha: 1.0,
+          alpha: 1,
           origin: 2,
           colorSpace: 0,
           colorModel: 0,
-          brightness: 0.0,
+          brightness: 0,
           components: [0.0, 0.0, 0.0],
-          version: '5.0',
+          // version: '5.0', // Uses default
           colorProfile: 'KzqhZFd5qeY0dE+vmwHpECsMm4j9bezteTTfhrlJr34=',
-          saturation: 0.0,
-          hue: 0.0,
+          saturation: 0,
+          hue: 0,
         ),
       ],
-      colorProfiles: [],
+      colorProfiles: [
+        ProcreateV5ColorProfile(
+          colorSpace: 0,
+          hash: 'examplehash1',
+          iccData: 'exampleiccdatastring1',
+          iccName: 'sRGB IEC61966-2.1',
+        ),
+      ],
     ),
     './assets/procreate/sunfall.swatches': ProcreateV5Palette(
       name: 'sunfall.ase',
       swatches: [
         ProcreateV5Swatch(
-          alpha: 1.0,
+          alpha: 1,
           origin: 2,
           colorSpace: 0,
           colorModel: 0,
           brightness: 0.03529411926865578,
           components: [0.0, 0.0313725508749485, 0.03529411926865578],
-          version: '5.0',
+          // version: '5.0', // Uses default
           colorProfile: 'KzqhZFd5qeY0dE+vmwHpECsMm4j9bezteTTfhrlJr34=',
-          saturation: 1.0,
+          saturation: 1,
           hue: 0.518518516563891,
         ),
       ],
-      colorProfiles: [],
+      colorProfiles: [
+        ProcreateV5ColorProfile(
+          colorSpace: 0,
+          hash: 'examplehash1',
+          iccData: 'exampleiccdatastring1',
+          iccName: 'sRGB IEC61966-2.1',
+        ),
+      ],
     ),
   };
 
@@ -189,6 +216,48 @@ void main() {
             reason: 'Hue mismatch for the first swatch',
           );
         }
+
+        // Compare color profiles
+        expect(
+          procreatePalette.colorProfiles,
+          isNotEmpty,
+          reason: 'No color profiles to compare',
+        );
+
+        final firstProfile = procreatePalette.colorProfiles.first;
+        final expectedFirstProfile = expectedPalette.colorProfiles.first;
+
+        expect(
+          firstProfile,
+          isNotNull,
+          reason: 'No non-null color profiles found',
+        );
+        expect(
+          expectedFirstProfile,
+          isNotNull,
+          reason: 'Expected first color profile is null',
+        );
+
+        expect(
+          firstProfile.colorSpace,
+          equals(expectedFirstProfile.colorSpace),
+          reason: 'ColorSpace mismatch for the first color profile',
+        );
+        expect(
+          firstProfile.iccName,
+          equals(expectedFirstProfile.iccName),
+          reason: 'ICC Name mismatch for the first color profile',
+        );
+        expect(
+          firstProfile.hash,
+          isNotEmpty,
+          reason: 'Hash should not be empty for the first color profile',
+        );
+        expect(
+          firstProfile.iccData,
+          isNotEmpty,
+          reason: 'ICC Data should not be empty for the first color profile',
+        );
       });
     });
   });
@@ -202,25 +271,25 @@ void main() {
     // Example V5 Swatch data (adjust values as needed)
     final exampleSwatches = [
       ProcreateV5Swatch(
-        alpha: 1.0,
+        alpha: 1,
         origin: 0,
         colorSpace: 0,
         colorModel: 0,
         brightness: 0.8,
         components: [0.5, 0.6, 0.8],
-        version: '1.0',
+        // version: 5.0',
         colorProfile: 'sRGB IEC61966-2.1',
         saturation: 0.6,
         hue: 0.5,
       ),
       ProcreateV5Swatch(
-        alpha: 0.9,
+        alpha: 0.9, // non-default alpha
         origin: 1,
-        colorSpace: 1,
-        colorModel: 1,
+        colorSpace: 0,
+        colorModel: 0,
         brightness: 0.7,
         components: [0.1, 0.9, 0.2],
-        version: '1.0',
+        // version: '5.0',
         colorProfile: 'Display P3',
         saturation: 0.9,
         hue: 0.1,

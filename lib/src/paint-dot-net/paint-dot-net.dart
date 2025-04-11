@@ -38,6 +38,14 @@ class PaintDotNetPaletteColor with PaintDotNetPaletteColorMappable {
 
 @MappableClass()
 class PaintDotNetPalette with PaintDotNetPaletteMappable {
+  static const validFileHeader = '''
+; paint.net Palette File
+; Lines that start with a semicolon are comments
+; Colors are written as 8-digit hexadecimal numbers: aarrggbb
+; For example, this would specify green: FF00FF00
+; The alpha ('aa') value specifies how transparent a color is. FF is fully opaque, 00 is fully transparent.
+''';
+
   final List<PaintDotNetPaletteColor> colors;
 
   PaintDotNetPalette({required this.colors});
@@ -60,11 +68,3 @@ class PaintDotNetPalette with PaintDotNetPaletteMappable {
     }
   }
 }
-
-const _header = '''
-; paint.net Palette File
-; Lines that start with a semicolon are comments
-; Colors are written as 8-digit hexadecimal numbers: aarrggbb
-; For example, this would specify green: FF00FF00
-; The alpha ('aa') value specifies how transparent a color is. FF is fully opaque, 00 is fully transparent.
-''';

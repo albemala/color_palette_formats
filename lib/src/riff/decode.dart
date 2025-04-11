@@ -31,7 +31,7 @@ ResourceInterchangeFileFormat _decode(List<int> bytes) {
 
 void _validateHeader(ByteDataReader buffer) {
   final header = readUtf8String(buffer, 4);
-  if (header != _fileSignature) {
+  if (header != ResourceInterchangeFileFormat.validFileSignature) {
     throw const FormatException('''
 Not a valid Resource Interchange File Format file: invalid file signature''');
   }
@@ -47,10 +47,10 @@ Not a valid Resource Interchange File Format file: invalid data type''');
 
 void _validateVersion(ByteDataReader buffer) {
   final version = buffer.readUint16(Endian.big);
-  if (version != ResourceInterchangeFileFormat.version) {
+  if (version != ResourceInterchangeFileFormat.validVersion) {
     throw FormatException(
       '''
-Unsupported version $version. Supported version: ${ResourceInterchangeFileFormat.version}''',
+Unsupported version $version. Supported version: ${ResourceInterchangeFileFormat.validVersion}''',
     );
   }
 }

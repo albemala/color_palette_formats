@@ -3,7 +3,7 @@ part of 'aco.dart';
 List<int> _encode(AdobeColorSwatch swatch) {
   final buffer = ByteDataWriter();
   // version
-  buffer.writeUint16(AdobeColorSwatch.version);
+  buffer.writeUint16(AdobeColorSwatch.validVersion);
   // colors length
   buffer.writeUint16(swatch.colors.length);
   // colors

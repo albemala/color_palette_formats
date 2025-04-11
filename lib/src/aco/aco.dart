@@ -58,7 +58,7 @@ class AdobeColorSwatchColor with AdobeColorSwatchColorMappable {
 
 @MappableClass()
 class AdobeColorSwatch with AdobeColorSwatchMappable {
-  static const version = 1;
+  static const validVersion = 1;
 
   final List<AdobeColorSwatchColor> colors;
 

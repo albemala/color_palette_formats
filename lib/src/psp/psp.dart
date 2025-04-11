@@ -37,7 +37,8 @@ class PaintShopProPaletteColor with PaintShopProPaletteColorMappable {
 
 @MappableClass()
 class PaintShopProPalette with PaintShopProPaletteMappable {
-  static const version = '0100';
+  static const validFileSignature = 'JASC-PAL';
+  static const validVersion = '0100';
 
   final List<PaintShopProPaletteColor> colors;
 
@@ -61,5 +62,3 @@ class PaintShopProPalette with PaintShopProPaletteMappable {
     }
   }
 }
-
-const _fileSignature = 'JASC-PAL';

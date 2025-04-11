@@ -76,7 +76,8 @@ class AdobeSwatchExchangeColor with AdobeSwatchExchangeColorMappable {
 
 @MappableClass()
 class AdobeSwatchExchange with AdobeSwatchExchangeMappable {
-  static const version = '1.0';
+  static const validFileSignature = 'ASEF';
+  static const validVersion = '1.0';
 
   final List<dynamic> groups;
   final List<AdobeSwatchExchangeColor> colors;
@@ -103,8 +104,6 @@ class AdobeSwatchExchange with AdobeSwatchExchangeMappable {
     }
   }
 }
-
-const _fileSignature = 'ASEF';
 
 const _blockTypeColor = 0x0001;
 const _blockTypeGroupStart = 0xc001;

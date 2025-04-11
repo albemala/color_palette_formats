@@ -4,7 +4,7 @@ Sk1Palette _decode(List<int> bytes) {
   final lines = splitLines(bytes);
 
   // Validate header
-  if (lines.isEmpty || !lines.first.startsWith(_fileSignature)) {
+  if (lines.isEmpty || !lines.first.startsWith(Sk1Palette.validFileSignature)) {
     throw const FormatException('Invalid or missing sK1 palette signature.');
   }
 

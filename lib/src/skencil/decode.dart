@@ -3,7 +3,11 @@ part of 'skencil.dart';
 SkencilPalette _decode(List<int> bytes) {
   final lines = splitLines(bytes);
 
-  validateHeader(lines.elementAt(0), _fileSignature, 'Skencil palette file');
+  validateHeader(
+    lines.elementAt(0),
+    SkencilPalette.validFileSignature,
+    'Skencil palette file',
+  );
 
   // Regex to capture three float numbers and the rest as the name
   // Allows for space or tab separation between numbers and name

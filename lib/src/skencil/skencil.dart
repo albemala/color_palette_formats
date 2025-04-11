@@ -42,6 +42,8 @@ class SkencilPaletteColor with SkencilPaletteColorMappable {
 
 @MappableClass()
 class SkencilPalette with SkencilPaletteMappable {
+  static const validFileSignature = '##Sketch RGBPalette 0';
+
   final List<SkencilPaletteColor> colors;
 
   SkencilPalette({required this.colors});
@@ -64,5 +66,3 @@ class SkencilPalette with SkencilPaletteMappable {
     }
   }
 }
-
-const _fileSignature = '##Sketch RGBPalette 0';

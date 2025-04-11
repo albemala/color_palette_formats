@@ -2,7 +2,7 @@ part of 'gimp.dart';
 
 List<int> _encode(GimpPalette gimpPalette) {
   final buffer = StringBuffer();
-  buffer.writeln(_fileSignature);
+  buffer.writeln(GimpPalette.validFileSignature);
   for (final line in gimpPalette.info) {
     buffer.writeln(line);
   }

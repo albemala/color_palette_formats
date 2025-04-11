@@ -68,8 +68,8 @@ class AdobeColorBookColor with AdobeColorBookColorMappable {
 
 @MappableClass()
 class AdobeColorBook with AdobeColorBookMappable {
-  static const fileSignature = '8BCB';
-  static const version = 1;
+  static const validFileSignature = '8BCB';
+  static const validVersion = 1;
 
   final int identifier;
   final String title;

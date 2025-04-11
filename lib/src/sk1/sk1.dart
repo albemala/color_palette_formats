@@ -49,6 +49,8 @@ class Sk1Color with Sk1ColorMappable {
 
 @MappableClass()
 class Sk1Palette with Sk1PaletteMappable {
+  static const validFileSignature = '##sK1 palette';
+
   final String name;
   final String? source;
   final List<String> comments;
@@ -76,13 +78,10 @@ class Sk1Palette with Sk1PaletteMappable {
     try {
       // Basic check for the signature and structure start
       final content = utf8.decode(bytes, allowMalformed: true);
-      return content.startsWith(_fileSignature) &&
+      return content.startsWith(Sk1Palette.validFileSignature) &&
           content.contains('palette()');
     } catch (_) {
       return false;
     }
   }
 }
-
-// Constants for sK1 text format parsing
-const _fileSignature = '##sK1 palette';

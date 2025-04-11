@@ -39,10 +39,10 @@ AdobeColorSwatch _decode(List<int> bytes) {
 
 void _validateVersion(ByteDataReader buffer) {
   final version = buffer.readUint16();
-  if (version != AdobeColorSwatch.version) {
+  if (version != AdobeColorSwatch.validVersion) {
     throw FormatException(
       '''
-Unsupported version: $version. Supported version: ${AdobeColorSwatch.version}''',
+Unsupported version: $version. Supported version: ${AdobeColorSwatch.validVersion}''',
     );
   }
 }

@@ -15,6 +15,9 @@ part 'encode.dart';
 
 @MappableClass()
 class ScribusColor with ScribusColorMappable {
+  static const defaultSpot = '0';
+  static const defaultRegister = '0';
+
   final String name;
   final String rgb; // Store as hex string like "#RRGGBB"
   // Other attributes from the example, potentially with defaults
@@ -24,8 +27,8 @@ class ScribusColor with ScribusColorMappable {
   ScribusColor({
     required this.name,
     required this.rgb,
-    this.spot = '0', // Default based on example
-    this.register = '0', // Default based on example
+    this.spot = defaultSpot, // Default based on example
+    this.register = defaultRegister, // Default based on example
   });
 }
 

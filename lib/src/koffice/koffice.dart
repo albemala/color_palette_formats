@@ -37,6 +37,8 @@ class KOfficePaletteColor with KOfficePaletteColorMappable {
 
 @MappableClass()
 class KOfficePalette with KOfficePaletteMappable {
+  static const validFileSignature = 'KDE RGB Palette';
+
   final List<KOfficePaletteColor> colors;
 
   KOfficePalette({required this.colors});
@@ -59,6 +61,3 @@ class KOfficePalette with KOfficePaletteMappable {
     }
   }
 }
-
-// Signature found at the beginning of .colors files
-const _fileSignature = 'KDE RGB Palette';

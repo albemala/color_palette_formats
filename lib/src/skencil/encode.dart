@@ -2,7 +2,7 @@ part of 'skencil.dart';
 
 List<int> _encode(SkencilPalette skencilPalette) {
   final buffer = StringBuffer();
-  buffer.writeln(_fileSignature);
+  buffer.writeln(SkencilPalette.validFileSignature);
 
   for (final color in skencilPalette.colors) {
     // Format floats with sufficient precision, separated by spaces, then a tab, then the name.

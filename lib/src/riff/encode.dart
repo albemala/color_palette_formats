@@ -3,7 +3,7 @@ part of 'riff.dart';
 List<int> _encode(ResourceInterchangeFileFormat riff) {
   final buffer = ByteDataWriter(endian: Endian.little);
   // file signature
-  writeUtf8String(buffer, _fileSignature);
+  writeUtf8String(buffer, ResourceInterchangeFileFormat.validFileSignature);
   // data size
   buffer.writeUint32(
     _dataType.length * 8 + // data type
@@ -21,7 +21,7 @@ List<int> _encode(ResourceInterchangeFileFormat riff) {
         riff.colors.length * 8 * 4, // colors
   );
   // version
-  buffer.writeUint16(ResourceInterchangeFileFormat.version, Endian.big);
+  buffer.writeUint16(ResourceInterchangeFileFormat.validVersion, Endian.big);
   // colors count
   buffer.writeUint16(riff.colors.length);
   // colors

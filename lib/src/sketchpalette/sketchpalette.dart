@@ -10,8 +10,6 @@ part 'encode.dart';
 * Sketch Palette (.sketchpalette)
 */
 
-const supportedSketchPaletteVersion = '1.4';
-
 @MappableClass()
 class SketchPaletteColor with SketchPaletteColorMappable {
   /// Value: [0..1]
@@ -39,6 +37,8 @@ class SketchPaletteColor with SketchPaletteColorMappable {
 
 @MappableClass()
 class SketchPalette with SketchPaletteMappable {
+  static const validVersion = '1.4';
+
   final String compatibleVersion;
   final String pluginVersion;
   final List<SketchPaletteColor> colors;

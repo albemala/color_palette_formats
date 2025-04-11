@@ -6,15 +6,15 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final expectedData = {
     './assets/sketchpalette/sketchpalette1_v1.4.sketchpalette': SketchPalette(
-      compatibleVersion: supportedSketchPaletteVersion,
-      pluginVersion: supportedSketchPaletteVersion,
+      compatibleVersion: SketchPalette.validVersion,
+      pluginVersion: SketchPalette.validVersion,
       colors: [
         SketchPaletteColor(red: 0.28, green: 0.16, blue: 0.18, alpha: 1.0),
       ],
     ),
     './assets/sketchpalette/sketchpalette2_v1.4.sketchpalette': SketchPalette(
-      compatibleVersion: supportedSketchPaletteVersion,
-      pluginVersion: supportedSketchPaletteVersion,
+      compatibleVersion: SketchPalette.validVersion,
+      pluginVersion: SketchPalette.validVersion,
       colors: [
         SketchPaletteColor(
           red: 0.3529411764705882,
@@ -25,8 +25,8 @@ void main() {
       ],
     ),
     './assets/sketchpalette/material-design.sketchpalette': SketchPalette(
-      compatibleVersion: supportedSketchPaletteVersion,
-      pluginVersion: supportedSketchPaletteVersion,
+      compatibleVersion: SketchPalette.validVersion,
+      pluginVersion: SketchPalette.validVersion,
       colors: [
         SketchPaletteColor(
           red: 0.9568627450980391,
@@ -109,8 +109,8 @@ void main() {
 
   test('write sketchpalette file', () {
     final sketchPalette = SketchPalette(
-      compatibleVersion: supportedSketchPaletteVersion,
-      pluginVersion: supportedSketchPaletteVersion,
+      compatibleVersion: SketchPalette.validVersion,
+      pluginVersion: SketchPalette.validVersion,
       colors: [
         SketchPaletteColor(red: 1, green: 0, blue: 0, alpha: 1),
         SketchPaletteColor(red: 0, green: 1, blue: 0, alpha: 1),
@@ -130,11 +130,11 @@ void main() {
 
     expect(
       decodedSketchPalette.compatibleVersion,
-      equals(supportedSketchPaletteVersion),
+      equals(SketchPalette.validVersion),
     );
     expect(
       decodedSketchPalette.pluginVersion,
-      equals(supportedSketchPaletteVersion),
+      equals(SketchPalette.validVersion),
     );
 
     expect(decodedSketchPalette.colors.length, equals(3));

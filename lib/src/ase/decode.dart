@@ -41,7 +41,7 @@ AdobeSwatchExchange _decode(List<int> bytes) {
 
 void _validateHeader(ByteDataReader buffer) {
   final header = readUtf8String(buffer, 4);
-  if (header != _fileSignature) {
+  if (header != AdobeSwatchExchange.validFileSignature) {
     throw const FormatException('''
 Not a valid Adobe Swatch Exchange file''');
   }
@@ -49,10 +49,10 @@ Not a valid Adobe Swatch Exchange file''');
 
 void _validateVersion(ByteDataReader buffer) {
   final version = [buffer.readInt16(), buffer.readInt16()].join('.');
-  if (version != AdobeSwatchExchange.version) {
+  if (version != AdobeSwatchExchange.validVersion) {
     throw UnsupportedError(
       '''
-Unsupported version $version. Supported version: ${AdobeSwatchExchange.version}''',
+Unsupported version $version. Supported version: ${AdobeSwatchExchange.validVersion}''',
     );
   }
 }

@@ -35,10 +35,10 @@ AdobeColorBook _decode(List<int> bytes) {
 /// Validates the file header to ensure it's a valid Adobe Color Book file
 void _validateHeader(ByteDataReader buffer) {
   final header = readUtf8String(buffer, 4);
-  if (header != AdobeColorBook.fileSignature) {
+  if (header != AdobeColorBook.validFileSignature) {
     throw FormatException(
       '''
-Not a valid Adobe Color Book file: expected ${AdobeColorBook.fileSignature} but got $header''',
+Not a valid Adobe Color Book file: expected ${AdobeColorBook.validFileSignature} but got $header''',
     );
   }
 }
@@ -46,9 +46,11 @@ Not a valid Adobe Color Book file: expected ${AdobeColorBook.fileSignature} but 
 /// Reads and validates the version of the Adobe Color Book
 void _validateVersion(ByteDataReader buffer) {
   final version = buffer.readUint16();
-  if (version != AdobeColorBook.version) {
-    throw UnsupportedError('''
-Unsupported version $version. Supported version: ${AdobeColorBook.version}''');
+  if (version != AdobeColorBook.validVersion) {
+    throw UnsupportedError(
+      '''
+Unsupported version $version. Supported version: ${AdobeColorBook.validVersion}''',
+    );
   }
 }
 

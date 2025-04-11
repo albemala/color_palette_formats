@@ -4,8 +4,16 @@ PaintShopProPalette _decode(List<int> bytes) {
   final lines = splitLines(bytes);
 
   const paletteName = 'Paint Shop Pro palette';
-  validateHeader(lines.elementAt(0), _fileSignature, paletteName);
-  validateVersion(lines.elementAt(1), PaintShopProPalette.version, paletteName);
+  validateHeader(
+    lines.elementAt(0),
+    PaintShopProPalette.validFileSignature,
+    paletteName,
+  );
+  validateVersion(
+    lines.elementAt(1),
+    PaintShopProPalette.validVersion,
+    paletteName,
+  );
 
   final colors =
       lines

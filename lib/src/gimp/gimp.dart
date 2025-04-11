@@ -39,6 +39,8 @@ class GimpPaletteColor with GimpPaletteColorMappable {
 
 @MappableClass()
 class GimpPalette with GimpPaletteMappable {
+  static const validFileSignature = 'GIMP Palette';
+
   final List<String> info;
   final List<String> comments;
   final List<GimpPaletteColor> colors;
@@ -67,5 +69,3 @@ class GimpPalette with GimpPaletteMappable {
     }
   }
 }
-
-const _fileSignature = 'GIMP Palette';

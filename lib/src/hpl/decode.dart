@@ -4,10 +4,14 @@ HomesitePalette _decode(List<int> bytes) {
   final lines = splitLines(bytes);
 
   const paletteName = 'Homesite Palette';
-  validateHeader(lines.elementAt(0), _fileSignature, paletteName);
+  validateHeader(
+    lines.elementAt(0),
+    HomesitePalette.validFileSignature,
+    paletteName,
+  );
   validateVersion(
     lines.elementAt(1),
-    'Version ${HomesitePalette.version}',
+    'Version ${HomesitePalette.validVersion}',
     paletteName,
   );
 

@@ -90,8 +90,8 @@ void main() {
   final sketchpalette = SketchPalette.fromBytes(
     sketchpaletteFile.readAsBytesSync(),
   );
-  assert(sketchpalette.compatibleVersion == supportedSketchPaletteVersion);
-  assert(sketchpalette.pluginVersion == supportedSketchPaletteVersion);
+  assert(sketchpalette.compatibleVersion == SketchPalette.validVersion);
+  assert(sketchpalette.pluginVersion == SketchPalette.validVersion);
   assert(sketchpalette.colors.length == 6);
 
   // Example: Reading a Scribus XML Palette file.

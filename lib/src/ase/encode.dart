@@ -3,9 +3,9 @@ part of 'ase.dart';
 List<int> _encode(AdobeSwatchExchange swatch) {
   final buffer = ByteDataWriter();
   // file signature
-  writeUtf8String(buffer, _fileSignature);
+  writeUtf8String(buffer, AdobeSwatchExchange.validFileSignature);
   // version
-  AdobeSwatchExchange.version.split('.').forEach((part) {
+  AdobeSwatchExchange.validVersion.split('.').forEach((part) {
     buffer.writeUint16(int.parse(part));
   });
   // colors length

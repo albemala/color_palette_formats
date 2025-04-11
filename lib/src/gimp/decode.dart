@@ -3,7 +3,11 @@ part of 'gimp.dart';
 GimpPalette _decode(List<int> bytes) {
   final lines = splitLines(bytes);
 
-  validateHeader(lines.elementAt(0), _fileSignature, 'Gimp palette file');
+  validateHeader(
+    lines.elementAt(0),
+    GimpPalette.validFileSignature,
+    'Gimp palette file',
+  );
 
   // the first 3 parts are red, green and blue
   // the rest is the color name

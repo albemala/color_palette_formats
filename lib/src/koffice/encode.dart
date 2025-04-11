@@ -4,7 +4,7 @@ List<int> _encode(KOfficePalette palette) {
   final buffer = StringBuffer();
 
   // Write signature
-  buffer.writeln(_fileSignature);
+  buffer.writeln(KOfficePalette.validFileSignature);
 
   // Write colors
   for (final color in palette.colors) {

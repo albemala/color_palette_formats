@@ -37,7 +37,8 @@ class HomesitePaletteColor with HomesitePaletteColorMappable {
 
 @MappableClass()
 class HomesitePalette with HomesitePaletteMappable {
-  static const version = '4.0';
+  static const validFileSignature = 'Palette';
+  static const validVersion = '4.0';
 
   final List<HomesitePaletteColor> colors;
 
@@ -61,5 +62,3 @@ class HomesitePalette with HomesitePaletteMappable {
     }
   }
 }
-
-const _fileSignature = 'Palette';

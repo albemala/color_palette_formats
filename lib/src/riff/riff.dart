@@ -39,7 +39,8 @@ class ResourceInterchangeFileFormatColor
 
 @MappableClass()
 class ResourceInterchangeFileFormat with ResourceInterchangeFileFormatMappable {
-  static const version = 3;
+  static const validFileSignature = 'RIFF';
+  static const validVersion = 3;
 
   final List<ResourceInterchangeFileFormatColor> colors;
 
@@ -64,5 +65,4 @@ class ResourceInterchangeFileFormat with ResourceInterchangeFileFormatMappable {
   }
 }
 
-const _fileSignature = 'RIFF';
 const _dataType = 'PAL data';

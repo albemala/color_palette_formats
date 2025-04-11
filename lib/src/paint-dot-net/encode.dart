@@ -2,7 +2,7 @@ part of 'paint-dot-net.dart';
 
 List<int> _encode(PaintDotNetPalette palette) {
   final buffer = StringBuffer();
-  buffer.write(_header);
+  buffer.write(PaintDotNetPalette.validFileHeader);
   for (final color in palette.colors) {
     buffer.write(_colorToHex(color.alpha));
     buffer.write(_colorToHex(color.red));

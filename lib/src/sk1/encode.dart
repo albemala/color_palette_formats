@@ -4,7 +4,7 @@ List<int> _encode(Sk1Palette palette) {
   final buffer = StringBuffer();
 
   // 1. Write signature and start command
-  buffer.writeln('##sK1 palette');
+  buffer.writeln(Sk1Palette.validFileSignature);
   buffer.writeln('palette()');
 
   // 2. Write metadata

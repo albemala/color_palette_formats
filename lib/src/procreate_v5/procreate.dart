@@ -15,6 +15,8 @@ part 'encode.dart';
 
 @MappableClass()
 class ProcreateV5Swatch with ProcreateV5SwatchMappable {
+  static const defaultVersion = '5.0';
+
   final double alpha;
   final int origin;
   final int colorSpace;
@@ -33,7 +35,7 @@ class ProcreateV5Swatch with ProcreateV5SwatchMappable {
     required this.colorModel,
     required this.brightness,
     required this.components,
-    required this.version,
+    this.version = defaultVersion,
     required this.colorProfile,
     required this.saturation,
     required this.hue,
