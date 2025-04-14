@@ -13,8 +13,9 @@ class AdobeColorBookColorSpaceMapper
   static AdobeColorBookColorSpaceMapper? _instance;
   static AdobeColorBookColorSpaceMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals
-          .use(_instance = AdobeColorBookColorSpaceMapper._());
+      MapperContainer.globals.use(
+        _instance = AdobeColorBookColorSpaceMapper._(),
+      );
     }
     return _instance!;
   }
@@ -102,14 +103,20 @@ class AdobeColorBookColorMapper extends ClassMapperBase<AdobeColorBookColor> {
   final String id = 'AdobeColorBookColor';
 
   static String _$name(AdobeColorBookColor v) => v.name;
-  static const Field<AdobeColorBookColor, String> _f$name =
-      Field('name', _$name);
+  static const Field<AdobeColorBookColor, String> _f$name = Field(
+    'name',
+    _$name,
+  );
   static String _$code(AdobeColorBookColor v) => v.code;
-  static const Field<AdobeColorBookColor, String> _f$code =
-      Field('code', _$code);
+  static const Field<AdobeColorBookColor, String> _f$code = Field(
+    'code',
+    _$code,
+  );
   static List<int> _$values(AdobeColorBookColor v) => v.values;
-  static const Field<AdobeColorBookColor, List<int>> _f$values =
-      Field('values', _$values);
+  static const Field<AdobeColorBookColor, List<int>> _f$values = Field(
+    'values',
+    _$values,
+  );
 
   @override
   final MappableFields<AdobeColorBookColor> fields = const {
@@ -120,9 +127,10 @@ class AdobeColorBookColorMapper extends ClassMapperBase<AdobeColorBookColor> {
 
   static AdobeColorBookColor _instantiate(DecodingData data) {
     return AdobeColorBookColor(
-        name: data.dec(_f$name),
-        code: data.dec(_f$code),
-        values: data.dec(_f$values));
+      name: data.dec(_f$name),
+      code: data.dec(_f$code),
+      values: data.dec(_f$values),
+    );
   }
 
   @override
@@ -148,42 +156,57 @@ mixin AdobeColorBookColorMappable {
         .encodeMap<AdobeColorBookColor>(this as AdobeColorBookColor);
   }
 
-  AdobeColorBookColorCopyWith<AdobeColorBookColor, AdobeColorBookColor,
-      AdobeColorBookColor> get copyWith => _AdobeColorBookColorCopyWithImpl<
-          AdobeColorBookColor, AdobeColorBookColor>(
-      this as AdobeColorBookColor, $identity, $identity);
+  AdobeColorBookColorCopyWith<
+    AdobeColorBookColor,
+    AdobeColorBookColor,
+    AdobeColorBookColor
+  >
+  get copyWith => _AdobeColorBookColorCopyWithImpl<
+    AdobeColorBookColor,
+    AdobeColorBookColor
+  >(this as AdobeColorBookColor, $identity, $identity);
   @override
   String toString() {
-    return AdobeColorBookColorMapper.ensureInitialized()
-        .stringifyValue(this as AdobeColorBookColor);
+    return AdobeColorBookColorMapper.ensureInitialized().stringifyValue(
+      this as AdobeColorBookColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return AdobeColorBookColorMapper.ensureInitialized()
-        .equalsValue(this as AdobeColorBookColor, other);
+    return AdobeColorBookColorMapper.ensureInitialized().equalsValue(
+      this as AdobeColorBookColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return AdobeColorBookColorMapper.ensureInitialized()
-        .hashValue(this as AdobeColorBookColor);
+    return AdobeColorBookColorMapper.ensureInitialized().hashValue(
+      this as AdobeColorBookColor,
+    );
   }
 }
 
 extension AdobeColorBookColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorBookColor, $Out> {
   AdobeColorBookColorCopyWith<$R, AdobeColorBookColor, $Out>
-      get $asAdobeColorBookColor => $base.as(
-          (v, t, t2) => _AdobeColorBookColorCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asAdobeColorBookColor => $base.as(
+    (v, t, t2) => _AdobeColorBookColorCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
-abstract class AdobeColorBookColorCopyWith<$R, $In extends AdobeColorBookColor,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class AdobeColorBookColorCopyWith<
+  $R,
+  $In extends AdobeColorBookColor,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get values;
   $R call({String? name, String? code, List<int>? values});
   AdobeColorBookColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _AdobeColorBookColorCopyWithImpl<$R, $Out>
@@ -196,25 +219,30 @@ class _AdobeColorBookColorCopyWithImpl<$R, $Out>
       AdobeColorBookColorMapper.ensureInitialized();
   @override
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get values =>
-      ListCopyWith($value.values, (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(values: v));
+      ListCopyWith(
+        $value.values,
+        (v, t) => ObjectCopyWith(v, $identity, t),
+        (v) => call(values: v),
+      );
   @override
-  $R call({String? name, String? code, List<int>? values}) =>
-      $apply(FieldCopyWithData({
-        if (name != null) #name: name,
-        if (code != null) #code: code,
-        if (values != null) #values: values
-      }));
+  $R call({String? name, String? code, List<int>? values}) => $apply(
+    FieldCopyWithData({
+      if (name != null) #name: name,
+      if (code != null) #code: code,
+      if (values != null) #values: values,
+    }),
+  );
   @override
   AdobeColorBookColor $make(CopyWithData data) => AdobeColorBookColor(
-      name: data.get(#name, or: $value.name),
-      code: data.get(#code, or: $value.code),
-      values: data.get(#values, or: $value.values));
+    name: data.get(#name, or: $value.name),
+    code: data.get(#code, or: $value.code),
+    values: data.get(#values, or: $value.values),
+  );
 
   @override
   AdobeColorBookColorCopyWith<$R2, AdobeColorBookColor, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeColorBookColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _AdobeColorBookColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AdobeColorBookMapper extends ClassMapperBase<AdobeColorBook> {
@@ -234,28 +262,42 @@ class AdobeColorBookMapper extends ClassMapperBase<AdobeColorBook> {
   final String id = 'AdobeColorBook';
 
   static int _$identifier(AdobeColorBook v) => v.identifier;
-  static const Field<AdobeColorBook, int> _f$identifier =
-      Field('identifier', _$identifier);
+  static const Field<AdobeColorBook, int> _f$identifier = Field(
+    'identifier',
+    _$identifier,
+  );
   static String _$title(AdobeColorBook v) => v.title;
   static const Field<AdobeColorBook, String> _f$title = Field('title', _$title);
   static String _$description(AdobeColorBook v) => v.description;
-  static const Field<AdobeColorBook, String> _f$description =
-      Field('description', _$description);
+  static const Field<AdobeColorBook, String> _f$description = Field(
+    'description',
+    _$description,
+  );
   static String _$colorNamePrefix(AdobeColorBook v) => v.colorNamePrefix;
-  static const Field<AdobeColorBook, String> _f$colorNamePrefix =
-      Field('colorNamePrefix', _$colorNamePrefix);
+  static const Field<AdobeColorBook, String> _f$colorNamePrefix = Field(
+    'colorNamePrefix',
+    _$colorNamePrefix,
+  );
   static String _$colorNameSuffix(AdobeColorBook v) => v.colorNameSuffix;
-  static const Field<AdobeColorBook, String> _f$colorNameSuffix =
-      Field('colorNameSuffix', _$colorNameSuffix);
+  static const Field<AdobeColorBook, String> _f$colorNameSuffix = Field(
+    'colorNameSuffix',
+    _$colorNameSuffix,
+  );
   static int _$colorCount(AdobeColorBook v) => v.colorCount;
-  static const Field<AdobeColorBook, int> _f$colorCount =
-      Field('colorCount', _$colorCount);
+  static const Field<AdobeColorBook, int> _f$colorCount = Field(
+    'colorCount',
+    _$colorCount,
+  );
   static int _$pageSize(AdobeColorBook v) => v.pageSize;
-  static const Field<AdobeColorBook, int> _f$pageSize =
-      Field('pageSize', _$pageSize);
+  static const Field<AdobeColorBook, int> _f$pageSize = Field(
+    'pageSize',
+    _$pageSize,
+  );
   static int _$pageSelectorOffset(AdobeColorBook v) => v.pageSelectorOffset;
-  static const Field<AdobeColorBook, int> _f$pageSelectorOffset =
-      Field('pageSelectorOffset', _$pageSelectorOffset);
+  static const Field<AdobeColorBook, int> _f$pageSelectorOffset = Field(
+    'pageSelectorOffset',
+    _$pageSelectorOffset,
+  );
   static AdobeColorBookColorSpace _$colorSpace(AdobeColorBook v) =>
       v.colorSpace;
   static const Field<AdobeColorBook, AdobeColorBookColorSpace> _f$colorSpace =
@@ -280,16 +322,17 @@ class AdobeColorBookMapper extends ClassMapperBase<AdobeColorBook> {
 
   static AdobeColorBook _instantiate(DecodingData data) {
     return AdobeColorBook(
-        identifier: data.dec(_f$identifier),
-        title: data.dec(_f$title),
-        description: data.dec(_f$description),
-        colorNamePrefix: data.dec(_f$colorNamePrefix),
-        colorNameSuffix: data.dec(_f$colorNameSuffix),
-        colorCount: data.dec(_f$colorCount),
-        pageSize: data.dec(_f$pageSize),
-        pageSelectorOffset: data.dec(_f$pageSelectorOffset),
-        colorSpace: data.dec(_f$colorSpace),
-        colors: data.dec(_f$colors));
+      identifier: data.dec(_f$identifier),
+      title: data.dec(_f$title),
+      description: data.dec(_f$description),
+      colorNamePrefix: data.dec(_f$colorNamePrefix),
+      colorNameSuffix: data.dec(_f$colorNameSuffix),
+      colorCount: data.dec(_f$colorCount),
+      pageSize: data.dec(_f$pageSize),
+      pageSelectorOffset: data.dec(_f$pageSelectorOffset),
+      colorSpace: data.dec(_f$colorSpace),
+      colors: data.dec(_f$colors),
+    );
   }
 
   @override
@@ -306,35 +349,43 @@ class AdobeColorBookMapper extends ClassMapperBase<AdobeColorBook> {
 
 mixin AdobeColorBookMappable {
   String toJson() {
-    return AdobeColorBookMapper.ensureInitialized()
-        .encodeJson<AdobeColorBook>(this as AdobeColorBook);
+    return AdobeColorBookMapper.ensureInitialized().encodeJson<AdobeColorBook>(
+      this as AdobeColorBook,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return AdobeColorBookMapper.ensureInitialized()
-        .encodeMap<AdobeColorBook>(this as AdobeColorBook);
+    return AdobeColorBookMapper.ensureInitialized().encodeMap<AdobeColorBook>(
+      this as AdobeColorBook,
+    );
   }
 
   AdobeColorBookCopyWith<AdobeColorBook, AdobeColorBook, AdobeColorBook>
-      get copyWith =>
-          _AdobeColorBookCopyWithImpl<AdobeColorBook, AdobeColorBook>(
-              this as AdobeColorBook, $identity, $identity);
+  get copyWith => _AdobeColorBookCopyWithImpl<AdobeColorBook, AdobeColorBook>(
+    this as AdobeColorBook,
+    $identity,
+    $identity,
+  );
   @override
   String toString() {
-    return AdobeColorBookMapper.ensureInitialized()
-        .stringifyValue(this as AdobeColorBook);
+    return AdobeColorBookMapper.ensureInitialized().stringifyValue(
+      this as AdobeColorBook,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return AdobeColorBookMapper.ensureInitialized()
-        .equalsValue(this as AdobeColorBook, other);
+    return AdobeColorBookMapper.ensureInitialized().equalsValue(
+      this as AdobeColorBook,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return AdobeColorBookMapper.ensureInitialized()
-        .hashValue(this as AdobeColorBook);
+    return AdobeColorBookMapper.ensureInitialized().hashValue(
+      this as AdobeColorBook,
+    );
   }
 }
 
@@ -347,23 +398,26 @@ extension AdobeColorBookValueCopy<$R, $Out>
 abstract class AdobeColorBookCopyWith<$R, $In extends AdobeColorBook, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
-      $R,
-      AdobeColorBookColor,
-      AdobeColorBookColorCopyWith<$R, AdobeColorBookColor,
-          AdobeColorBookColor>> get colors;
-  $R call(
-      {int? identifier,
-      String? title,
-      String? description,
-      String? colorNamePrefix,
-      String? colorNameSuffix,
-      int? colorCount,
-      int? pageSize,
-      int? pageSelectorOffset,
-      AdobeColorBookColorSpace? colorSpace,
-      List<AdobeColorBookColor>? colors});
+    $R,
+    AdobeColorBookColor,
+    AdobeColorBookColorCopyWith<$R, AdobeColorBookColor, AdobeColorBookColor>
+  >
+  get colors;
+  $R call({
+    int? identifier,
+    String? title,
+    String? description,
+    String? colorNamePrefix,
+    String? colorNameSuffix,
+    int? colorCount,
+    int? pageSize,
+    int? pageSelectorOffset,
+    AdobeColorBookColorSpace? colorSpace,
+    List<AdobeColorBookColor>? colors,
+  });
   AdobeColorBookCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _AdobeColorBookCopyWithImpl<$R, $Out>
@@ -376,51 +430,60 @@ class _AdobeColorBookCopyWithImpl<$R, $Out>
       AdobeColorBookMapper.ensureInitialized();
   @override
   ListCopyWith<
-      $R,
-      AdobeColorBookColor,
-      AdobeColorBookColorCopyWith<$R, AdobeColorBookColor,
-          AdobeColorBookColor>> get colors => ListCopyWith(
-      $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
+    $R,
+    AdobeColorBookColor,
+    AdobeColorBookColorCopyWith<$R, AdobeColorBookColor, AdobeColorBookColor>
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
-  $R call(
-          {int? identifier,
-          String? title,
-          String? description,
-          String? colorNamePrefix,
-          String? colorNameSuffix,
-          int? colorCount,
-          int? pageSize,
-          int? pageSelectorOffset,
-          AdobeColorBookColorSpace? colorSpace,
-          List<AdobeColorBookColor>? colors}) =>
-      $apply(FieldCopyWithData({
-        if (identifier != null) #identifier: identifier,
-        if (title != null) #title: title,
-        if (description != null) #description: description,
-        if (colorNamePrefix != null) #colorNamePrefix: colorNamePrefix,
-        if (colorNameSuffix != null) #colorNameSuffix: colorNameSuffix,
-        if (colorCount != null) #colorCount: colorCount,
-        if (pageSize != null) #pageSize: pageSize,
-        if (pageSelectorOffset != null) #pageSelectorOffset: pageSelectorOffset,
-        if (colorSpace != null) #colorSpace: colorSpace,
-        if (colors != null) #colors: colors
-      }));
+  $R call({
+    int? identifier,
+    String? title,
+    String? description,
+    String? colorNamePrefix,
+    String? colorNameSuffix,
+    int? colorCount,
+    int? pageSize,
+    int? pageSelectorOffset,
+    AdobeColorBookColorSpace? colorSpace,
+    List<AdobeColorBookColor>? colors,
+  }) => $apply(
+    FieldCopyWithData({
+      if (identifier != null) #identifier: identifier,
+      if (title != null) #title: title,
+      if (description != null) #description: description,
+      if (colorNamePrefix != null) #colorNamePrefix: colorNamePrefix,
+      if (colorNameSuffix != null) #colorNameSuffix: colorNameSuffix,
+      if (colorCount != null) #colorCount: colorCount,
+      if (pageSize != null) #pageSize: pageSize,
+      if (pageSelectorOffset != null) #pageSelectorOffset: pageSelectorOffset,
+      if (colorSpace != null) #colorSpace: colorSpace,
+      if (colors != null) #colors: colors,
+    }),
+  );
   @override
   AdobeColorBook $make(CopyWithData data) => AdobeColorBook(
-      identifier: data.get(#identifier, or: $value.identifier),
-      title: data.get(#title, or: $value.title),
-      description: data.get(#description, or: $value.description),
-      colorNamePrefix: data.get(#colorNamePrefix, or: $value.colorNamePrefix),
-      colorNameSuffix: data.get(#colorNameSuffix, or: $value.colorNameSuffix),
-      colorCount: data.get(#colorCount, or: $value.colorCount),
-      pageSize: data.get(#pageSize, or: $value.pageSize),
-      pageSelectorOffset:
-          data.get(#pageSelectorOffset, or: $value.pageSelectorOffset),
-      colorSpace: data.get(#colorSpace, or: $value.colorSpace),
-      colors: data.get(#colors, or: $value.colors));
+    identifier: data.get(#identifier, or: $value.identifier),
+    title: data.get(#title, or: $value.title),
+    description: data.get(#description, or: $value.description),
+    colorNamePrefix: data.get(#colorNamePrefix, or: $value.colorNamePrefix),
+    colorNameSuffix: data.get(#colorNameSuffix, or: $value.colorNameSuffix),
+    colorCount: data.get(#colorCount, or: $value.colorCount),
+    pageSize: data.get(#pageSize, or: $value.pageSize),
+    pageSelectorOffset: data.get(
+      #pageSelectorOffset,
+      or: $value.pageSelectorOffset,
+    ),
+    colorSpace: data.get(#colorSpace, or: $value.colorSpace),
+    colors: data.get(#colors, or: $value.colors),
+  );
 
   @override
   AdobeColorBookCopyWith<$R2, AdobeColorBook, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _AdobeColorBookCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _AdobeColorBookCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

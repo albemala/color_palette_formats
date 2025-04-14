@@ -72,11 +72,15 @@ class Sk1ColorMapper extends ClassMapperBase<Sk1Color> {
   final String id = 'Sk1Color';
 
   static Sk1ColorSpace _$colorSpace(Sk1Color v) => v.colorSpace;
-  static const Field<Sk1Color, Sk1ColorSpace> _f$colorSpace =
-      Field('colorSpace', _$colorSpace);
+  static const Field<Sk1Color, Sk1ColorSpace> _f$colorSpace = Field(
+    'colorSpace',
+    _$colorSpace,
+  );
   static List<double> _$values(Sk1Color v) => v.values;
-  static const Field<Sk1Color, List<double>> _f$values =
-      Field('values', _$values);
+  static const Field<Sk1Color, List<double>> _f$values = Field(
+    'values',
+    _$values,
+  );
   static double _$alpha(Sk1Color v) => v.alpha;
   static const Field<Sk1Color, double> _f$alpha = Field('alpha', _$alpha);
   static String _$name(Sk1Color v) => v.name;
@@ -92,10 +96,11 @@ class Sk1ColorMapper extends ClassMapperBase<Sk1Color> {
 
   static Sk1Color _instantiate(DecodingData data) {
     return Sk1Color(
-        colorSpace: data.dec(_f$colorSpace),
-        values: data.dec(_f$values),
-        alpha: data.dec(_f$alpha),
-        name: data.dec(_f$name));
+      colorSpace: data.dec(_f$colorSpace),
+      values: data.dec(_f$values),
+      alpha: data.dec(_f$alpha),
+      name: data.dec(_f$name),
+    );
   }
 
   @override
@@ -112,18 +117,23 @@ class Sk1ColorMapper extends ClassMapperBase<Sk1Color> {
 
 mixin Sk1ColorMappable {
   String toJson() {
-    return Sk1ColorMapper.ensureInitialized()
-        .encodeJson<Sk1Color>(this as Sk1Color);
+    return Sk1ColorMapper.ensureInitialized().encodeJson<Sk1Color>(
+      this as Sk1Color,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return Sk1ColorMapper.ensureInitialized()
-        .encodeMap<Sk1Color>(this as Sk1Color);
+    return Sk1ColorMapper.ensureInitialized().encodeMap<Sk1Color>(
+      this as Sk1Color,
+    );
   }
 
   Sk1ColorCopyWith<Sk1Color, Sk1Color, Sk1Color> get copyWith =>
       _Sk1ColorCopyWithImpl<Sk1Color, Sk1Color>(
-          this as Sk1Color, $identity, $identity);
+        this as Sk1Color,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
     return Sk1ColorMapper.ensureInitialized().stringifyValue(this as Sk1Color);
@@ -131,8 +141,10 @@ mixin Sk1ColorMappable {
 
   @override
   bool operator ==(Object other) {
-    return Sk1ColorMapper.ensureInitialized()
-        .equalsValue(this as Sk1Color, other);
+    return Sk1ColorMapper.ensureInitialized().equalsValue(
+      this as Sk1Color,
+      other,
+    );
   }
 
   @override
@@ -149,11 +161,12 @@ extension Sk1ColorValueCopy<$R, $Out> on ObjectCopyWith<$R, Sk1Color, $Out> {
 abstract class Sk1ColorCopyWith<$R, $In extends Sk1Color, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, double, ObjectCopyWith<$R, double, double>> get values;
-  $R call(
-      {Sk1ColorSpace? colorSpace,
-      List<double>? values,
-      double? alpha,
-      String? name});
+  $R call({
+    Sk1ColorSpace? colorSpace,
+    List<double>? values,
+    double? alpha,
+    String? name,
+  });
   Sk1ColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -167,31 +180,37 @@ class _Sk1ColorCopyWithImpl<$R, $Out>
       Sk1ColorMapper.ensureInitialized();
   @override
   ListCopyWith<$R, double, ObjectCopyWith<$R, double, double>> get values =>
-      ListCopyWith($value.values, (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(values: v));
+      ListCopyWith(
+        $value.values,
+        (v, t) => ObjectCopyWith(v, $identity, t),
+        (v) => call(values: v),
+      );
   @override
-  $R call(
-          {Sk1ColorSpace? colorSpace,
-          List<double>? values,
-          double? alpha,
-          String? name}) =>
-      $apply(FieldCopyWithData({
-        if (colorSpace != null) #colorSpace: colorSpace,
-        if (values != null) #values: values,
-        if (alpha != null) #alpha: alpha,
-        if (name != null) #name: name
-      }));
+  $R call({
+    Sk1ColorSpace? colorSpace,
+    List<double>? values,
+    double? alpha,
+    String? name,
+  }) => $apply(
+    FieldCopyWithData({
+      if (colorSpace != null) #colorSpace: colorSpace,
+      if (values != null) #values: values,
+      if (alpha != null) #alpha: alpha,
+      if (name != null) #name: name,
+    }),
+  );
   @override
   Sk1Color $make(CopyWithData data) => Sk1Color(
-      colorSpace: data.get(#colorSpace, or: $value.colorSpace),
-      values: data.get(#values, or: $value.values),
-      alpha: data.get(#alpha, or: $value.alpha),
-      name: data.get(#name, or: $value.name));
+    colorSpace: data.get(#colorSpace, or: $value.colorSpace),
+    values: data.get(#values, or: $value.values),
+    alpha: data.get(#alpha, or: $value.alpha),
+    name: data.get(#name, or: $value.name),
+  );
 
   @override
   Sk1ColorCopyWith<$R2, Sk1Color, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _Sk1ColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _Sk1ColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class Sk1PaletteMapper extends ClassMapperBase<Sk1Palette> {
@@ -212,16 +231,25 @@ class Sk1PaletteMapper extends ClassMapperBase<Sk1Palette> {
   static String _$name(Sk1Palette v) => v.name;
   static const Field<Sk1Palette, String> _f$name = Field('name', _$name);
   static String? _$source(Sk1Palette v) => v.source;
-  static const Field<Sk1Palette, String> _f$source =
-      Field('source', _$source, opt: true);
+  static const Field<Sk1Palette, String> _f$source = Field(
+    'source',
+    _$source,
+    opt: true,
+  );
   static List<String> _$comments(Sk1Palette v) => v.comments;
-  static const Field<Sk1Palette, List<String>> _f$comments =
-      Field('comments', _$comments, opt: true, def: const []);
+  static const Field<Sk1Palette, List<String>> _f$comments = Field(
+    'comments',
+    _$comments,
+    opt: true,
+    def: const [],
+  );
   static int _$columns(Sk1Palette v) => v.columns;
   static const Field<Sk1Palette, int> _f$columns = Field('columns', _$columns);
   static List<Sk1Color> _$colors(Sk1Palette v) => v.colors;
-  static const Field<Sk1Palette, List<Sk1Color>> _f$colors =
-      Field('colors', _$colors);
+  static const Field<Sk1Palette, List<Sk1Color>> _f$colors = Field(
+    'colors',
+    _$colors,
+  );
 
   @override
   final MappableFields<Sk1Palette> fields = const {
@@ -234,11 +262,12 @@ class Sk1PaletteMapper extends ClassMapperBase<Sk1Palette> {
 
   static Sk1Palette _instantiate(DecodingData data) {
     return Sk1Palette(
-        name: data.dec(_f$name),
-        source: data.dec(_f$source),
-        comments: data.dec(_f$comments),
-        columns: data.dec(_f$columns),
-        colors: data.dec(_f$colors));
+      name: data.dec(_f$name),
+      source: data.dec(_f$source),
+      comments: data.dec(_f$comments),
+      columns: data.dec(_f$columns),
+      colors: data.dec(_f$colors),
+    );
   }
 
   @override
@@ -255,28 +284,36 @@ class Sk1PaletteMapper extends ClassMapperBase<Sk1Palette> {
 
 mixin Sk1PaletteMappable {
   String toJson() {
-    return Sk1PaletteMapper.ensureInitialized()
-        .encodeJson<Sk1Palette>(this as Sk1Palette);
+    return Sk1PaletteMapper.ensureInitialized().encodeJson<Sk1Palette>(
+      this as Sk1Palette,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return Sk1PaletteMapper.ensureInitialized()
-        .encodeMap<Sk1Palette>(this as Sk1Palette);
+    return Sk1PaletteMapper.ensureInitialized().encodeMap<Sk1Palette>(
+      this as Sk1Palette,
+    );
   }
 
   Sk1PaletteCopyWith<Sk1Palette, Sk1Palette, Sk1Palette> get copyWith =>
       _Sk1PaletteCopyWithImpl<Sk1Palette, Sk1Palette>(
-          this as Sk1Palette, $identity, $identity);
+        this as Sk1Palette,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return Sk1PaletteMapper.ensureInitialized()
-        .stringifyValue(this as Sk1Palette);
+    return Sk1PaletteMapper.ensureInitialized().stringifyValue(
+      this as Sk1Palette,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return Sk1PaletteMapper.ensureInitialized()
-        .equalsValue(this as Sk1Palette, other);
+    return Sk1PaletteMapper.ensureInitialized().equalsValue(
+      this as Sk1Palette,
+      other,
+    );
   }
 
   @override
@@ -295,13 +332,14 @@ abstract class Sk1PaletteCopyWith<$R, $In extends Sk1Palette, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get comments;
   ListCopyWith<$R, Sk1Color, Sk1ColorCopyWith<$R, Sk1Color, Sk1Color>>
-      get colors;
-  $R call(
-      {String? name,
-      String? source,
-      List<String>? comments,
-      int? columns,
-      List<Sk1Color>? colors});
+  get colors;
+  $R call({
+    String? name,
+    String? source,
+    List<String>? comments,
+    int? columns,
+    List<Sk1Color>? colors,
+  });
   Sk1PaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -315,36 +353,45 @@ class _Sk1PaletteCopyWithImpl<$R, $Out>
       Sk1PaletteMapper.ensureInitialized();
   @override
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get comments =>
-      ListCopyWith($value.comments, (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(comments: v));
+      ListCopyWith(
+        $value.comments,
+        (v, t) => ObjectCopyWith(v, $identity, t),
+        (v) => call(comments: v),
+      );
   @override
   ListCopyWith<$R, Sk1Color, Sk1ColorCopyWith<$R, Sk1Color, Sk1Color>>
-      get colors => ListCopyWith($value.colors, (v, t) => v.copyWith.$chain(t),
-          (v) => call(colors: v));
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
-  $R call(
-          {String? name,
-          Object? source = $none,
-          List<String>? comments,
-          int? columns,
-          List<Sk1Color>? colors}) =>
-      $apply(FieldCopyWithData({
-        if (name != null) #name: name,
-        if (source != $none) #source: source,
-        if (comments != null) #comments: comments,
-        if (columns != null) #columns: columns,
-        if (colors != null) #colors: colors
-      }));
+  $R call({
+    String? name,
+    Object? source = $none,
+    List<String>? comments,
+    int? columns,
+    List<Sk1Color>? colors,
+  }) => $apply(
+    FieldCopyWithData({
+      if (name != null) #name: name,
+      if (source != $none) #source: source,
+      if (comments != null) #comments: comments,
+      if (columns != null) #columns: columns,
+      if (colors != null) #colors: colors,
+    }),
+  );
   @override
   Sk1Palette $make(CopyWithData data) => Sk1Palette(
-      name: data.get(#name, or: $value.name),
-      source: data.get(#source, or: $value.source),
-      comments: data.get(#comments, or: $value.comments),
-      columns: data.get(#columns, or: $value.columns),
-      colors: data.get(#colors, or: $value.colors));
+    name: data.get(#name, or: $value.name),
+    source: data.get(#source, or: $value.source),
+    comments: data.get(#comments, or: $value.comments),
+    columns: data.get(#columns, or: $value.columns),
+    colors: data.get(#colors, or: $value.colors),
+  );
 
   @override
   Sk1PaletteCopyWith<$R2, Sk1Palette, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _Sk1PaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _Sk1PaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

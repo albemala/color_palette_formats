@@ -4,6 +4,7 @@
 - Renamed Jasc format to Paint Shop Pro.
 - Renamed Procreate Swatches format to Procreate V1 Palette.
 - Reworked GIMP palette API.
+- Changed how valid versions and file signatures are handled.
 - Now targeting Dart >= 3.7 and Flutter >= 3.29.
 
 ### Added

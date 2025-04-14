@@ -23,8 +23,10 @@ class HomesitePaletteColorMapper extends ClassMapperBase<HomesitePaletteColor> {
   static int _$red(HomesitePaletteColor v) => v.red;
   static const Field<HomesitePaletteColor, int> _f$red = Field('red', _$red);
   static int _$green(HomesitePaletteColor v) => v.green;
-  static const Field<HomesitePaletteColor, int> _f$green =
-      Field('green', _$green);
+  static const Field<HomesitePaletteColor, int> _f$green = Field(
+    'green',
+    _$green,
+  );
   static int _$blue(HomesitePaletteColor v) => v.blue;
   static const Field<HomesitePaletteColor, int> _f$blue = Field('blue', _$blue);
 
@@ -37,9 +39,10 @@ class HomesitePaletteColorMapper extends ClassMapperBase<HomesitePaletteColor> {
 
   static HomesitePaletteColor _instantiate(DecodingData data) {
     return HomesitePaletteColor(
-        red: data.dec(_f$red),
-        green: data.dec(_f$green),
-        blue: data.dec(_f$blue));
+      red: data.dec(_f$red),
+      green: data.dec(_f$green),
+      blue: data.dec(_f$blue),
+    );
   }
 
   @override
@@ -65,43 +68,56 @@ mixin HomesitePaletteColorMappable {
         .encodeMap<HomesitePaletteColor>(this as HomesitePaletteColor);
   }
 
-  HomesitePaletteColorCopyWith<HomesitePaletteColor, HomesitePaletteColor,
-      HomesitePaletteColor> get copyWith => _HomesitePaletteColorCopyWithImpl<
-          HomesitePaletteColor, HomesitePaletteColor>(
-      this as HomesitePaletteColor, $identity, $identity);
+  HomesitePaletteColorCopyWith<
+    HomesitePaletteColor,
+    HomesitePaletteColor,
+    HomesitePaletteColor
+  >
+  get copyWith => _HomesitePaletteColorCopyWithImpl<
+    HomesitePaletteColor,
+    HomesitePaletteColor
+  >(this as HomesitePaletteColor, $identity, $identity);
   @override
   String toString() {
-    return HomesitePaletteColorMapper.ensureInitialized()
-        .stringifyValue(this as HomesitePaletteColor);
+    return HomesitePaletteColorMapper.ensureInitialized().stringifyValue(
+      this as HomesitePaletteColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return HomesitePaletteColorMapper.ensureInitialized()
-        .equalsValue(this as HomesitePaletteColor, other);
+    return HomesitePaletteColorMapper.ensureInitialized().equalsValue(
+      this as HomesitePaletteColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return HomesitePaletteColorMapper.ensureInitialized()
-        .hashValue(this as HomesitePaletteColor);
+    return HomesitePaletteColorMapper.ensureInitialized().hashValue(
+      this as HomesitePaletteColor,
+    );
   }
 }
 
 extension HomesitePaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, HomesitePaletteColor, $Out> {
   HomesitePaletteColorCopyWith<$R, HomesitePaletteColor, $Out>
-      get $asHomesitePaletteColor => $base.as(
-          (v, t, t2) => _HomesitePaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asHomesitePaletteColor => $base.as(
+    (v, t, t2) => _HomesitePaletteColorCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
 abstract class HomesitePaletteColorCopyWith<
-    $R,
-    $In extends HomesitePaletteColor,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R,
+  $In extends HomesitePaletteColor,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({int? red, int? green, int? blue});
   HomesitePaletteColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _HomesitePaletteColorCopyWithImpl<$R, $Out>
@@ -113,21 +129,24 @@ class _HomesitePaletteColorCopyWithImpl<$R, $Out>
   late final ClassMapperBase<HomesitePaletteColor> $mapper =
       HomesitePaletteColorMapper.ensureInitialized();
   @override
-  $R call({int? red, int? green, int? blue}) => $apply(FieldCopyWithData({
-        if (red != null) #red: red,
-        if (green != null) #green: green,
-        if (blue != null) #blue: blue
-      }));
+  $R call({int? red, int? green, int? blue}) => $apply(
+    FieldCopyWithData({
+      if (red != null) #red: red,
+      if (green != null) #green: green,
+      if (blue != null) #blue: blue,
+    }),
+  );
   @override
   HomesitePaletteColor $make(CopyWithData data) => HomesitePaletteColor(
-      red: data.get(#red, or: $value.red),
-      green: data.get(#green, or: $value.green),
-      blue: data.get(#blue, or: $value.blue));
+    red: data.get(#red, or: $value.red),
+    green: data.get(#green, or: $value.green),
+    blue: data.get(#blue, or: $value.blue),
+  );
 
   @override
   HomesitePaletteColorCopyWith<$R2, HomesitePaletteColor, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _HomesitePaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _HomesitePaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class HomesitePaletteMapper extends ClassMapperBase<HomesitePalette> {
@@ -150,9 +169,7 @@ class HomesitePaletteMapper extends ClassMapperBase<HomesitePalette> {
       Field('colors', _$colors);
 
   @override
-  final MappableFields<HomesitePalette> fields = const {
-    #colors: _f$colors,
-  };
+  final MappableFields<HomesitePalette> fields = const {#colors: _f$colors};
 
   static HomesitePalette _instantiate(DecodingData data) {
     return HomesitePalette(colors: data.dec(_f$colors));
@@ -177,30 +194,38 @@ mixin HomesitePaletteMappable {
   }
 
   Map<String, dynamic> toMap() {
-    return HomesitePaletteMapper.ensureInitialized()
-        .encodeMap<HomesitePalette>(this as HomesitePalette);
+    return HomesitePaletteMapper.ensureInitialized().encodeMap<HomesitePalette>(
+      this as HomesitePalette,
+    );
   }
 
   HomesitePaletteCopyWith<HomesitePalette, HomesitePalette, HomesitePalette>
-      get copyWith =>
-          _HomesitePaletteCopyWithImpl<HomesitePalette, HomesitePalette>(
-              this as HomesitePalette, $identity, $identity);
+  get copyWith =>
+      _HomesitePaletteCopyWithImpl<HomesitePalette, HomesitePalette>(
+        this as HomesitePalette,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return HomesitePaletteMapper.ensureInitialized()
-        .stringifyValue(this as HomesitePalette);
+    return HomesitePaletteMapper.ensureInitialized().stringifyValue(
+      this as HomesitePalette,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return HomesitePaletteMapper.ensureInitialized()
-        .equalsValue(this as HomesitePalette, other);
+    return HomesitePaletteMapper.ensureInitialized().equalsValue(
+      this as HomesitePalette,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return HomesitePaletteMapper.ensureInitialized()
-        .hashValue(this as HomesitePalette);
+    return HomesitePaletteMapper.ensureInitialized().hashValue(
+      this as HomesitePalette,
+    );
   }
 }
 
@@ -213,13 +238,15 @@ extension HomesitePaletteValueCopy<$R, $Out>
 abstract class HomesitePaletteCopyWith<$R, $In extends HomesitePalette, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
-      $R,
-      HomesitePaletteColor,
-      HomesitePaletteColorCopyWith<$R, HomesitePaletteColor,
-          HomesitePaletteColor>> get colors;
+    $R,
+    HomesitePaletteColor,
+    HomesitePaletteColorCopyWith<$R, HomesitePaletteColor, HomesitePaletteColor>
+  >
+  get colors;
   $R call({List<HomesitePaletteColor>? colors});
   HomesitePaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _HomesitePaletteCopyWithImpl<$R, $Out>
@@ -232,11 +259,15 @@ class _HomesitePaletteCopyWithImpl<$R, $Out>
       HomesitePaletteMapper.ensureInitialized();
   @override
   ListCopyWith<
-      $R,
-      HomesitePaletteColor,
-      HomesitePaletteColorCopyWith<$R, HomesitePaletteColor,
-          HomesitePaletteColor>> get colors => ListCopyWith(
-      $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
+    $R,
+    HomesitePaletteColor,
+    HomesitePaletteColorCopyWith<$R, HomesitePaletteColor, HomesitePaletteColor>
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
   $R call({List<HomesitePaletteColor>? colors}) =>
       $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
@@ -246,6 +277,6 @@ class _HomesitePaletteCopyWithImpl<$R, $Out>
 
   @override
   HomesitePaletteCopyWith<$R2, HomesitePalette, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _HomesitePaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _HomesitePaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

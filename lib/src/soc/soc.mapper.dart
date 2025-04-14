@@ -23,8 +23,10 @@ class StarOfficeColorMapper extends ClassMapperBase<StarOfficeColor> {
   static String _$name(StarOfficeColor v) => v.name;
   static const Field<StarOfficeColor, String> _f$name = Field('name', _$name);
   static String _$color(StarOfficeColor v) => v.color;
-  static const Field<StarOfficeColor, String> _f$color =
-      Field('color', _$color);
+  static const Field<StarOfficeColor, String> _f$color = Field(
+    'color',
+    _$color,
+  );
 
   @override
   final MappableFields<StarOfficeColor> fields = const {
@@ -55,30 +57,38 @@ mixin StarOfficeColorMappable {
   }
 
   Map<String, dynamic> toMap() {
-    return StarOfficeColorMapper.ensureInitialized()
-        .encodeMap<StarOfficeColor>(this as StarOfficeColor);
+    return StarOfficeColorMapper.ensureInitialized().encodeMap<StarOfficeColor>(
+      this as StarOfficeColor,
+    );
   }
 
   StarOfficeColorCopyWith<StarOfficeColor, StarOfficeColor, StarOfficeColor>
-      get copyWith =>
-          _StarOfficeColorCopyWithImpl<StarOfficeColor, StarOfficeColor>(
-              this as StarOfficeColor, $identity, $identity);
+  get copyWith =>
+      _StarOfficeColorCopyWithImpl<StarOfficeColor, StarOfficeColor>(
+        this as StarOfficeColor,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return StarOfficeColorMapper.ensureInitialized()
-        .stringifyValue(this as StarOfficeColor);
+    return StarOfficeColorMapper.ensureInitialized().stringifyValue(
+      this as StarOfficeColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return StarOfficeColorMapper.ensureInitialized()
-        .equalsValue(this as StarOfficeColor, other);
+    return StarOfficeColorMapper.ensureInitialized().equalsValue(
+      this as StarOfficeColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return StarOfficeColorMapper.ensureInitialized()
-        .hashValue(this as StarOfficeColor);
+    return StarOfficeColorMapper.ensureInitialized().hashValue(
+      this as StarOfficeColor,
+    );
   }
 }
 
@@ -92,7 +102,8 @@ abstract class StarOfficeColorCopyWith<$R, $In extends StarOfficeColor, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call({String? name, String? color});
   StarOfficeColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _StarOfficeColorCopyWithImpl<$R, $Out>
@@ -104,17 +115,22 @@ class _StarOfficeColorCopyWithImpl<$R, $Out>
   late final ClassMapperBase<StarOfficeColor> $mapper =
       StarOfficeColorMapper.ensureInitialized();
   @override
-  $R call({String? name, String? color}) => $apply(FieldCopyWithData(
-      {if (name != null) #name: name, if (color != null) #color: color}));
+  $R call({String? name, String? color}) => $apply(
+    FieldCopyWithData({
+      if (name != null) #name: name,
+      if (color != null) #color: color,
+    }),
+  );
   @override
   StarOfficeColor $make(CopyWithData data) => StarOfficeColor(
-      name: data.get(#name, or: $value.name),
-      color: data.get(#color, or: $value.color));
+    name: data.get(#name, or: $value.name),
+    color: data.get(#color, or: $value.color),
+  );
 
   @override
   StarOfficeColorCopyWith<$R2, StarOfficeColor, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _StarOfficeColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _StarOfficeColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class StarOfficeColorTableMapper extends ClassMapperBase<StarOfficeColorTable> {
@@ -168,45 +184,62 @@ mixin StarOfficeColorTableMappable {
         .encodeMap<StarOfficeColorTable>(this as StarOfficeColorTable);
   }
 
-  StarOfficeColorTableCopyWith<StarOfficeColorTable, StarOfficeColorTable,
-      StarOfficeColorTable> get copyWith => _StarOfficeColorTableCopyWithImpl<
-          StarOfficeColorTable, StarOfficeColorTable>(
-      this as StarOfficeColorTable, $identity, $identity);
+  StarOfficeColorTableCopyWith<
+    StarOfficeColorTable,
+    StarOfficeColorTable,
+    StarOfficeColorTable
+  >
+  get copyWith => _StarOfficeColorTableCopyWithImpl<
+    StarOfficeColorTable,
+    StarOfficeColorTable
+  >(this as StarOfficeColorTable, $identity, $identity);
   @override
   String toString() {
-    return StarOfficeColorTableMapper.ensureInitialized()
-        .stringifyValue(this as StarOfficeColorTable);
+    return StarOfficeColorTableMapper.ensureInitialized().stringifyValue(
+      this as StarOfficeColorTable,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return StarOfficeColorTableMapper.ensureInitialized()
-        .equalsValue(this as StarOfficeColorTable, other);
+    return StarOfficeColorTableMapper.ensureInitialized().equalsValue(
+      this as StarOfficeColorTable,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return StarOfficeColorTableMapper.ensureInitialized()
-        .hashValue(this as StarOfficeColorTable);
+    return StarOfficeColorTableMapper.ensureInitialized().hashValue(
+      this as StarOfficeColorTable,
+    );
   }
 }
 
 extension StarOfficeColorTableValueCopy<$R, $Out>
     on ObjectCopyWith<$R, StarOfficeColorTable, $Out> {
   StarOfficeColorTableCopyWith<$R, StarOfficeColorTable, $Out>
-      get $asStarOfficeColorTable => $base.as(
-          (v, t, t2) => _StarOfficeColorTableCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asStarOfficeColorTable => $base.as(
+    (v, t, t2) => _StarOfficeColorTableCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
 abstract class StarOfficeColorTableCopyWith<
+  $R,
+  $In extends StarOfficeColorTable,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
+  ListCopyWith<
     $R,
-    $In extends StarOfficeColorTable,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, StarOfficeColor,
-      StarOfficeColorCopyWith<$R, StarOfficeColor, StarOfficeColor>> get colors;
+    StarOfficeColor,
+    StarOfficeColorCopyWith<$R, StarOfficeColor, StarOfficeColor>
+  >
+  get colors;
   $R call({List<StarOfficeColor>? colors});
   StarOfficeColorTableCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _StarOfficeColorTableCopyWithImpl<$R, $Out>
@@ -218,10 +251,16 @@ class _StarOfficeColorTableCopyWithImpl<$R, $Out>
   late final ClassMapperBase<StarOfficeColorTable> $mapper =
       StarOfficeColorTableMapper.ensureInitialized();
   @override
-  ListCopyWith<$R, StarOfficeColor,
-          StarOfficeColorCopyWith<$R, StarOfficeColor, StarOfficeColor>>
-      get colors => ListCopyWith($value.colors, (v, t) => v.copyWith.$chain(t),
-          (v) => call(colors: v));
+  ListCopyWith<
+    $R,
+    StarOfficeColor,
+    StarOfficeColorCopyWith<$R, StarOfficeColor, StarOfficeColor>
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
   $R call({List<StarOfficeColor>? colors}) =>
       $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
@@ -231,6 +270,6 @@ class _StarOfficeColorTableCopyWithImpl<$R, $Out>
 
   @override
   StarOfficeColorTableCopyWith<$R2, StarOfficeColorTable, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _StarOfficeColorTableCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _StarOfficeColorTableCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

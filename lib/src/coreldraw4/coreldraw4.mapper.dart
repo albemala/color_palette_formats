@@ -22,20 +22,30 @@ class CorelDraw4PaletteColorMapper
   final String id = 'CorelDraw4PaletteColor';
 
   static int _$cyan(CorelDraw4PaletteColor v) => v.cyan;
-  static const Field<CorelDraw4PaletteColor, int> _f$cyan =
-      Field('cyan', _$cyan);
+  static const Field<CorelDraw4PaletteColor, int> _f$cyan = Field(
+    'cyan',
+    _$cyan,
+  );
   static int _$magenta(CorelDraw4PaletteColor v) => v.magenta;
-  static const Field<CorelDraw4PaletteColor, int> _f$magenta =
-      Field('magenta', _$magenta);
+  static const Field<CorelDraw4PaletteColor, int> _f$magenta = Field(
+    'magenta',
+    _$magenta,
+  );
   static int _$yellow(CorelDraw4PaletteColor v) => v.yellow;
-  static const Field<CorelDraw4PaletteColor, int> _f$yellow =
-      Field('yellow', _$yellow);
+  static const Field<CorelDraw4PaletteColor, int> _f$yellow = Field(
+    'yellow',
+    _$yellow,
+  );
   static int _$black(CorelDraw4PaletteColor v) => v.black;
-  static const Field<CorelDraw4PaletteColor, int> _f$black =
-      Field('black', _$black);
+  static const Field<CorelDraw4PaletteColor, int> _f$black = Field(
+    'black',
+    _$black,
+  );
   static String _$name(CorelDraw4PaletteColor v) => v.name;
-  static const Field<CorelDraw4PaletteColor, String> _f$name =
-      Field('name', _$name);
+  static const Field<CorelDraw4PaletteColor, String> _f$name = Field(
+    'name',
+    _$name,
+  );
 
   @override
   final MappableFields<CorelDraw4PaletteColor> fields = const {
@@ -48,11 +58,12 @@ class CorelDraw4PaletteColorMapper
 
   static CorelDraw4PaletteColor _instantiate(DecodingData data) {
     return CorelDraw4PaletteColor(
-        cyan: data.dec(_f$cyan),
-        magenta: data.dec(_f$magenta),
-        yellow: data.dec(_f$yellow),
-        black: data.dec(_f$black),
-        name: data.dec(_f$name));
+      cyan: data.dec(_f$cyan),
+      magenta: data.dec(_f$magenta),
+      yellow: data.dec(_f$yellow),
+      black: data.dec(_f$black),
+      name: data.dec(_f$name),
+    );
   }
 
   @override
@@ -78,44 +89,56 @@ mixin CorelDraw4PaletteColorMappable {
         .encodeMap<CorelDraw4PaletteColor>(this as CorelDraw4PaletteColor);
   }
 
-  CorelDraw4PaletteColorCopyWith<CorelDraw4PaletteColor, CorelDraw4PaletteColor,
-          CorelDraw4PaletteColor>
-      get copyWith => _CorelDraw4PaletteColorCopyWithImpl<
-              CorelDraw4PaletteColor, CorelDraw4PaletteColor>(
-          this as CorelDraw4PaletteColor, $identity, $identity);
+  CorelDraw4PaletteColorCopyWith<
+    CorelDraw4PaletteColor,
+    CorelDraw4PaletteColor,
+    CorelDraw4PaletteColor
+  >
+  get copyWith => _CorelDraw4PaletteColorCopyWithImpl<
+    CorelDraw4PaletteColor,
+    CorelDraw4PaletteColor
+  >(this as CorelDraw4PaletteColor, $identity, $identity);
   @override
   String toString() {
-    return CorelDraw4PaletteColorMapper.ensureInitialized()
-        .stringifyValue(this as CorelDraw4PaletteColor);
+    return CorelDraw4PaletteColorMapper.ensureInitialized().stringifyValue(
+      this as CorelDraw4PaletteColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return CorelDraw4PaletteColorMapper.ensureInitialized()
-        .equalsValue(this as CorelDraw4PaletteColor, other);
+    return CorelDraw4PaletteColorMapper.ensureInitialized().equalsValue(
+      this as CorelDraw4PaletteColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return CorelDraw4PaletteColorMapper.ensureInitialized()
-        .hashValue(this as CorelDraw4PaletteColor);
+    return CorelDraw4PaletteColorMapper.ensureInitialized().hashValue(
+      this as CorelDraw4PaletteColor,
+    );
   }
 }
 
 extension CorelDraw4PaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, CorelDraw4PaletteColor, $Out> {
   CorelDraw4PaletteColorCopyWith<$R, CorelDraw4PaletteColor, $Out>
-      get $asCorelDraw4PaletteColor => $base.as((v, t, t2) =>
-          _CorelDraw4PaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asCorelDraw4PaletteColor => $base.as(
+    (v, t, t2) => _CorelDraw4PaletteColorCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
 abstract class CorelDraw4PaletteColorCopyWith<
-    $R,
-    $In extends CorelDraw4PaletteColor,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R,
+  $In extends CorelDraw4PaletteColor,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({int? cyan, int? magenta, int? yellow, int? black, String? name});
   CorelDraw4PaletteColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _CorelDraw4PaletteColorCopyWithImpl<$R, $Out>
@@ -129,25 +152,28 @@ class _CorelDraw4PaletteColorCopyWithImpl<$R, $Out>
       CorelDraw4PaletteColorMapper.ensureInitialized();
   @override
   $R call({int? cyan, int? magenta, int? yellow, int? black, String? name}) =>
-      $apply(FieldCopyWithData({
-        if (cyan != null) #cyan: cyan,
-        if (magenta != null) #magenta: magenta,
-        if (yellow != null) #yellow: yellow,
-        if (black != null) #black: black,
-        if (name != null) #name: name
-      }));
+      $apply(
+        FieldCopyWithData({
+          if (cyan != null) #cyan: cyan,
+          if (magenta != null) #magenta: magenta,
+          if (yellow != null) #yellow: yellow,
+          if (black != null) #black: black,
+          if (name != null) #name: name,
+        }),
+      );
   @override
   CorelDraw4PaletteColor $make(CopyWithData data) => CorelDraw4PaletteColor(
-      cyan: data.get(#cyan, or: $value.cyan),
-      magenta: data.get(#magenta, or: $value.magenta),
-      yellow: data.get(#yellow, or: $value.yellow),
-      black: data.get(#black, or: $value.black),
-      name: data.get(#name, or: $value.name));
+    cyan: data.get(#cyan, or: $value.cyan),
+    magenta: data.get(#magenta, or: $value.magenta),
+    yellow: data.get(#yellow, or: $value.yellow),
+    black: data.get(#black, or: $value.black),
+    name: data.get(#name, or: $value.name),
+  );
 
   @override
   CorelDraw4PaletteColorCopyWith<$R2, CorelDraw4PaletteColor, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _CorelDraw4PaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _CorelDraw4PaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class CorelDraw4PaletteMapper extends ClassMapperBase<CorelDraw4Palette> {
@@ -167,12 +193,10 @@ class CorelDraw4PaletteMapper extends ClassMapperBase<CorelDraw4Palette> {
 
   static List<CorelDraw4PaletteColor> _$colors(CorelDraw4Palette v) => v.colors;
   static const Field<CorelDraw4Palette, List<CorelDraw4PaletteColor>>
-      _f$colors = Field('colors', _$colors);
+  _f$colors = Field('colors', _$colors);
 
   @override
-  final MappableFields<CorelDraw4Palette> fields = const {
-    #colors: _f$colors,
-  };
+  final MappableFields<CorelDraw4Palette> fields = const {#colors: _f$colors};
 
   static CorelDraw4Palette _instantiate(DecodingData data) {
     return CorelDraw4Palette(colors: data.dec(_f$colors));
@@ -201,47 +225,68 @@ mixin CorelDraw4PaletteMappable {
         .encodeMap<CorelDraw4Palette>(this as CorelDraw4Palette);
   }
 
-  CorelDraw4PaletteCopyWith<CorelDraw4Palette, CorelDraw4Palette,
-          CorelDraw4Palette>
-      get copyWith =>
-          _CorelDraw4PaletteCopyWithImpl<CorelDraw4Palette, CorelDraw4Palette>(
-              this as CorelDraw4Palette, $identity, $identity);
+  CorelDraw4PaletteCopyWith<
+    CorelDraw4Palette,
+    CorelDraw4Palette,
+    CorelDraw4Palette
+  >
+  get copyWith =>
+      _CorelDraw4PaletteCopyWithImpl<CorelDraw4Palette, CorelDraw4Palette>(
+        this as CorelDraw4Palette,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return CorelDraw4PaletteMapper.ensureInitialized()
-        .stringifyValue(this as CorelDraw4Palette);
+    return CorelDraw4PaletteMapper.ensureInitialized().stringifyValue(
+      this as CorelDraw4Palette,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return CorelDraw4PaletteMapper.ensureInitialized()
-        .equalsValue(this as CorelDraw4Palette, other);
+    return CorelDraw4PaletteMapper.ensureInitialized().equalsValue(
+      this as CorelDraw4Palette,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return CorelDraw4PaletteMapper.ensureInitialized()
-        .hashValue(this as CorelDraw4Palette);
+    return CorelDraw4PaletteMapper.ensureInitialized().hashValue(
+      this as CorelDraw4Palette,
+    );
   }
 }
 
 extension CorelDraw4PaletteValueCopy<$R, $Out>
     on ObjectCopyWith<$R, CorelDraw4Palette, $Out> {
   CorelDraw4PaletteCopyWith<$R, CorelDraw4Palette, $Out>
-      get $asCorelDraw4Palette => $base
-          .as((v, t, t2) => _CorelDraw4PaletteCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asCorelDraw4Palette => $base.as(
+    (v, t, t2) => _CorelDraw4PaletteCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
-abstract class CorelDraw4PaletteCopyWith<$R, $In extends CorelDraw4Palette,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class CorelDraw4PaletteCopyWith<
+  $R,
+  $In extends CorelDraw4Palette,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
+    $R,
+    CorelDraw4PaletteColor,
+    CorelDraw4PaletteColorCopyWith<
       $R,
       CorelDraw4PaletteColor,
-      CorelDraw4PaletteColorCopyWith<$R, CorelDraw4PaletteColor,
-          CorelDraw4PaletteColor>> get colors;
+      CorelDraw4PaletteColor
+    >
+  >
+  get colors;
   $R call({List<CorelDraw4PaletteColor>? colors});
   CorelDraw4PaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _CorelDraw4PaletteCopyWithImpl<$R, $Out>
@@ -254,11 +299,19 @@ class _CorelDraw4PaletteCopyWithImpl<$R, $Out>
       CorelDraw4PaletteMapper.ensureInitialized();
   @override
   ListCopyWith<
+    $R,
+    CorelDraw4PaletteColor,
+    CorelDraw4PaletteColorCopyWith<
       $R,
       CorelDraw4PaletteColor,
-      CorelDraw4PaletteColorCopyWith<$R, CorelDraw4PaletteColor,
-          CorelDraw4PaletteColor>> get colors => ListCopyWith(
-      $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
+      CorelDraw4PaletteColor
+    >
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
   $R call({List<CorelDraw4PaletteColor>? colors}) =>
       $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
@@ -268,6 +321,6 @@ class _CorelDraw4PaletteCopyWithImpl<$R, $Out>
 
   @override
   CorelDraw4PaletteCopyWith<$R2, CorelDraw4Palette, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _CorelDraw4PaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _CorelDraw4PaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

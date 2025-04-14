@@ -23,8 +23,10 @@ class AdobeColorTableColorMapper extends ClassMapperBase<AdobeColorTableColor> {
   static int _$red(AdobeColorTableColor v) => v.red;
   static const Field<AdobeColorTableColor, int> _f$red = Field('red', _$red);
   static int _$green(AdobeColorTableColor v) => v.green;
-  static const Field<AdobeColorTableColor, int> _f$green =
-      Field('green', _$green);
+  static const Field<AdobeColorTableColor, int> _f$green = Field(
+    'green',
+    _$green,
+  );
   static int _$blue(AdobeColorTableColor v) => v.blue;
   static const Field<AdobeColorTableColor, int> _f$blue = Field('blue', _$blue);
 
@@ -37,9 +39,10 @@ class AdobeColorTableColorMapper extends ClassMapperBase<AdobeColorTableColor> {
 
   static AdobeColorTableColor _instantiate(DecodingData data) {
     return AdobeColorTableColor(
-        red: data.dec(_f$red),
-        green: data.dec(_f$green),
-        blue: data.dec(_f$blue));
+      red: data.dec(_f$red),
+      green: data.dec(_f$green),
+      blue: data.dec(_f$blue),
+    );
   }
 
   @override
@@ -65,43 +68,56 @@ mixin AdobeColorTableColorMappable {
         .encodeMap<AdobeColorTableColor>(this as AdobeColorTableColor);
   }
 
-  AdobeColorTableColorCopyWith<AdobeColorTableColor, AdobeColorTableColor,
-      AdobeColorTableColor> get copyWith => _AdobeColorTableColorCopyWithImpl<
-          AdobeColorTableColor, AdobeColorTableColor>(
-      this as AdobeColorTableColor, $identity, $identity);
+  AdobeColorTableColorCopyWith<
+    AdobeColorTableColor,
+    AdobeColorTableColor,
+    AdobeColorTableColor
+  >
+  get copyWith => _AdobeColorTableColorCopyWithImpl<
+    AdobeColorTableColor,
+    AdobeColorTableColor
+  >(this as AdobeColorTableColor, $identity, $identity);
   @override
   String toString() {
-    return AdobeColorTableColorMapper.ensureInitialized()
-        .stringifyValue(this as AdobeColorTableColor);
+    return AdobeColorTableColorMapper.ensureInitialized().stringifyValue(
+      this as AdobeColorTableColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return AdobeColorTableColorMapper.ensureInitialized()
-        .equalsValue(this as AdobeColorTableColor, other);
+    return AdobeColorTableColorMapper.ensureInitialized().equalsValue(
+      this as AdobeColorTableColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return AdobeColorTableColorMapper.ensureInitialized()
-        .hashValue(this as AdobeColorTableColor);
+    return AdobeColorTableColorMapper.ensureInitialized().hashValue(
+      this as AdobeColorTableColor,
+    );
   }
 }
 
 extension AdobeColorTableColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorTableColor, $Out> {
   AdobeColorTableColorCopyWith<$R, AdobeColorTableColor, $Out>
-      get $asAdobeColorTableColor => $base.as(
-          (v, t, t2) => _AdobeColorTableColorCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asAdobeColorTableColor => $base.as(
+    (v, t, t2) => _AdobeColorTableColorCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
 abstract class AdobeColorTableColorCopyWith<
-    $R,
-    $In extends AdobeColorTableColor,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R,
+  $In extends AdobeColorTableColor,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({int? red, int? green, int? blue});
   AdobeColorTableColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _AdobeColorTableColorCopyWithImpl<$R, $Out>
@@ -113,21 +129,24 @@ class _AdobeColorTableColorCopyWithImpl<$R, $Out>
   late final ClassMapperBase<AdobeColorTableColor> $mapper =
       AdobeColorTableColorMapper.ensureInitialized();
   @override
-  $R call({int? red, int? green, int? blue}) => $apply(FieldCopyWithData({
-        if (red != null) #red: red,
-        if (green != null) #green: green,
-        if (blue != null) #blue: blue
-      }));
+  $R call({int? red, int? green, int? blue}) => $apply(
+    FieldCopyWithData({
+      if (red != null) #red: red,
+      if (green != null) #green: green,
+      if (blue != null) #blue: blue,
+    }),
+  );
   @override
   AdobeColorTableColor $make(CopyWithData data) => AdobeColorTableColor(
-      red: data.get(#red, or: $value.red),
-      green: data.get(#green, or: $value.green),
-      blue: data.get(#blue, or: $value.blue));
+    red: data.get(#red, or: $value.red),
+    green: data.get(#green, or: $value.green),
+    blue: data.get(#blue, or: $value.blue),
+  );
 
   @override
   AdobeColorTableColorCopyWith<$R2, AdobeColorTableColor, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeColorTableColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _AdobeColorTableColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AdobeColorTableMapper extends ClassMapperBase<AdobeColorTable> {
@@ -150,9 +169,7 @@ class AdobeColorTableMapper extends ClassMapperBase<AdobeColorTable> {
       Field('colors', _$colors);
 
   @override
-  final MappableFields<AdobeColorTable> fields = const {
-    #colors: _f$colors,
-  };
+  final MappableFields<AdobeColorTable> fields = const {#colors: _f$colors};
 
   static AdobeColorTable _instantiate(DecodingData data) {
     return AdobeColorTable(colors: data.dec(_f$colors));
@@ -177,30 +194,38 @@ mixin AdobeColorTableMappable {
   }
 
   Map<String, dynamic> toMap() {
-    return AdobeColorTableMapper.ensureInitialized()
-        .encodeMap<AdobeColorTable>(this as AdobeColorTable);
+    return AdobeColorTableMapper.ensureInitialized().encodeMap<AdobeColorTable>(
+      this as AdobeColorTable,
+    );
   }
 
   AdobeColorTableCopyWith<AdobeColorTable, AdobeColorTable, AdobeColorTable>
-      get copyWith =>
-          _AdobeColorTableCopyWithImpl<AdobeColorTable, AdobeColorTable>(
-              this as AdobeColorTable, $identity, $identity);
+  get copyWith =>
+      _AdobeColorTableCopyWithImpl<AdobeColorTable, AdobeColorTable>(
+        this as AdobeColorTable,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return AdobeColorTableMapper.ensureInitialized()
-        .stringifyValue(this as AdobeColorTable);
+    return AdobeColorTableMapper.ensureInitialized().stringifyValue(
+      this as AdobeColorTable,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return AdobeColorTableMapper.ensureInitialized()
-        .equalsValue(this as AdobeColorTable, other);
+    return AdobeColorTableMapper.ensureInitialized().equalsValue(
+      this as AdobeColorTable,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return AdobeColorTableMapper.ensureInitialized()
-        .hashValue(this as AdobeColorTable);
+    return AdobeColorTableMapper.ensureInitialized().hashValue(
+      this as AdobeColorTable,
+    );
   }
 }
 
@@ -213,13 +238,15 @@ extension AdobeColorTableValueCopy<$R, $Out>
 abstract class AdobeColorTableCopyWith<$R, $In extends AdobeColorTable, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
-      $R,
-      AdobeColorTableColor,
-      AdobeColorTableColorCopyWith<$R, AdobeColorTableColor,
-          AdobeColorTableColor>> get colors;
+    $R,
+    AdobeColorTableColor,
+    AdobeColorTableColorCopyWith<$R, AdobeColorTableColor, AdobeColorTableColor>
+  >
+  get colors;
   $R call({List<AdobeColorTableColor>? colors});
   AdobeColorTableCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _AdobeColorTableCopyWithImpl<$R, $Out>
@@ -232,11 +259,15 @@ class _AdobeColorTableCopyWithImpl<$R, $Out>
       AdobeColorTableMapper.ensureInitialized();
   @override
   ListCopyWith<
-      $R,
-      AdobeColorTableColor,
-      AdobeColorTableColorCopyWith<$R, AdobeColorTableColor,
-          AdobeColorTableColor>> get colors => ListCopyWith(
-      $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
+    $R,
+    AdobeColorTableColor,
+    AdobeColorTableColorCopyWith<$R, AdobeColorTableColor, AdobeColorTableColor>
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
   $R call({List<AdobeColorTableColor>? colors}) =>
       $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
@@ -246,6 +277,6 @@ class _AdobeColorTableCopyWithImpl<$R, $Out>
 
   @override
   AdobeColorTableCopyWith<$R2, AdobeColorTable, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _AdobeColorTableCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _AdobeColorTableCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

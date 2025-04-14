@@ -13,8 +13,9 @@ class PaintShopProPaletteColorMapper
   static PaintShopProPaletteColorMapper? _instance;
   static PaintShopProPaletteColorMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals
-          .use(_instance = PaintShopProPaletteColorMapper._());
+      MapperContainer.globals.use(
+        _instance = PaintShopProPaletteColorMapper._(),
+      );
     }
     return _instance!;
   }
@@ -23,14 +24,20 @@ class PaintShopProPaletteColorMapper
   final String id = 'PaintShopProPaletteColor';
 
   static int _$red(PaintShopProPaletteColor v) => v.red;
-  static const Field<PaintShopProPaletteColor, int> _f$red =
-      Field('red', _$red);
+  static const Field<PaintShopProPaletteColor, int> _f$red = Field(
+    'red',
+    _$red,
+  );
   static int _$green(PaintShopProPaletteColor v) => v.green;
-  static const Field<PaintShopProPaletteColor, int> _f$green =
-      Field('green', _$green);
+  static const Field<PaintShopProPaletteColor, int> _f$green = Field(
+    'green',
+    _$green,
+  );
   static int _$blue(PaintShopProPaletteColor v) => v.blue;
-  static const Field<PaintShopProPaletteColor, int> _f$blue =
-      Field('blue', _$blue);
+  static const Field<PaintShopProPaletteColor, int> _f$blue = Field(
+    'blue',
+    _$blue,
+  );
 
   @override
   final MappableFields<PaintShopProPaletteColor> fields = const {
@@ -41,9 +48,10 @@ class PaintShopProPaletteColorMapper
 
   static PaintShopProPaletteColor _instantiate(DecodingData data) {
     return PaintShopProPaletteColor(
-        red: data.dec(_f$red),
-        green: data.dec(_f$green),
-        blue: data.dec(_f$blue));
+      red: data.dec(_f$red),
+      green: data.dec(_f$green),
+      blue: data.dec(_f$blue),
+    );
   }
 
   @override
@@ -69,44 +77,56 @@ mixin PaintShopProPaletteColorMappable {
         .encodeMap<PaintShopProPaletteColor>(this as PaintShopProPaletteColor);
   }
 
-  PaintShopProPaletteColorCopyWith<PaintShopProPaletteColor,
-          PaintShopProPaletteColor, PaintShopProPaletteColor>
-      get copyWith => _PaintShopProPaletteColorCopyWithImpl<
-              PaintShopProPaletteColor, PaintShopProPaletteColor>(
-          this as PaintShopProPaletteColor, $identity, $identity);
+  PaintShopProPaletteColorCopyWith<
+    PaintShopProPaletteColor,
+    PaintShopProPaletteColor,
+    PaintShopProPaletteColor
+  >
+  get copyWith => _PaintShopProPaletteColorCopyWithImpl<
+    PaintShopProPaletteColor,
+    PaintShopProPaletteColor
+  >(this as PaintShopProPaletteColor, $identity, $identity);
   @override
   String toString() {
-    return PaintShopProPaletteColorMapper.ensureInitialized()
-        .stringifyValue(this as PaintShopProPaletteColor);
+    return PaintShopProPaletteColorMapper.ensureInitialized().stringifyValue(
+      this as PaintShopProPaletteColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return PaintShopProPaletteColorMapper.ensureInitialized()
-        .equalsValue(this as PaintShopProPaletteColor, other);
+    return PaintShopProPaletteColorMapper.ensureInitialized().equalsValue(
+      this as PaintShopProPaletteColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return PaintShopProPaletteColorMapper.ensureInitialized()
-        .hashValue(this as PaintShopProPaletteColor);
+    return PaintShopProPaletteColorMapper.ensureInitialized().hashValue(
+      this as PaintShopProPaletteColor,
+    );
   }
 }
 
 extension PaintShopProPaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, PaintShopProPaletteColor, $Out> {
   PaintShopProPaletteColorCopyWith<$R, PaintShopProPaletteColor, $Out>
-      get $asPaintShopProPaletteColor => $base.as((v, t, t2) =>
-          _PaintShopProPaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asPaintShopProPaletteColor => $base.as(
+    (v, t, t2) => _PaintShopProPaletteColorCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
 abstract class PaintShopProPaletteColorCopyWith<
-    $R,
-    $In extends PaintShopProPaletteColor,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R,
+  $In extends PaintShopProPaletteColor,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({int? red, int? green, int? blue});
   PaintShopProPaletteColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _PaintShopProPaletteColorCopyWithImpl<$R, $Out>
@@ -119,21 +139,24 @@ class _PaintShopProPaletteColorCopyWithImpl<$R, $Out>
   late final ClassMapperBase<PaintShopProPaletteColor> $mapper =
       PaintShopProPaletteColorMapper.ensureInitialized();
   @override
-  $R call({int? red, int? green, int? blue}) => $apply(FieldCopyWithData({
-        if (red != null) #red: red,
-        if (green != null) #green: green,
-        if (blue != null) #blue: blue
-      }));
+  $R call({int? red, int? green, int? blue}) => $apply(
+    FieldCopyWithData({
+      if (red != null) #red: red,
+      if (green != null) #green: green,
+      if (blue != null) #blue: blue,
+    }),
+  );
   @override
   PaintShopProPaletteColor $make(CopyWithData data) => PaintShopProPaletteColor(
-      red: data.get(#red, or: $value.red),
-      green: data.get(#green, or: $value.green),
-      blue: data.get(#blue, or: $value.blue));
+    red: data.get(#red, or: $value.red),
+    green: data.get(#green, or: $value.green),
+    blue: data.get(#blue, or: $value.blue),
+  );
 
   @override
   PaintShopProPaletteColorCopyWith<$R2, PaintShopProPaletteColor, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _PaintShopProPaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _PaintShopProPaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class PaintShopProPaletteMapper extends ClassMapperBase<PaintShopProPalette> {
@@ -154,12 +177,10 @@ class PaintShopProPaletteMapper extends ClassMapperBase<PaintShopProPalette> {
   static List<PaintShopProPaletteColor> _$colors(PaintShopProPalette v) =>
       v.colors;
   static const Field<PaintShopProPalette, List<PaintShopProPaletteColor>>
-      _f$colors = Field('colors', _$colors);
+  _f$colors = Field('colors', _$colors);
 
   @override
-  final MappableFields<PaintShopProPalette> fields = const {
-    #colors: _f$colors,
-  };
+  final MappableFields<PaintShopProPalette> fields = const {#colors: _f$colors};
 
   static PaintShopProPalette _instantiate(DecodingData data) {
     return PaintShopProPalette(colors: data.dec(_f$colors));
@@ -188,46 +209,66 @@ mixin PaintShopProPaletteMappable {
         .encodeMap<PaintShopProPalette>(this as PaintShopProPalette);
   }
 
-  PaintShopProPaletteCopyWith<PaintShopProPalette, PaintShopProPalette,
-      PaintShopProPalette> get copyWith => _PaintShopProPaletteCopyWithImpl<
-          PaintShopProPalette, PaintShopProPalette>(
-      this as PaintShopProPalette, $identity, $identity);
+  PaintShopProPaletteCopyWith<
+    PaintShopProPalette,
+    PaintShopProPalette,
+    PaintShopProPalette
+  >
+  get copyWith => _PaintShopProPaletteCopyWithImpl<
+    PaintShopProPalette,
+    PaintShopProPalette
+  >(this as PaintShopProPalette, $identity, $identity);
   @override
   String toString() {
-    return PaintShopProPaletteMapper.ensureInitialized()
-        .stringifyValue(this as PaintShopProPalette);
+    return PaintShopProPaletteMapper.ensureInitialized().stringifyValue(
+      this as PaintShopProPalette,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return PaintShopProPaletteMapper.ensureInitialized()
-        .equalsValue(this as PaintShopProPalette, other);
+    return PaintShopProPaletteMapper.ensureInitialized().equalsValue(
+      this as PaintShopProPalette,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return PaintShopProPaletteMapper.ensureInitialized()
-        .hashValue(this as PaintShopProPalette);
+    return PaintShopProPaletteMapper.ensureInitialized().hashValue(
+      this as PaintShopProPalette,
+    );
   }
 }
 
 extension PaintShopProPaletteValueCopy<$R, $Out>
     on ObjectCopyWith<$R, PaintShopProPalette, $Out> {
   PaintShopProPaletteCopyWith<$R, PaintShopProPalette, $Out>
-      get $asPaintShopProPalette => $base.as(
-          (v, t, t2) => _PaintShopProPaletteCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asPaintShopProPalette => $base.as(
+    (v, t, t2) => _PaintShopProPaletteCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
-abstract class PaintShopProPaletteCopyWith<$R, $In extends PaintShopProPalette,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class PaintShopProPaletteCopyWith<
+  $R,
+  $In extends PaintShopProPalette,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
+    $R,
+    PaintShopProPaletteColor,
+    PaintShopProPaletteColorCopyWith<
       $R,
       PaintShopProPaletteColor,
-      PaintShopProPaletteColorCopyWith<$R, PaintShopProPaletteColor,
-          PaintShopProPaletteColor>> get colors;
+      PaintShopProPaletteColor
+    >
+  >
+  get colors;
   $R call({List<PaintShopProPaletteColor>? colors});
   PaintShopProPaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _PaintShopProPaletteCopyWithImpl<$R, $Out>
@@ -240,11 +281,19 @@ class _PaintShopProPaletteCopyWithImpl<$R, $Out>
       PaintShopProPaletteMapper.ensureInitialized();
   @override
   ListCopyWith<
+    $R,
+    PaintShopProPaletteColor,
+    PaintShopProPaletteColorCopyWith<
       $R,
       PaintShopProPaletteColor,
-      PaintShopProPaletteColorCopyWith<$R, PaintShopProPaletteColor,
-          PaintShopProPaletteColor>> get colors => ListCopyWith(
-      $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
+      PaintShopProPaletteColor
+    >
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
   $R call({List<PaintShopProPaletteColor>? colors}) =>
       $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
@@ -254,6 +303,6 @@ class _PaintShopProPaletteCopyWithImpl<$R, $Out>
 
   @override
   PaintShopProPaletteCopyWith<$R2, PaintShopProPalette, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _PaintShopProPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _PaintShopProPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

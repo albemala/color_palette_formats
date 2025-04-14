@@ -27,8 +27,10 @@ class KOfficePaletteColorMapper extends ClassMapperBase<KOfficePaletteColor> {
   static int _$b(KOfficePaletteColor v) => v.b;
   static const Field<KOfficePaletteColor, int> _f$b = Field('b', _$b);
   static String _$name(KOfficePaletteColor v) => v.name;
-  static const Field<KOfficePaletteColor, String> _f$name =
-      Field('name', _$name);
+  static const Field<KOfficePaletteColor, String> _f$name = Field(
+    'name',
+    _$name,
+  );
 
   @override
   final MappableFields<KOfficePaletteColor> fields = const {
@@ -40,10 +42,11 @@ class KOfficePaletteColorMapper extends ClassMapperBase<KOfficePaletteColor> {
 
   static KOfficePaletteColor _instantiate(DecodingData data) {
     return KOfficePaletteColor(
-        r: data.dec(_f$r),
-        g: data.dec(_f$g),
-        b: data.dec(_f$b),
-        name: data.dec(_f$name));
+      r: data.dec(_f$r),
+      g: data.dec(_f$g),
+      b: data.dec(_f$b),
+      name: data.dec(_f$name),
+    );
   }
 
   @override
@@ -69,41 +72,56 @@ mixin KOfficePaletteColorMappable {
         .encodeMap<KOfficePaletteColor>(this as KOfficePaletteColor);
   }
 
-  KOfficePaletteColorCopyWith<KOfficePaletteColor, KOfficePaletteColor,
-      KOfficePaletteColor> get copyWith => _KOfficePaletteColorCopyWithImpl<
-          KOfficePaletteColor, KOfficePaletteColor>(
-      this as KOfficePaletteColor, $identity, $identity);
+  KOfficePaletteColorCopyWith<
+    KOfficePaletteColor,
+    KOfficePaletteColor,
+    KOfficePaletteColor
+  >
+  get copyWith => _KOfficePaletteColorCopyWithImpl<
+    KOfficePaletteColor,
+    KOfficePaletteColor
+  >(this as KOfficePaletteColor, $identity, $identity);
   @override
   String toString() {
-    return KOfficePaletteColorMapper.ensureInitialized()
-        .stringifyValue(this as KOfficePaletteColor);
+    return KOfficePaletteColorMapper.ensureInitialized().stringifyValue(
+      this as KOfficePaletteColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return KOfficePaletteColorMapper.ensureInitialized()
-        .equalsValue(this as KOfficePaletteColor, other);
+    return KOfficePaletteColorMapper.ensureInitialized().equalsValue(
+      this as KOfficePaletteColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return KOfficePaletteColorMapper.ensureInitialized()
-        .hashValue(this as KOfficePaletteColor);
+    return KOfficePaletteColorMapper.ensureInitialized().hashValue(
+      this as KOfficePaletteColor,
+    );
   }
 }
 
 extension KOfficePaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, KOfficePaletteColor, $Out> {
   KOfficePaletteColorCopyWith<$R, KOfficePaletteColor, $Out>
-      get $asKOfficePaletteColor => $base.as(
-          (v, t, t2) => _KOfficePaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asKOfficePaletteColor => $base.as(
+    (v, t, t2) => _KOfficePaletteColorCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
-abstract class KOfficePaletteColorCopyWith<$R, $In extends KOfficePaletteColor,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class KOfficePaletteColorCopyWith<
+  $R,
+  $In extends KOfficePaletteColor,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({int? r, int? g, int? b, String? name});
   KOfficePaletteColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _KOfficePaletteColorCopyWithImpl<$R, $Out>
@@ -115,23 +133,26 @@ class _KOfficePaletteColorCopyWithImpl<$R, $Out>
   late final ClassMapperBase<KOfficePaletteColor> $mapper =
       KOfficePaletteColorMapper.ensureInitialized();
   @override
-  $R call({int? r, int? g, int? b, String? name}) => $apply(FieldCopyWithData({
-        if (r != null) #r: r,
-        if (g != null) #g: g,
-        if (b != null) #b: b,
-        if (name != null) #name: name
-      }));
+  $R call({int? r, int? g, int? b, String? name}) => $apply(
+    FieldCopyWithData({
+      if (r != null) #r: r,
+      if (g != null) #g: g,
+      if (b != null) #b: b,
+      if (name != null) #name: name,
+    }),
+  );
   @override
   KOfficePaletteColor $make(CopyWithData data) => KOfficePaletteColor(
-      r: data.get(#r, or: $value.r),
-      g: data.get(#g, or: $value.g),
-      b: data.get(#b, or: $value.b),
-      name: data.get(#name, or: $value.name));
+    r: data.get(#r, or: $value.r),
+    g: data.get(#g, or: $value.g),
+    b: data.get(#b, or: $value.b),
+    name: data.get(#name, or: $value.name),
+  );
 
   @override
   KOfficePaletteColorCopyWith<$R2, KOfficePaletteColor, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _KOfficePaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _KOfficePaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class KOfficePaletteMapper extends ClassMapperBase<KOfficePalette> {
@@ -154,9 +175,7 @@ class KOfficePaletteMapper extends ClassMapperBase<KOfficePalette> {
       Field('colors', _$colors);
 
   @override
-  final MappableFields<KOfficePalette> fields = const {
-    #colors: _f$colors,
-  };
+  final MappableFields<KOfficePalette> fields = const {#colors: _f$colors};
 
   static KOfficePalette _instantiate(DecodingData data) {
     return KOfficePalette(colors: data.dec(_f$colors));
@@ -176,35 +195,43 @@ class KOfficePaletteMapper extends ClassMapperBase<KOfficePalette> {
 
 mixin KOfficePaletteMappable {
   String toJson() {
-    return KOfficePaletteMapper.ensureInitialized()
-        .encodeJson<KOfficePalette>(this as KOfficePalette);
+    return KOfficePaletteMapper.ensureInitialized().encodeJson<KOfficePalette>(
+      this as KOfficePalette,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return KOfficePaletteMapper.ensureInitialized()
-        .encodeMap<KOfficePalette>(this as KOfficePalette);
+    return KOfficePaletteMapper.ensureInitialized().encodeMap<KOfficePalette>(
+      this as KOfficePalette,
+    );
   }
 
   KOfficePaletteCopyWith<KOfficePalette, KOfficePalette, KOfficePalette>
-      get copyWith =>
-          _KOfficePaletteCopyWithImpl<KOfficePalette, KOfficePalette>(
-              this as KOfficePalette, $identity, $identity);
+  get copyWith => _KOfficePaletteCopyWithImpl<KOfficePalette, KOfficePalette>(
+    this as KOfficePalette,
+    $identity,
+    $identity,
+  );
   @override
   String toString() {
-    return KOfficePaletteMapper.ensureInitialized()
-        .stringifyValue(this as KOfficePalette);
+    return KOfficePaletteMapper.ensureInitialized().stringifyValue(
+      this as KOfficePalette,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return KOfficePaletteMapper.ensureInitialized()
-        .equalsValue(this as KOfficePalette, other);
+    return KOfficePaletteMapper.ensureInitialized().equalsValue(
+      this as KOfficePalette,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return KOfficePaletteMapper.ensureInitialized()
-        .hashValue(this as KOfficePalette);
+    return KOfficePaletteMapper.ensureInitialized().hashValue(
+      this as KOfficePalette,
+    );
   }
 }
 
@@ -217,13 +244,15 @@ extension KOfficePaletteValueCopy<$R, $Out>
 abstract class KOfficePaletteCopyWith<$R, $In extends KOfficePalette, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
-      $R,
-      KOfficePaletteColor,
-      KOfficePaletteColorCopyWith<$R, KOfficePaletteColor,
-          KOfficePaletteColor>> get colors;
+    $R,
+    KOfficePaletteColor,
+    KOfficePaletteColorCopyWith<$R, KOfficePaletteColor, KOfficePaletteColor>
+  >
+  get colors;
   $R call({List<KOfficePaletteColor>? colors});
   KOfficePaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _KOfficePaletteCopyWithImpl<$R, $Out>
@@ -236,11 +265,15 @@ class _KOfficePaletteCopyWithImpl<$R, $Out>
       KOfficePaletteMapper.ensureInitialized();
   @override
   ListCopyWith<
-      $R,
-      KOfficePaletteColor,
-      KOfficePaletteColorCopyWith<$R, KOfficePaletteColor,
-          KOfficePaletteColor>> get colors => ListCopyWith(
-      $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
+    $R,
+    KOfficePaletteColor,
+    KOfficePaletteColorCopyWith<$R, KOfficePaletteColor, KOfficePaletteColor>
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
   $R call({List<KOfficePaletteColor>? colors}) =>
       $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
@@ -250,6 +283,6 @@ class _KOfficePaletteCopyWithImpl<$R, $Out>
 
   @override
   KOfficePaletteCopyWith<$R2, KOfficePalette, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _KOfficePaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _KOfficePaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

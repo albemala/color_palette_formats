@@ -25,11 +25,19 @@ class ScribusColorMapper extends ClassMapperBase<ScribusColor> {
   static String _$rgb(ScribusColor v) => v.rgb;
   static const Field<ScribusColor, String> _f$rgb = Field('rgb', _$rgb);
   static String _$spot(ScribusColor v) => v.spot;
-  static const Field<ScribusColor, String> _f$spot =
-      Field('spot', _$spot, opt: true, def: '0');
+  static const Field<ScribusColor, String> _f$spot = Field(
+    'spot',
+    _$spot,
+    opt: true,
+    def: '0',
+  );
   static String _$register(ScribusColor v) => v.register;
-  static const Field<ScribusColor, String> _f$register =
-      Field('register', _$register, opt: true, def: '0');
+  static const Field<ScribusColor, String> _f$register = Field(
+    'register',
+    _$register,
+    opt: true,
+    def: '0',
+  );
 
   @override
   final MappableFields<ScribusColor> fields = const {
@@ -41,10 +49,11 @@ class ScribusColorMapper extends ClassMapperBase<ScribusColor> {
 
   static ScribusColor _instantiate(DecodingData data) {
     return ScribusColor(
-        name: data.dec(_f$name),
-        rgb: data.dec(_f$rgb),
-        spot: data.dec(_f$spot),
-        register: data.dec(_f$register));
+      name: data.dec(_f$name),
+      rgb: data.dec(_f$rgb),
+      spot: data.dec(_f$spot),
+      register: data.dec(_f$register),
+    );
   }
 
   @override
@@ -61,34 +70,43 @@ class ScribusColorMapper extends ClassMapperBase<ScribusColor> {
 
 mixin ScribusColorMappable {
   String toJson() {
-    return ScribusColorMapper.ensureInitialized()
-        .encodeJson<ScribusColor>(this as ScribusColor);
+    return ScribusColorMapper.ensureInitialized().encodeJson<ScribusColor>(
+      this as ScribusColor,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return ScribusColorMapper.ensureInitialized()
-        .encodeMap<ScribusColor>(this as ScribusColor);
+    return ScribusColorMapper.ensureInitialized().encodeMap<ScribusColor>(
+      this as ScribusColor,
+    );
   }
 
   ScribusColorCopyWith<ScribusColor, ScribusColor, ScribusColor> get copyWith =>
       _ScribusColorCopyWithImpl<ScribusColor, ScribusColor>(
-          this as ScribusColor, $identity, $identity);
+        this as ScribusColor,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return ScribusColorMapper.ensureInitialized()
-        .stringifyValue(this as ScribusColor);
+    return ScribusColorMapper.ensureInitialized().stringifyValue(
+      this as ScribusColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return ScribusColorMapper.ensureInitialized()
-        .equalsValue(this as ScribusColor, other);
+    return ScribusColorMapper.ensureInitialized().equalsValue(
+      this as ScribusColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return ScribusColorMapper.ensureInitialized()
-        .hashValue(this as ScribusColor);
+    return ScribusColorMapper.ensureInitialized().hashValue(
+      this as ScribusColor,
+    );
   }
 }
 
@@ -114,23 +132,26 @@ class _ScribusColorCopyWithImpl<$R, $Out>
       ScribusColorMapper.ensureInitialized();
   @override
   $R call({String? name, String? rgb, String? spot, String? register}) =>
-      $apply(FieldCopyWithData({
-        if (name != null) #name: name,
-        if (rgb != null) #rgb: rgb,
-        if (spot != null) #spot: spot,
-        if (register != null) #register: register
-      }));
+      $apply(
+        FieldCopyWithData({
+          if (name != null) #name: name,
+          if (rgb != null) #rgb: rgb,
+          if (spot != null) #spot: spot,
+          if (register != null) #register: register,
+        }),
+      );
   @override
   ScribusColor $make(CopyWithData data) => ScribusColor(
-      name: data.get(#name, or: $value.name),
-      rgb: data.get(#rgb, or: $value.rgb),
-      spot: data.get(#spot, or: $value.spot),
-      register: data.get(#register, or: $value.register));
+    name: data.get(#name, or: $value.name),
+    rgb: data.get(#rgb, or: $value.rgb),
+    spot: data.get(#spot, or: $value.spot),
+    register: data.get(#register, or: $value.register),
+  );
 
   @override
   ScribusColorCopyWith<$R2, ScribusColor, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _ScribusColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _ScribusColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class ScribusPaletteMapper extends ClassMapperBase<ScribusPalette> {
@@ -151,8 +172,10 @@ class ScribusPaletteMapper extends ClassMapperBase<ScribusPalette> {
   static String _$name(ScribusPalette v) => v.name;
   static const Field<ScribusPalette, String> _f$name = Field('name', _$name);
   static List<ScribusColor> _$colors(ScribusPalette v) => v.colors;
-  static const Field<ScribusPalette, List<ScribusColor>> _f$colors =
-      Field('colors', _$colors);
+  static const Field<ScribusPalette, List<ScribusColor>> _f$colors = Field(
+    'colors',
+    _$colors,
+  );
 
   @override
   final MappableFields<ScribusPalette> fields = const {
@@ -178,35 +201,43 @@ class ScribusPaletteMapper extends ClassMapperBase<ScribusPalette> {
 
 mixin ScribusPaletteMappable {
   String toJson() {
-    return ScribusPaletteMapper.ensureInitialized()
-        .encodeJson<ScribusPalette>(this as ScribusPalette);
+    return ScribusPaletteMapper.ensureInitialized().encodeJson<ScribusPalette>(
+      this as ScribusPalette,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return ScribusPaletteMapper.ensureInitialized()
-        .encodeMap<ScribusPalette>(this as ScribusPalette);
+    return ScribusPaletteMapper.ensureInitialized().encodeMap<ScribusPalette>(
+      this as ScribusPalette,
+    );
   }
 
   ScribusPaletteCopyWith<ScribusPalette, ScribusPalette, ScribusPalette>
-      get copyWith =>
-          _ScribusPaletteCopyWithImpl<ScribusPalette, ScribusPalette>(
-              this as ScribusPalette, $identity, $identity);
+  get copyWith => _ScribusPaletteCopyWithImpl<ScribusPalette, ScribusPalette>(
+    this as ScribusPalette,
+    $identity,
+    $identity,
+  );
   @override
   String toString() {
-    return ScribusPaletteMapper.ensureInitialized()
-        .stringifyValue(this as ScribusPalette);
+    return ScribusPaletteMapper.ensureInitialized().stringifyValue(
+      this as ScribusPalette,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return ScribusPaletteMapper.ensureInitialized()
-        .equalsValue(this as ScribusPalette, other);
+    return ScribusPaletteMapper.ensureInitialized().equalsValue(
+      this as ScribusPalette,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return ScribusPaletteMapper.ensureInitialized()
-        .hashValue(this as ScribusPalette);
+    return ScribusPaletteMapper.ensureInitialized().hashValue(
+      this as ScribusPalette,
+    );
   }
 }
 
@@ -218,11 +249,16 @@ extension ScribusPaletteValueCopy<$R, $Out>
 
 abstract class ScribusPaletteCopyWith<$R, $In extends ScribusPalette, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, ScribusColor,
-      ScribusColorCopyWith<$R, ScribusColor, ScribusColor>> get colors;
+  ListCopyWith<
+    $R,
+    ScribusColor,
+    ScribusColorCopyWith<$R, ScribusColor, ScribusColor>
+  >
+  get colors;
   $R call({String? name, List<ScribusColor>? colors});
   ScribusPaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _ScribusPaletteCopyWithImpl<$R, $Out>
@@ -234,23 +270,31 @@ class _ScribusPaletteCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ScribusPalette> $mapper =
       ScribusPaletteMapper.ensureInitialized();
   @override
-  ListCopyWith<$R, ScribusColor,
-          ScribusColorCopyWith<$R, ScribusColor, ScribusColor>>
-      get colors => ListCopyWith($value.colors, (v, t) => v.copyWith.$chain(t),
-          (v) => call(colors: v));
+  ListCopyWith<
+    $R,
+    ScribusColor,
+    ScribusColorCopyWith<$R, ScribusColor, ScribusColor>
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
-  $R call({String? name, List<ScribusColor>? colors}) =>
-      $apply(FieldCopyWithData({
-        if (name != null) #name: name,
-        if (colors != null) #colors: colors
-      }));
+  $R call({String? name, List<ScribusColor>? colors}) => $apply(
+    FieldCopyWithData({
+      if (name != null) #name: name,
+      if (colors != null) #colors: colors,
+    }),
+  );
   @override
   ScribusPalette $make(CopyWithData data) => ScribusPalette(
-      name: data.get(#name, or: $value.name),
-      colors: data.get(#colors, or: $value.colors));
+    name: data.get(#name, or: $value.name),
+    colors: data.get(#colors, or: $value.colors),
+  );
 
   @override
   ScribusPaletteCopyWith<$R2, ScribusPalette, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _ScribusPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _ScribusPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

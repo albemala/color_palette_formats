@@ -13,8 +13,9 @@ class AdobeColorSwatchColorSpaceMapper
   static AdobeColorSwatchColorSpaceMapper? _instance;
   static AdobeColorSwatchColorSpaceMapper ensureInitialized() {
     if (_instance == null) {
-      MapperContainer.globals
-          .use(_instance = AdobeColorSwatchColorSpaceMapper._());
+      MapperContainer.globals.use(
+        _instance = AdobeColorSwatchColorSpaceMapper._(),
+      );
     }
     return _instance!;
   }
@@ -91,10 +92,12 @@ class AdobeColorSwatchColorMapper
   static AdobeColorSwatchColorSpace _$colorSpace(AdobeColorSwatchColor v) =>
       v.colorSpace;
   static const Field<AdobeColorSwatchColor, AdobeColorSwatchColorSpace>
-      _f$colorSpace = Field('colorSpace', _$colorSpace);
+  _f$colorSpace = Field('colorSpace', _$colorSpace);
   static List<int> _$values(AdobeColorSwatchColor v) => v.values;
-  static const Field<AdobeColorSwatchColor, List<int>> _f$values =
-      Field('values', _$values);
+  static const Field<AdobeColorSwatchColor, List<int>> _f$values = Field(
+    'values',
+    _$values,
+  );
 
   @override
   final MappableFields<AdobeColorSwatchColor> fields = const {
@@ -104,7 +107,9 @@ class AdobeColorSwatchColorMapper
 
   static AdobeColorSwatchColor _instantiate(DecodingData data) {
     return AdobeColorSwatchColor(
-        colorSpace: data.dec(_f$colorSpace), values: data.dec(_f$values));
+      colorSpace: data.dec(_f$colorSpace),
+      values: data.dec(_f$values),
+    );
   }
 
   @override
@@ -130,44 +135,57 @@ mixin AdobeColorSwatchColorMappable {
         .encodeMap<AdobeColorSwatchColor>(this as AdobeColorSwatchColor);
   }
 
-  AdobeColorSwatchColorCopyWith<AdobeColorSwatchColor, AdobeColorSwatchColor,
-      AdobeColorSwatchColor> get copyWith => _AdobeColorSwatchColorCopyWithImpl<
-          AdobeColorSwatchColor, AdobeColorSwatchColor>(
-      this as AdobeColorSwatchColor, $identity, $identity);
+  AdobeColorSwatchColorCopyWith<
+    AdobeColorSwatchColor,
+    AdobeColorSwatchColor,
+    AdobeColorSwatchColor
+  >
+  get copyWith => _AdobeColorSwatchColorCopyWithImpl<
+    AdobeColorSwatchColor,
+    AdobeColorSwatchColor
+  >(this as AdobeColorSwatchColor, $identity, $identity);
   @override
   String toString() {
-    return AdobeColorSwatchColorMapper.ensureInitialized()
-        .stringifyValue(this as AdobeColorSwatchColor);
+    return AdobeColorSwatchColorMapper.ensureInitialized().stringifyValue(
+      this as AdobeColorSwatchColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return AdobeColorSwatchColorMapper.ensureInitialized()
-        .equalsValue(this as AdobeColorSwatchColor, other);
+    return AdobeColorSwatchColorMapper.ensureInitialized().equalsValue(
+      this as AdobeColorSwatchColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return AdobeColorSwatchColorMapper.ensureInitialized()
-        .hashValue(this as AdobeColorSwatchColor);
+    return AdobeColorSwatchColorMapper.ensureInitialized().hashValue(
+      this as AdobeColorSwatchColor,
+    );
   }
 }
 
 extension AdobeColorSwatchColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorSwatchColor, $Out> {
   AdobeColorSwatchColorCopyWith<$R, AdobeColorSwatchColor, $Out>
-      get $asAdobeColorSwatchColor => $base.as(
-          (v, t, t2) => _AdobeColorSwatchColorCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asAdobeColorSwatchColor => $base.as(
+    (v, t, t2) => _AdobeColorSwatchColorCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
 abstract class AdobeColorSwatchColorCopyWith<
-    $R,
-    $In extends AdobeColorSwatchColor,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+  $R,
+  $In extends AdobeColorSwatchColor,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get values;
   $R call({AdobeColorSwatchColorSpace? colorSpace, List<int>? values});
   AdobeColorSwatchColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _AdobeColorSwatchColorCopyWithImpl<$R, $Out>
@@ -180,23 +198,29 @@ class _AdobeColorSwatchColorCopyWithImpl<$R, $Out>
       AdobeColorSwatchColorMapper.ensureInitialized();
   @override
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get values =>
-      ListCopyWith($value.values, (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(values: v));
+      ListCopyWith(
+        $value.values,
+        (v, t) => ObjectCopyWith(v, $identity, t),
+        (v) => call(values: v),
+      );
   @override
   $R call({AdobeColorSwatchColorSpace? colorSpace, List<int>? values}) =>
-      $apply(FieldCopyWithData({
-        if (colorSpace != null) #colorSpace: colorSpace,
-        if (values != null) #values: values
-      }));
+      $apply(
+        FieldCopyWithData({
+          if (colorSpace != null) #colorSpace: colorSpace,
+          if (values != null) #values: values,
+        }),
+      );
   @override
   AdobeColorSwatchColor $make(CopyWithData data) => AdobeColorSwatchColor(
-      colorSpace: data.get(#colorSpace, or: $value.colorSpace),
-      values: data.get(#values, or: $value.values));
+    colorSpace: data.get(#colorSpace, or: $value.colorSpace),
+    values: data.get(#values, or: $value.values),
+  );
 
   @override
   AdobeColorSwatchColorCopyWith<$R2, AdobeColorSwatchColor, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _AdobeColorSwatchColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _AdobeColorSwatchColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class AdobeColorSwatchMapper extends ClassMapperBase<AdobeColorSwatch> {
@@ -219,9 +243,7 @@ class AdobeColorSwatchMapper extends ClassMapperBase<AdobeColorSwatch> {
       Field('colors', _$colors);
 
   @override
-  final MappableFields<AdobeColorSwatch> fields = const {
-    #colors: _f$colors,
-  };
+  final MappableFields<AdobeColorSwatch> fields = const {#colors: _f$colors};
 
   static AdobeColorSwatch _instantiate(DecodingData data) {
     return AdobeColorSwatch(colors: data.dec(_f$colors));
@@ -251,45 +273,58 @@ mixin AdobeColorSwatchMappable {
   }
 
   AdobeColorSwatchCopyWith<AdobeColorSwatch, AdobeColorSwatch, AdobeColorSwatch>
-      get copyWith =>
-          _AdobeColorSwatchCopyWithImpl<AdobeColorSwatch, AdobeColorSwatch>(
-              this as AdobeColorSwatch, $identity, $identity);
+  get copyWith =>
+      _AdobeColorSwatchCopyWithImpl<AdobeColorSwatch, AdobeColorSwatch>(
+        this as AdobeColorSwatch,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return AdobeColorSwatchMapper.ensureInitialized()
-        .stringifyValue(this as AdobeColorSwatch);
+    return AdobeColorSwatchMapper.ensureInitialized().stringifyValue(
+      this as AdobeColorSwatch,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return AdobeColorSwatchMapper.ensureInitialized()
-        .equalsValue(this as AdobeColorSwatch, other);
+    return AdobeColorSwatchMapper.ensureInitialized().equalsValue(
+      this as AdobeColorSwatch,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return AdobeColorSwatchMapper.ensureInitialized()
-        .hashValue(this as AdobeColorSwatch);
+    return AdobeColorSwatchMapper.ensureInitialized().hashValue(
+      this as AdobeColorSwatch,
+    );
   }
 }
 
 extension AdobeColorSwatchValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AdobeColorSwatch, $Out> {
   AdobeColorSwatchCopyWith<$R, AdobeColorSwatch, $Out>
-      get $asAdobeColorSwatch => $base
-          .as((v, t, t2) => _AdobeColorSwatchCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asAdobeColorSwatch =>
+      $base.as((v, t, t2) => _AdobeColorSwatchCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class AdobeColorSwatchCopyWith<$R, $In extends AdobeColorSwatch, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
+    $R,
+    AdobeColorSwatchColor,
+    AdobeColorSwatchColorCopyWith<
       $R,
       AdobeColorSwatchColor,
-      AdobeColorSwatchColorCopyWith<$R, AdobeColorSwatchColor,
-          AdobeColorSwatchColor>> get colors;
+      AdobeColorSwatchColor
+    >
+  >
+  get colors;
   $R call({List<AdobeColorSwatchColor>? colors});
   AdobeColorSwatchCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _AdobeColorSwatchCopyWithImpl<$R, $Out>
@@ -302,11 +337,19 @@ class _AdobeColorSwatchCopyWithImpl<$R, $Out>
       AdobeColorSwatchMapper.ensureInitialized();
   @override
   ListCopyWith<
+    $R,
+    AdobeColorSwatchColor,
+    AdobeColorSwatchColorCopyWith<
       $R,
       AdobeColorSwatchColor,
-      AdobeColorSwatchColorCopyWith<$R, AdobeColorSwatchColor,
-          AdobeColorSwatchColor>> get colors => ListCopyWith(
-      $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
+      AdobeColorSwatchColor
+    >
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
   $R call({List<AdobeColorSwatchColor>? colors}) =>
       $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
@@ -316,6 +359,6 @@ class _AdobeColorSwatchCopyWithImpl<$R, $Out>
 
   @override
   AdobeColorSwatchCopyWith<$R2, AdobeColorSwatch, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _AdobeColorSwatchCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _AdobeColorSwatchCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }

@@ -23,14 +23,20 @@ class SkencilPaletteColorMapper extends ClassMapperBase<SkencilPaletteColor> {
   static double _$red(SkencilPaletteColor v) => v.red;
   static const Field<SkencilPaletteColor, double> _f$red = Field('red', _$red);
   static double _$green(SkencilPaletteColor v) => v.green;
-  static const Field<SkencilPaletteColor, double> _f$green =
-      Field('green', _$green);
+  static const Field<SkencilPaletteColor, double> _f$green = Field(
+    'green',
+    _$green,
+  );
   static double _$blue(SkencilPaletteColor v) => v.blue;
-  static const Field<SkencilPaletteColor, double> _f$blue =
-      Field('blue', _$blue);
+  static const Field<SkencilPaletteColor, double> _f$blue = Field(
+    'blue',
+    _$blue,
+  );
   static String _$name(SkencilPaletteColor v) => v.name;
-  static const Field<SkencilPaletteColor, String> _f$name =
-      Field('name', _$name);
+  static const Field<SkencilPaletteColor, String> _f$name = Field(
+    'name',
+    _$name,
+  );
 
   @override
   final MappableFields<SkencilPaletteColor> fields = const {
@@ -42,10 +48,11 @@ class SkencilPaletteColorMapper extends ClassMapperBase<SkencilPaletteColor> {
 
   static SkencilPaletteColor _instantiate(DecodingData data) {
     return SkencilPaletteColor(
-        red: data.dec(_f$red),
-        green: data.dec(_f$green),
-        blue: data.dec(_f$blue),
-        name: data.dec(_f$name));
+      red: data.dec(_f$red),
+      green: data.dec(_f$green),
+      blue: data.dec(_f$blue),
+      name: data.dec(_f$name),
+    );
   }
 
   @override
@@ -71,41 +78,56 @@ mixin SkencilPaletteColorMappable {
         .encodeMap<SkencilPaletteColor>(this as SkencilPaletteColor);
   }
 
-  SkencilPaletteColorCopyWith<SkencilPaletteColor, SkencilPaletteColor,
-      SkencilPaletteColor> get copyWith => _SkencilPaletteColorCopyWithImpl<
-          SkencilPaletteColor, SkencilPaletteColor>(
-      this as SkencilPaletteColor, $identity, $identity);
+  SkencilPaletteColorCopyWith<
+    SkencilPaletteColor,
+    SkencilPaletteColor,
+    SkencilPaletteColor
+  >
+  get copyWith => _SkencilPaletteColorCopyWithImpl<
+    SkencilPaletteColor,
+    SkencilPaletteColor
+  >(this as SkencilPaletteColor, $identity, $identity);
   @override
   String toString() {
-    return SkencilPaletteColorMapper.ensureInitialized()
-        .stringifyValue(this as SkencilPaletteColor);
+    return SkencilPaletteColorMapper.ensureInitialized().stringifyValue(
+      this as SkencilPaletteColor,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return SkencilPaletteColorMapper.ensureInitialized()
-        .equalsValue(this as SkencilPaletteColor, other);
+    return SkencilPaletteColorMapper.ensureInitialized().equalsValue(
+      this as SkencilPaletteColor,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return SkencilPaletteColorMapper.ensureInitialized()
-        .hashValue(this as SkencilPaletteColor);
+    return SkencilPaletteColorMapper.ensureInitialized().hashValue(
+      this as SkencilPaletteColor,
+    );
   }
 }
 
 extension SkencilPaletteColorValueCopy<$R, $Out>
     on ObjectCopyWith<$R, SkencilPaletteColor, $Out> {
   SkencilPaletteColorCopyWith<$R, SkencilPaletteColor, $Out>
-      get $asSkencilPaletteColor => $base.as(
-          (v, t, t2) => _SkencilPaletteColorCopyWithImpl<$R, $Out>(v, t, t2));
+  get $asSkencilPaletteColor => $base.as(
+    (v, t, t2) => _SkencilPaletteColorCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
-abstract class SkencilPaletteColorCopyWith<$R, $In extends SkencilPaletteColor,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class SkencilPaletteColorCopyWith<
+  $R,
+  $In extends SkencilPaletteColor,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({double? red, double? green, double? blue, String? name});
   SkencilPaletteColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _SkencilPaletteColorCopyWithImpl<$R, $Out>
@@ -117,24 +139,26 @@ class _SkencilPaletteColorCopyWithImpl<$R, $Out>
   late final ClassMapperBase<SkencilPaletteColor> $mapper =
       SkencilPaletteColorMapper.ensureInitialized();
   @override
-  $R call({double? red, double? green, double? blue, String? name}) =>
-      $apply(FieldCopyWithData({
-        if (red != null) #red: red,
-        if (green != null) #green: green,
-        if (blue != null) #blue: blue,
-        if (name != null) #name: name
-      }));
+  $R call({double? red, double? green, double? blue, String? name}) => $apply(
+    FieldCopyWithData({
+      if (red != null) #red: red,
+      if (green != null) #green: green,
+      if (blue != null) #blue: blue,
+      if (name != null) #name: name,
+    }),
+  );
   @override
   SkencilPaletteColor $make(CopyWithData data) => SkencilPaletteColor(
-      red: data.get(#red, or: $value.red),
-      green: data.get(#green, or: $value.green),
-      blue: data.get(#blue, or: $value.blue),
-      name: data.get(#name, or: $value.name));
+    red: data.get(#red, or: $value.red),
+    green: data.get(#green, or: $value.green),
+    blue: data.get(#blue, or: $value.blue),
+    name: data.get(#name, or: $value.name),
+  );
 
   @override
   SkencilPaletteColorCopyWith<$R2, SkencilPaletteColor, $Out2>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _SkencilPaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _SkencilPaletteColorCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class SkencilPaletteMapper extends ClassMapperBase<SkencilPalette> {
@@ -157,9 +181,7 @@ class SkencilPaletteMapper extends ClassMapperBase<SkencilPalette> {
       Field('colors', _$colors);
 
   @override
-  final MappableFields<SkencilPalette> fields = const {
-    #colors: _f$colors,
-  };
+  final MappableFields<SkencilPalette> fields = const {#colors: _f$colors};
 
   static SkencilPalette _instantiate(DecodingData data) {
     return SkencilPalette(colors: data.dec(_f$colors));
@@ -179,35 +201,43 @@ class SkencilPaletteMapper extends ClassMapperBase<SkencilPalette> {
 
 mixin SkencilPaletteMappable {
   String toJson() {
-    return SkencilPaletteMapper.ensureInitialized()
-        .encodeJson<SkencilPalette>(this as SkencilPalette);
+    return SkencilPaletteMapper.ensureInitialized().encodeJson<SkencilPalette>(
+      this as SkencilPalette,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return SkencilPaletteMapper.ensureInitialized()
-        .encodeMap<SkencilPalette>(this as SkencilPalette);
+    return SkencilPaletteMapper.ensureInitialized().encodeMap<SkencilPalette>(
+      this as SkencilPalette,
+    );
   }
 
   SkencilPaletteCopyWith<SkencilPalette, SkencilPalette, SkencilPalette>
-      get copyWith =>
-          _SkencilPaletteCopyWithImpl<SkencilPalette, SkencilPalette>(
-              this as SkencilPalette, $identity, $identity);
+  get copyWith => _SkencilPaletteCopyWithImpl<SkencilPalette, SkencilPalette>(
+    this as SkencilPalette,
+    $identity,
+    $identity,
+  );
   @override
   String toString() {
-    return SkencilPaletteMapper.ensureInitialized()
-        .stringifyValue(this as SkencilPalette);
+    return SkencilPaletteMapper.ensureInitialized().stringifyValue(
+      this as SkencilPalette,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return SkencilPaletteMapper.ensureInitialized()
-        .equalsValue(this as SkencilPalette, other);
+    return SkencilPaletteMapper.ensureInitialized().equalsValue(
+      this as SkencilPalette,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return SkencilPaletteMapper.ensureInitialized()
-        .hashValue(this as SkencilPalette);
+    return SkencilPaletteMapper.ensureInitialized().hashValue(
+      this as SkencilPalette,
+    );
   }
 }
 
@@ -220,13 +250,15 @@ extension SkencilPaletteValueCopy<$R, $Out>
 abstract class SkencilPaletteCopyWith<$R, $In extends SkencilPalette, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
-      $R,
-      SkencilPaletteColor,
-      SkencilPaletteColorCopyWith<$R, SkencilPaletteColor,
-          SkencilPaletteColor>> get colors;
+    $R,
+    SkencilPaletteColor,
+    SkencilPaletteColorCopyWith<$R, SkencilPaletteColor, SkencilPaletteColor>
+  >
+  get colors;
   $R call({List<SkencilPaletteColor>? colors});
   SkencilPaletteCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _SkencilPaletteCopyWithImpl<$R, $Out>
@@ -239,11 +271,15 @@ class _SkencilPaletteCopyWithImpl<$R, $Out>
       SkencilPaletteMapper.ensureInitialized();
   @override
   ListCopyWith<
-      $R,
-      SkencilPaletteColor,
-      SkencilPaletteColorCopyWith<$R, SkencilPaletteColor,
-          SkencilPaletteColor>> get colors => ListCopyWith(
-      $value.colors, (v, t) => v.copyWith.$chain(t), (v) => call(colors: v));
+    $R,
+    SkencilPaletteColor,
+    SkencilPaletteColorCopyWith<$R, SkencilPaletteColor, SkencilPaletteColor>
+  >
+  get colors => ListCopyWith(
+    $value.colors,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(colors: v),
+  );
   @override
   $R call({List<SkencilPaletteColor>? colors}) =>
       $apply(FieldCopyWithData({if (colors != null) #colors: colors}));
@@ -253,6 +289,6 @@ class _SkencilPaletteCopyWithImpl<$R, $Out>
 
   @override
   SkencilPaletteCopyWith<$R2, SkencilPalette, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _SkencilPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _SkencilPaletteCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
