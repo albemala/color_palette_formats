@@ -27,8 +27,8 @@ class ScribusColor with ScribusColorMappable {
   ScribusColor({
     required this.name,
     required this.rgb,
-    this.spot = defaultSpot, // Default based on example
-    this.register = defaultRegister, // Default based on example
+    required this.spot,
+    required this.register,
   });
 }
 

@@ -23,10 +23,10 @@ class ProcreateV5Swatch with ProcreateV5SwatchMappable {
   final int colorModel;
   final double brightness;
   final List<double> components;
-  final String version;
   final String colorProfile;
   final double saturation;
   final double hue;
+  final String version;
 
   ProcreateV5Swatch({
     required this.alpha,
@@ -35,10 +35,10 @@ class ProcreateV5Swatch with ProcreateV5SwatchMappable {
     required this.colorModel,
     required this.brightness,
     required this.components,
-    this.version = defaultVersion,
     required this.colorProfile,
     required this.saturation,
     required this.hue,
+    required this.version,
   }) : assert(alpha >= 0 && alpha <= 1, 'alpha must be between 0 and 1'),
        assert(
          brightness >= 0 && brightness <= 1,

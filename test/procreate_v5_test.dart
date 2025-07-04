@@ -23,6 +23,7 @@ void main() {
           colorProfile: '5Gjokjn8BJPV6PubAU6RshDGyqc8ge3wTD0hpzTzd8w=',
           saturation: 0.0974804993716778,
           hue: 0.03447926044464111,
+          version: ProcreateV5Swatch.defaultVersion,
         ),
       ],
       colorProfiles: [
@@ -52,6 +53,7 @@ void main() {
           colorProfile: 'KzqhZFd5qeY0dE+vmwHpECsMm4j9bezteTTfhrlJr34=',
           saturation: 0.019762844662533086,
           hue: 0.7666666666666667,
+          version: ProcreateV5Swatch.defaultVersion,
         ),
       ],
       colorProfiles: [
@@ -77,6 +79,7 @@ void main() {
           colorProfile: 'KzqhZFd5qeY0dE+vmwHpECsMm4j9bezteTTfhrlJr34=',
           saturation: 0,
           hue: 0,
+          version: ProcreateV5Swatch.defaultVersion,
         ),
       ],
       colorProfiles: [
@@ -102,6 +105,7 @@ void main() {
           colorProfile: 'KzqhZFd5qeY0dE+vmwHpECsMm4j9bezteTTfhrlJr34=',
           saturation: 1,
           hue: 0.518518516563891,
+          version: ProcreateV5Swatch.defaultVersion,
         ),
       ],
       colorProfiles: [
@@ -281,6 +285,7 @@ void main() {
         colorProfile: 'sRGB IEC61966-2.1',
         saturation: 0.6,
         hue: 0.5,
+        version: ProcreateV5Swatch.defaultVersion,
       ),
       ProcreateV5Swatch(
         alpha: 0.9, // non-default alpha
@@ -293,6 +298,7 @@ void main() {
         colorProfile: 'Display P3',
         saturation: 0.9,
         hue: 0.1,
+        version: ProcreateV5Swatch.defaultVersion,
       ),
     ];
 

@@ -25,18 +25,11 @@ class ScribusColorMapper extends ClassMapperBase<ScribusColor> {
   static String _$rgb(ScribusColor v) => v.rgb;
   static const Field<ScribusColor, String> _f$rgb = Field('rgb', _$rgb);
   static String _$spot(ScribusColor v) => v.spot;
-  static const Field<ScribusColor, String> _f$spot = Field(
-    'spot',
-    _$spot,
-    opt: true,
-    def: '0',
-  );
+  static const Field<ScribusColor, String> _f$spot = Field('spot', _$spot);
   static String _$register(ScribusColor v) => v.register;
   static const Field<ScribusColor, String> _f$register = Field(
     'register',
     _$register,
-    opt: true,
-    def: '0',
   );
 
   @override

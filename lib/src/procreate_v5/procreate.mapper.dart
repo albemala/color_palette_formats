@@ -50,11 +50,6 @@ class ProcreateV5SwatchMapper extends ClassMapperBase<ProcreateV5Swatch> {
     'components',
     _$components,
   );
-  static String _$version(ProcreateV5Swatch v) => v.version;
-  static const Field<ProcreateV5Swatch, String> _f$version = Field(
-    'version',
-    _$version,
-  );
   static String _$colorProfile(ProcreateV5Swatch v) => v.colorProfile;
   static const Field<ProcreateV5Swatch, String> _f$colorProfile = Field(
     'colorProfile',
@@ -67,6 +62,11 @@ class ProcreateV5SwatchMapper extends ClassMapperBase<ProcreateV5Swatch> {
   );
   static double _$hue(ProcreateV5Swatch v) => v.hue;
   static const Field<ProcreateV5Swatch, double> _f$hue = Field('hue', _$hue);
+  static String _$version(ProcreateV5Swatch v) => v.version;
+  static const Field<ProcreateV5Swatch, String> _f$version = Field(
+    'version',
+    _$version,
+  );
 
   @override
   final MappableFields<ProcreateV5Swatch> fields = const {
@@ -76,10 +76,10 @@ class ProcreateV5SwatchMapper extends ClassMapperBase<ProcreateV5Swatch> {
     #colorModel: _f$colorModel,
     #brightness: _f$brightness,
     #components: _f$components,
-    #version: _f$version,
     #colorProfile: _f$colorProfile,
     #saturation: _f$saturation,
     #hue: _f$hue,
+    #version: _f$version,
   };
 
   static ProcreateV5Swatch _instantiate(DecodingData data) {
@@ -90,10 +90,10 @@ class ProcreateV5SwatchMapper extends ClassMapperBase<ProcreateV5Swatch> {
       colorModel: data.dec(_f$colorModel),
       brightness: data.dec(_f$brightness),
       components: data.dec(_f$components),
-      version: data.dec(_f$version),
       colorProfile: data.dec(_f$colorProfile),
       saturation: data.dec(_f$saturation),
       hue: data.dec(_f$hue),
+      version: data.dec(_f$version),
     );
   }
 
@@ -176,10 +176,10 @@ abstract class ProcreateV5SwatchCopyWith<
     int? colorModel,
     double? brightness,
     List<double>? components,
-    String? version,
     String? colorProfile,
     double? saturation,
     double? hue,
+    String? version,
   });
   ProcreateV5SwatchCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
@@ -209,10 +209,10 @@ class _ProcreateV5SwatchCopyWithImpl<$R, $Out>
     int? colorModel,
     double? brightness,
     List<double>? components,
-    String? version,
     String? colorProfile,
     double? saturation,
     double? hue,
+    String? version,
   }) => $apply(
     FieldCopyWithData({
       if (alpha != null) #alpha: alpha,
@@ -221,10 +221,10 @@ class _ProcreateV5SwatchCopyWithImpl<$R, $Out>
       if (colorModel != null) #colorModel: colorModel,
       if (brightness != null) #brightness: brightness,
       if (components != null) #components: components,
-      if (version != null) #version: version,
       if (colorProfile != null) #colorProfile: colorProfile,
       if (saturation != null) #saturation: saturation,
       if (hue != null) #hue: hue,
+      if (version != null) #version: version,
     }),
   );
   @override
@@ -235,10 +235,10 @@ class _ProcreateV5SwatchCopyWithImpl<$R, $Out>
     colorModel: data.get(#colorModel, or: $value.colorModel),
     brightness: data.get(#brightness, or: $value.brightness),
     components: data.get(#components, or: $value.components),
-    version: data.get(#version, or: $value.version),
     colorProfile: data.get(#colorProfile, or: $value.colorProfile),
     saturation: data.get(#saturation, or: $value.saturation),
     hue: data.get(#hue, or: $value.hue),
+    version: data.get(#version, or: $value.version),
   );
 
   @override

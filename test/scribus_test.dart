@@ -95,7 +95,8 @@ void main() {
         ScribusColor(
           name: 'Test Green',
           rgb: '#00FF00',
-          // spot and register will use defaults ("0")
+          spot: ScribusColor.defaultSpot,
+          register: ScribusColor.defaultRegister,
         ),
         ScribusColor(
           name: 'Test Blue',
