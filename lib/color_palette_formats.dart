@@ -4,6 +4,7 @@ export 'src/aco/aco.dart';
 export 'src/act/act.dart';
 export 'src/ase/ase.dart';
 export 'src/coreldraw4/coreldraw4.dart';
+export 'src/cxf/cxf.dart';
 export 'src/gimp/gimp.dart';
 export 'src/hpl/hpl.dart';
 export 'src/koffice/koffice.dart';

@@ -154,6 +154,11 @@ void main() {
     StarOfficeColorTable.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<CxfPalette>(
+    ['assets/cxf/sample.cxf'],
+    CxfPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

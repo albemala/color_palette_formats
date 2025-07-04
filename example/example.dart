@@ -123,4 +123,9 @@ void main() {
   final socFile = File('path/to/file.soc');
   final soc = StarOfficeColorTable.fromBytes(socFile.readAsBytesSync());
   assert(soc.colors.length == 216);
+
+  // Example: Reading a CXF (Color Exchange Format) file.
+  final cxfFile = File('path/to/file.cxf');
+  final cxf = CxfPalette.fromBytes(cxfFile.readAsBytesSync());
+  assert(cxf.colors.length == 2);
 }
