@@ -44,6 +44,15 @@ void main() {
     AdobeColorTable.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<Artrage6Palette>(
+    [
+      'assets/artrage/Colors.col',
+      'assets/artrage/Complementary.col',
+      'assets/artrage/Pastel.col',
+    ],
+    Artrage6Palette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<AdobeSwatchExchange>(
     [
       'assets/ase/ase1_v1.0.ase',

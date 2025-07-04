@@ -2,6 +2,7 @@ export 'src/acb/acb.dart';
 export 'src/acbl/acbl.dart';
 export 'src/aco/aco.dart';
 export 'src/act/act.dart';
+export 'src/artrage/artrage.dart';
 export 'src/ase/ase.dart';
 export 'src/coreldraw4/coreldraw4.dart';
 export 'src/cxf/cxf.dart';

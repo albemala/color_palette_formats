@@ -27,6 +27,11 @@ void main() {
   final act = AdobeColorTable.fromBytes(actFile.readAsBytesSync());
   assert(act.colors.length == adobeColorTableColorsCount);
 
+  // Example: Reading an ArtRage 6 Palette (.col) file.
+  final artrage6File = File('path/to/file.col');
+  final artrage6 = Artrage6Palette.fromBytes(artrage6File.readAsBytesSync());
+  assert(artrage6.colors.length == 1); // Placeholder implementation
+
   // Example: Reading an ASE (Adobe Swatch Exchange) file.
   final aseFile = File('path/to/file.ase');
   final ase = AdobeSwatchExchange.fromBytes(aseFile.readAsBytesSync());
