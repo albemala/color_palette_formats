@@ -1,3 +1,15 @@
+## 4.0.0
+
+### Breaking Changes
+- Changed default properties to be required in the constructors.
+
+### Added
+- Implemented reading ArtRage file format.
+- Implemented reading CxF file format.
+
+### Other Changes
+- Upgraded dependencies.
+
 ## 3.0.0
 
 ### Breaking Changes
