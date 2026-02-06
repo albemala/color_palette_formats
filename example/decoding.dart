@@ -159,6 +159,11 @@ void main() {
     Sk1Palette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<RebellePalette>(
+    ['assets/rebelle/default.colors'],
+    RebellePalette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<StarOfficeColorTable>(
     ['assets/soc/cmyk.soc', 'assets/soc/gallery.soc', 'assets/soc/html.soc'],
     StarOfficeColorTable.fromBytes,
