@@ -65,6 +65,16 @@ void main() {
         ),
       ],
     ),
+    './assets/ase/NNN Palette.ase': AdobeSwatchExchange(
+      colors: [
+        AdobeSwatchExchangeColor(
+          name: '',
+          model: AdobeSwatchExchangeColorModel.rgb,
+          values: [0.9019607901573181, 0.8509804010391235, 0.9803921580314636],
+          type: AdobeSwatchExchangeColorType.global,
+        ),
+      ],
+    ),
   };
 
   expectedData.forEach((filePath, expectedAse) {

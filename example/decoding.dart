@@ -61,6 +61,7 @@ void main() {
       'assets/ase/shido-10.ase',
       'assets/ase/sunfall.ase',
       'assets/ase/blue.ase',
+      'assets/ase/NNN Palette.ase',
     ],
     AdobeSwatchExchange.fromBytes,
     (e) => e.toMap(),

@@ -14,11 +14,16 @@ String readUtf16String(
   var finalLength = length;
   if (includingTerminator) finalLength -= 1;
 
+  // Handle edge case where length is 0 (empty name with no terminator)
+  if (finalLength < 0) {
+    finalLength = 0;
+  }
+
   final string = StringBuffer();
   for (var i = 0; i < finalLength; i++) {
     string.writeCharCode(buffer.readUint16());
   }
-  if (includingTerminator) {
+  if (includingTerminator && length > 0) {
     buffer.readUint16(); // should be 0x0000
   }
   return string.toString();
