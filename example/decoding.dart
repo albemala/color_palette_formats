@@ -194,6 +194,11 @@ void main() {
     CxfPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<ColorSchemerPalette>(
+    ['assets/colorschemer/Pumpkin.cs'],
+    ColorSchemerPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

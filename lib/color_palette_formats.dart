@@ -5,6 +5,7 @@ export 'src/act/act.dart';
 export 'src/afpalette/afpalette.dart';
 export 'src/artrage/artrage.dart';
 export 'src/ase/ase.dart';
+export 'src/colorschemer/colorschemer.dart';
 export 'src/coreldraw4/coreldraw4.dart';
 export 'src/cxf/cxf.dart';
 export 'src/gimp/gimp.dart';

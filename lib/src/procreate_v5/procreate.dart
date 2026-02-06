@@ -49,10 +49,7 @@ class ProcreateV5Swatch with ProcreateV5SwatchMappable {
          'saturation must be between 0 and 1',
        ),
        assert(hue >= 0 && hue <= 1, 'hue must be between 0 and 1'),
-       assert(
-         components.isNotEmpty,
-         'components list cannot be empty',
-       );
+       assert(components.isNotEmpty, 'components list cannot be empty');
   // TODO Add more assertions based on format specifics if known
   // (e.g., origin values)
 }

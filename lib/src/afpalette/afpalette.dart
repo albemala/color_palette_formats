@@ -41,10 +41,7 @@ class AffinityDesignerPaletteColor with AffinityDesignerPaletteColorMappable {
   }) : assert(red >= 0 && red <= 1, 'red must be between 0 and 1'),
        assert(green >= 0 && green <= 1, 'green must be between 0 and 1'),
        assert(blue >= 0 && blue <= 1, 'blue must be between 0 and 1'),
-       assert(
-         alpha >= 0 && alpha <= 1,
-         'alpha must be between 0 and 1',
-       );
+       assert(alpha >= 0 && alpha <= 1, 'alpha must be between 0 and 1');
 }
 
 @MappableClass()
