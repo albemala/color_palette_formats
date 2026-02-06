@@ -44,6 +44,26 @@ void main() {
     AdobeColorTable.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<AffinityDesignerPalette>(
+    [
+      'assets/afpalette/afpalette-test.afpalette',
+      'assets/afpalette/3WHITE0OPC3WHITE100OPC.afpalette',
+      'assets/afpalette/EMPTY.afpalette',
+      'assets/afpalette/EMPTY2.afpalette',
+      'assets/afpalette/EMPTYDOC.afpalette',
+      'assets/afpalette/Grays.afpalette',
+      'assets/afpalette/Kit - Grade UI - Fills.afpalette',
+      'assets/afpalette/Maurice Denis 01.afpalette',
+      'assets/afpalette/Simple Test A.afpalette',
+      'assets/afpalette/Simple Test B.afpalette',
+      'assets/afpalette/_FMPEnlHHs01.afpalette',
+      'assets/afpalette/cromatica.afpalette',
+      'assets/afpalette/shido-10.afpalette',
+      'assets/afpalette/sunfall.afpalette',
+    ],
+    AffinityDesignerPalette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<Artrage6Palette>(
     [
       'assets/artrage/Colors.col',
