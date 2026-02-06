@@ -59,7 +59,8 @@ void main() {
   });
 
   test(
-    'isValidFormat returns false for invalid ResourceInterchangeFileFormat file',
+    'isValidFormat returns false for invalid '
+    'ResourceInterchangeFileFormat file',
     () {
       final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8]; // Example invalid data
       expect(

@@ -5,8 +5,10 @@ List<int> _encode(SkencilPalette skencilPalette) {
   buffer.writeln(SkencilPalette.validFileSignature);
 
   for (final color in skencilPalette.colors) {
-    // Format floats with sufficient precision, separated by spaces, then a tab, then the name.
-    // Using toStringAsFixed(6) to match the precision in the 'mini.spl' example.
+    // Format floats with sufficient precision, separated by spaces,
+    // then a tab, then the name.
+    // Using toStringAsFixed(6) to match the precision in the 'mini.spl'
+    // example.
     final redStr = color.red.toStringAsFixed(6);
     final greenStr = color.green.toStringAsFixed(6);
     final blueStr = color.blue.toStringAsFixed(6);

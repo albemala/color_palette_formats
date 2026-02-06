@@ -41,7 +41,10 @@ class AffinityDesignerPaletteColor with AffinityDesignerPaletteColorMappable {
   }) : assert(red >= 0 && red <= 1, 'red must be between 0 and 1'),
        assert(green >= 0 && green <= 1, 'green must be between 0 and 1'),
        assert(blue >= 0 && blue <= 1, 'blue must be between 0 and 1'),
-       assert(alpha >= 0 && alpha <= 1, 'alpha must be between 0 and 1');
+       assert(
+         alpha >= 0 && alpha <= 1,
+         'alpha must be between 0 and 1',
+       );
 }
 
 @MappableClass()
@@ -58,13 +61,16 @@ class AffinityDesignerPalette with AffinityDesignerPaletteMappable {
     return _decode(bytes);
   }
 
-  /// Checks if the provided bytes represent a valid Affinity Designer palette file.
+  /// Checks if the provided bytes represent a valid Affinity Designer
+  /// palette file.
   static bool isValidFormat(List<int> bytes) {
     try {
       if (bytes.length < 8) return false;
       // Read magic number and version in little-endian
-      final magic = bytes[0] | (bytes[1] << 8) | (bytes[2] << 16) | (bytes[3] << 24);
-      final ver = bytes[4] | (bytes[5] << 8) | (bytes[6] << 16) | (bytes[7] << 24);
+      final magic =
+          bytes[0] | (bytes[1] << 8) | (bytes[2] << 16) | (bytes[3] << 24);
+      final ver =
+          bytes[4] | (bytes[5] << 8) | (bytes[6] << 16) | (bytes[7] << 24);
       return magic == magicNumber && ver == version;
     } catch (_) {
       return false;

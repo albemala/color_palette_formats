@@ -18,18 +18,18 @@ AffinityDesignerPalette _decode(List<int> bytes) {
   final magic =
       bytes[0] | (bytes[1] << 8) | (bytes[2] << 16) | (bytes[3] << 24);
   if (magic != AffinityDesignerPalette.magicNumber) {
-    throw FormatException(
-      '''
-Invalid magic number: expected 0x${AffinityDesignerPalette.magicNumber.toRadixString(16)}, got 0x${magic.toRadixString(16)}''',
-    );
+    final expected =
+        '0x${AffinityDesignerPalette.magicNumber.toRadixString(16)}';
+    final got = '0x${magic.toRadixString(16)}';
+    throw FormatException('Invalid magic number: expected $expected, got $got');
   }
 
   final version =
       bytes[4] | (bytes[5] << 8) | (bytes[6] << 16) | (bytes[7] << 24);
   if (version != AffinityDesignerPalette.version) {
     throw FormatException(
-      '''
-Unsupported version: expected ${AffinityDesignerPalette.version}, got $version''',
+      'Unsupported version: expected '
+      '${AffinityDesignerPalette.version}, got $version',
     );
   }
 
@@ -66,7 +66,8 @@ Unsupported version: expected ${AffinityDesignerPalette.version}, got $version''
             final positionCount = _readUint32(bytes, index);
             index += 4;
 
-            // Skip position data (8 bytes per position: float64 position + float64 midpoint)
+            // Skip position data (8 bytes per position:
+            // float64 position + float64 midpoint)
             index += positionCount * 16;
           }
         }
@@ -83,9 +84,10 @@ Unsupported version: expected ${AffinityDesignerPalette.version}, got $version''
             index += 4;
           }
         } else {
-          // No Cols chunk - search for colD chunks directly until we can't find more
-          colourCount =
-              100; // Use a large number, we'll break when no more colD found
+          // No Cols chunk - search for colD chunks directly
+          // until we can't find more
+          // Use a large number, we'll break when no more colD found
+          colourCount = 100;
         }
 
         // Read each color
@@ -125,17 +127,17 @@ Unsupported version: expected ${AffinityDesignerPalette.version}, got $version''
       }
 
       // Search for PaNV chunk (name list)
-      index = _skipToChunk(bytes, index, _chunkPaNV);
-      if (index + 4 <= bytes.length) {
+      var nameIndex = _skipToChunk(bytes, index, _chunkPaNV);
+      if (nameIndex + 4 <= bytes.length) {
         // Skip 4 bytes after PaNV chunk ID (based on JS implementation)
-        index += 4;
-        final nameCount = _readUint32(bytes, index);
-        index += 4;
+        nameIndex += 4;
+        final nameCount = _readUint32(bytes, nameIndex);
+        nameIndex += 4;
 
-        for (var j = 0; j < nameCount && index < bytes.length; j++) {
-          final nameInfo = _readUtf8String(bytes, index);
+        for (var j = 0; j < nameCount && nameIndex < bytes.length; j++) {
+          final nameInfo = _readUtf8String(bytes, nameIndex);
           colorNames.add(nameInfo.text);
-          index = nameInfo.newIndex;
+          nameIndex = nameInfo.newIndex;
         }
       }
     }
@@ -159,7 +161,8 @@ Unsupported version: expected ${AffinityDesignerPalette.version}, got $version''
   return AffinityDesignerPalette(fileName: fileName, colors: finalColors);
 }
 
-// Helper function to skip to a specific chunk and return position after chunk ID
+// Helper function to skip to a specific chunk
+// and return position after chunk ID
 // Returns bytes.length if chunk not found
 int _skipToChunk(List<int> bytes, int current, int chunkId) {
   for (var i = current; i < bytes.length - 4; i++) {
@@ -171,7 +174,8 @@ int _skipToChunk(List<int> bytes, int current, int chunkId) {
   return bytes.length;
 }
 
-// Helper function to read a 32-bit unsigned integer from a byte list (little-endian)
+// Helper function to read a 32-bit unsigned integer
+// from a byte list (little-endian)
 int _readUint32(List<int> bytes, int index) {
   if (index + 4 > bytes.length) return 0;
   return bytes[index] |
@@ -207,17 +211,17 @@ _Utf8StringResult _readUtf8String(List<int> bytes, int index) {
   }
 
   final length = _readUint32(bytes, index);
-  index += 4;
+  final stringIndex = index + 4;
 
-  final endIndex = index + length;
+  final endIndex = stringIndex + length;
   if (endIndex > bytes.length) {
-    return _Utf8StringResult(text: '', newIndex: index);
+    return _Utf8StringResult(text: '', newIndex: stringIndex);
   }
 
   // Read characters until we hit a null terminator or reach the length
   final charCodes = <int>[];
   for (var i = 0; i < length; i++) {
-    final byte = bytes[index + i];
+    final byte = bytes[stringIndex + i];
     if (byte == 0) {
       break;
     }

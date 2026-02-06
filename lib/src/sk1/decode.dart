@@ -41,7 +41,8 @@ Sk1Palette _decode(List<int> bytes) {
       continue;
     }
 
-    // Regex to parse function-like calls: command('string') or command(number) or command([...])
+    // Regex to parse function-like calls: command('string') or
+    // command(number) or command([...])
     // It captures the command name and the argument list within parentheses.
     final commandRegex = RegExp(r'^([a-zA-Z_][a-zA-Z0-9_]*)\((.*)\)$');
     // Parse command

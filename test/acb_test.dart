@@ -139,7 +139,8 @@ void main() {
           reason: 'Expected data should contain at least the first color.',
         );
 
-        // Compare only the first color against the first color defined in expectedData
+        // Compare only the first color against the first color
+        // defined in expectedData
         if (acb.colors.isNotEmpty && expectedAcb.colors.isNotEmpty) {
           final actualFirstColor = acb.colors.first;
           final expectedFirstColor = expectedAcb.colors.first;

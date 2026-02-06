@@ -11,3 +11,7 @@ linter:
     sort_constructors_first: false
     cascade_invocations: false
     public_member_api_docs: false
+    always_put_required_named_parameters_first: false
+    document_ignores: false
+    avoid_catches_without_on_clauses: false
+    sort_pub_dependencies: false

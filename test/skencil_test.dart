@@ -6,14 +6,10 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final expectedData = {
     './assets/skencil/mini.spl': SkencilPalette(
-      colors: [
-        SkencilPaletteColor(red: 0, green: 0, blue: 0, name: 'Black'),
-      ],
+      colors: [SkencilPaletteColor(red: 0, green: 0, blue: 0, name: 'Black')],
     ),
     './assets/skencil/www.spl': SkencilPalette(
-      colors: [
-        SkencilPaletteColor(red: 0, green: 0, blue: 0, name: '#000000'),
-      ],
+      colors: [SkencilPaletteColor(red: 0, green: 0, blue: 0, name: '#000000')],
     ),
   };
 
@@ -79,12 +75,7 @@ void main() {
     final skencilPalette = SkencilPalette(
       colors: [
         SkencilPaletteColor(name: 'Test Red', red: 1, green: 0, blue: 0),
-        SkencilPaletteColor(
-          name: 'Test Green',
-          red: 0,
-          green: 1,
-          blue: 0,
-        ),
+        SkencilPaletteColor(name: 'Test Green', red: 0, green: 1, blue: 0),
         SkencilPaletteColor(name: 'Test Blue', red: 0, green: 0, blue: 1),
         SkencilPaletteColor(name: 'Test Gray', red: 0.5, green: 0.5, blue: 0.5),
       ],

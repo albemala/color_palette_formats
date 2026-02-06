@@ -135,7 +135,8 @@ void main() {
       test('parses correctly', () {
         final procreatePalette = ProcreateV5Palette.fromBytes(bytes);
 
-        // Compare name (optional, as it might not always be present or match exactly)
+        // Compare name (optional, as it might not always be present
+        // or match exactly)
         // expect(procreatePalette.name, equals(expectedPalette.name));
 
         // Compare swatches

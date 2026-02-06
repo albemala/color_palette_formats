@@ -39,7 +39,9 @@ RebellePalette _decode(List<int> bytes) {
   }
 
   if (colors.isEmpty) {
-    throw FormatException('No valid colors found in Rebelle palette file');
+    throw const FormatException(
+      'No valid colors found in Rebelle palette file',
+    );
   }
 
   return RebellePalette(colors: colors);

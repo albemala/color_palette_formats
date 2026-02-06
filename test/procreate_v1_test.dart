@@ -49,7 +49,8 @@ void main() {
         expect(procreatePalettes, isNotEmpty, reason: 'No palettes decoded');
         final procreatePalette = procreatePalettes.first;
 
-        // Compare name (optional, as it might not always be present or match exactly)
+        // Compare name (optional, as it might not always be present
+        // or match exactly)
         // expect(procreatePalette.name, equals(expectedPalette.name));
 
         // Compare swatches

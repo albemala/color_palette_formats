@@ -23,6 +23,7 @@ Artrage6Palette _decode(List<int> bytes) {
     colorValues.add([b, g, r, a]);
   }
 
+  // ignore: unused_local_variable
   final fileVersionSignature = readUtf16String(
     buffer,
     Artrage6Palette.fileVersionSignature.length,

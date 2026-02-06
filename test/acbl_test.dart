@@ -10,11 +10,7 @@ void main() {
       version: 1,
       bookId: 3002,
       prefixPostfixPairs: [
-        AdobeColorBookLegacyPrefixPostfix(
-          prefix: 'PANTONE ',
-          postfix: ' C',
-          id: null,
-        ),
+        AdobeColorBookLegacyPrefixPostfix(prefix: 'PANTONE ', postfix: ' C'),
         AdobeColorBookLegacyPrefixPostfix(
           prefix: 'PANTONE ',
           postfix: ' CVC',
