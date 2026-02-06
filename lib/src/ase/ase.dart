@@ -18,7 +18,8 @@ part 'encode.dart';
 enum AdobeSwatchExchangeColorModel {
   rgb(value: 'RGB '),
   cmyk(value: 'CMYK'),
-  gray(value: 'Gray');
+  gray(value: 'Gray'),
+  lab(value: 'LAB ');
 
   final String value;
 

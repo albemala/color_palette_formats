@@ -35,6 +35,10 @@ List<int> _encode(AdobeSwatchExchange swatch) {
         colorBuffer.writeFloat32(color.values[2]); // blue
       case AdobeSwatchExchangeColorModel.gray:
         colorBuffer.writeFloat32(color.values[0]); // gray
+      case AdobeSwatchExchangeColorModel.lab:
+        colorBuffer.writeFloat32(color.values[0]); // L
+        colorBuffer.writeFloat32(color.values[1]); // A
+        colorBuffer.writeFloat32(color.values[2]); // B
     }
     // color type
     colorBuffer.writeInt16(color.type.value);

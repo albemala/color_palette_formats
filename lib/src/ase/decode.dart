@@ -76,6 +76,10 @@ AdobeSwatchExchangeColor _decodeColor(ByteDataReader buffer) {
       colorValues.add(buffer.readFloat32()); // blue
     case AdobeSwatchExchangeColorModel.gray:
       colorValues.add(buffer.readFloat32()); // gray
+    case AdobeSwatchExchangeColorModel.lab:
+      colorValues.add(buffer.readFloat32()); // L
+      colorValues.add(buffer.readFloat32()); // A
+      colorValues.add(buffer.readFloat32()); // B
   }
 
   final colorTypeRawValue = buffer.readInt16();

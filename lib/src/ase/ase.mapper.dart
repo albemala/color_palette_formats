@@ -34,6 +34,8 @@ class AdobeSwatchExchangeColorModelMapper
         return AdobeSwatchExchangeColorModel.cmyk;
       case r'gray':
         return AdobeSwatchExchangeColorModel.gray;
+      case r'lab':
+        return AdobeSwatchExchangeColorModel.lab;
       default:
         throw MapperException.unknownEnumValue(value);
     }
@@ -48,6 +50,8 @@ class AdobeSwatchExchangeColorModelMapper
         return r'cmyk';
       case AdobeSwatchExchangeColorModel.gray:
         return r'gray';
+      case AdobeSwatchExchangeColorModel.lab:
+        return r'lab';
     }
   }
 }

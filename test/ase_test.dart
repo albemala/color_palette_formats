@@ -146,6 +146,11 @@ void main() {
           model: AdobeSwatchExchangeColorModel.gray,
           values: [0.5],
         ),
+        AdobeSwatchExchangeColor(
+          name: 'lab color',
+          model: AdobeSwatchExchangeColorModel.lab,
+          values: [0.5, 0.25, 0.75],
+        ),
       ],
     );
 
@@ -158,7 +163,7 @@ void main() {
 
     expect(decodedAse.groups.length, equals(0));
 
-    expect(decodedAse.colors.length, equals(3));
+    expect(decodedAse.colors.length, equals(4));
 
     expect(decodedAse.colors[0].name, equals('red'));
     expect(
@@ -190,6 +195,17 @@ void main() {
     expect(decodedAse.colors[2].values, equals([0.5]));
     expect(
       decodedAse.colors[2].type,
+      equals(AdobeSwatchExchangeColorType.global),
+    );
+
+    expect(decodedAse.colors[3].name, equals('lab color'));
+    expect(
+      decodedAse.colors[3].model,
+      equals(AdobeSwatchExchangeColorModel.lab),
+    );
+    expect(decodedAse.colors[3].values, equals([0.5, 0.25, 0.75]));
+    expect(
+      decodedAse.colors[3].type,
       equals(AdobeSwatchExchangeColorType.global),
     );
 
