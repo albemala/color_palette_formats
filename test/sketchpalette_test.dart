@@ -9,7 +9,7 @@ void main() {
       compatibleVersion: SketchPalette.validVersion,
       pluginVersion: SketchPalette.validVersion,
       colors: [
-        SketchPaletteColor(red: 0.28, green: 0.16, blue: 0.18, alpha: 1.0),
+        SketchPaletteColor(red: 0.28, green: 0.16, blue: 0.18, alpha: 1),
       ],
     ),
     './assets/sketchpalette/sketchpalette2_v1.4.sketchpalette': SketchPalette(
@@ -20,7 +20,7 @@ void main() {
           red: 0.3529411764705882,
           green: 0.7843137254901961,
           blue: 0.9803921568627451,
-          alpha: 1.0,
+          alpha: 1,
         ),
       ],
     ),
@@ -32,7 +32,7 @@ void main() {
           red: 0.9568627450980391,
           green: 0.2627450980392157,
           blue: 0.21176470588235294,
-          alpha: 1.0,
+          alpha: 1,
         ),
       ],
     ),

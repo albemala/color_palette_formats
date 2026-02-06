@@ -7,12 +7,12 @@ void main() {
   final expectedData = {
     './assets/skencil/mini.spl': SkencilPalette(
       colors: [
-        SkencilPaletteColor(red: 0.0, green: 0.0, blue: 0.0, name: 'Black'),
+        SkencilPaletteColor(red: 0, green: 0, blue: 0, name: 'Black'),
       ],
     ),
     './assets/skencil/www.spl': SkencilPalette(
       colors: [
-        SkencilPaletteColor(red: 0.0, green: 0.0, blue: 0.0, name: '#000000'),
+        SkencilPaletteColor(red: 0, green: 0, blue: 0, name: '#000000'),
       ],
     ),
   };
@@ -78,14 +78,14 @@ void main() {
   test('write skencil file', () {
     final skencilPalette = SkencilPalette(
       colors: [
-        SkencilPaletteColor(name: 'Test Red', red: 1.0, green: 0.0, blue: 0.0),
+        SkencilPaletteColor(name: 'Test Red', red: 1, green: 0, blue: 0),
         SkencilPaletteColor(
           name: 'Test Green',
-          red: 0.0,
-          green: 1.0,
-          blue: 0.0,
+          red: 0,
+          green: 1,
+          blue: 0,
         ),
-        SkencilPaletteColor(name: 'Test Blue', red: 0.0, green: 0.0, blue: 1.0),
+        SkencilPaletteColor(name: 'Test Blue', red: 0, green: 0, blue: 1),
         SkencilPaletteColor(name: 'Test Gray', red: 0.5, green: 0.5, blue: 0.5),
       ],
     );

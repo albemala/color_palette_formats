@@ -17,7 +17,7 @@ void main() {
             0.43137254901960786,
             0.7058823529411765,
           ],
-          alpha: 1.0,
+          alpha: 1,
           name: 'Fedora Blue',
         ),
       ],
@@ -33,7 +33,7 @@ void main() {
             0.6392156862745098,
             0.011764705882352941,
           ],
-          alpha: 1.0,
+          alpha: 1,
           name: 'LibreGreen',
         ),
       ],
@@ -45,7 +45,7 @@ void main() {
         Sk1Color(
           colorSpace: Sk1ColorSpace.rgb,
           values: [0.9882352941176471, 0.6823529411764706, 0.10588235294117647],
-          alpha: 1.0,
+          alpha: 1,
           name: 'Light Orange',
         ),
       ],
@@ -57,7 +57,7 @@ void main() {
         Sk1Color(
           colorSpace: Sk1ColorSpace.rgb,
           values: [0.8666666666666667, 0.2823529411764706, 0.0784313725490196],
-          alpha: 1.0,
+          alpha: 1,
           name: 'Ubuntu orange',
         ),
       ],
@@ -158,14 +158,14 @@ void main() {
     final palette = Sk1Palette(
       name: 'Test SK1 Palette',
       source: 'Unit Test',
-      comments: ['Comment 1', 'Comment 2 with \'single quote\''],
+      comments: ['Comment 1', "Comment 2 with 'single quote'"],
       columns: 2,
       colors: [
         Sk1Color(
           name: 'Test Red',
           colorSpace: Sk1ColorSpace.rgb,
           values: [1.0, 0.0, 0.0],
-          alpha: 1.0,
+          alpha: 1,
         ),
         Sk1Color(
           name: 'Test Green',
@@ -177,7 +177,7 @@ void main() {
           name: 'Test Blue',
           colorSpace: Sk1ColorSpace.rgb,
           values: [0.0, 0.0, 1.0],
-          alpha: 1.0,
+          alpha: 1,
         ),
       ],
     );

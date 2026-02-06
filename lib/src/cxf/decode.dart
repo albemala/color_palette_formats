@@ -15,7 +15,7 @@ CxfPalette _decode(List<int> bytes) {
           .findElements(CxfConstants.resources, namespace: CxfConstants.cxfNs)
           .firstOrNull;
   if (resources == null) {
-    throw FormatException('Missing Resources element in CXF file');
+    throw const FormatException('Missing Resources element in CXF file');
   }
 
   final objectCollection =
@@ -26,7 +26,7 @@ CxfPalette _decode(List<int> bytes) {
           )
           .firstOrNull;
   if (objectCollection == null) {
-    throw FormatException('Missing ObjectCollection element in CXF file');
+    throw const FormatException('Missing ObjectCollection element in CXF file');
   }
 
   // Parse all Object elements
