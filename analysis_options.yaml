@@ -6,7 +6,6 @@ analyzer:
 
 linter:
   rules:
-    file_names: false
     flutter_style_todos: false
     sort_constructors_first: false
     cascade_invocations: false

@@ -1,4 +1,4 @@
-part of 'paint-dot-net.dart';
+part of 'paint_dot_net.dart';
 
 PaintDotNetPalette _decode(List<int> bytes) {
   final lines = splitLines(bytes);

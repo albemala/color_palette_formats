@@ -68,9 +68,7 @@ ColorSchemerPalette _decode(List<int> bytes) {
   currentOffset += nameLength;
 
   // Remove the null terminator from the name
-  final name = String.fromCharCodes(
-    nameBytes.where((byte) => byte != 0),
-  );
+  final name = String.fromCharCodes(nameBytes.where((byte) => byte != 0));
 
   // RGB values repeated (3 bytes) - same as the color values above
   currentOffset += 3;

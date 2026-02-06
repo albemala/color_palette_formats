@@ -11,7 +11,7 @@ export 'src/cxf/cxf.dart';
 export 'src/gimp/gimp.dart';
 export 'src/hpl/hpl.dart';
 export 'src/koffice/koffice.dart';
-export 'src/paint-dot-net/paint-dot-net.dart';
+export 'src/paint_dot_net/paint_dot_net.dart';
 export 'src/procreate_v1/procreate.dart';
 export 'src/procreate_v5/procreate.dart';
 export 'src/psp/psp.dart';

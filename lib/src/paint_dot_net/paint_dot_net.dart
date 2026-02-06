@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:color_palette_formats/src/text_parse_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
-part 'paint-dot-net.mapper.dart';
+part 'paint_dot_net.mapper.dart';
 part 'decode.dart';
 part 'encode.dart';
 

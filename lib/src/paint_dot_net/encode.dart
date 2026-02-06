@@ -1,4 +1,4 @@
-part of 'paint-dot-net.dart';
+part of 'paint_dot_net.dart';
 
 List<int> _encode(PaintDotNetPalette palette) {
   final buffer = StringBuffer();
