@@ -1,3 +1,7 @@
+## 5.0.2
+
+- **StarOffice Colors** — decode palettes using both legacy and OASIS namespace variants
+
 ## 5.0.1
 
 - Changed file names to fix linter issues
