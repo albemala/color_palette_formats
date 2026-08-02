@@ -55,10 +55,14 @@ class StarOfficeColorTable with StarOfficeColorTableMappable {
 class SocConstants {
   // Namespaces (Important for writing)
   static const String officeNs = 'http://openoffice.org/2000/office';
+  static const String officeOasisNs =
+      'urn:oasis:names:tc:opendocument:xmlns:office:1.0';
   static const String styleNs = 'http://openoffice.org/2000/style';
   static const String textNs = 'http://openoffice.org/2000/text';
   static const String tableNs = 'http://openoffice.org/2000/table';
   static const String drawNs = 'http://openoffice.org/2000/drawing';
+  static const String drawOasisNs =
+      'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0';
   static const String foNs = 'http://www.w3.org/1999/XSL/Format';
   static const String xlinkNs = 'http://www.w3.org/1999/xlink';
   static const String dcNs = 'http://purl.org/dc/elements/1.1/';

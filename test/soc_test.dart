@@ -16,6 +16,9 @@ void main() {
         StarOfficeColor(name: 'white FFFFFF 255.255.255', color: '#ffffff'),
       ],
     ),
+    './assets/soc/DMC 1-7.soc': StarOfficeColorTable(
+      colors: [StarOfficeColor(name: 'Ecru', color: '#EDDEC4')],
+    ),
   };
 
   expectedData.forEach((filePath, expectedSocTable) {
