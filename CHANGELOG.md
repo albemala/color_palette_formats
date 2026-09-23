@@ -1,3 +1,11 @@
+## 5.1.0
+
+### Added
+- **AffinityDesignerPalette.supportedVersions** — new list of supported file versions
+
+### Changed
+- **AffinityDesignerPalette.fromBytes** now decodes version 12 files instead of throwing an unsupported-version error
+
 ## 5.0.2
 
 - **StarOffice Colors** — decode palettes using both legacy and OASIS namespace variants
