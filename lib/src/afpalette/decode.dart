@@ -26,10 +26,10 @@ AffinityDesignerPalette _decode(List<int> bytes) {
 
   final version =
       bytes[4] | (bytes[5] << 8) | (bytes[6] << 16) | (bytes[7] << 24);
-  if (version != AffinityDesignerPalette.version) {
+  if (!AffinityDesignerPalette.supportedVersions.contains(version)) {
     throw FormatException(
       'Unsupported version: expected '
-      '${AffinityDesignerPalette.version}, got $version',
+      '${AffinityDesignerPalette.supportedVersions}, got $version',
     );
   }
 

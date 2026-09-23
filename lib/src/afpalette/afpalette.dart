@@ -48,6 +48,7 @@ class AffinityDesignerPaletteColor with AffinityDesignerPaletteColorMappable {
 class AffinityDesignerPalette with AffinityDesignerPaletteMappable {
   static const int magicNumber = 0x414BFF00;
   static const int version = 11;
+  static const List<int> supportedVersions = [11, 12];
 
   final String? fileName;
   final List<AffinityDesignerPaletteColor> colors;
@@ -68,7 +69,7 @@ class AffinityDesignerPalette with AffinityDesignerPaletteMappable {
           bytes[0] | (bytes[1] << 8) | (bytes[2] << 16) | (bytes[3] << 24);
       final ver =
           bytes[4] | (bytes[5] << 8) | (bytes[6] << 16) | (bytes[7] << 24);
-      return magic == magicNumber && ver == version;
+      return magic == magicNumber && supportedVersions.contains(ver);
     } catch (_) {
       return false;
     }

@@ -60,6 +60,7 @@ void main() {
       'test/testdata/afpalette/cromatica.afpalette',
       'test/testdata/afpalette/shido-10.afpalette',
       'test/testdata/afpalette/sunfall.afpalette',
+      'test/testdata/afpalette/tulip collection 2026.afpalette',
     ],
     AffinityDesignerPalette.fromBytes,
     (e) => e.toMap(),

@@ -126,6 +126,16 @@ void main() {
         blue: 0.03529411926865578,
       ),
     ),
+    'test/testdata/afpalette/tulip collection 2026.afpalette': (
+      fileName: 'tulip collection 2026',
+      colorCount: 9,
+      firstColor: AffinityDesignerPaletteColor(
+        name: 'R:255 G:212 B:134',
+        red: 1,
+        green: 0.8313726186752319,
+        blue: 0.5254902243614197,
+      ),
+    ),
   };
 
   expectedData.forEach((filePath, expected) {
