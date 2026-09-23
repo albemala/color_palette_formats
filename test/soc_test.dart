@@ -5,18 +5,18 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/soc/cmyk.soc': StarOfficeColorTable(
+    'test/testdata/soc/cmyk.soc': StarOfficeColorTable(
       colors: [StarOfficeColor(name: '0 0 0', color: '#ffffff')],
     ),
-    './assets/soc/gallery.soc': StarOfficeColorTable(
+    'test/testdata/soc/gallery.soc': StarOfficeColorTable(
       colors: [StarOfficeColor(name: '0-0-0-0', color: '#ffffff')],
     ),
-    './assets/soc/html.soc': StarOfficeColorTable(
+    'test/testdata/soc/html.soc': StarOfficeColorTable(
       colors: [
         StarOfficeColor(name: 'white FFFFFF 255.255.255', color: '#ffffff'),
       ],
     ),
-    './assets/soc/DMC 1-7.soc': StarOfficeColorTable(
+    'test/testdata/soc/DMC 1-7.soc': StarOfficeColorTable(
       colors: [StarOfficeColor(name: 'Ecru', color: '#EDDEC4')],
     ),
   };

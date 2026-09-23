@@ -55,7 +55,7 @@ void main() {
   assert(hpl.colors.length == 287);
 
   // Example: Reading a KOffice Palette (.colors) file.
-  final kofficeFile = File('assets/koffice/KDE40.colors');
+  final kofficeFile = File('test/testdata/koffice/KDE40.colors');
   final koffice = KOfficePalette.fromBytes(kofficeFile.readAsBytesSync());
   assert(koffice.colors.length == 40);
 
@@ -111,7 +111,7 @@ void main() {
   assert(skencil.colors.length == 23);
 
   // Example: Reading an sK1 Palette (.skp) file.
-  final sk1File = File('assets/sk1/file.skp');
+  final sk1File = File('test/testdata/sk1/Ubuntu_colors.skp');
   final sk1 = Sk1Palette.fromBytes(sk1File.readAsBytesSync());
   assert(sk1.name == 'Ubuntu colors');
   assert(sk1.source == 'Canonical');

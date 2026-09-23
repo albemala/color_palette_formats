@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/procreate/procreate3.swatches': ProcreateV5Palette(
+    'test/testdata/procreate/procreate3.swatches': ProcreateV5Palette(
       name: 'Skin tones',
       swatches: [
         ProcreateV5Swatch(
@@ -35,7 +35,7 @@ void main() {
         ),
       ],
     ),
-    './assets/procreate/cromatica.swatches': ProcreateV5Palette(
+    'test/testdata/procreate/cromatica.swatches': ProcreateV5Palette(
       name: 'cromatica.ase.',
       swatches: [
         ProcreateV5Swatch(
@@ -65,7 +65,7 @@ void main() {
         ),
       ],
     ),
-    './assets/procreate/shido-10.swatches': ProcreateV5Palette(
+    'test/testdata/procreate/shido-10.swatches': ProcreateV5Palette(
       name: 'shido-10.ase',
       swatches: [
         ProcreateV5Swatch(
@@ -91,7 +91,7 @@ void main() {
         ),
       ],
     ),
-    './assets/procreate/sunfall.swatches': ProcreateV5Palette(
+    'test/testdata/procreate/sunfall.swatches': ProcreateV5Palette(
       name: 'sunfall.ase',
       swatches: [
         ProcreateV5Swatch(

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('CXF', () {
     test('decode sample.cxf', () {
-      final file = File('assets/cxf/sample.cxf');
+      final file = File('test/testdata/cxf/sample.cxf');
       final bytes = file.readAsBytesSync();
 
       final palette = CxfPalette.fromBytes(bytes);
@@ -28,7 +28,7 @@ void main() {
     });
 
     test('isValidFormat returns true for valid CXF', () {
-      final file = File('assets/cxf/sample.cxf');
+      final file = File('test/testdata/cxf/sample.cxf');
       final bytes = file.readAsBytesSync();
 
       expect(CxfPalette.isValidFormat(bytes), isTrue);

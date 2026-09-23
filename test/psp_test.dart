@@ -5,10 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/psp/pal1_v0100.pal': PaintShopProPalette(
+    'test/testdata/psp/pal1_v0100.pal': PaintShopProPalette(
       colors: [PaintShopProPaletteColor(red: 71, green: 41, blue: 45)],
     ),
-    './assets/psp/VisiBone2_km.psppalette': PaintShopProPalette(
+    'test/testdata/psp/VisiBone2_km.psppalette': PaintShopProPalette(
       colors: [PaintShopProPaletteColor(red: 255, green: 255, blue: 255)],
     ),
   };

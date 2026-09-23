@@ -5,10 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/riff/riff1_v3.pal': ResourceInterchangeFileFormat(
+    'test/testdata/riff/riff1_v3.pal': ResourceInterchangeFileFormat(
       colors: [ResourceInterchangeFileFormatColor(red: 0, green: 0, blue: 0)],
     ),
-    './assets/riff/riff2_v3.pal': ResourceInterchangeFileFormat(
+    'test/testdata/riff/riff2_v3.pal': ResourceInterchangeFileFormat(
       colors: [
         ResourceInterchangeFileFormatColor(red: 255, green: 0, blue: 255),
       ],

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/colorschemer/Pumpkin.cs': ColorSchemerPalette(
+    'test/testdata/colorschemer/Pumpkin.cs': ColorSchemerPalette(
       version: 3,
       baseColor: [0x55, 0x11, 0x00],
       colors: [

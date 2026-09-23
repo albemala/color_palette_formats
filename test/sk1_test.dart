@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/sk1/Fedora_color_palette.skp': Sk1Palette(
+    'test/testdata/sk1/Fedora_color_palette.skp': Sk1Palette(
       name: 'Fedora color palette',
       columns: 2,
       colors: [
@@ -22,7 +22,7 @@ void main() {
         ),
       ],
     ),
-    './assets/sk1/Lible_Colors.skp': Sk1Palette(
+    'test/testdata/sk1/Lible_Colors.skp': Sk1Palette(
       name: 'Lible Colors',
       columns: 4,
       colors: [
@@ -38,7 +38,7 @@ void main() {
         ),
       ],
     ),
-    './assets/sk1/openSUSE_colors.skp': Sk1Palette(
+    'test/testdata/sk1/openSUSE_colors.skp': Sk1Palette(
       name: 'openSUSE colors',
       columns: 1,
       colors: [
@@ -50,7 +50,7 @@ void main() {
         ),
       ],
     ),
-    './assets/sk1/Ubuntu_colors.skp': Sk1Palette(
+    'test/testdata/sk1/Ubuntu_colors.skp': Sk1Palette(
       name: 'Ubuntu colors',
       columns: 1,
       colors: [

@@ -8,7 +8,7 @@ void main() {
     late List<int> bytes;
 
     setUpAll(() {
-      final rebelleFile = File('./assets/rebelle/default.colors');
+      final rebelleFile = File('test/testdata/rebelle/default.colors');
       bytes = rebelleFile.readAsBytesSync();
     });
 

@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/aco/aco1_v1.aco': AdobeColorSwatch(
+    'test/testdata/aco/aco1_v1.aco': AdobeColorSwatch(
       colors: [
         AdobeColorSwatchColor(
           colorSpace: AdobeColorSwatchColorSpace.rgb,
@@ -14,7 +14,7 @@ void main() {
         ),
       ],
     ),
-    './assets/aco/aco2_v1.aco': AdobeColorSwatch(
+    'test/testdata/aco/aco2_v1.aco': AdobeColorSwatch(
       colors: [
         AdobeColorSwatchColor(
           colorSpace: AdobeColorSwatchColorSpace.rgb,
@@ -22,7 +22,7 @@ void main() {
         ),
       ],
     ),
-    './assets/aco/NES.aco': AdobeColorSwatch(
+    'test/testdata/aco/NES.aco': AdobeColorSwatch(
       colors: [
         AdobeColorSwatchColor(
           colorSpace: AdobeColorSwatchColorSpace.rgb,
@@ -30,7 +30,7 @@ void main() {
         ),
       ],
     ),
-    './assets/aco/VisiBone2.aco': AdobeColorSwatch(
+    'test/testdata/aco/VisiBone2.aco': AdobeColorSwatch(
       colors: [
         AdobeColorSwatchColor(
           colorSpace: AdobeColorSwatchColorSpace.rgb,

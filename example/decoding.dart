@@ -8,124 +8,124 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 void main() {
   processPaletteFiles<AdobeColorBook>(
     [
-      'assets/acb/acb1_v1.acb',
-      'assets/acb/DIC Color Guide.acb',
-      'assets/acb/HKS E.acb',
-      'assets/acb/ANPA Color.acb',
+      'test/testdata/acb/acb1_v1.acb',
+      'test/testdata/acb/DIC Color Guide.acb',
+      'test/testdata/acb/HKS E.acb',
+      'test/testdata/acb/ANPA Color.acb',
     ],
     AdobeColorBook.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<AdobeColorBookLegacy>(
-    ['assets/acbl/ACBL.acbl'],
+    ['test/testdata/acbl/ACBL.acbl'],
     AdobeColorBookLegacy.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<AdobeColorSwatch>(
     [
-      'assets/aco/aco1_v1.aco',
-      'assets/aco/aco2_v1.aco',
-      'assets/aco/NES.aco',
-      'assets/aco/VisiBone2.aco',
+      'test/testdata/aco/aco1_v1.aco',
+      'test/testdata/aco/aco2_v1.aco',
+      'test/testdata/aco/NES.aco',
+      'test/testdata/aco/VisiBone2.aco',
     ],
     AdobeColorSwatch.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<AdobeColorTable>(
     [
-      'assets/act/act1.act',
-      'assets/act/act2.act',
-      'assets/act/act3.act',
-      'assets/act/Grayscale.act',
-      'assets/act/Black & White.act',
-      'assets/act/Windows.act',
-      'assets/act/Mac OS.act',
+      'test/testdata/act/act1.act',
+      'test/testdata/act/act2.act',
+      'test/testdata/act/act3.act',
+      'test/testdata/act/Grayscale.act',
+      'test/testdata/act/Black & White.act',
+      'test/testdata/act/Windows.act',
+      'test/testdata/act/Mac OS.act',
     ],
     AdobeColorTable.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<AffinityDesignerPalette>(
     [
-      'assets/afpalette/afpalette-test.afpalette',
-      'assets/afpalette/3WHITE0OPC3WHITE100OPC.afpalette',
-      'assets/afpalette/EMPTY.afpalette',
-      'assets/afpalette/EMPTY2.afpalette',
-      'assets/afpalette/EMPTYDOC.afpalette',
-      'assets/afpalette/Grays.afpalette',
-      'assets/afpalette/Kit - Grade UI - Fills.afpalette',
-      'assets/afpalette/Maurice Denis 01.afpalette',
-      'assets/afpalette/Simple Test A.afpalette',
-      'assets/afpalette/Simple Test B.afpalette',
-      'assets/afpalette/_FMPEnlHHs01.afpalette',
-      'assets/afpalette/cromatica.afpalette',
-      'assets/afpalette/shido-10.afpalette',
-      'assets/afpalette/sunfall.afpalette',
+      'test/testdata/afpalette/afpalette-test.afpalette',
+      'test/testdata/afpalette/3WHITE0OPC3WHITE100OPC.afpalette',
+      'test/testdata/afpalette/EMPTY.afpalette',
+      'test/testdata/afpalette/EMPTY2.afpalette',
+      'test/testdata/afpalette/EMPTYDOC.afpalette',
+      'test/testdata/afpalette/Grays.afpalette',
+      'test/testdata/afpalette/Kit - Grade UI - Fills.afpalette',
+      'test/testdata/afpalette/Maurice Denis 01.afpalette',
+      'test/testdata/afpalette/Simple Test A.afpalette',
+      'test/testdata/afpalette/Simple Test B.afpalette',
+      'test/testdata/afpalette/_FMPEnlHHs01.afpalette',
+      'test/testdata/afpalette/cromatica.afpalette',
+      'test/testdata/afpalette/shido-10.afpalette',
+      'test/testdata/afpalette/sunfall.afpalette',
     ],
     AffinityDesignerPalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<Artrage6Palette>(
     [
-      'assets/artrage/Colors.col',
-      'assets/artrage/Complementary.col',
-      'assets/artrage/Pastel.col',
+      'test/testdata/artrage/Colors.col',
+      'test/testdata/artrage/Complementary.col',
+      'test/testdata/artrage/Pastel.col',
     ],
     Artrage6Palette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<AdobeSwatchExchange>(
     [
-      'assets/ase/ase1_v1.0.ase',
-      'assets/ase/ase2_v1.0.ase',
-      'assets/ase/cromatica.ase',
-      'assets/ase/shido-10.ase',
-      'assets/ase/sunfall.ase',
-      'assets/ase/blue.ase',
-      'assets/ase/NNN Palette.ase',
+      'test/testdata/ase/ase1_v1.0.ase',
+      'test/testdata/ase/ase2_v1.0.ase',
+      'test/testdata/ase/cromatica.ase',
+      'test/testdata/ase/shido-10.ase',
+      'test/testdata/ase/sunfall.ase',
+      'test/testdata/ase/blue.ase',
+      'test/testdata/ase/NNN Palette.ase',
     ],
     AdobeSwatchExchange.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<CorelDraw4Palette>(
-    ['assets/coreldraw4/coreldraw.pal'],
+    ['test/testdata/coreldraw4/coreldraw.pal'],
     CorelDraw4Palette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<GimpPalette>(
     [
-      'assets/gimp/gpl1.gimp',
-      'assets/gimp/gpl2.gpl',
-      'assets/gimp/cromatica.gpl',
-      'assets/gimp/shido-10.gpl',
-      'assets/gimp/sunfall.gpl',
+      'test/testdata/gimp/gpl1.gimp',
+      'test/testdata/gimp/gpl2.gpl',
+      'test/testdata/gimp/cromatica.gpl',
+      'test/testdata/gimp/shido-10.gpl',
+      'test/testdata/gimp/sunfall.gpl',
     ],
     GimpPalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<HomesitePalette>(
-    ['assets/hpl/hpl1_v4.0.hpl', 'assets/hpl/hpl2_v4.0.hpl'],
+    ['test/testdata/hpl/hpl1_v4.0.hpl', 'test/testdata/hpl/hpl2_v4.0.hpl'],
     HomesitePalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<KOfficePalette>(
-    ['assets/koffice/KDE40.colors'],
+    ['test/testdata/koffice/KDE40.colors'],
     KOfficePalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<PaintDotNetPalette>(
-    ['assets/paint-dot-net/paint-dot-net1.txt'],
+    ['test/testdata/paint-dot-net/paint-dot-net1.txt'],
     PaintDotNetPalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<PaintShopProPalette>(
-    ['assets/psp/pal1_v0100.pal', 'assets/psp/VisiBone2_km.psppalette'],
+    ['test/testdata/psp/pal1_v0100.pal', 'test/testdata/psp/VisiBone2_km.psppalette'],
     PaintShopProPalette.fromBytes,
     (e) => e.toMap(),
   );
   for (final path in [
     // v1
-    'assets/procreate/procreate1.swatches',
-    'assets/procreate/procreate2.swatches',
+    'test/testdata/procreate/procreate1.swatches',
+    'test/testdata/procreate/procreate2.swatches',
   ]) {
     final file = File(path);
     final procreate = decodeProcreateV1Palettes(file.readAsBytesSync());
@@ -137,65 +137,65 @@ void main() {
   processPaletteFiles<ProcreateV5Palette>(
     [
       // v5
-      'assets/procreate/procreate3.swatches',
-      'assets/procreate/shido-10.swatches',
-      'assets/procreate/sunfall.swatches',
-      'assets/procreate/cromatica.swatches',
+      'test/testdata/procreate/procreate3.swatches',
+      'test/testdata/procreate/shido-10.swatches',
+      'test/testdata/procreate/sunfall.swatches',
+      'test/testdata/procreate/cromatica.swatches',
     ],
     ProcreateV5Palette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<ResourceInterchangeFileFormat>(
-    ['assets/riff/riff1_v3.pal', 'assets/riff/riff2_v3.pal'],
+    ['test/testdata/riff/riff1_v3.pal', 'test/testdata/riff/riff2_v3.pal'],
     ResourceInterchangeFileFormat.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<SketchPalette>(
     [
-      'assets/sketchpalette/sketchpalette1_v1.4.sketchpalette',
-      'assets/sketchpalette/sketchpalette2_v1.4.sketchpalette',
-      'assets/sketchpalette/material-design.sketchpalette',
+      'test/testdata/sketchpalette/sketchpalette1_v1.4.sketchpalette',
+      'test/testdata/sketchpalette/sketchpalette2_v1.4.sketchpalette',
+      'test/testdata/sketchpalette/material-design.sketchpalette',
     ],
     SketchPalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<ScribusPalette>(
-    ['assets/scribus/Scribus.xml'],
+    ['test/testdata/scribus/Scribus.xml'],
     ScribusPalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<SkencilPalette>(
-    ['assets/skencil/mini.spl', 'assets/skencil/www.spl'],
+    ['test/testdata/skencil/mini.spl', 'test/testdata/skencil/www.spl'],
     SkencilPalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<Sk1Palette>(
     [
-      'assets/sk1/Fedora_color_palette.skp',
-      'assets/sk1/Lible_Colors.skp',
-      'assets/sk1/Ubuntu_colors.skp',
-      'assets/sk1/openSUSE_colors.skp',
+      'test/testdata/sk1/Fedora_color_palette.skp',
+      'test/testdata/sk1/Lible_Colors.skp',
+      'test/testdata/sk1/Ubuntu_colors.skp',
+      'test/testdata/sk1/openSUSE_colors.skp',
     ],
     Sk1Palette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<RebellePalette>(
-    ['assets/rebelle/default.colors'],
+    ['test/testdata/rebelle/default.colors'],
     RebellePalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<StarOfficeColorTable>(
-    ['assets/soc/cmyk.soc', 'assets/soc/gallery.soc', 'assets/soc/html.soc'],
+    ['test/testdata/soc/cmyk.soc', 'test/testdata/soc/gallery.soc', 'test/testdata/soc/html.soc'],
     StarOfficeColorTable.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<CxfPalette>(
-    ['assets/cxf/sample.cxf'],
+    ['test/testdata/cxf/sample.cxf'],
     CxfPalette.fromBytes,
     (e) => e.toMap(),
   );
   processPaletteFiles<ColorSchemerPalette>(
-    ['assets/colorschemer/Pumpkin.cs'],
+    ['test/testdata/colorschemer/Pumpkin.cs'],
     ColorSchemerPalette.fromBytes,
     (e) => e.toMap(),
   );

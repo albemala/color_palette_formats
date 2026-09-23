@@ -5,10 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/skencil/mini.spl': SkencilPalette(
+    'test/testdata/skencil/mini.spl': SkencilPalette(
       colors: [SkencilPaletteColor(red: 0, green: 0, blue: 0, name: 'Black')],
     ),
-    './assets/skencil/www.spl': SkencilPalette(
+    'test/testdata/skencil/www.spl': SkencilPalette(
       colors: [SkencilPaletteColor(red: 0, green: 0, blue: 0, name: '#000000')],
     ),
   };

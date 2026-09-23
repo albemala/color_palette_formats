@@ -5,25 +5,25 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/act/act1.act': AdobeColorTable(
+    'test/testdata/act/act1.act': AdobeColorTable(
       colors: [AdobeColorTableColor(red: 255, green: 255, blue: 255)],
     ),
-    './assets/act/act2.act': AdobeColorTable(
+    'test/testdata/act/act2.act': AdobeColorTable(
       colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
     ),
-    './assets/act/act3.act': AdobeColorTable(
+    'test/testdata/act/act3.act': AdobeColorTable(
       colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
     ),
-    './assets/act/Grayscale.act': AdobeColorTable(
+    'test/testdata/act/Grayscale.act': AdobeColorTable(
       colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
     ),
-    './assets/act/Black & White.act': AdobeColorTable(
+    'test/testdata/act/Black & White.act': AdobeColorTable(
       colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
     ),
-    './assets/act/Windows.act': AdobeColorTable(
+    'test/testdata/act/Windows.act': AdobeColorTable(
       colors: [AdobeColorTableColor(red: 0, green: 0, blue: 0)],
     ),
-    './assets/act/Mac OS.act': AdobeColorTable(
+    'test/testdata/act/Mac OS.act': AdobeColorTable(
       colors: [AdobeColorTableColor(red: 255, green: 255, blue: 255)],
     ),
   };

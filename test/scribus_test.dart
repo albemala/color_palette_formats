@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/scribus/Scribus.xml': ScribusPalette(
+    'test/testdata/scribus/Scribus.xml': ScribusPalette(
       name: 'tango',
       colors: [
         ScribusColor(

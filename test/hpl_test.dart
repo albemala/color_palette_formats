@@ -5,10 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/hpl/hpl1_v4.0.hpl': HomesitePalette(
+    'test/testdata/hpl/hpl1_v4.0.hpl': HomesitePalette(
       colors: [HomesitePaletteColor(red: 0, green: 0, blue: 0)],
     ),
-    './assets/hpl/hpl2_v4.0.hpl': HomesitePalette(
+    'test/testdata/hpl/hpl2_v4.0.hpl': HomesitePalette(
       colors: [HomesitePaletteColor(red: 0, green: 0, blue: 0)],
     ),
   };

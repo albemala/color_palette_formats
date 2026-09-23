@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/ase/ase1_v1.0.ase': AdobeSwatchExchange(
+    'test/testdata/ase/ase1_v1.0.ase': AdobeSwatchExchange(
       colors: [
         AdobeSwatchExchangeColor(
           name: 'RGB Red',
@@ -14,7 +14,7 @@ void main() {
         ),
       ],
     ),
-    './assets/ase/ase2_v1.0.ase': AdobeSwatchExchange(
+    'test/testdata/ase/ase2_v1.0.ase': AdobeSwatchExchange(
       colors: [
         AdobeSwatchExchangeColor(
           name: 'Color 1',
@@ -23,7 +23,7 @@ void main() {
         ),
       ],
     ),
-    './assets/ase/cromatica.ase': AdobeSwatchExchange(
+    'test/testdata/ase/cromatica.ase': AdobeSwatchExchange(
       colors: [
         AdobeSwatchExchangeColor(
           name: 'fbf8fd',
@@ -32,7 +32,7 @@ void main() {
         ),
       ],
     ),
-    './assets/ase/shido-10.ase': AdobeSwatchExchange(
+    'test/testdata/ase/shido-10.ase': AdobeSwatchExchange(
       colors: [
         AdobeSwatchExchangeColor(
           name: '000000',
@@ -41,7 +41,7 @@ void main() {
         ),
       ],
     ),
-    './assets/ase/sunfall.ase': AdobeSwatchExchange(
+    'test/testdata/ase/sunfall.ase': AdobeSwatchExchange(
       colors: [
         AdobeSwatchExchangeColor(
           name: '000809',
@@ -50,7 +50,7 @@ void main() {
         ),
       ],
     ),
-    './assets/ase/blue.ase': AdobeSwatchExchange(
+    'test/testdata/ase/blue.ase': AdobeSwatchExchange(
       colors: [
         AdobeSwatchExchangeColor(
           name: 'White',
@@ -59,7 +59,7 @@ void main() {
         ),
       ],
     ),
-    './assets/ase/NNN Palette.ase': AdobeSwatchExchange(
+    'test/testdata/ase/NNN Palette.ase': AdobeSwatchExchange(
       colors: [
         AdobeSwatchExchangeColor(
           name: '',

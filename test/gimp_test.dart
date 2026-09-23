@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/gimp/gpl1.gimp': GimpPalette(
+    'test/testdata/gimp/gpl1.gimp': GimpPalette(
       colors: [
         GimpPaletteColor(
           red: 255,
@@ -15,20 +15,20 @@ void main() {
         ),
       ],
     ),
-    './assets/gimp/gpl2.gpl': GimpPalette(
+    'test/testdata/gimp/gpl2.gpl': GimpPalette(
       colors: [
         GimpPaletteColor(red: 56, green: 37, blue: 9, name: 'wood brown6'),
       ],
     ),
-    './assets/gimp/cromatica.gpl': GimpPalette(
+    'test/testdata/gimp/cromatica.gpl': GimpPalette(
       colors: [
         GimpPaletteColor(red: 251, green: 248, blue: 253, name: 'fbf8fd'),
       ],
     ),
-    './assets/gimp/shido-10.gpl': GimpPalette(
+    'test/testdata/gimp/shido-10.gpl': GimpPalette(
       colors: [GimpPaletteColor(red: 0, green: 0, blue: 0, name: '000000')],
     ),
-    './assets/gimp/sunfall.gpl': GimpPalette(
+    'test/testdata/gimp/sunfall.gpl': GimpPalette(
       colors: [GimpPaletteColor(red: 0, green: 8, blue: 9, name: '000809')],
     ),
   };

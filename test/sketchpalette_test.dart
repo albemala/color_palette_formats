@@ -5,14 +5,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/sketchpalette/sketchpalette1_v1.4.sketchpalette': SketchPalette(
+    'test/testdata/sketchpalette/sketchpalette1_v1.4.sketchpalette': SketchPalette(
       compatibleVersion: SketchPalette.validVersion,
       pluginVersion: SketchPalette.validVersion,
       colors: [
         SketchPaletteColor(red: 0.28, green: 0.16, blue: 0.18, alpha: 1),
       ],
     ),
-    './assets/sketchpalette/sketchpalette2_v1.4.sketchpalette': SketchPalette(
+    'test/testdata/sketchpalette/sketchpalette2_v1.4.sketchpalette': SketchPalette(
       compatibleVersion: SketchPalette.validVersion,
       pluginVersion: SketchPalette.validVersion,
       colors: [
@@ -24,7 +24,7 @@ void main() {
         ),
       ],
     ),
-    './assets/sketchpalette/material-design.sketchpalette': SketchPalette(
+    'test/testdata/sketchpalette/material-design.sketchpalette': SketchPalette(
       compatibleVersion: SketchPalette.validVersion,
       pluginVersion: SketchPalette.validVersion,
       colors: [

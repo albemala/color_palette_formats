@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/artrage/Colors.col': Artrage6Palette(
+    'test/testdata/artrage/Colors.col': Artrage6Palette(
       name: 'ArtRage 6 Palette', // Hardcoded in decode.dart
       colors: [
         Artrage6Color(name: 'Lemon Yellow', red: 251, green: 234, blue: 53),
@@ -246,7 +246,7 @@ void main() {
         ),
       ],
     ),
-    './assets/artrage/Complementary.col': Artrage6Palette(
+    'test/testdata/artrage/Complementary.col': Artrage6Palette(
       name: 'ArtRage 6 Palette',
       colors: [
         Artrage6Color(name: 'Y-V', red: 250, green: 241, blue: 66),
@@ -263,7 +263,7 @@ void main() {
         Artrage6Color(name: 'YG-RV', red: 212, green: 224, blue: 63),
       ],
     ),
-    './assets/artrage/Pastel.col': Artrage6Palette(
+    'test/testdata/artrage/Pastel.col': Artrage6Palette(
       name: 'ArtRage 6 Palette',
       colors: [
         Artrage6Color(name: '%%', red: 255, green: 192, blue: 192),

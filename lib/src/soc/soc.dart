@@ -14,7 +14,7 @@ part 'encode.dart';
 * StarOffice / OpenOffice.org / LibreOffice
 *
 * References:
-* - Based on observed format in example files (e.g., assets/soc/cmyk.soc)
+ * - Based on observed format in example files (e.g., test/testdata/soc/cmyk.soc)
 * - OpenOffice XML format structure.
 */
 

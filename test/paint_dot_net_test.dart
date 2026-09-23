@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/paint-dot-net/paint-dot-net1.txt': PaintDotNetPalette(
+    'test/testdata/paint-dot-net/paint-dot-net1.txt': PaintDotNetPalette(
       colors: [PaintDotNetPaletteColor(red: 0, green: 0, blue: 0, alpha: 255)],
     ),
   };

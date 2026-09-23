@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/acb/acb1_v1.acb': AdobeColorBook(
+    'test/testdata/acb/acb1_v1.acb': AdobeColorBook(
       identifier: 3000,
       title: r'$$$/colorbook/ANPA/title=ANPA Color',
       description: r'$$$/colorbook/ANPA/description=',
@@ -20,7 +20,7 @@ void main() {
         AdobeColorBookColor(name: '71-1', code: ' 71-1D', values: [98, -5, -5]),
       ],
     ),
-    './assets/acb/DIC Color Guide.acb': AdobeColorBook(
+    'test/testdata/acb/DIC Color Guide.acb': AdobeColorBook(
       identifier: 3012,
       title: r'$$$/colorbook/DIC/title=DIC Color Guide',
       description:
@@ -35,7 +35,7 @@ void main() {
         AdobeColorBookColor(name: '1s', code: '1     ', values: [88, 12, 17]),
       ],
     ),
-    './assets/acb/HKS E.acb': AdobeColorBook(
+    'test/testdata/acb/HKS E.acb': AdobeColorBook(
       identifier: 3008,
       title: r'$$$/colorbook/HKSE/title=HKS E',
       description:
@@ -50,7 +50,7 @@ void main() {
         AdobeColorBookColor(name: '1', code: '   01E', values: [88, 4, 59]),
       ],
     ),
-    './assets/acb/ANPA Color.acb': AdobeColorBook(
+    'test/testdata/acb/ANPA Color.acb': AdobeColorBook(
       identifier: 3000,
       title: r'$$$/colorbook/ANPA/title=ANPA Color',
       description: r'$$$/colorbook/ANPA/description=',

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/afpalette/afpalette-test.afpalette': (
+    'test/testdata/afpalette/afpalette-test.afpalette': (
       fileName: 'afpalette-test',
       colorCount: 5,
       firstColor: AffinityDesignerPaletteColor(
@@ -15,7 +15,7 @@ void main() {
         blue: 0,
       ),
     ),
-    './assets/afpalette/3WHITE0OPC3WHITE100OPC.afpalette': (
+    'test/testdata/afpalette/3WHITE0OPC3WHITE100OPC.afpalette': (
       fileName: '3WHITE0OPC3WHITE100OPC',
       colorCount: 2,
       firstColor: AffinityDesignerPaletteColor(
@@ -26,22 +26,22 @@ void main() {
         alpha: 0,
       ),
     ),
-    './assets/afpalette/EMPTY.afpalette': (
+    'test/testdata/afpalette/EMPTY.afpalette': (
       fileName: 'EMPTY',
       colorCount: 0,
       firstColor: null,
     ),
-    './assets/afpalette/EMPTY2.afpalette': (
+    'test/testdata/afpalette/EMPTY2.afpalette': (
       fileName: 'EMPTY2',
       colorCount: 0,
       firstColor: null,
     ),
-    './assets/afpalette/EMPTYDOC.afpalette': (
+    'test/testdata/afpalette/EMPTYDOC.afpalette': (
       fileName: 'EMPTYDOC',
       colorCount: 0,
       firstColor: null,
     ),
-    './assets/afpalette/Grays.afpalette': (
+    'test/testdata/afpalette/Grays.afpalette': (
       fileName: 'Grays',
       colorCount: 21,
       firstColor: AffinityDesignerPaletteColor(
@@ -51,7 +51,7 @@ void main() {
         blue: 0,
       ),
     ),
-    './assets/afpalette/Kit - Grade UI - Fills.afpalette': (
+    'test/testdata/afpalette/Kit - Grade UI - Fills.afpalette': (
       fileName: 'Kit - Grade UI - Fills',
       colorCount: 13,
       firstColor: AffinityDesignerPaletteColor(
@@ -61,12 +61,12 @@ void main() {
         blue: 0.8352941870689392,
       ),
     ),
-    './assets/afpalette/Maurice Denis 01.afpalette': (
+    'test/testdata/afpalette/Maurice Denis 01.afpalette': (
       fileName: 'Maurice Denis 01',
       colorCount: 0,
       firstColor: null,
     ),
-    './assets/afpalette/Simple Test A.afpalette': (
+    'test/testdata/afpalette/Simple Test A.afpalette': (
       fileName: 'Simple Test A',
       colorCount: 1,
       firstColor: AffinityDesignerPaletteColor(
@@ -76,7 +76,7 @@ void main() {
         blue: 0,
       ),
     ),
-    './assets/afpalette/Simple Test B.afpalette': (
+    'test/testdata/afpalette/Simple Test B.afpalette': (
       fileName: 'Simple Test B',
       colorCount: 1,
       firstColor: AffinityDesignerPaletteColor(
@@ -86,7 +86,7 @@ void main() {
         blue: 0,
       ),
     ),
-    './assets/afpalette/_FMPEnlHHs01.afpalette': (
+    'test/testdata/afpalette/_FMPEnlHHs01.afpalette': (
       fileName: '_FMPEnlHHs01',
       colorCount: 8,
       firstColor: AffinityDesignerPaletteColor(
@@ -96,7 +96,7 @@ void main() {
         blue: 0.13333334028720856,
       ),
     ),
-    './assets/afpalette/cromatica.afpalette': (
+    'test/testdata/afpalette/cromatica.afpalette': (
       fileName: 'cromatica',
       colorCount: 10,
       firstColor: AffinityDesignerPaletteColor(
@@ -106,7 +106,7 @@ void main() {
         blue: 0.9921568632125854,
       ),
     ),
-    './assets/afpalette/shido-10.afpalette': (
+    'test/testdata/afpalette/shido-10.afpalette': (
       fileName: 'shido-10',
       colorCount: 10,
       firstColor: AffinityDesignerPaletteColor(
@@ -116,7 +116,7 @@ void main() {
         blue: 0,
       ),
     ),
-    './assets/afpalette/sunfall.afpalette': (
+    'test/testdata/afpalette/sunfall.afpalette': (
       fileName: 'sunfall',
       colorCount: 10,
       firstColor: AffinityDesignerPaletteColor(
@@ -214,7 +214,7 @@ void main() {
   });
 
   test('toMap produces valid JSON-serializable map', () {
-    final file = File('./assets/afpalette/afpalette-test.afpalette');
+    final file = File('test/testdata/afpalette/afpalette-test.afpalette');
     final palette = AffinityDesignerPalette.fromBytes(file.readAsBytesSync());
 
     final map = palette.toMap();

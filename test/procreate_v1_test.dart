@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/procreate/procreate1.swatches': ProcreateV1Palette(
+    'test/testdata/procreate/procreate1.swatches': ProcreateV1Palette(
       name: 'Retro & Vintage',
       swatches: [
         ProcreateV1Swatch(
@@ -17,7 +17,7 @@ void main() {
         ),
       ],
     ),
-    './assets/procreate/procreate2.swatches': ProcreateV1Palette(
+    'test/testdata/procreate/procreate2.swatches': ProcreateV1Palette(
       name: 'Modern & Fresh',
       swatches: [
         ProcreateV1Swatch(

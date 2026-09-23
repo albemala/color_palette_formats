@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/koffice/KDE40.colors': KOfficePalette(
+    'test/testdata/koffice/KDE40.colors': KOfficePalette(
       colors: [KOfficePaletteColor(r: 0, g: 0, b: 0, name: 'Black')],
     ),
   };

@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/acbl/ACBL.acbl': AdobeColorBookLegacy(
+    'test/testdata/acbl/ACBL.acbl': AdobeColorBookLegacy(
       version: 1,
       bookId: 3002,
       prefixPostfixPairs: [

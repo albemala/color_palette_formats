@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    './assets/coreldraw4/coreldraw.pal': CorelDraw4Palette(
+    'test/testdata/coreldraw4/coreldraw.pal': CorelDraw4Palette(
       colors: [
         CorelDraw4PaletteColor(
           cyan: 0,
