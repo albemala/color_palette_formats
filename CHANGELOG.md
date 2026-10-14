@@ -1,3 +1,7 @@
+## 5.1.1
+
+- Updated project links in README (portfolio v5 migration)
+
 ## 5.1.0
 
 ### Added
