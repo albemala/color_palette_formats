@@ -81,7 +81,7 @@ aseFile.writeAsBytesSync(ase.toBytes());
 
 ## Projects using this package
 
-- **[Hexee Pro](https://hexee.app/)** - Palette editor & Advanced color toolkit for designers and developers.
+- **[Hexee Pro](https://albemala.me/apps/hexee-pro/)** - Palette editor & Advanced color toolkit for designers and developers.
 
 Feel free to submit a pull request to add your project to this list.
 
@@ -92,7 +92,7 @@ Feel free to submit a pull request to add your project to this list.
 
 ## Other projects
 
-[All my projects](https://projects.albemala.me/)
+[All my projects](https://albemala.me/apps/)
 
 ## Credits
 
