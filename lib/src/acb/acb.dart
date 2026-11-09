@@ -55,10 +55,13 @@ class AdobeColorBookColor with AdobeColorBookColorMappable {
   final String name;
   final String code;
 
-  /// Color values depend on color space:
+  /// Color values depend on color space (RGB, CMYK and LAB only —
+  /// decoding any other color space throws [UnsupportedError]):
   /// - RGB: [0..255, 0..255, 0..255]
+  /// - HSB: unsupported
   /// - CMYK: [0..100, 0..100, 0..100, 0..100]
   /// - LAB: [0..100, -128..127, -128..127]
+  /// - Grayscale, Pantone, Focoltone, Trumatch, Toyo, HKS: unsupported
   final List<int> values;
 
   AdobeColorBookColor({
@@ -102,11 +105,11 @@ class AdobeColorBook with AdobeColorBookMappable {
   }
 
   /// Checks if the provided bytes represent a valid Adobe Color Book file.
+  /// Runs a full decode so truncated files and unsupported color spaces
+  /// are rejected (a header-only check would accept them).
   static bool isValidFormat(List<int> bytes) {
     try {
-      final buffer = ByteDataReader()..add(bytes);
-      _validateHeader(buffer);
-      _validateVersion(buffer);
+      _decode(bytes);
       return true;
     } catch (_) {
       return false;
@@ -144,4 +147,5 @@ class _AcbProperties {
   });
 }
 
-// TODO encode
+// Import-only: ACB has no encoder (export is marked ❌ in
+// docs/supported-formats.md).

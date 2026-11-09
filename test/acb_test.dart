@@ -17,7 +17,7 @@ void main() {
       colorSpace: AdobeColorBookColorSpace.lab,
       // Define only the expected *first* color for detailed checking.
       colors: [
-        AdobeColorBookColor(name: '71-1', code: ' 71-1D', values: [98, -5, -5]),
+        AdobeColorBookColor(name: '71-1', code: ' 71-1D', values: [97, -5, -5]),
       ],
     ),
     'test/testdata/acb/DIC Color Guide.acb': AdobeColorBook(
@@ -32,7 +32,7 @@ void main() {
       pageSelectorOffset: 2,
       colorSpace: AdobeColorBookColorSpace.lab,
       colors: [
-        AdobeColorBookColor(name: '1s', code: '1     ', values: [88, 12, 17]),
+        AdobeColorBookColor(name: '1s', code: '1     ', values: [87, 12, 17]),
       ],
     ),
     'test/testdata/acb/HKS E.acb': AdobeColorBook(
@@ -47,7 +47,7 @@ void main() {
       pageSelectorOffset: 1,
       colorSpace: AdobeColorBookColorSpace.lab,
       colors: [
-        AdobeColorBookColor(name: '1', code: '   01E', values: [88, 4, 59]),
+        AdobeColorBookColor(name: '1', code: '   01E', values: [87, 4, 59]),
       ],
     ),
     'test/testdata/acb/ANPA Color.acb': AdobeColorBook(
@@ -61,7 +61,7 @@ void main() {
       pageSelectorOffset: 5,
       colorSpace: AdobeColorBookColorSpace.lab,
       colors: [
-        AdobeColorBookColor(name: '71-1', code: ' 71-1D', values: [98, -5, -5]),
+        AdobeColorBookColor(name: '71-1', code: ' 71-1D', values: [97, -5, -5]),
       ],
     ),
   };
@@ -172,42 +172,26 @@ void main() {
     expect(AdobeColorBook.isValidFormat(invalidBytes), isFalse);
   });
 
-  /*
-test('write acb file', () async {
-    final acb = AdobeColorSwatch(
-      version: supportedAdobeColorSwatchVersion,
-      colors: [
-        AdobeColorSwatchColor(
-          colorSpace: AdobeColorSwatchColorSpace.rgb,
-          values: [64, 128, 255],
-        ),
-        AdobeColorSwatchColor(
-          colorSpace: AdobeColorSwatchColorSpace.hsb,
-          values: [300, 50, 50],
-        ),
-        AdobeColorSwatchColor(
-          colorSpace: AdobeColorSwatchColorSpace.cmyk,
-          values: [10, 20, 30, 40],
-        ),
-        AdobeColorSwatchColor(
-          colorSpace: AdobeColorSwatchColorSpace.grayscale,
-          values: [0.5],
-        ),
-      ],
+  test('isValidFormat returns false for truncated ACB file', () {
+    final bytes = File('test/testdata/acb/acb1_v1.acb').readAsBytesSync();
+    expect(AdobeColorBook.isValidFormat(bytes.sublist(0, 10)), isFalse);
+    expect(
+      AdobeColorBook.isValidFormat(bytes.sublist(0, bytes.length ~/ 2)),
+      isFalse,
     );
-
-    // write to temp file
-    final acbFile = File('./test/test.acb');
-    encodeAdobeColorSwatch(acb, acbFile);
-
-    final decodedAcb = decodeAdobeColorSwatch(acbFile);
-    // print(decodedAcb.toJson());
-
-    expect(decodedAcb.version, equals(supportedAdobeColorSwatchVersion));
-    expect(decodedAcb.colors.length, equals(4));
-
-    // delete temp file
-    acbFile.deleteSync();
   });
-*/
+
+  test('unsupported color space throws and is not a valid format', () {
+    // acb1_v1.acb uses LAB (7); patch the color-space field to Pantone (3).
+    // Field offset: 8 + 4 pascal strings + 3 x uint16 header fields.
+    final bytes = File('test/testdata/acb/acb1_v1.acb').readAsBytesSync();
+    final patched = List<int>.from(bytes);
+    patched[290] = 0;
+    patched[291] = 3;
+    expect(AdobeColorBook.isValidFormat(patched), isFalse);
+    expect(
+      () => AdobeColorBook.fromBytes(patched),
+      throwsA(isA<UnsupportedError>()),
+    );
+  });
 }

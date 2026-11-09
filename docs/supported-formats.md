@@ -5,7 +5,7 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | Format | Extension | Class | Import | Export | Color Spaces |
 |---|---|---|---|:---:|:---:|---|
 | ASCII Color Format | `.acf` | `AcfPalette` | ✅ | ✅ | RGB, CMYK, Lab, HiFi |
-| Adobe Color Book | `.acb` | `AdobeColorBook` | ✅ | ❌ | RGB, HSB, CMYK, LAB, Grayscale, Pantone, Focoltone, Trumatch, Toyo, HKS |
+| Adobe Color Book | `.acb` | `AdobeColorBook` | ✅ | ❌ | RGB, CMYK, LAB³ |
 | Adobe Color Book Legacy | `.acbl` | `AdobeColorBookLegacy` | ✅ | ✅ | CMYK (free-form string; defaults to 4 channels, Float) |
 | Adobe Color Swatch | `.aco` | `AdobeColorSwatch` | ✅ | ✅ | RGB, HSB, CMYK, LAB, Grayscale, Wide CMYK |
 | Adobe Color Table | `.act` | `AdobeColorTable` | ✅ | ✅ | RGB |
@@ -46,6 +46,8 @@ The `color_palette_formats` package can read and write a wide range of color pal
 ¹ **Procreate v1 Swatches** does not expose a `fromBytes` factory on `ProcreateV1Palette`. To import, use the top-level `decodeProcreateV1Palettes(List<int> bytes)` function instead, which returns a `List<ProcreateV1Palette>` (v1 files can contain multiple palettes in a single archive).
 
 ² **Sketch Document** is an import-only extractor: `SketchDocumentPalette.fromBytes` reads Color Variables (`sharedSwatches`, falling back to legacy `assets` colors) from `document.json` inside the `.sketch` ZIP. There is no `toBytes` since a document cannot round-trip through a palette.
+
+³ **Adobe Color Book** decodes RGB, CMYK and LAB books. Files using HSB, Grayscale, Pantone, Focoltone, Trumatch, Toyo or HKS throw `UnsupportedError` (and report `isValidFormat == false`) instead of decoding to empty values.
 
 **Procreate v5 Swatches** does not use a Dart enum for color spaces. The format stores `colorSpace` and `colorModel` as raw `int` values and embeds an ICC profile (`ProcreateV5ColorProfile`) that can express RGB, CMYK, LAB, Gray, and other models at the ICC level.
 

@@ -47,7 +47,7 @@ Not a valid Adobe Color Book file: expected ${AdobeColorBook.validFileSignature}
 void _validateVersion(ByteDataReader buffer) {
   final version = buffer.readUint16();
   if (version != AdobeColorBook.validVersion) {
-    throw UnsupportedError(
+    throw FormatException(
       '''
 Unsupported version $version. Supported version: ${AdobeColorBook.validVersion}''',
     );
@@ -117,10 +117,12 @@ AdobeColorBookColor _readSingleColor(
 // --- Color Value Conversion Functions ---
 
 /// Default converter for unsupported/unhandled color spaces.
+/// Throws because silently returning no values would corrupt palettes
+/// (e.g. Pantone books, the most common real-world ACB files).
 List<int> _unsupportedConversion(List<int> rawValues) {
-  // For now, return an empty list for unsupported types.
-  // Consider logging a warning or throwing an error based on desired behavior.
-  return [];
+  throw UnsupportedError(
+    'Decoding this ACB color space is not supported.',
+  );
 }
 
 /// Converts RGB values (no conversion needed, returns a copy).
@@ -130,8 +132,9 @@ List<int> _convertRgbValues(List<int> rawValues) {
 
 /// Converts HSB values (currently unsupported).
 List<int> _convertHsbValues(List<int> rawValues) {
-  // HSB values seem to be stored differently or require specific conversion.
-  return _unsupportedConversion(rawValues); // Delegate to unsupported handler
+  // HSB books have no known conversion; fail loudly instead of
+  // returning empty values.
+  return _unsupportedConversion(rawValues);
 }
 
 /// Converts CMYK values from Adobe's format to standard 0-100 range.
@@ -140,10 +143,10 @@ List<int> _convertCmykValues(List<int> rawValues) {
 
   // Adobe stores CMYK as 0-255 (inverted), convert to 0-100.
   return [
-    ((255 - rawValues[0]) / cmykConversionFactor + 0.5).round(), // C
-    ((255 - rawValues[1]) / cmykConversionFactor + 0.5).round(), // M
-    ((255 - rawValues[2]) / cmykConversionFactor + 0.5).round(), // Y
-    ((255 - rawValues[3]) / cmykConversionFactor + 0.5).round(), // K
+    ((255 - rawValues[0]) / cmykConversionFactor).round(), // C
+    ((255 - rawValues[1]) / cmykConversionFactor).round(), // M
+    ((255 - rawValues[2]) / cmykConversionFactor).round(), // Y
+    ((255 - rawValues[3]) / cmykConversionFactor).round(), // K
   ];
 }
 
@@ -155,7 +158,7 @@ List<int> _convertLabValues(List<int> rawValues) {
   // Adobe stores L as 0-255, a* and b* as 0-255 (offset by 128).
   // Convert L to 0-100, a* and b* to -128 to 127.
   return [
-    (rawValues[0] / labLightnessConversionFactor + 0.5).round(), // L* (0-100)
+    (rawValues[0] / labLightnessConversionFactor).round(), // L* (0-100)
     rawValues[1] - labComponentOffset, // a* (-128 to 127)
     rawValues[2] - labComponentOffset, // b* (-128 to 127)
   ];
