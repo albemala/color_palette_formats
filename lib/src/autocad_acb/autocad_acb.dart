@@ -21,7 +21,9 @@ part 'encode.dart';
  *   three-letter codes. The encryption scheme is unpublished and no public
  *   decoder exists, so encrypted codes are preserved raw without decoding.
  *   Colors from every page are concatenated into a single list; the page
- *   color of the first page is kept. Not the same format as the Adobe `.acb`.
+ *   color of the first page is kept. The encoder always writes a single
+ *   `colorPage`, so multi-page structure does not round-trip.
+ *   Not the same format as the Adobe `.acb`.
  * References:
  * - http://www.selapa.net/swatches/colors/fileformats.php
  * - https://www.cadforum.cz/en/how-to-create-a-custom-color-book-acb-palette-in-autocad-tip8649/
@@ -108,11 +110,11 @@ class AutoCadColorBook with AutoCadColorBookMappable {
   }
 
   /// Checks if the provided bytes represent a valid AutoCAD Color Book.
+  /// Runs a full decode so files with a valid root element but a broken
+  /// body are rejected (a root-only check would accept them).
   static bool isValidFormat(List<int> bytes) {
     try {
-      final xmlString = utf8.decode(bytes);
-      final document = parseXml(xmlString);
-      validateRootElement(document, AutoCadAcbConstants.colorBook);
+      _decode(bytes);
       return true;
     } catch (_) {
       return false;

@@ -29,9 +29,25 @@ void _buildRgbValue(
   List<String>? encryptedRgb,
 ) {
   if (rgb != null) {
+    if (rgb.length != 3) {
+      throw StateError(
+        'Cannot encode AutoCAD Color Book color: rgb must have 3 values.',
+      );
+    }
     _buildRgb8(builder, rgb);
+  } else if (encryptedRgb != null) {
+    if (encryptedRgb.length != 3) {
+      throw StateError(
+        'Cannot encode AutoCAD Color Book color: '
+        'encryptedRgb must have 3 values.',
+      );
+    }
+    _buildRgb8Encrypt(builder, encryptedRgb);
   } else {
-    _buildRgb8Encrypt(builder, encryptedRgb!);
+    throw StateError(
+      'Cannot encode AutoCAD Color Book color: '
+      'either rgb or encryptedRgb must be set.',
+    );
   }
 }
 

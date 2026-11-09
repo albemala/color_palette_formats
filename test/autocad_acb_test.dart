@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:color_palette_formats/color_palette_formats.dart';
@@ -122,6 +123,92 @@ void main() {
       listEquals(book.colors[1].encryptedRgb, ['OMU', 'NLE', 'AIN']),
       isTrue,
     );
+  });
+
+  test('isValidFormat rejects valid root with broken body', () {
+    String doc(String body) =>
+        '<?xml version="1.0" encoding="UTF-8"?><colorBook>$body</colorBook>';
+    const pageColor =
+        '<pageColor><RGB8><red>0</red><green>0</green><blue>0</blue></RGB8>'
+        '</pageColor>';
+    const entry =
+        '<colorEntry><colorName>C</colorName><RGB8><red>1</red><green>2</green>'
+        '<blue>3</blue></RGB8></colorEntry>';
+    final cases = {
+      'no pages': doc('<bookName>B</bookName>'),
+      'no colors': doc('<colorPage>$pageColor</colorPage>'),
+      'missing bookName': doc('<colorPage>$pageColor$entry</colorPage>'),
+      'out-of-range channel': doc(
+        '<bookName>B</bookName><colorPage>$pageColor'
+        '<colorEntry><colorName>C</colorName><RGB8><red>300</red>'
+        '<green>0</green><blue>0</blue></RGB8></colorEntry></colorPage>',
+      ),
+      'non-integer channel': doc(
+        '<bookName>B</bookName><colorPage>$pageColor'
+        '<colorEntry><colorName>C</colorName><RGB8><red>xx</red>'
+        '<green>0</green><blue>0</blue></RGB8></colorEntry></colorPage>',
+      ),
+      'entry with no RGB values': doc(
+        '<bookName>B</bookName><colorPage>$pageColor'
+        '<colorEntry><colorName>C</colorName></colorEntry></colorPage>',
+      ),
+      'empty encrypted code': doc(
+        '<bookName>B</bookName><colorPage><pageColor><RGB8Encrypt>'
+        '<redEncrypt></redEncrypt><greenEncrypt>B</greenEncrypt>'
+        '<blueEncrypt>C</blueEncrypt></RGB8Encrypt></pageColor>'
+        '$entry</colorPage>',
+      ),
+      'truncated': doc('<bookName>B</bookName><colorPage>$pageColor$entry'),
+    };
+    cases.forEach((reason, xml) {
+      final bytes = utf8.encode(xml);
+      expect(AutoCadColorBook.isValidFormat(bytes), isFalse, reason: reason);
+      expect(
+        () => AutoCadColorBook.fromBytes(bytes),
+        throwsA(isA<FormatException>()),
+        reason: reason,
+      );
+    });
+  });
+
+  test('concatenates multi-page colors keeping first pageColor', () {
+    const rgb = '<RGB8><red>1</red><green>2</green><blue>3</blue></RGB8>';
+    const rgb2 = '<RGB8><red>9</red><green>8</green><blue>7</blue></RGB8>';
+    String entry(String name, String values) =>
+        '<colorEntry><colorName>$name</colorName>$values</colorEntry>';
+    final xml =
+        '<?xml version="1.0" encoding="UTF-8"?><colorBook> '
+        '<bookName>Multi</bookName>'
+        '<colorPage><pageColor>$rgb</pageColor>${entry('A', rgb)}</colorPage>'
+        '<colorPage><pageColor>$rgb2</pageColor>${entry('B', rgb2)}</colorPage>'
+        '</colorBook>';
+    final book = AutoCadColorBook.fromBytes(utf8.encode(xml));
+    expect(book.colors.length, equals(2));
+    expect(listEquals(book.pageColor.rgb, [1, 2, 3]), isTrue);
+    expect(book.colors[0].name, equals('A'));
+    expect(book.colors[1].name, equals('B'));
+    // The encoder collapses to a single colorPage.
+    final reEncoded = utf8.decode(book.toBytes());
+    expect('<colorPage>'.allMatches(reEncoded).length, equals(1));
+  });
+
+  test('plain RGB8 wins when both shapes are present', () {
+    const both =
+        '<RGB8><red>1</red><green>2</green><blue>3</blue></RGB8>'
+        '<RGB8Encrypt><redEncrypt>AAA</redEncrypt>'
+        '<greenEncrypt>BBB</greenEncrypt>'
+        '<blueEncrypt>CCC</blueEncrypt></RGB8Encrypt>';
+    const xml =
+        '<?xml version="1.0" encoding="UTF-8"?><colorBook> '
+        '<bookName>B</bookName>'
+        '<colorPage><pageColor>$both</pageColor>'
+        '<colorEntry><colorName>C</colorName>$both</colorEntry>'
+        '</colorPage></colorBook>';
+    final book = AutoCadColorBook.fromBytes(utf8.encode(xml));
+    expect(listEquals(book.pageColor.rgb, [1, 2, 3]), isTrue);
+    expect(book.pageColor.encryptedRgb, isNull);
+    expect(listEquals(book.colors.single.rgb, [1, 2, 3]), isTrue);
+    expect(book.colors.single.encryptedRgb, isNull);
   });
 
   test('isValidFormat returns false for invalid AutoCAD ACB file', () {
