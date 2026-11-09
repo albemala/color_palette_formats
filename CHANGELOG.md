@@ -1,112 +1,98 @@
 ## 5.1.1
 
-- Updated project links in README (portfolio v5 migration)
+- Changed project links in `README.md` to point to the new portfolio site.
+
 
 ## 5.1.0
 
-### Added
-- **AffinityDesignerPalette.supportedVersions** — new list of supported file versions
+- Added `supportedVersions` to `AffinityDesignerPalette`.
+- Changed `AffinityDesignerPalette.fromBytes` to decode version 12 files instead of throwing an unsupported-version error.
 
-### Changed
-- **AffinityDesignerPalette.fromBytes** now decodes version 12 files instead of throwing an unsupported-version error
 
 ## 5.0.2
 
-- **StarOffice Colors** — decode palettes using both legacy and OASIS namespace variants
+- Changed StarOffice Colors decoding to accept both legacy and OASIS namespace variants.
+
 
 ## 5.0.1
 
-- Changed file names to fix linter issues
+- Changed internal file names.
+
 
 ## 5.0.0
 
-### Added
-- Implemented reading and writing ColorSchemer format.
-- Implemented reading and writing Rebelle file format.
-- Implemented reading Affinity file format.
-- Added support for LAB color model in ASE format.
-
-### Fixed
-- Fixed reading ASE format with empty color names.
-
-### Other Changes
-- Updated linter rules.
+- Added ColorSchemer reading and writing.
+- Added Rebelle reading and writing.
+- Added Affinity reading.
+- Added `LAB` color model support in ASE format.
+- Fixed reading ASE palettes with empty color names.
 
 
 ## 4.0.0
 
-### Breaking Changes
-- Changed default properties to be required in the constructors.
-
-### Added
-- Implemented reading ArtRage file format.
-- Implemented reading CxF file format.
-
-### Other Changes
-- Upgraded dependencies.
+- BREAKING: Changed default properties to be required in constructors.
+- Added ArtRage reading.
+- Added CxF reading.
 
 
 ## 3.0.0
 
-### Breaking Changes
-- Renamed Jasc format to Paint Shop Pro.
-- Renamed Procreate Swatches format to Procreate V1 Palette.
-- Reworked GIMP palette API.
-- Changed how valid versions and file signatures are handled.
-- Now targeting Dart >= 3.7 and Flutter >= 3.29.
-
-### Added
-- Added support for Adobe Color Book Legacy (ACBL) format.
-- Added support for CorelDraw 4 Palette (PAL) format.
-- Added support for KOffice Palette (.colors) format.
-- Added support for Scribus Swatch (.xml) format.
-- Added support for Skencil Palette (.spl) format.
-- Added support for StarOffice Colors (SOC) format.
-- Added support for sK1 Palette (.skp) format.
-- Added support for Procreate v5 Swatches (.swatches) format.
-- Added functions to validate palette formats.
-- Added parameters validation in constructors.
+- BREAKING: Renamed Jasc format to Paint Shop Pro.
+- BREAKING: Renamed Procreate Swatches format to Procreate V1 Palette.
+- BREAKING: Reworked GIMP palette API.
+- BREAKING: Changed Dart SDK constraint to `>=3.7.0 <4.0.0`.
+- Changed handling of valid versions and file signatures.
+- Changed Flutter requirement to 3.29.
+- Added Adobe Color Book Legacy (ACBL) format support.
+- Added CorelDraw 4 Palette (PAL) format support.
+- Added KOffice Palette (`.colors`) format support.
+- Added Scribus Swatch (`.xml`) format support.
+- Added Skencil Palette (`.spl`) format support.
+- Added StarOffice Colors (SOC) format support.
+- Added sK1 Palette (`.skp`) format support.
+- Added Procreate v5 Swatches (`.swatches`) format support.
+- Added palette format validation functions.
+- Added parameter validation in constructors.
 
 
 ## 2.0.3
 
-- Upgraded dependencies
-- Updated funding information
+- Changed dependencies.
+- Changed funding information.
 
 
 ## 2.0.2
 
-- Updated readme
+- Changed `README.md`.
 
 
 ## 2.0.1
 
-- Ignore unknown block type when decoding ase format
-- Upgraded `dart_mappable` to latest version
+- Changed ASE decoding to ignore unknown block types.
 
 
 ## 2.0.0
 
-- **Breaking Change**: Reworked API to accept only bytes. The new API now uses `<PaletteClass>.fromBytes()` to decode
-  and `palette.toBytes()` to encode.
+- BREAKING: Reworked API to accept only bytes; decode with `<PaletteClass>.fromBytes` and encode with `palette.toBytes`.
 
 
 ## 1.1.2
 
-- Fixed linter issues
+- Fixed linter warnings.
 
 
 ## 1.1.1
 
-- Fixed linter issues
+- Fixed linter warnings.
 
 
 ## 1.1.0
 
-- Targeting dart 3.2 and flutter 3.16
-- Replaced `freezed` with `dart_mappable`
+- BREAKING: Changed Dart SDK constraint to `>=3.2.0 <4.0.0`.
+- Changed Flutter requirement to 3.16.
+- Changed code generation from `freezed` to `dart_mappable`.
 
 
 ## 1.0.0
 
-- First release
+- first release
