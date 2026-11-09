@@ -16,6 +16,7 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | Binary Color Format | `.bcf` | `BcfPalette` | ✅ | ✅ | XYZ, CMYK, RGB, Lab, HiFi |
 | ColorSchemer Studio | `.cs` | `ColorSchemerPalette` | ✅ | ✅ | RGB |
 | CorelDraw 4 Palette | `.pal` | `CorelDraw4Palette` | ✅ | ✅ | CMYK |
+| Corel Palette | `.cpl` | `CplPalette` | ✅ | ✅ | RGB, CMYK, CMY, HSB, HLS, Grayscale, B/W, YIQ, Lab, Hexachrome |
 | Corel Painter Palette | `.txt` | `PainterPalette` | ✅ | ✅ | RGB |
 | Color Exchange Format | `.cxf` | `CxfPalette` | ✅ | ❌ | CIE Lab |
 | Flash Color Set | `.clr` | `ClrPalette` | ✅ | ✅ | RGB + Alpha, HSV |

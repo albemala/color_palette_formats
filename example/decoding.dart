@@ -252,6 +252,19 @@ void main() {
     ClrPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<CplPalette>(
+    [
+      'test/testdata/cpl/std-double.cpl',
+      'test/testdata/cpl/std-single.cpl',
+      'test/testdata/cpl/long-single.cpl',
+      'test/testdata/cpl/long-double.cpl',
+      'test/testdata/cpl/short-header.cpl',
+      'test/testdata/cpl/x4.cpl',
+      'test/testdata/cpl/custom.cpl',
+    ],
+    CplPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

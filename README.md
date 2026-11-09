@@ -21,6 +21,7 @@ Currently, the package supports the following formats (see `docs/supported-forma
 | Binary Color Format | ✅ | ✅ |
 | ColorSchemer Studio | ✅ | ✅ |
 | CorelDraw 4 Palette | ✅ | ✅ |
+| Corel Palette | ✅ | ✅ |
 | Corel Painter Palette | ✅ | ✅ |
 | Color Exchange Format | ✅ | ❌ |
 | Flash Color Set | ✅ | ✅ |

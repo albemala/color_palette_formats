@@ -11,6 +11,7 @@ export 'src/bcf/bcf.dart';
 export 'src/clr/clr.dart';
 export 'src/colorschemer/colorschemer.dart';
 export 'src/coreldraw4/coreldraw4.dart';
+export 'src/cpl/cpl.dart';
 export 'src/cui/cui.dart';
 export 'src/cxf/cxf.dart';
 export 'src/gimp/gimp.dart';

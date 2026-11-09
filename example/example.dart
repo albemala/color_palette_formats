@@ -170,4 +170,9 @@ void main() {
   final clrFile = File('path/to/file.clr');
   final clr = ClrPalette.fromBytes(clrFile.readAsBytesSync());
   assert(clr.colors.length == 3);
+
+  // Example: Reading a CPL (Corel Palette) file.
+  final cplFile = File('path/to/file.cpl');
+  final cpl = CplPalette.fromBytes(cplFile.readAsBytesSync());
+  assert(cpl.colors.length == 2);
 }
