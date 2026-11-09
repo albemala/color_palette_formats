@@ -5,27 +5,37 @@
 A package for decoding and encoding various color palette formats. It allows Flutter apps to read and write color data
 across a wide range of industry-standard formats.
 
-Currently, the package supports the following formats:
+Currently, the package supports the following formats (see `docs/supported-formats.md` for the extended version with file extensions, classes, and color spaces):
 
-- Adobe Color Book (ACB)
-- Adobe Color Book Legacy (ACBL)
-- Adobe Color Swatch (ACO)
-- Adobe Color Table (ACT)
-- Adobe Swatch Exchange (ASE)
-- CorelDraw 4 Palette (PAL)
-- GIMP Palette (GPL)
-- Homesite Palette (HPL)
-- KOffice Palette (.colors)
-- Paint.NET Palette (.txt)
-- Procreate v1 Swatches (.swatches)
-- Procreate v5 Swatches (.swatches)
-- Jasc / Corel Paint Shop Pro (.pal, .psppalette)
-- Resource Interchange File Format (RIFF)
-- Scribus Swatch (.xml)
-- sK1 Palette (.skp)
-- Skencil Palette (.spl)
-- Sketch Palette (.sketchpalette)
-- StarOffice Colors (SOC)
+| Format | Import | Export |
+|---|---|:---:|:---:|
+| ASCII Color Format | ✅ | ✅ |
+| Adobe Color Book | ✅ | ❌ |
+| Adobe Color Book Legacy | ✅ | ✅ |
+| Adobe Color Swatch | ✅ | ✅ |
+| Adobe Color Table | ✅ | ✅ |
+| Adobe Swatch Exchange | ✅ | ✅ |
+| Affinity Designer Palette | ✅ | ❌ |
+| ArtRage 6 Palette | ✅ | ❌ |
+| ColorSchemer Studio | ✅ | ✅ |
+| CorelDraw 4 Palette | ✅ | ✅ |
+| Color Exchange Format | ✅ | ❌ |
+| GIMP Palette | ✅ | ✅ |
+| Homesite Palette | ✅ | ✅ |
+| KOffice Palette | ✅ | ✅ |
+| Paint.NET Palette | ✅ | ✅ |
+| Procreate v1 Swatches¹ | ❌ | ✅ |
+| Procreate v5 Swatches | ✅ | ✅ |
+| Jasc / Corel Paint Shop Pro | ✅ | ✅ |
+| Rebelle Palette | ✅ | ✅ |
+| Resource Interchange File Format | ✅ | ✅ |
+| Scribus Swatch | ✅ | ✅ |
+| sK1 Palette | ✅ | ✅ |
+| Skencil Palette | ✅ | ✅ |
+| Sketch Palette | ✅ | ✅ |
+| StarOffice Colors | ✅ | ✅ |
+
+¹ Procreate v1 files are imported via the top-level `decodeProcreateV1Palettes` function instead of a `fromBytes` factory.
 
 ## Examples
 

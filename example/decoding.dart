@@ -21,6 +21,11 @@ void main() {
     AdobeColorBookLegacy.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<AcfPalette>(
+    ['test/testdata/acf/acf1_v1.0.acf', 'test/testdata/acf/acf2_v2.1.acf'],
+    AcfPalette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<AdobeColorSwatch>(
     [
       'test/testdata/aco/aco1_v1.aco',

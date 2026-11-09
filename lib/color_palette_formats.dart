@@ -1,5 +1,6 @@
 export 'src/acb/acb.dart';
 export 'src/acbl/acbl.dart';
+export 'src/acf/acf.dart';
 export 'src/aco/aco.dart';
 export 'src/act/act.dart';
 export 'src/afpalette/afpalette.dart';

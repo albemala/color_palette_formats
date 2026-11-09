@@ -2,32 +2,33 @@
 
 The `color_palette_formats` package can read and write a wide range of color palette file formats. The table below summarizes every format supported by the package, whether it can be imported (decoded) and exported (encoded), and the color spaces it supports.
 
-| Format | Class | Import | Export | Color Spaces |
-|---|---|:---:|:---:|---|
-| Adobe Color Book (ACB) | `AdobeColorBook` | ✅ | ❌ | RGB, HSB, CMYK, LAB, Grayscale, Pantone, Focoltone, Trumatch, Toyo, HKS |
-| Adobe Color Book Legacy (ACBL) | `AdobeColorBookLegacy` | ✅ | ✅ | CMYK (free-form string; defaults to 4 channels, Float) |
-| Adobe Color Swatch (ACO) | `AdobeColorSwatch` | ✅ | ✅ | RGB, HSB, CMYK, LAB, Grayscale, Wide CMYK |
-| Adobe Color Table (ACT) | `AdobeColorTable` | ✅ | ✅ | RGB |
-| Adobe Swatch Exchange (ASE) | `AdobeSwatchExchange` | ✅ | ✅ | RGB, CMYK, Gray, LAB |
-| Affinity Designer Palette | `AffinityDesignerPalette` | ✅ | ❌ | RGB + Alpha |
-| ArtRage 6 Palette | `Artrage6Palette` | ✅ | ❌ | RGB + Alpha |
-| ColorSchemer Studio | `ColorSchemerPalette` | ✅ | ✅ | RGB |
-| CorelDraw 4 Palette (PAL) | `CorelDraw4Palette` | ✅ | ✅ | CMYK |
-| Color Exchange Format (CXF) | `CxfPalette` | ✅ | ❌ | CIE Lab |
-| GIMP Palette (GPL) | `GimpPalette` | ✅ | ✅ | RGB |
-| Homesite Palette (HPL) | `HomesitePalette` | ✅ | ✅ | RGB |
-| KOffice Palette (.colors) | `KOfficePalette` | ✅ | ✅ | RGB |
-| Paint.NET Palette (.txt) | `PaintDotNetPalette` | ✅ | ✅ | RGB + Alpha |
-| Procreate v1 Swatches | `ProcreateV1Palette` | ❌¹ | ✅ | HSB |
-| Procreate v5 Swatches | `ProcreateV5Palette` | ✅ | ✅ | Multi-model (RGB, CMYK, LAB, Gray) via raw int + ICC profile |
-| Jasc / Corel Paint Shop Pro | `PaintShopProPalette` | ✅ | ✅ | RGB |
-| Rebelle Palette | `RebellePalette` | ✅ | ✅ | RGB |
-| Resource Interchange File Format (RIFF) | `ResourceInterchangeFileFormat` | ✅ | ✅ | RGB |
-| Scribus Swatch | `ScribusPalette` | ✅ | ✅ | RGB (hex) |
-| sK1 Palette (.skp) | `Sk1Palette` | ✅ | ✅ | RGB, CMYK, Gray |
-| Skencil Palette (.spl) | `SkencilPalette` | ✅ | ✅ | RGB |
-| Sketch Palette (.sketchpalette) | `SketchPalette` | ✅ | ✅ | RGB + Alpha |
-| StarOffice Colors (SOC) | `StarOfficeColorTable` | ✅ | ✅ | RGB (hex) |
+| Format | Extension | Class | Import | Export | Color Spaces |
+|---|---|---|---|:---:|:---:|---|
+| ASCII Color Format | `.acf` | `AcfPalette` | ✅ | ✅ | RGB, CMYK, Lab, HiFi |
+| Adobe Color Book | `.acb` | `AdobeColorBook` | ✅ | ❌ | RGB, HSB, CMYK, LAB, Grayscale, Pantone, Focoltone, Trumatch, Toyo, HKS |
+| Adobe Color Book Legacy | `.acbl` | `AdobeColorBookLegacy` | ✅ | ✅ | CMYK (free-form string; defaults to 4 channels, Float) |
+| Adobe Color Swatch | `.aco` | `AdobeColorSwatch` | ✅ | ✅ | RGB, HSB, CMYK, LAB, Grayscale, Wide CMYK |
+| Adobe Color Table | `.act` | `AdobeColorTable` | ✅ | ✅ | RGB |
+| Adobe Swatch Exchange | `.ase` | `AdobeSwatchExchange` | ✅ | ✅ | RGB, CMYK, Gray, LAB |
+| Affinity Designer Palette | `.afpalette` | `AffinityDesignerPalette` | ✅ | ❌ | RGB + Alpha |
+| ArtRage 6 Palette | `.col` | `Artrage6Palette` | ✅ | ❌ | RGB + Alpha |
+| ColorSchemer Studio | `.cs` | `ColorSchemerPalette` | ✅ | ✅ | RGB |
+| CorelDraw 4 Palette | `.pal` | `CorelDraw4Palette` | ✅ | ✅ | CMYK |
+| Color Exchange Format | `.cxf` | `CxfPalette` | ✅ | ❌ | CIE Lab |
+| GIMP Palette | `.gpl`, `.gimp` | `GimpPalette` | ✅ | ✅ | RGB |
+| Homesite Palette | `.hpl` | `HomesitePalette` | ✅ | ✅ | RGB |
+| KOffice Palette | `.colors` | `KOfficePalette` | ✅ | ✅ | RGB |
+| Paint.NET Palette | `.txt` | `PaintDotNetPalette` | ✅ | ✅ | RGB + Alpha |
+| Procreate v1 Swatches | `.swatches` | `ProcreateV1Palette` | ❌¹ | ✅ | HSB |
+| Procreate v5 Swatches | `.swatches` | `ProcreateV5Palette` | ✅ | ✅ | Multi-model (RGB, CMYK, LAB, Gray) via raw int + ICC profile |
+| Jasc / Corel Paint Shop Pro | `.pal`, `.psppalette` | `PaintShopProPalette` | ✅ | ✅ | RGB |
+| Rebelle Palette | `.txt`, `.colors` | `RebellePalette` | ✅ | ✅ | RGB |
+| Resource Interchange File Format | `.pal` | `ResourceInterchangeFileFormat` | ✅ | ✅ | RGB |
+| Scribus Swatch | `.xml` | `ScribusPalette` | ✅ | ✅ | RGB (hex) |
+| sK1 Palette | `.skp` | `Sk1Palette` | ✅ | ✅ | RGB, CMYK, Gray |
+| Skencil Palette | `.spl` | `SkencilPalette` | ✅ | ✅ | RGB |
+| Sketch Palette | `.sketchpalette` | `SketchPalette` | ✅ | ✅ | RGB + Alpha |
+| StarOffice Colors | `.soc` | `StarOfficeColorTable` | ✅ | ✅ | RGB (hex) |
 
 ## Notes
 

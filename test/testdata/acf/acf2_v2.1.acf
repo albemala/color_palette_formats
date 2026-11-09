@@ -1,0 +1,26 @@
+ACF 2.1
+Test HiFi Palette
+LibraryVersion: 2.0
+Copyright: Test
+AboutMessage: Test hifi palette for unit tests
+Names: Partial
+Rows: 2
+Columns: 1
+Entries: 2
+Prefix: PANTONE
+Suffix: C
+Type: Mixed
+Models: CMYK RGB
+PreferredModel: CMYK
+Inks: 2
+Orange Ink
+Green Ink
+Data:
+0 32896 65535 0
+65535 32639 20560
+Spot
+Orange 021
+0 65535 65535 0
+0 65535 65535
+Process
+Green

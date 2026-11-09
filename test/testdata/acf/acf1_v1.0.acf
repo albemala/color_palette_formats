@@ -1,0 +1,21 @@
+ACF 1.0
+Test Palette
+LibraryVersion: 1.0
+Copyright: Test
+AboutMessage: Test palette for unit tests
+Names: Full
+Rows: 1
+Columns: 3
+Entries: 3
+Prefix: 
+Suffix: 
+Type: Process
+Models: RGB
+PreferredModel: RGB
+Data:
+65535 0 0
+Red
+0 65535 0
+Green
+0 0 65535
+Blue

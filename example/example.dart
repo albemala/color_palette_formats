@@ -17,6 +17,11 @@ void main() {
   assert(acbl.bookId == 3002);
   assert(acbl.colors.length == 11);
 
+  // Example: Reading an ACF (ASCII Color Format) file.
+  final acfFile = File('path/to/file.acf');
+  final acf = AcfPalette.fromBytes(acfFile.readAsBytesSync());
+  assert(acf.colors.length == 3);
+
   // Example: Reading an ACO (Adobe Color Swatch) file.
   final acoFile = File('path/to/file.aco');
   final aco = AdobeColorSwatch.fromBytes(acoFile.readAsBytesSync());
