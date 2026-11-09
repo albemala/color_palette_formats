@@ -265,6 +265,15 @@ void main() {
     CplPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<BcsPalette>(
+    [
+      'test/testdata/bcs/alligator-clf.bcs',
+      'test/testdata/bcs/designer-atl.bcs',
+      'test/testdata/bcs/atlas-rgb.bcs',
+    ],
+    BcsPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

@@ -33,6 +33,7 @@ Currently, the package supports the following formats (see `docs/supported-forma
 | Procreate v5 Swatches | ✅ | ✅ |
 | QuarkXPress Color Library | ✅ | ✅ |
 | QuarkXPress UI Specs | ✅ | ✅ |
+| RAL BCS | ✅ | ✅ |
 | Jasc / Corel Paint Shop Pro | ✅ | ✅ |
 | Rebelle Palette | ✅ | ✅ |
 | Resource Interchange File Format | ✅ | ✅ |

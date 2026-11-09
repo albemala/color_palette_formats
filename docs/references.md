@@ -33,7 +33,7 @@ Spec links, sample files, and related open-source implementations collected whil
 - Corel CPL: selapa section (4 version families + model table) + SwatchBooker reference reader (`corel_cpl.py`, little-endian, header offsets): https://github.com/olivierberten/SwatchBooker/blob/master/src/swatchbook/codecs/corel_cpl.py + CMX 8 spec helped decode it (via selapa): http://web.archive.org/web/*/ftp.corel.com/CorelSolutionPartners/CMXv8/CMXv800.pdf
 - RIFF PAL: official RIFF doc http://alpha.tmit.bme.hu/pub/audio/doc/riffmci.rtf and unofficial notes http://www.warpspeed.com.au/cgi-bin/inf2html.cmd?..%5Chtml%5Cbook%5CToolkt40%5CMMREF3.INF+2264
 - QCL: files follow CGATS.17 with a `.cui` UI-spec sidecar (see selapa).
-- RAL BCS: selapa section only, no known standalone spec.
+- RAL BCS: selapa section (`Alligator Collection 3000.bcs` hexdump) + SwatchBooker reference reader (`ral_bcs.py`, little-endian, offset-based bilingual headers, 3x float32 Lab): https://github.com/olivierberten/SwatchBooker/blob/master/src/swatchbook/codecs/ral_bcs.py
 
 ## AutoCAD ACB
 

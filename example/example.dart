@@ -175,4 +175,9 @@ void main() {
   final cplFile = File('path/to/file.cpl');
   final cpl = CplPalette.fromBytes(cplFile.readAsBytesSync());
   assert(cpl.colors.length == 2);
+
+  // Example: Reading a BCS (RAL BCS) file.
+  final bcsFile = File('path/to/file.bcs');
+  final bcs = BcsPalette.fromBytes(bcsFile.readAsBytesSync());
+  assert(bcs.colors.length == 2);
 }

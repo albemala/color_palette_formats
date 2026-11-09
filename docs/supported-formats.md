@@ -28,6 +28,7 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | Procreate v5 Swatches | `.swatches` | `ProcreateV5Palette` | ✅ | ✅ | Multi-model (RGB, CMYK, LAB, Gray) via raw int + ICC profile |
 | QuarkXPress Color Library | `.qcl` | `QuarkXPressPalette` | ✅ | ✅ | RGB, CMYK, Lab, Hexachrome |
 | QuarkXPress UI Specs | `.cui` | `QuarkXPressCui` | ✅ | ✅ | Display layout only (no colors) |
+| RAL BCS | `.bcs` | `BcsPalette` | ✅ | ✅ | Lab |
 | Jasc / Corel Paint Shop Pro | `.pal`, `.psppalette` | `PaintShopProPalette` | ✅ | ✅ | RGB |
 | Rebelle Palette | `.txt`, `.colors` | `RebellePalette` | ✅ | ✅ | RGB |
 | Resource Interchange File Format | `.pal` | `ResourceInterchangeFileFormat` | ✅ | ✅ | RGB |
