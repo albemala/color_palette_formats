@@ -84,9 +84,8 @@ AdobeColorBookLegacyFormat _parseFormat(XmlElement element) {
 
 AdobeColorBookLegacyColor _parseColor(XmlElement element) {
   final name = getAttribute(element, AcblConstants.nameAttr);
-  final colorElement = element
-      .findElements(AcblConstants.colorValues)
-      .firstOrNull;
+  final colorElement =
+      element.findElements(AcblConstants.colorValues).firstOrNull;
 
   if (colorElement == null) {
     throw FormatException(

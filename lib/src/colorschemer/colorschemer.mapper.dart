@@ -260,11 +260,10 @@ mixin ColorSchemerPaletteMappable {
     ColorSchemerPalette,
     ColorSchemerPalette
   >
-  get copyWith =>
-      _ColorSchemerPaletteCopyWithImpl<
-        ColorSchemerPalette,
-        ColorSchemerPalette
-      >(this as ColorSchemerPalette, $identity, $identity);
+  get copyWith => _ColorSchemerPaletteCopyWithImpl<
+    ColorSchemerPalette,
+    ColorSchemerPalette
+  >(this as ColorSchemerPalette, $identity, $identity);
   @override
   String toString() {
     return ColorSchemerPaletteMapper.ensureInitialized().stringifyValue(

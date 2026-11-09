@@ -102,11 +102,10 @@ mixin AffinityDesignerPaletteColorMappable {
     AffinityDesignerPaletteColor,
     AffinityDesignerPaletteColor
   >
-  get copyWith =>
-      _AffinityDesignerPaletteColorCopyWithImpl<
-        AffinityDesignerPaletteColor,
-        AffinityDesignerPaletteColor
-      >(this as AffinityDesignerPaletteColor, $identity, $identity);
+  get copyWith => _AffinityDesignerPaletteColorCopyWithImpl<
+    AffinityDesignerPaletteColor,
+    AffinityDesignerPaletteColor
+  >(this as AffinityDesignerPaletteColor, $identity, $identity);
   @override
   String toString() {
     return AffinityDesignerPaletteColorMapper.ensureInitialized()
@@ -278,11 +277,10 @@ mixin AffinityDesignerPaletteMappable {
     AffinityDesignerPalette,
     AffinityDesignerPalette
   >
-  get copyWith =>
-      _AffinityDesignerPaletteCopyWithImpl<
-        AffinityDesignerPalette,
-        AffinityDesignerPalette
-      >(this as AffinityDesignerPalette, $identity, $identity);
+  get copyWith => _AffinityDesignerPaletteCopyWithImpl<
+    AffinityDesignerPalette,
+    AffinityDesignerPalette
+  >(this as AffinityDesignerPalette, $identity, $identity);
   @override
   String toString() {
     return AffinityDesignerPaletteMapper.ensureInitialized().stringifyValue(

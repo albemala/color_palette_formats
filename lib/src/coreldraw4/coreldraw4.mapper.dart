@@ -94,11 +94,10 @@ mixin CorelDraw4PaletteColorMappable {
     CorelDraw4PaletteColor,
     CorelDraw4PaletteColor
   >
-  get copyWith =>
-      _CorelDraw4PaletteColorCopyWithImpl<
-        CorelDraw4PaletteColor,
-        CorelDraw4PaletteColor
-      >(this as CorelDraw4PaletteColor, $identity, $identity);
+  get copyWith => _CorelDraw4PaletteColorCopyWithImpl<
+    CorelDraw4PaletteColor,
+    CorelDraw4PaletteColor
+  >(this as CorelDraw4PaletteColor, $identity, $identity);
   @override
   String toString() {
     return CorelDraw4PaletteColorMapper.ensureInitialized().stringifyValue(

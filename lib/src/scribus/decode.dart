@@ -7,10 +7,11 @@ ScribusPalette _decode(List<int> bytes) {
 
   return ScribusPalette(
     name: getAttribute(root, ScribusConstants.nameAttr),
-    colors: root
-        .findElements(ScribusConstants.colorElement)
-        .map(_parseColor)
-        .toList(),
+    colors:
+        root
+            .findElements(ScribusConstants.colorElement)
+            .map(_parseColor)
+            .toList(),
   );
 }
 

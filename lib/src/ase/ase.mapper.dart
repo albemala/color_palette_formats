@@ -208,11 +208,10 @@ mixin AdobeSwatchExchangeColorMappable {
     AdobeSwatchExchangeColor,
     AdobeSwatchExchangeColor
   >
-  get copyWith =>
-      _AdobeSwatchExchangeColorCopyWithImpl<
-        AdobeSwatchExchangeColor,
-        AdobeSwatchExchangeColor
-      >(this as AdobeSwatchExchangeColor, $identity, $identity);
+  get copyWith => _AdobeSwatchExchangeColorCopyWithImpl<
+    AdobeSwatchExchangeColor,
+    AdobeSwatchExchangeColor
+  >(this as AdobeSwatchExchangeColor, $identity, $identity);
   @override
   String toString() {
     return AdobeSwatchExchangeColorMapper.ensureInitialized().stringifyValue(
@@ -374,11 +373,10 @@ mixin AdobeSwatchExchangeMappable {
     AdobeSwatchExchange,
     AdobeSwatchExchange
   >
-  get copyWith =>
-      _AdobeSwatchExchangeCopyWithImpl<
-        AdobeSwatchExchange,
-        AdobeSwatchExchange
-      >(this as AdobeSwatchExchange, $identity, $identity);
+  get copyWith => _AdobeSwatchExchangeCopyWithImpl<
+    AdobeSwatchExchange,
+    AdobeSwatchExchange
+  >(this as AdobeSwatchExchange, $identity, $identity);
   @override
   String toString() {
     return AdobeSwatchExchangeMapper.ensureInitialized().stringifyValue(

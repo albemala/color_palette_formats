@@ -140,11 +140,10 @@ mixin AdobeColorSwatchColorMappable {
     AdobeColorSwatchColor,
     AdobeColorSwatchColor
   >
-  get copyWith =>
-      _AdobeColorSwatchColorCopyWithImpl<
-        AdobeColorSwatchColor,
-        AdobeColorSwatchColor
-      >(this as AdobeColorSwatchColor, $identity, $identity);
+  get copyWith => _AdobeColorSwatchColorCopyWithImpl<
+    AdobeColorSwatchColor,
+    AdobeColorSwatchColor
+  >(this as AdobeColorSwatchColor, $identity, $identity);
   @override
   String toString() {
     return AdobeColorSwatchColorMapper.ensureInitialized().stringifyValue(

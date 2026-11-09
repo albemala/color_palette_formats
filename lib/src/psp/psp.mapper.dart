@@ -82,11 +82,10 @@ mixin PaintShopProPaletteColorMappable {
     PaintShopProPaletteColor,
     PaintShopProPaletteColor
   >
-  get copyWith =>
-      _PaintShopProPaletteColorCopyWithImpl<
-        PaintShopProPaletteColor,
-        PaintShopProPaletteColor
-      >(this as PaintShopProPaletteColor, $identity, $identity);
+  get copyWith => _PaintShopProPaletteColorCopyWithImpl<
+    PaintShopProPaletteColor,
+    PaintShopProPaletteColor
+  >(this as PaintShopProPaletteColor, $identity, $identity);
   @override
   String toString() {
     return PaintShopProPaletteColorMapper.ensureInitialized().stringifyValue(
@@ -215,11 +214,10 @@ mixin PaintShopProPaletteMappable {
     PaintShopProPalette,
     PaintShopProPalette
   >
-  get copyWith =>
-      _PaintShopProPaletteCopyWithImpl<
-        PaintShopProPalette,
-        PaintShopProPalette
-      >(this as PaintShopProPalette, $identity, $identity);
+  get copyWith => _PaintShopProPaletteCopyWithImpl<
+    PaintShopProPalette,
+    PaintShopProPalette
+  >(this as PaintShopProPalette, $identity, $identity);
   @override
   String toString() {
     return PaintShopProPaletteMapper.ensureInitialized().stringifyValue(

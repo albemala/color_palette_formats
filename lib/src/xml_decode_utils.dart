@@ -16,10 +16,11 @@ XmlElement validateRootElement(
   String? expectedNamespace,
 }) {
   final root = document.rootElement;
-  final isValid = expectedNamespace == null
-      ? root.name.local == expectedName
-      : root.name.local == expectedName &&
-            root.name.namespaceUri == expectedNamespace;
+  final isValid =
+      expectedNamespace == null
+          ? root.name.local == expectedName
+          : root.name.local == expectedName &&
+              root.name.namespaceUri == expectedNamespace;
 
   if (!isValid) {
     throw FormatException('''

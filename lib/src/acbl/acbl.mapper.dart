@@ -87,11 +87,10 @@ mixin AdobeColorBookLegacyPrefixPostfixMappable {
     AdobeColorBookLegacyPrefixPostfix,
     AdobeColorBookLegacyPrefixPostfix
   >
-  get copyWith =>
-      _AdobeColorBookLegacyPrefixPostfixCopyWithImpl<
-        AdobeColorBookLegacyPrefixPostfix,
-        AdobeColorBookLegacyPrefixPostfix
-      >(this as AdobeColorBookLegacyPrefixPostfix, $identity, $identity);
+  get copyWith => _AdobeColorBookLegacyPrefixPostfixCopyWithImpl<
+    AdobeColorBookLegacyPrefixPostfix,
+    AdobeColorBookLegacyPrefixPostfix
+  >(this as AdobeColorBookLegacyPrefixPostfix, $identity, $identity);
   @override
   String toString() {
     return AdobeColorBookLegacyPrefixPostfixMapper.ensureInitialized()
@@ -270,11 +269,10 @@ mixin AdobeColorBookLegacyFormatMappable {
     AdobeColorBookLegacyFormat,
     AdobeColorBookLegacyFormat
   >
-  get copyWith =>
-      _AdobeColorBookLegacyFormatCopyWithImpl<
-        AdobeColorBookLegacyFormat,
-        AdobeColorBookLegacyFormat
-      >(this as AdobeColorBookLegacyFormat, $identity, $identity);
+  get copyWith => _AdobeColorBookLegacyFormatCopyWithImpl<
+    AdobeColorBookLegacyFormat,
+    AdobeColorBookLegacyFormat
+  >(this as AdobeColorBookLegacyFormat, $identity, $identity);
   @override
   String toString() {
     return AdobeColorBookLegacyFormatMapper.ensureInitialized().stringifyValue(
@@ -429,11 +427,10 @@ mixin AdobeColorBookLegacyColorMappable {
     AdobeColorBookLegacyColor,
     AdobeColorBookLegacyColor
   >
-  get copyWith =>
-      _AdobeColorBookLegacyColorCopyWithImpl<
-        AdobeColorBookLegacyColor,
-        AdobeColorBookLegacyColor
-      >(this as AdobeColorBookLegacyColor, $identity, $identity);
+  get copyWith => _AdobeColorBookLegacyColorCopyWithImpl<
+    AdobeColorBookLegacyColor,
+    AdobeColorBookLegacyColor
+  >(this as AdobeColorBookLegacyColor, $identity, $identity);
   @override
   String toString() {
     return AdobeColorBookLegacyColorMapper.ensureInitialized().stringifyValue(
@@ -605,11 +602,10 @@ mixin AdobeColorBookLegacyMappable {
     AdobeColorBookLegacy,
     AdobeColorBookLegacy
   >
-  get copyWith =>
-      _AdobeColorBookLegacyCopyWithImpl<
-        AdobeColorBookLegacy,
-        AdobeColorBookLegacy
-      >(this as AdobeColorBookLegacy, $identity, $identity);
+  get copyWith => _AdobeColorBookLegacyCopyWithImpl<
+    AdobeColorBookLegacy,
+    AdobeColorBookLegacy
+  >(this as AdobeColorBookLegacy, $identity, $identity);
   @override
   String toString() {
     return AdobeColorBookLegacyMapper.ensureInitialized().stringifyValue(

@@ -23,7 +23,8 @@ void main() {
     'test/testdata/acb/DIC Color Guide.acb': AdobeColorBook(
       identifier: 3012,
       title: r'$$$/colorbook/DIC/title=DIC Color Guide',
-      description: r'$$$/colorbook/DIC/description=Copyright^C 2001, Dainippon Ink and Chemicals, Incorporated',
+      description:
+          r'$$$/colorbook/DIC/description=Copyright^C 2001, Dainippon Ink and Chemicals, Incorporated',
       colorNamePrefix: r'$$$/colorbook/DIC/prefix=DIC ',
       colorNameSuffix: r'$$$/colorbook/DIC/postfix=',
       colorCount: 1280,
@@ -37,7 +38,8 @@ void main() {
     'test/testdata/acb/HKS E.acb': AdobeColorBook(
       identifier: 3008,
       title: r'$$$/colorbook/HKSE/title=HKS E',
-      description: r'$$$/colorbook/HKSE/description=Copyright^C 2001, HKS (Hostmann-Steinberg, K+E, Schmincke) - Warenzeichenverband e.V.',
+      description:
+          r'$$$/colorbook/HKSE/description=Copyright^C 2001, HKS (Hostmann-Steinberg, K+E, Schmincke) - Warenzeichenverband e.V.',
       colorNamePrefix: r'$$$/colorbook/HKSE/prefix=HKS ',
       colorNameSuffix: r'$$$/colorbook/HKSE/postfix= E',
       colorCount: 98,

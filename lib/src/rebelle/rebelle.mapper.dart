@@ -80,11 +80,10 @@ mixin RebellePaletteColorMappable {
     RebellePaletteColor,
     RebellePaletteColor
   >
-  get copyWith =>
-      _RebellePaletteColorCopyWithImpl<
-        RebellePaletteColor,
-        RebellePaletteColor
-      >(this as RebellePaletteColor, $identity, $identity);
+  get copyWith => _RebellePaletteColorCopyWithImpl<
+    RebellePaletteColor,
+    RebellePaletteColor
+  >(this as RebellePaletteColor, $identity, $identity);
   @override
   String toString() {
     return RebellePaletteColorMapper.ensureInitialized().stringifyValue(

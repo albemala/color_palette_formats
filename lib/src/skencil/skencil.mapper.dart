@@ -83,11 +83,10 @@ mixin SkencilPaletteColorMappable {
     SkencilPaletteColor,
     SkencilPaletteColor
   >
-  get copyWith =>
-      _SkencilPaletteColorCopyWithImpl<
-        SkencilPaletteColor,
-        SkencilPaletteColor
-      >(this as SkencilPaletteColor, $identity, $identity);
+  get copyWith => _SkencilPaletteColorCopyWithImpl<
+    SkencilPaletteColor,
+    SkencilPaletteColor
+  >(this as SkencilPaletteColor, $identity, $identity);
   @override
   String toString() {
     return SkencilPaletteColorMapper.ensureInitialized().stringifyValue(
