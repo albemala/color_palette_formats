@@ -148,7 +148,7 @@ void main() {
         ),
         AdobeColorSwatchColor(
           colorSpace: AdobeColorSwatchColorSpace.grayscale,
-          values: [128],
+          values: [50],
         ),
       ],
     );
@@ -200,5 +200,37 @@ void main() {
     expect(listEquals(decodedAco.colors[0].values, [64, 128, 255]), isTrue);
 
     acoFile.deleteSync();
+  });
+
+  test('isValidFormat returns false for truncated ACO file', () {
+    final bytes = File('test/testdata/aco/aco1_v1.aco').readAsBytesSync();
+    expect(AdobeColorSwatch.isValidFormat(bytes.sublist(0, 10)), isFalse);
+    expect(
+      AdobeColorSwatch.isValidFormat(bytes.sublist(0, bytes.length ~/ 2)),
+      isFalse,
+    );
+  });
+
+  test('lab colors with negative a/b round-trip', () {
+    final aco = AdobeColorSwatch(
+      colors: [
+        AdobeColorSwatchColor(
+          colorSpace: AdobeColorSwatchColorSpace.lab,
+          values: [50, -20, -30],
+          name: 'Lab negative',
+        ),
+        AdobeColorSwatchColor(
+          colorSpace: AdobeColorSwatchColorSpace.lab,
+          values: [75, 40, -10],
+          name: 'Lab mixed',
+        ),
+      ],
+    );
+
+    final decoded = AdobeColorSwatch.fromBytes(aco.toBytes());
+    expect(decoded.colors.length, equals(2));
+    expect(listEquals(decoded.colors[0].values, [50, -20, -30]), isTrue);
+    expect(listEquals(decoded.colors[1].values, [75, 40, -10]), isTrue);
+    expect(decoded.colors[0].name, equals('Lab negative'));
   });
 }

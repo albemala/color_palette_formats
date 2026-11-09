@@ -77,9 +77,18 @@ void _writeCmykColor(ByteDataWriter buffer, List<int> values) {
 
 void _writeLabColor(ByteDataWriter buffer, List<int> values) {
   buffer.writeUint16(values[0] * 100); // w
-  buffer.writeUint16(values[1] * 100); // x
-  buffer.writeUint16(values[2] * 100); // y
+  buffer.writeUint16(_signedToUInt16(values[1] * 100)); // x
+  buffer.writeUint16(_signedToUInt16(values[2] * 100)); // y
   buffer.writeUint16(0); // z
+}
+
+/// Maps a signed 16-bit value to its unsigned representation, inverse of
+/// the `_maxUInt16` offset applied in `_readLabColor` for values > 12700.
+int _signedToUInt16(int value) {
+  if (value < 0) {
+    return value + _maxUInt16;
+  }
+  return value;
 }
 
 void _writeGrayscaleColor(ByteDataWriter buffer, List<int> values) {

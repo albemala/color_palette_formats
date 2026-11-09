@@ -23,6 +23,9 @@ Unsupported version: $version. Supported versions: ${AdobeColorSwatch.validVersi
   final v1Colors = _readV1Colors(buffer, v1Count);
 
   // Version 1 files are followed by the version 2 section with names.
+  // A trailing section with a version other than 2 is rejected rather
+  // than silently falling back to the v1 colors, so corrupt files don't
+  // pass as valid.
   if (buffer.remainingLength >= 4) {
     final v2Version = buffer.readUint16();
     if (v2Version == AdobeColorSwatch.version2) {
@@ -36,16 +39,6 @@ Unsupported version: $version. Supported versions: ${AdobeColorSwatch.validVersi
   }
 
   return AdobeColorSwatch(colors: v1Colors);
-}
-
-void _validateVersion(ByteDataReader buffer) {
-  final version = buffer.readUint16();
-  if (!AdobeColorSwatch.validVersions.contains(version)) {
-    throw FormatException(
-      '''
-Unsupported version: $version. Supported versions: ${AdobeColorSwatch.validVersions}''',
-    );
-  }
 }
 
 List<AdobeColorSwatchColor> _readV1Colors(

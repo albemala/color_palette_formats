@@ -53,10 +53,10 @@ class AdobeColorSwatchColor with AdobeColorSwatchColorMappable {
 
   /// Color values depend on color space:
   /// - RGB: [0..255, 0..255, 0..255]
-  /// - HSB: [0..359, 0..100, 0..100]
+  /// - HSB: [0..360, 0..100, 0..100]
   /// - CMYK: [0..100, 0..100, 0..100, 0..100]
   /// - LAB: [0..100, -128..127, -128..127]
-  /// - Grayscale: [0..255]
+  /// - Grayscale: [0..100]
   /// - Wide CMYK: [0..100, 0..100, 0..100, 0..100]
   final List<int> values;
 
@@ -91,10 +91,11 @@ class AdobeColorSwatch with AdobeColorSwatchMappable {
   }
 
   /// Checks if the provided bytes represent a valid Adobe Color Swatch file.
+  /// Runs a full decode so truncated files and bad trailing sections
+  /// are rejected (a version-only check would accept them).
   static bool isValidFormat(List<int> bytes) {
     try {
-      final buffer = ByteDataReader()..add(bytes);
-      _validateVersion(buffer);
+      _decode(bytes);
       return true;
     } catch (_) {
       return false;
