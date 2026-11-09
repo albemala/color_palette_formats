@@ -69,10 +69,10 @@ void _writeHsbColor(ByteDataWriter buffer, List<int> values) {
 }
 
 void _writeCmykColor(ByteDataWriter buffer, List<int> values) {
-  buffer.writeUint16((100 - values[0] / 100 * _maxUInt16).round()); // w
-  buffer.writeUint16((100 - values[1] / 100 * _maxUInt16).round()); // x
-  buffer.writeUint16((100 - values[2] / 100 * _maxUInt16).round()); // y
-  buffer.writeUint16((100 - values[3] / 100 * _maxUInt16).round()); // z
+  buffer.writeUint16(((100 - values[0]) / 100 * _maxUInt16).round()); // w
+  buffer.writeUint16(((100 - values[1]) / 100 * _maxUInt16).round()); // x
+  buffer.writeUint16(((100 - values[2]) / 100 * _maxUInt16).round()); // y
+  buffer.writeUint16(((100 - values[3]) / 100 * _maxUInt16).round()); // z
 }
 
 void _writeLabColor(ByteDataWriter buffer, List<int> values) {

@@ -211,6 +211,30 @@ void main() {
     );
   });
 
+  test('cmyk colors round-trip including 0', () {
+    // Regression test: the encoder computed `100 - v / 100 * 65535`
+    // instead of `(100 - v) / 100 * 65535`, corrupting 0 into 100.
+    final aco = AdobeColorSwatch(
+      colors: [
+        AdobeColorSwatchColor(
+          colorSpace: AdobeColorSwatchColorSpace.cmyk,
+          values: [0, 0, 0, 0],
+        ),
+        AdobeColorSwatchColor(
+          colorSpace: AdobeColorSwatchColorSpace.cmyk,
+          values: [0, 50, 100, 20],
+          name: 'cmyk mixed',
+        ),
+      ],
+    );
+
+    final decoded = AdobeColorSwatch.fromBytes(aco.toBytes());
+    expect(decoded.colors.length, equals(2));
+    expect(listEquals(decoded.colors[0].values, [0, 0, 0, 0]), isTrue);
+    expect(listEquals(decoded.colors[1].values, [0, 50, 100, 20]), isTrue);
+    expect(decoded.colors[1].name, equals('cmyk mixed'));
+  });
+
   test('lab colors with negative a/b round-trip', () {
     final aco = AdobeColorSwatch(
       colors: [
