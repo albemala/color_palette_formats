@@ -11,6 +11,10 @@ Add `lib/src/<name>/` with 4 files (see `lib/src/gimp/`, `lib/src/aco/`, `lib/sr
 
 Pick helpers by kind: binary → `package:buffer`; text → `src/text_parse_utils.dart`; XML → `src/xml_decode_utils.dart` / `src/xml_encode_utils.dart` + `package:xml`. If import or export is impossible, omit that direction (mark ❌ in docs, e.g. Procreate v1 has no `fromBytes` — use a top-level decode function instead).
 
+## Code style rules
+
+See `docs/code-guidelines.md` and mimic the closest existing codec.
+
 ## 2. Generate code
 
 Run `scripts/generate-code.bash` (`build_runner` + `dart_mappable_builder`, then `dart format`).
