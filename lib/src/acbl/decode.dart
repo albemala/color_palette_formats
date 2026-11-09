@@ -37,7 +37,9 @@ List<double> _parseDoubleList(String text) {
   final trimmedText = text.trim();
   if (trimmedText.isEmpty) return [];
 
-  return trimmedText.split(' ').map((s) {
+  // Split on any whitespace run: values may be separated by multiple
+  // spaces, tabs or newlines in pretty-printed files.
+  return trimmedText.split(RegExp(r'\s+')).map((s) {
     final value = double.tryParse(s);
     if (value == null) {
       throw FormatException("Invalid double value '$s'");

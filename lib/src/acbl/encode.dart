@@ -43,7 +43,11 @@ void _buildPrefixPostfixPair(
     nest: () {
       builder.attribute(AcblConstants.prefixAttr, pair.prefix);
       builder.attribute(AcblConstants.postfixAttr, pair.postfix);
-      builder.attribute(AcblConstants.idAttr, pair.id);
+      // Omit ID when null: writing ID="null" would corrupt the file and
+      // break the decode round-trip (ID is optional in the fixture files).
+      if (pair.id != null) {
+        builder.attribute(AcblConstants.idAttr, pair.id);
+      }
     },
   );
 }

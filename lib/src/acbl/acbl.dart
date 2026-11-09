@@ -78,12 +78,12 @@ class AdobeColorBookLegacy with AdobeColorBookLegacyMappable {
     return _encode(this);
   }
 
-  /// Checks if the provided bytes represent a valid Adobe Color Book file.
+  /// Checks if the provided bytes represent a valid Adobe Color Book Legacy
+  /// file. Runs a full decode so malformed content is rejected, not just
+  /// files with the wrong root element.
   static bool isValidFormat(List<int> bytes) {
     try {
-      final xmlString = utf8.decode(bytes);
-      final document = parseXml(xmlString);
-      validateRootElement(document, AcblConstants.adobeSwatchbook);
+      _decode(bytes);
       return true;
     } catch (_) {
       return false;

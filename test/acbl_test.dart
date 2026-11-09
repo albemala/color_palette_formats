@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:color_palette_formats/color_palette_formats.dart';
@@ -140,6 +141,59 @@ void main() {
   test('isValidFormat returns false for invalid ACBL file', () {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(AdobeColorBookLegacy.isValidFormat(invalidBytes), isFalse);
+  });
+
+  test('isValidFormat returns false for XML with the wrong root element', () {
+    final bytes = utf8.encode(
+      '<?xml version="1.0" encoding="UTF-8"?><GIMP-Palette></GIMP-Palette>',
+    );
+    expect(AdobeColorBookLegacy.isValidFormat(bytes), isFalse);
+  });
+
+  test('isValidFormat returns false for truncated ACBL file', () {
+    final bytes = File('test/testdata/acbl/ACBL.acbl').readAsBytesSync();
+    expect(AdobeColorBookLegacy.isValidFormat(bytes.sublist(0, 20)), isFalse);
+    expect(
+      AdobeColorBookLegacy.isValidFormat(bytes.sublist(0, bytes.length ~/ 2)),
+      isFalse,
+    );
+  });
+
+  test('color values separated by irregular whitespace decode', () {
+    final bytes = utf8.encode('''
+<?xml version="1.0" encoding="UTF-8"?>
+<AdobeSwatchbook Version="1" BookID="1">
+    <Swatches>
+        <Sp N="Spaced">
+            <C>0   0.01
+              1  0</C>
+        </Sp>
+    </Swatches>
+</AdobeSwatchbook>
+''');
+    expect(AdobeColorBookLegacy.isValidFormat(bytes), isTrue);
+    final acbl = AdobeColorBookLegacy.fromBytes(bytes);
+    expect(acbl.colors.length, equals(1));
+    expect(
+      listEquals(acbl.colors.first.values, [0.0, 0.01, 1.0, 0.0]),
+      isTrue,
+    );
+  });
+
+  test('spot color without values element throws', () {
+    final bytes = utf8.encode('''
+<?xml version="1.0" encoding="UTF-8"?>
+<AdobeSwatchbook Version="1" BookID="1">
+    <Swatches>
+        <Sp N="NoValues"></Sp>
+    </Swatches>
+</AdobeSwatchbook>
+''');
+    expect(AdobeColorBookLegacy.isValidFormat(bytes), isFalse);
+    expect(
+      () => AdobeColorBookLegacy.fromBytes(bytes),
+      throwsA(isA<FormatException>()),
+    );
   });
 
   test('write acbl file', () {
