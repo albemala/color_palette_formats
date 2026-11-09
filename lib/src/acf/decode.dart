@@ -3,6 +3,25 @@ part of 'acf.dart';
 const _paletteName = 'ASCII Color Format';
 final _whitespace = RegExp(r'\s+');
 
+/// Returns the line at [index], throwing a [FormatException] (rather than
+/// leaking [RangeError]) when the file is truncated.
+String _lineAt(List<String> lines, int index) {
+  if (index < 0 || index >= lines.length) {
+    throw const FormatException(
+      'Not a valid $_paletteName. Unexpected end of file.',
+    );
+  }
+  return lines[index];
+}
+
+/// Expected channel counts per model. HiFi is absent: its entries carry one
+/// value per ink, so any length is accepted.
+const Map<AcfColorModel, int> _modelChannelCounts = {
+  AcfColorModel.rgb: 3,
+  AcfColorModel.cmyk: 4,
+  AcfColorModel.lab: 3,
+};
+
 String _headerValue(String line, String label) {
   final separatorIndex = line.indexOf(':');
   if (separatorIndex < 0 || line.substring(0, separatorIndex).trim() != label) {
@@ -48,7 +67,7 @@ AcfNamesFormat _parseNamesFormat(String name) => switch (name.toLowerCase()) {
 AcfPalette _decode(List<int> bytes) {
   final lines = splitLines(bytes);
 
-  final version = lines.elementAt(0).trim();
+  final version = _lineAt(lines, 0).trim();
   if (!AcfPalette.validVersions.contains(version)) {
     throw FormatException(
       'Not a valid $_paletteName. '
@@ -57,41 +76,41 @@ AcfPalette _decode(List<int> bytes) {
     );
   }
 
-  final name = lines.elementAt(1);
-  final libraryVersion = _headerValue(lines.elementAt(2), 'LibraryVersion');
-  final copyright = _headerValue(lines.elementAt(3), 'Copyright');
-  final description = _headerValue(lines.elementAt(4), 'AboutMessage');
+  final name = _lineAt(lines, 1);
+  final libraryVersion = _headerValue(_lineAt(lines, 2), 'LibraryVersion');
+  final copyright = _headerValue(_lineAt(lines, 3), 'Copyright');
+  final description = _headerValue(_lineAt(lines, 4), 'AboutMessage');
   final namesFormat = _parseNamesFormat(
-    _headerValue(lines.elementAt(5), 'Names'),
+    _headerValue(_lineAt(lines, 5), 'Names'),
   );
-  final rows = int.parse(_headerValue(lines.elementAt(6), 'Rows'));
-  final columns = int.parse(_headerValue(lines.elementAt(7), 'Columns'));
-  final entryCount = int.parse(_headerValue(lines.elementAt(8), 'Entries'));
-  final prefix = _headerValue(lines.elementAt(9), 'Prefix');
-  final suffix = _headerValue(lines.elementAt(10), 'Suffix');
-  final type = _parsePaletteType(_headerValue(lines.elementAt(11), 'Type'));
+  final rows = int.parse(_headerValue(_lineAt(lines, 6), 'Rows'));
+  final columns = int.parse(_headerValue(_lineAt(lines, 7), 'Columns'));
+  final entryCount = int.parse(_headerValue(_lineAt(lines, 8), 'Entries'));
+  final prefix = _headerValue(_lineAt(lines, 9), 'Prefix');
+  final suffix = _headerValue(_lineAt(lines, 10), 'Suffix');
+  final type = _parsePaletteType(_headerValue(_lineAt(lines, 11), 'Type'));
   final models =
       _headerValue(
-        lines.elementAt(12),
+        _lineAt(lines, 12),
         'Models',
       ).split(_whitespace).map(_parseModel).toList();
-  final preferredModel = _headerValue(lines.elementAt(13), 'PreferredModel');
+  final preferredModel = _headerValue(_lineAt(lines, 13), 'PreferredModel');
 
   var pos = 14;
   final inks = <String>[];
   if (version == AcfPalette.version21) {
-    final inkCount = int.parse(_headerValue(lines.elementAt(pos), 'Inks'));
+    final inkCount = int.parse(_headerValue(_lineAt(lines, pos), 'Inks'));
     pos++;
     for (var i = 0; i < inkCount; i++) {
-      inks.add(lines.elementAt(pos++));
+      inks.add(_lineAt(lines, pos++));
     }
   }
   // Skip the 'Data:' separator line
-  if (lines.elementAt(pos).trim() != AcfPalette.dataSeparator) {
+  if (_lineAt(lines, pos).trim() != AcfPalette.dataSeparator) {
     throw FormatException(
       'Not a valid $_paletteName. '
       'Expected "${AcfPalette.dataSeparator}" '
-      'but found "${lines.elementAt(pos)}".',
+      'but found "${_lineAt(lines, pos)}".',
     );
   }
   pos++;
@@ -102,24 +121,25 @@ AcfPalette _decode(List<int> bytes) {
     final values = <AcfPaletteColorValue>[];
     for (final model in models) {
       final channels =
-          lines
-              .elementAt(pos++)
+          _lineAt(lines, pos++)
               .trim()
               .split(_whitespace)
               .map(int.parse)
               .toList();
-      if (channels.isEmpty) {
-        throw const FormatException(
-          'Not a valid $_paletteName. Missing color values.',
+      final expectedChannels = _modelChannelCounts[model];
+      if (expectedChannels != null && channels.length != expectedChannels) {
+        throw FormatException(
+          'Not a valid $_paletteName. Expected $expectedChannels values '
+          'for model "$model" but found ${channels.length}.',
         );
       }
       values.add(AcfPaletteColorValue(model: model, values: channels));
     }
     String? colorType;
     if (isMixed) {
-      colorType = lines.elementAt(pos++).trim();
+      colorType = _lineAt(lines, pos++).trim();
     }
-    final colorName = lines.elementAt(pos++);
+    final colorName = _lineAt(lines, pos++);
     colors.add(
       AcfPaletteColor(name: colorName, values: values, type: colorType),
     );

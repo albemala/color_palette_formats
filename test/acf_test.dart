@@ -192,6 +192,32 @@ void main() {
     acfFile.deleteSync();
   });
 
+  test('truncated file throws FormatException and is not valid', () {
+    final bytes = File('test/testdata/acf/acf1_v1.0.acf').readAsBytesSync();
+    final truncated = bytes.sublist(0, bytes.length ~/ 2);
+    expect(AcfPalette.isValidFormat(truncated), isFalse);
+    expect(
+      () => AcfPalette.fromBytes(truncated),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
+  test('wrong channel count throws FormatException', () {
+    // acf1_v1.0.acf uses RGB (3 channels); patch the first color line to
+    // carry 2 channels.
+    final lines = File(
+      'test/testdata/acf/acf1_v1.0.acf',
+    ).readAsStringSync().split('\n');
+    final dataIndex = lines.indexOf('Data:');
+    lines[dataIndex + 1] = '1 2';
+    final bytes = lines.join('\n').codeUnits;
+    expect(AcfPalette.isValidFormat(bytes), isFalse);
+    expect(
+      () => AcfPalette.fromBytes(bytes),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
   test('round-trips sample files byte-for-byte', () {
     for (final filePath in expectedData.keys) {
       final bytes = File(filePath).readAsBytesSync();
