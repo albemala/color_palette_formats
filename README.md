@@ -34,6 +34,7 @@ Currently, the package supports the following formats (see `docs/supported-forma
 | QuarkXPress Color Library | ✅ | ✅ |
 | QuarkXPress UI Specs | ✅ | ✅ |
 | RAL BCS | ✅ | ✅ |
+| CLF Lab colors file | ✅ | ✅ |
 | Jasc / Corel Paint Shop Pro | ✅ | ✅ |
 | Rebelle Palette | ✅ | ✅ |
 | Resource Interchange File Format | ✅ | ✅ |

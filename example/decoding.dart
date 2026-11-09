@@ -274,6 +274,11 @@ void main() {
     BcsPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<ClfPalette>(
+    ['test/testdata/clf/hlc-atlas.clf'],
+    ClfPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

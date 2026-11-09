@@ -180,4 +180,9 @@ void main() {
   final bcsFile = File('path/to/file.bcs');
   final bcs = BcsPalette.fromBytes(bcsFile.readAsBytesSync());
   assert(bcs.colors.length == 2);
+
+  // Example: Reading a CLF (CLF Lab colors) file.
+  final clfFile = File('path/to/file.clf');
+  final clf = ClfPalette.fromBytes(clfFile.readAsBytesSync());
+  assert(clf.colors.length == 4);
 }

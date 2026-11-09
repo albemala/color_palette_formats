@@ -29,6 +29,7 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | QuarkXPress Color Library | `.qcl` | `QuarkXPressPalette` | ✅ | ✅ | RGB, CMYK, Lab, Hexachrome |
 | QuarkXPress UI Specs | `.cui` | `QuarkXPressCui` | ✅ | ✅ | Display layout only (no colors) |
 | RAL BCS | `.bcs` | `BcsPalette` | ✅ | ✅ | Lab |
+| CLF Lab colors file | `.clf` | `ClfPalette` | ✅ | ✅ | Lab |
 | Jasc / Corel Paint Shop Pro | `.pal`, `.psppalette` | `PaintShopProPalette` | ✅ | ✅ | RGB |
 | Rebelle Palette | `.txt`, `.colors` | `RebellePalette` | ✅ | ✅ | RGB |
 | Resource Interchange File Format | `.pal` | `ResourceInterchangeFileFormat` | ✅ | ✅ | RGB |
