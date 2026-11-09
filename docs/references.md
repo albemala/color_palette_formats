@@ -71,4 +71,13 @@ Spec links, sample files, and related open-source implementations collected whil
 
 ## Test assets
 
+## Sketch formats
+
+- Open file format overview: https://developer.sketch.com/file-format/
+- File format JSON Schema / TypeScript types / `fromFile` reader (`sharedSwatches`, `assets.colorAssets`): https://github.com/sketch-hq/sketch-document
+- Reading Sketch files and converting Color Variables to JSON (swatches live in `document.sharedSwatches.objects`): https://www.sketch.com/blog/open-format-reading-sketch-file-sketch-to-json/
+- Reference converters (pre-54 JSON preset at `root.colorAssets`, 54+ ZIP via `MSPersistentAssetCollection`, document swatches-else-colors): https://github.com/Ashung/import-colors-sketch/tree/master/src/lib
+
+## Test assets
+
 - 1j01/palettes (pinned: `bb970c8`): sample palette files per collection (`AdobeColorBook`, `AdobeColorTable`, `LibreOffice`, `OpenOffice`, `sk1_palette_collection_1.0`, `StarCraft`, …), used as test data for AnyPalette.js: https://github.com/1j01/palettes/tree/bb970c808fabfaaf228780eeb449febd88e751eb — candidate source for `test/testdata/<name>/` files when implementing new formats. License caveat from its README: the palettes are not the author's to license, so check each file's provenance before vendoring.

@@ -109,6 +109,18 @@ void main() {
   assert(sketchpalette.pluginVersion == SketchPalette.validVersion);
   assert(sketchpalette.colors.length == 6);
 
+  // Example: Reading a Sketch Document file.
+  final sketchFile = File('path/to/file.sketch');
+  final sketch = SketchDocumentPalette.fromBytes(sketchFile.readAsBytesSync());
+  assert(sketch.colors.length == 3);
+
+  // Example: Reading a Sketch Preset file.
+  final sketchpresetFile = File('path/to/file.sketchpreset');
+  final sketchpreset = SketchPreset.fromBytes(
+    sketchpresetFile.readAsBytesSync(),
+  );
+  assert(sketchpreset.colors.length == 3);
+
   // Example: Reading a Scribus XML Palette file.
   final scribusFile = File('path/to/file.xml');
   final scribus = ScribusPalette.fromBytes(scribusFile.readAsBytesSync());

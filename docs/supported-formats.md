@@ -37,11 +37,15 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | sK1 Palette | `.skp` | `Sk1Palette` | ✅ | ✅ | RGB, CMYK, Gray |
 | Skencil Palette | `.spl` | `SkencilPalette` | ✅ | ✅ | RGB |
 | Sketch Palette | `.sketchpalette` | `SketchPalette` | ✅ | ✅ | RGB + Alpha |
+| Sketch Preset | `.sketchpreset` | `SketchPreset` | ✅ | ✅ | RGB + Alpha |
+| Sketch Document | `.sketch` | `SketchDocumentPalette` | ✅ | ❌² | RGB + Alpha |
 | StarOffice Colors | `.soc` | `StarOfficeColorTable` | ✅ | ✅ | RGB (hex) |
 
 ## Notes
 
 ¹ **Procreate v1 Swatches** does not expose a `fromBytes` factory on `ProcreateV1Palette`. To import, use the top-level `decodeProcreateV1Palettes(List<int> bytes)` function instead, which returns a `List<ProcreateV1Palette>` (v1 files can contain multiple palettes in a single archive).
+
+² **Sketch Document** is an import-only extractor: `SketchDocumentPalette.fromBytes` reads Color Variables (`sharedSwatches`, falling back to legacy `assets` colors) from `document.json` inside the `.sketch` ZIP. There is no `toBytes` since a document cannot round-trip through a palette.
 
 **Procreate v5 Swatches** does not use a Dart enum for color spaces. The format stores `colorSpace` and `colorModel` as raw `int` values and embeds an ICC profile (`ProcreateV5ColorProfile`) that can express RGB, CMYK, LAB, Gray, and other models at the ICC level.
 

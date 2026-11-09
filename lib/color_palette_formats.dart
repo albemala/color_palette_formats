@@ -30,5 +30,7 @@ export 'src/riff/riff.dart';
 export 'src/scribus/scribus.dart';
 export 'src/sk1/sk1.dart';
 export 'src/skencil/skencil.dart';
+export 'src/sketch/sketch.dart';
 export 'src/sketchpalette/sketchpalette.dart';
+export 'src/sketchpreset/sketchpreset.dart';
 export 'src/soc/soc.dart';

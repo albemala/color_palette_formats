@@ -176,6 +176,22 @@ void main() {
     SketchPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<SketchDocumentPalette>(
+    [
+      'test/testdata/sketch/document-swatches.sketch',
+      'test/testdata/sketch/document-legacy.sketch',
+    ],
+    SketchDocumentPalette.fromBytes,
+    (e) => e.toMap(),
+  );
+  processPaletteFiles<SketchPreset>(
+    [
+      'test/testdata/sketchpreset/preset-json.sketchpreset',
+      'test/testdata/sketchpreset/preset-zip.sketchpreset',
+    ],
+    SketchPreset.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<ScribusPalette>(
     ['test/testdata/scribus/Scribus.xml'],
     ScribusPalette.fromBytes,

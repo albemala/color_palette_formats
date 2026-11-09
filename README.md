@@ -42,6 +42,8 @@ Currently, the package supports the following formats (see `docs/supported-forma
 | sK1 Palette | ✅ | ✅ |
 | Skencil Palette | ✅ | ✅ |
 | Sketch Palette | ✅ | ✅ |
+| Sketch Preset | ✅ | ✅ |
+| Sketch Document | ✅ | ❌ |
 | StarOffice Colors | ✅ | ✅ |
 
 ¹ Procreate v1 files are imported via the top-level `decodeProcreateV1Palettes` function instead of a `fromBytes` factory.
