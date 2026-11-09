@@ -3,6 +3,23 @@ part of 'ase.dart';
 AdobeSwatchExchange _decode(List<int> bytes) {
   final buffer = ByteDataReader()..add(bytes);
 
+  try {
+    return _decodeBody(buffer);
+  } catch (e) {
+    // Reads past the end of truncated input surface as RangeError or
+    // StateError from the byte buffer; report them as malformed files
+    // instead. Other errors (FormatException, UnsupportedError) pass
+    // through untouched.
+    if (e is RangeError || e is StateError) {
+      throw const FormatException(
+        'Not a valid Adobe Swatch Exchange file: truncated input.',
+      );
+    }
+    rethrow;
+  }
+}
+
+AdobeSwatchExchange _decodeBody(ByteDataReader buffer) {
   _validateHeader(buffer);
   _validateVersion(buffer);
 
@@ -10,28 +27,32 @@ AdobeSwatchExchange _decode(List<int> bytes) {
   final colors = <AdobeSwatchExchangeColor>[];
 
   final blocksCount = buffer.readInt32();
-  // print('Blocks count: $blocksCount');
+  if (blocksCount < 0) {
+    throw FormatException(
+      'Not a valid Adobe Swatch Exchange file. '
+      'Invalid blocks count: $blocksCount.',
+    );
+  }
   for (var i = 0; i < blocksCount; i++) {
     final blockType = buffer.readInt16();
-    // print('Block type: $blockType');
+    // Block lengths are deliberately ignored for known block types:
+    // records are parsed sequentially instead. Some files in the wild
+    // state bogus lengths (e.g. blue.ase states 128 for every color
+    // block); honoring them would misalign the parse.
     // ignore: unused_local_variable
     final blockLength = buffer.readInt32();
-    // print('Block length: $blockLength');
     switch (blockType) {
       case _blockTypeColor:
         final color = _decodeColor(buffer);
-        // print('Color: $color');
         colors.add(color);
       case _blockTypeGroupStart:
+        // Group names are skipped; grouped colors decode into [colors].
         // ignore: unused_local_variable
         final name = _decodeName(buffer);
-      // print('Group name: $name');
       case _blockTypeGroupEnd:
         break;
       default:
-        // throw FormatException('Unknown block type: $blockType');
-        // print('Unknown block type: $blockType');
-        // read the block data and ignore it
+        // Unknown block type: skip its data for forward compatibility.
         buffer.read(blockLength);
     }
   }
@@ -42,8 +63,7 @@ AdobeSwatchExchange _decode(List<int> bytes) {
 void _validateHeader(ByteDataReader buffer) {
   final header = readUtf8String(buffer, 4);
   if (header != AdobeSwatchExchange.validFileSignature) {
-    throw const FormatException('''
-Not a valid Adobe Swatch Exchange file''');
+    throw const FormatException('Not a valid Adobe Swatch Exchange file');
   }
 }
 
@@ -51,8 +71,8 @@ void _validateVersion(ByteDataReader buffer) {
   final version = [buffer.readInt16(), buffer.readInt16()].join('.');
   if (version != AdobeSwatchExchange.validVersion) {
     throw UnsupportedError(
-      '''
-Unsupported version $version. Supported version: ${AdobeSwatchExchange.validVersion}''',
+      'Unsupported version $version. '
+      'Supported version: ${AdobeSwatchExchange.validVersion}',
     );
   }
 }

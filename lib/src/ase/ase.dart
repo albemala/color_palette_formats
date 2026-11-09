@@ -62,7 +62,11 @@ class AdobeSwatchExchangeColor with AdobeSwatchExchangeColorMappable {
   final String name;
   final AdobeSwatchExchangeColorModel model;
 
-  /// Color values are in the range [0..1]
+  /// Color values depend on the color model (stored as big-endian float32):
+  /// - RGB: [0..1, 0..1, 0..1]
+  /// - CMYK: [0..1, 0..1, 0..1, 0..1]
+  /// - Gray: [0..1]
+  /// - LAB: L [0..1] (fraction of 100), a/b [-128..127]
   final List<double> values;
   final AdobeSwatchExchangeColorType type;
 
@@ -72,9 +76,34 @@ class AdobeSwatchExchangeColor with AdobeSwatchExchangeColorMappable {
     required this.values,
     this.type = AdobeSwatchExchangeColorType.global,
   }) : assert(
-         values.every((value) => value >= 0 && value <= 1),
-         'Color values must be in the range [0..1]',
+         _areValidValues(model, values),
+         'Color values out of range for model $model: $values',
        );
+
+  /// Checks value count and ranges for [model]. LAB stores L as a fraction
+  /// of 100 with raw a/b components (cf. dagronf/ColorPaletteCodable).
+  static bool _areValidValues(
+    AdobeSwatchExchangeColorModel model,
+    List<double> values,
+  ) {
+    bool inUnitRange(double value) => value >= 0 && value <= 1;
+    return switch (model) {
+      AdobeSwatchExchangeColorModel.rgb =>
+        values.length == 3 && values.every(inUnitRange),
+      AdobeSwatchExchangeColorModel.cmyk =>
+        values.length == 4 && values.every(inUnitRange),
+      AdobeSwatchExchangeColorModel.gray =>
+        values.length == 1 && values.every(inUnitRange),
+      AdobeSwatchExchangeColorModel.lab =>
+        values.length == 3 &&
+            values[0] >= 0 &&
+            values[0] <= 1 &&
+            values[1] >= -128 &&
+            values[1] <= 127 &&
+            values[2] >= -128 &&
+            values[2] <= 127,
+    };
+  }
 }
 
 @MappableClass()
@@ -82,6 +111,9 @@ class AdobeSwatchExchange with AdobeSwatchExchangeMappable {
   static const validFileSignature = 'ASEF';
   static const validVersion = '1.0';
 
+  /// Group names are not preserved: group start/end blocks are skipped and
+  /// their colors are decoded into [colors] in file order. The encoder
+  /// likewise writes colors without group blocks.
   final List<dynamic> groups;
   final List<AdobeSwatchExchangeColor> colors;
 
@@ -95,12 +127,12 @@ class AdobeSwatchExchange with AdobeSwatchExchangeMappable {
     return _encode(this);
   }
 
-  /// Checks if the provided bytes represent a valid Adobe Swatch Exchange file.
+  /// Checks if the provided bytes represent a valid Adobe Swatch Exchange
+  /// file. Runs a full decode so truncated files are rejected (a
+  /// header-only check would accept them).
   static bool isValidFormat(List<int> bytes) {
     try {
-      final buffer = ByteDataReader()..add(bytes);
-      _validateHeader(buffer);
-      _validateVersion(buffer);
+      _decode(bytes);
       return true;
     } catch (_) {
       return false;

@@ -4,6 +4,19 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  // Full color counts verified against the raw block structure; ase1 also
+  // covers the Gray and CMYK model paths, NNN Palette covers zero-length
+  // (terminator-less) names.
+  final expectedCounts = {
+    'test/testdata/ase/ase1_v1.0.ase': 122,
+    'test/testdata/ase/ase2_v1.0.ase': 6,
+    'test/testdata/ase/cromatica.ase': 10,
+    'test/testdata/ase/shido-10.ase': 10,
+    'test/testdata/ase/sunfall.ase': 10,
+    'test/testdata/ase/blue.ase': 16,
+    'test/testdata/ase/NNN Palette.ase': 64,
+  };
+
   final expectedData = {
     'test/testdata/ase/ase1_v1.0.ase': AdobeSwatchExchange(
       colors: [
@@ -124,6 +137,90 @@ void main() {
         }
       });
     });
+  });
+
+  test('decodes every color block in each fixture', () {
+    expectedCounts.forEach((filePath, expectedCount) {
+      final bytes = File(filePath).readAsBytesSync();
+      final ase = AdobeSwatchExchange.fromBytes(bytes);
+      expect(ase.colors.length, equals(expectedCount), reason: filePath);
+    });
+  });
+
+  test('decodes gray and cmyk models', () {
+    final bytes = File('test/testdata/ase/ase1_v1.0.ase').readAsBytesSync();
+    final ase = AdobeSwatchExchange.fromBytes(bytes);
+    final models = ase.colors.map((c) => c.model).toSet();
+    expect(
+      models,
+      containsAll([
+        AdobeSwatchExchangeColorModel.rgb,
+        AdobeSwatchExchangeColorModel.gray,
+        AdobeSwatchExchangeColorModel.cmyk,
+      ]),
+    );
+    final gray = ase.colors.firstWhere(
+      (c) => c.model == AdobeSwatchExchangeColorModel.gray,
+    );
+    expect(gray.values.length, equals(1));
+    final cmyk = ase.colors.firstWhere(
+      (c) => c.model == AdobeSwatchExchangeColorModel.cmyk,
+    );
+    expect(cmyk.values.length, equals(4));
+  });
+
+  test('decodes zero-length names as empty', () {
+    final bytes = File('test/testdata/ase/NNN Palette.ase').readAsBytesSync();
+    final ase = AdobeSwatchExchange.fromBytes(bytes);
+    expect(ase.colors.length, equals(64));
+    expect(ase.colors.every((c) => c.name.isEmpty), isTrue);
+  });
+
+  test('lab colors round-trip with spec ranges', () {
+    // Stored LAB: L is a fraction of 100, a/b are raw (-128..127).
+    final ase = AdobeSwatchExchange(
+      colors: [
+        AdobeSwatchExchangeColor(
+          name: 'lab',
+          model: AdobeSwatchExchangeColorModel.lab,
+          values: [0.5, -20.0, 30.0],
+        ),
+      ],
+    );
+
+    final decoded = AdobeSwatchExchange.fromBytes(ase.toBytes());
+    expect(decoded.colors.length, equals(1));
+    expect(decoded.colors[0].name, equals('lab'));
+    expect(decoded.colors[0].values[0], closeTo(0.5, 1e-6));
+    expect(decoded.colors[0].values[1], closeTo(-20.0, 1e-4));
+    expect(decoded.colors[0].values[2], closeTo(30.0, 1e-4));
+  });
+
+  test('unsupported version throws UnsupportedError and is not valid', () {
+    final bytes = File('test/testdata/ase/blue.ase').readAsBytesSync().toList();
+    // Bump the minor version 1.0 -> 1.1.
+    bytes[7] = 1;
+    expect(AdobeSwatchExchange.isValidFormat(bytes), isFalse);
+    expect(
+      () => AdobeSwatchExchange.fromBytes(bytes),
+      throwsA(isA<UnsupportedError>()),
+    );
+  });
+
+  test('truncated file throws FormatException and is not valid', () {
+    final bytes = File('test/testdata/ase/ase1_v1.0.ase').readAsBytesSync();
+    for (final truncated in [
+      bytes.sublist(0, 6),
+      bytes.sublist(0, 12),
+      bytes.sublist(0, bytes.length ~/ 2),
+      bytes.sublist(0, bytes.length - 4),
+    ]) {
+      expect(AdobeSwatchExchange.isValidFormat(truncated), isFalse);
+      expect(
+        () => AdobeSwatchExchange.fromBytes(truncated),
+        throwsA(isA<FormatException>()),
+      );
+    }
   });
 
   test('isValidFormat returns false for invalid ASE file', () {
