@@ -57,6 +57,10 @@ Spec links, sample files, and related open-source implementations collected whil
 - Real-world `.txt` sample, web palette, 256 colors (`R: 255,` spacing variant): https://ftpmirror.your.org/pub/misc/ftp.corel.com/pub/Painter/6/PainterColors-WEB.txt
 - HV/SV/VV are HSV color variability values (via acetolake): https://acetolake.weebly.com/corel-color-palette-extension.html
 
+## Procreate Swatches
+
+- ColorPaletteCodable `ProcreateSwatchesCoder` (tolerant v5 JSON: numeric-or-string `version`, optional `colorProfiles`/swatch fields, single-or-array palette, `Swatches.json` entry — MIT): https://github.com/dagronf/ColorPaletteCodable/blob/main/Sources/ColorPaletteCodable/palette/coders/ProcreateSwatchesCoder.swift
+
 ## Per-codec links already in headers
 
 - ColorSchemer parser reference: https://github.com/1j01/anypalette.js/blob/master/src/formats/ColorSchemer.coffee

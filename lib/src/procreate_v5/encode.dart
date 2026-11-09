@@ -10,12 +10,12 @@ List<int> _encode(ProcreateV5Palette palette) {
   final jsonContent = json.encode(paletteMap);
 
   // Create a zip archive containing the JSON data in a file named
-  // 'swatches.json'
+  // 'Swatches.json' (capital S, matching real Procreate files and
+  // ColorPaletteCodable's ProcreateSwatchesCoder).
   final archive = Archive();
   archive.addFile(
     ArchiveFile(
-      'swatches.json', // Standard filename within Procreate .swatches
-      // archives
+      'Swatches.json',
       utf8.encode(jsonContent).length, // Use byte length for accuracy
       utf8.encode(jsonContent), // Encode JSON string to bytes
     ),

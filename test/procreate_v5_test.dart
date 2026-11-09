@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:archive/archive.dart';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -381,5 +383,69 @@ void main() {
 
     // delete temp file
     procreateFile.deleteSync();
+  });
+
+  group('tolerant decoding (ColorPaletteCodable)', () {
+    List<int> zipJson(dynamic jsonObject, {String name = 'Swatches.json'}) {
+      final archive = Archive();
+      final bytes = utf8.encode(json.encode(jsonObject));
+      archive.addFile(ArchiveFile(name, bytes.length, bytes));
+      return ZipEncoder().encode(archive);
+    }
+
+    test('numeric version and missing optionals fall back to defaults', () {
+      final bytes = zipJson({
+        'name': 'tolerant',
+        'swatches': [
+          {'hue': 0.5, 'saturation': 0.5, 'brightness': 0.5, 'version': 5.0},
+        ],
+      });
+      final decoded = ProcreateV5Palette.fromBytes(bytes);
+      final swatch = decoded.swatches.first!;
+      expect(swatch.version, equals('5.0'));
+      expect(swatch.alpha, equals(1.0));
+      expect(swatch.origin, equals(0));
+      expect(swatch.colorSpace, equals(0));
+      expect(swatch.colorModel, equals(0));
+      expect(swatch.colorProfile, equals(''));
+      expect(swatch.components, equals([0.5, 0.5, 0.5]));
+      expect(decoded.colorProfiles, isEmpty);
+    });
+
+    test('single-element array palette decodes', () {
+      final bytes = zipJson([
+        {
+          'name': 'tolerant',
+          'swatches': [
+            {
+              'hue': 0.5,
+              'saturation': 0.5,
+              'brightness': 0.5,
+              'version': '5.0',
+            },
+          ],
+        },
+      ]);
+      expect(ProcreateV5Palette.fromBytes(bytes).name, equals('tolerant'));
+    });
+
+    test('lowercase swatches.json entry still decodes', () {
+      final bytes = zipJson({
+        'name': 'tolerant',
+        'swatches': <dynamic>[],
+        'colorProfiles': <dynamic>[],
+      }, name: 'swatches.json');
+      expect(ProcreateV5Palette.fromBytes(bytes).name, equals('tolerant'));
+    });
+
+    test('encoder writes Swatches.json entry', () {
+      final palette = ProcreateV5Palette(
+        name: 'enc',
+        swatches: const [],
+        colorProfiles: const [],
+      );
+      final archive = ZipDecoder().decodeBytes(palette.toBytes());
+      expect(archive.files.any((f) => f.name == 'Swatches.json'), isTrue);
+    });
   });
 }

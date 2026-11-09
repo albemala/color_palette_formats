@@ -11,6 +11,15 @@ part 'encode.dart';
  * Format name: Procreate v5 Swatches
  * Versions: 5.0
  * File extensions: .swatches
+ * Format details: Zip archive containing `Swatches.json` (single palette
+ *   object). Decoding is tolerant following ColorPaletteCodable's
+ *   `ProcreateSwatchesCoder`: missing `colorProfiles` defaults to empty,
+ *   numeric `version` is accepted as string, and per-swatch `alpha`,
+ *   `origin`, `colorSpace`, `colorModel`, `colorProfile`, `components`
+ *   fall back to defaults. `origin`/`colorSpace`/`colorModel` stay loose
+ *   integers (no asserts) for the same reason.
+ * References:
+ * - https://github.com/dagronf/ColorPaletteCodable/blob/main/Sources/ColorPaletteCodable/palette/coders/ProcreateSwatchesCoder.swift
  */
 
 // Removed the ProcreateV5ColorSpace enum as the format uses integers.
@@ -52,8 +61,9 @@ class ProcreateV5Swatch with ProcreateV5SwatchMappable {
        ),
        assert(hue >= 0 && hue <= 1, 'hue must be between 0 and 1'),
        assert(components.isNotEmpty, 'components list cannot be empty');
-  // TODO Add more assertions based on format specifics if known
-  // (e.g., origin values)
+  // Note: origin/colorSpace/colorModel are intentionally loose integers
+  // (no asserts) — the format stores them as raw ints with an ICC profile
+  // and reference readers keep them opaque.
 }
 
 @MappableClass()
