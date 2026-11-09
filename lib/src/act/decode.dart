@@ -1,10 +1,17 @@
 part of 'act.dart';
 
 AdobeColorTable _decode(List<int> bytes) {
-  // should be 768 or 772 bytes long
-  // if (bytes.length != 768 && bytes.length != 772) {
-  //   throw FormatException('Not a valid Adobe Color Table file');
-  // }
+  // Bare tables are 768 bytes (256 colors x 3 bytes RGB); Photoshop CS2+
+  // appends a 4-byte footer (color count + transparency index) making 772.
+  // Larger files exist (Fireworks reads/writes them); only the first 256
+  // colors are decoded and the rest is ignored (cf. anypalette.js).
+  if (bytes.length < adobeColorTableColorsCount * 3) {
+    throw FormatException(
+      'Not a valid Adobe Color Table file. '
+      'Expected at least ${adobeColorTableColorsCount * 3} bytes '
+      'but found ${bytes.length}.',
+    );
+  }
 
   final buffer = ByteDataReader()..add(bytes);
 

@@ -13,18 +13,22 @@ part 'encode.dart';
  * - https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577411_pgfId-1070626
  */
 
-const adobeColorTableColorsCount = 255;
+/// Number of colors in an Adobe Color Table: 256 entries of 3 bytes (RGB).
+/// Files are 768 bytes long, or 772 with a 4-byte footer (color count +
+/// transparency index, see the Photoshop spec). Larger files exist in the
+/// wild (e.g. Fireworks); extra bytes are ignored on decode.
+const adobeColorTableColorsCount = 256;
 
 @MappableClass()
 class AdobeColorTableColor with AdobeColorTableColorMappable {
+  /// Value [0..255]
+  final int red;
+
   /// Value [0..255]
   final int green;
 
   /// Value [0..255]
   final int blue;
-
-  /// Value [0..255]
-  final int red;
 
   AdobeColorTableColor({
     required this.red,
