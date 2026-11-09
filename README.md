@@ -19,6 +19,7 @@ Currently, the package supports the following formats (see `docs/supported-forma
 | ArtRage 6 Palette | ✅ | ❌ |
 | ColorSchemer Studio | ✅ | ✅ |
 | CorelDraw 4 Palette | ✅ | ✅ |
+| Corel Painter Palette | ✅ | ✅ |
 | Color Exchange Format | ✅ | ❌ |
 | GIMP Palette | ✅ | ✅ |
 | Homesite Palette | ✅ | ✅ |

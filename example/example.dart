@@ -76,6 +76,11 @@ void main() {
   );
   assert(paintDotNet.colors.length == 96);
 
+  // Example: Reading a Corel Painter Palette file.
+  final painterFile = File('path/to/file.txt');
+  final painter = PainterPalette.fromBytes(painterFile.readAsBytesSync());
+  assert(painter.colors.length == 3);
+
   // Example: Reading a Procreate V1 Swatches file.
   final procreateFile = File('path/to/file.swatches');
   final procreate = decodeProcreateV1Palettes(procreateFile.readAsBytesSync());

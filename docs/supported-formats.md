@@ -14,6 +14,7 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | ArtRage 6 Palette | `.col` | `Artrage6Palette` | ✅ | ❌ | RGB + Alpha |
 | ColorSchemer Studio | `.cs` | `ColorSchemerPalette` | ✅ | ✅ | RGB |
 | CorelDraw 4 Palette | `.pal` | `CorelDraw4Palette` | ✅ | ✅ | CMYK |
+| Corel Painter Palette | `.txt` | `PainterPalette` | ✅ | ✅ | RGB |
 | Color Exchange Format | `.cxf` | `CxfPalette` | ✅ | ❌ | CIE Lab |
 | GIMP Palette | `.gpl`, `.gimp` | `GimpPalette` | ✅ | ✅ | RGB |
 | Homesite Palette | `.hpl` | `HomesitePalette` | ✅ | ✅ | RGB |

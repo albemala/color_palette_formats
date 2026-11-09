@@ -31,7 +31,13 @@ Spec links, sample files, and related open-source implementations collected whil
 - Corel CPL: CMX 8 spec helped decode it (via selapa): http://web.archive.org/web/*/ftp.corel.com/CorelSolutionPartners/CMXv8/CMXv800.pdf
 - RIFF PAL: official RIFF doc http://alpha.tmit.bme.hu/pub/audio/doc/riffmci.rtf and unofficial notes http://www.warpspeed.com.au/cgi-bin/inf2html.cmd?..%5Chtml%5Cbook%5CToolkt40%5CMMREF3.INF+2264
 - QCL: files follow CGATS.17 with a `.cui` UI-spec sidecar (see selapa).
-- AutoCAD ACB, Painter TXT, RAL BCS: selapa sections only, no known standalone spec.
+- AutoCAD ACB, RAL BCS: selapa sections only, no known standalone spec.
+
+## Corel Painter TXT
+
+- Selapa TXT section (`ROWS`/`COLS`/`WIDTH`/`HEIGHT`/`TEXTHEIGHT`/`SPACING` header, `R:/G:/B:` + `HV:/SV:/VV:` color lines): http://www.selapa.net/swatches/colors/fileformats.php
+- Real-world `.txt` sample, web palette, 256 colors (`R: 255,` spacing variant): https://ftpmirror.your.org/pub/misc/ftp.corel.com/pub/Painter/6/PainterColors-WEB.txt
+- HV/SV/VV are HSV color variability values (via acetolake): https://acetolake.weebly.com/corel-color-palette-extension.html
 
 ## Per-codec links already in headers
 

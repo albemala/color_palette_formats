@@ -123,6 +123,14 @@ void main() {
     PaintDotNetPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<PainterPalette>(
+    [
+      'test/testdata/painter/painter1.txt',
+      'test/testdata/painter/painter2.txt',
+    ],
+    PainterPalette.fromBytes,
+    (e) => e.toMap(),
+  );
   processPaletteFiles<PaintShopProPalette>(
     [
       'test/testdata/psp/pal1_v0100.pal',
