@@ -98,17 +98,25 @@ class AdobeColorSwatchColorMapper
     'values',
     _$values,
   );
+  static String? _$name(AdobeColorSwatchColor v) => v.name;
+  static const Field<AdobeColorSwatchColor, String> _f$name = Field(
+    'name',
+    _$name,
+    opt: true,
+  );
 
   @override
   final MappableFields<AdobeColorSwatchColor> fields = const {
     #colorSpace: _f$colorSpace,
     #values: _f$values,
+    #name: _f$name,
   };
 
   static AdobeColorSwatchColor _instantiate(DecodingData data) {
     return AdobeColorSwatchColor(
       colorSpace: data.dec(_f$colorSpace),
       values: data.dec(_f$values),
+      name: data.dec(_f$name),
     );
   }
 
@@ -182,7 +190,11 @@ abstract class AdobeColorSwatchColorCopyWith<
 >
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>> get values;
-  $R call({AdobeColorSwatchColorSpace? colorSpace, List<int>? values});
+  $R call({
+    AdobeColorSwatchColorSpace? colorSpace,
+    List<int>? values,
+    String? name,
+  });
   AdobeColorSwatchColorCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
   );
@@ -204,17 +216,22 @@ class _AdobeColorSwatchColorCopyWithImpl<$R, $Out>
         (v) => call(values: v),
       );
   @override
-  $R call({AdobeColorSwatchColorSpace? colorSpace, List<int>? values}) =>
-      $apply(
-        FieldCopyWithData({
-          if (colorSpace != null) #colorSpace: colorSpace,
-          if (values != null) #values: values,
-        }),
-      );
+  $R call({
+    AdobeColorSwatchColorSpace? colorSpace,
+    List<int>? values,
+    Object? name = $none,
+  }) => $apply(
+    FieldCopyWithData({
+      if (colorSpace != null) #colorSpace: colorSpace,
+      if (values != null) #values: values,
+      if (name != $none) #name: name,
+    }),
+  );
   @override
   AdobeColorSwatchColor $make(CopyWithData data) => AdobeColorSwatchColor(
     colorSpace: data.get(#colorSpace, or: $value.colorSpace),
     values: data.get(#values, or: $value.values),
+    name: data.get(#name, or: $value.name),
   );
 
   @override

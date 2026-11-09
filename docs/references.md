@@ -17,7 +17,7 @@ Spec links, sample files, and related open-source implementations collected whil
 - Photoshop file format spec, ACT section: https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577411_pgfId-1070626
 - Unofficial ACO spec: http://www.nomodes.com/aco.html
 - Unofficial ACB spec: https://magnetiq.ca/pages/acb-spec/
-- ACO v2 notes (open TODO in `aco.dart`): https://github.com/Ashung/import-colors-sketch/blob/master/src/lib/aco-to-colors.js
+- ACO v2 notes (version 2 section with names): https://github.com/Ashung/import-colors-sketch/blob/master/src/lib/aco-to-colors.js
 
 ## ASCII / Binary Color Format (ACF, BCF)
 

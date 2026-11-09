@@ -5,17 +5,21 @@ part 'aco.mapper.dart';
 part 'decode.dart';
 part 'encode.dart';
 
-// TODO implement v2 specs: https://github.com/Ashung/import-colors-sketch/blob/master/src/lib/aco-to-colors.js
+// References are in the header comment below.
 
 /*
  * Format name: Adobe Color Swatch
  * Acronym: ACO
- * Versions: 1
+ * Versions: 1, 2
  * File extensions: .aco
- * Format details: Version 1 supported; version 2 not implemented.
+ * Format details: Version 1 section followed by version 2 section with
+ *   color names. Version 2 entries add a Unicode string (32-bit length
+ *   including the null terminator + UTF-16BE) after the 10-byte color.
+ *   Standalone version 2 files are also accepted.
  * References:
  * - https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577411_pgfId-1055819
  * - http://www.nomodes.com/aco.html
+ * - https://github.com/Ashung/import-colors-sketch/blob/master/src/lib/aco-to-colors.js
  */
 
 const _maxUInt16 = 65535;
@@ -56,12 +60,23 @@ class AdobeColorSwatchColor with AdobeColorSwatchColorMappable {
   /// - Wide CMYK: [0..100, 0..100, 0..100, 0..100]
   final List<int> values;
 
-  AdobeColorSwatchColor({required this.colorSpace, required this.values});
+  /// Color name from the version 2 section. Null when the file only
+  /// contains a version 1 section.
+  final String? name;
+
+  AdobeColorSwatchColor({
+    required this.colorSpace,
+    required this.values,
+    this.name,
+  });
 }
 
 @MappableClass()
 class AdobeColorSwatch with AdobeColorSwatchMappable {
   static const validVersion = 1;
+  static const version1 = 1;
+  static const version2 = 2;
+  static const List<int> validVersions = [version1, version2];
 
   final List<AdobeColorSwatchColor> colors;
 
