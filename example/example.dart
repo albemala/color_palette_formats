@@ -153,4 +153,11 @@ void main() {
   final cuiFile = File('path/to/file.cui');
   final cui = QuarkXPressCui.fromBytes(cuiFile.readAsBytesSync());
   assert(cui.columnBreaks.length == 6);
+
+  // Example: Reading an ACB (AutoCAD Color Book) file.
+  final autocadAcbFile = File('path/to/file.acb');
+  final autocadAcb = AutoCadColorBook.fromBytes(
+    autocadAcbFile.readAsBytesSync(),
+  );
+  assert(autocadAcb.colors.length == 3);
 }

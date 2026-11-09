@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<colorBook>
+  <bookName>ACME Colors</bookName>
+  <colorPage>
+    <pageColor>
+      <RGB8>
+        <red>100</red>
+        <green>100</green>
+        <blue>100</blue>
+      </RGB8>
+    </pageColor>
+    <colorEntry>
+      <colorName>Color-1</colorName>
+      <RGB8>
+        <red>100</red>
+        <green>20</green>
+        <blue>10</blue>
+      </RGB8>
+    </colorEntry>
+    <colorEntry>
+      <colorName>Color-2</colorName>
+      <RGB8>
+        <red>200</red>
+        <green>130</green>
+        <blue>40</blue>
+      </RGB8>
+    </colorEntry>
+  </colorPage>
+</colorBook>

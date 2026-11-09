@@ -17,6 +17,7 @@ Currently, the package supports the following formats (see `docs/supported-forma
 | Adobe Swatch Exchange | ✅ | ✅ |
 | Affinity Designer Palette | ✅ | ❌ |
 | ArtRage 6 Palette | ✅ | ❌ |
+| AutoCAD Color Book | ✅ | ✅ |
 | ColorSchemer Studio | ✅ | ✅ |
 | CorelDraw 4 Palette | ✅ | ✅ |
 | Corel Painter Palette | ✅ | ✅ |

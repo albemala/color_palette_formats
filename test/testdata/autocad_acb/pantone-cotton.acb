@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<colorBook>
+  <bookName>PANTONE(R) a &amp; i-cotton</bookName>
+  <majorVersion>2</majorVersion>
+  <minorVersion>0</minorVersion>
+  <colorPage>
+    <pageColor>
+      <RGB8Encrypt>
+        <redEncrypt>TPE</redEncrypt>
+        <greenEncrypt>WQH</greenEncrypt>
+        <blueEncrypt>QCT</blueEncrypt>
+      </RGB8Encrypt>
+    </pageColor>
+    <colorEntry>
+      <colorName>PANTONE 11-0103 TC</colorName>
+      <RGB8Encrypt>
+        <redEncrypt>HGO</redEncrypt>
+        <greenEncrypt>PQH</greenEncrypt>
+        <blueEncrypt>UCX</blueEncrypt>
+      </RGB8Encrypt>
+    </colorEntry>
+    <colorEntry>
+      <colorName>PANTONE 11-0602 TC</colorName>
+      <RGB8Encrypt>
+        <redEncrypt>OMU</redEncrypt>
+        <greenEncrypt>NLE</greenEncrypt>
+        <blueEncrypt>AIN</blueEncrypt>
+      </RGB8Encrypt>
+    </colorEntry>
+    <colorEntry>
+      <colorName>PANTONE 19-0515 TC</colorName>
+      <RGB8Encrypt>
+        <redEncrypt>AWY</redEncrypt>
+        <greenEncrypt>CFZ</greenEncrypt>
+        <blueEncrypt>FHS</blueEncrypt>
+      </RGB8Encrypt>
+    </colorEntry>
+  </colorPage>
+</colorBook>

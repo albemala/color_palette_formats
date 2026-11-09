@@ -230,6 +230,14 @@ void main() {
     QuarkXPressCui.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<AutoCadColorBook>(
+    [
+      'test/testdata/autocad_acb/pantone-cotton.acb',
+      'test/testdata/autocad_acb/acme-plain.acb',
+    ],
+    AutoCadColorBook.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

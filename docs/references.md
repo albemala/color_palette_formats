@@ -31,7 +31,15 @@ Spec links, sample files, and related open-source implementations collected whil
 - Corel CPL: CMX 8 spec helped decode it (via selapa): http://web.archive.org/web/*/ftp.corel.com/CorelSolutionPartners/CMXv8/CMXv800.pdf
 - RIFF PAL: official RIFF doc http://alpha.tmit.bme.hu/pub/audio/doc/riffmci.rtf and unofficial notes http://www.warpspeed.com.au/cgi-bin/inf2html.cmd?..%5Chtml%5Cbook%5CToolkt40%5CMMREF3.INF+2264
 - QCL: files follow CGATS.17 with a `.cui` UI-spec sidecar (see selapa).
-- AutoCAD ACB, RAL BCS: selapa sections only, no known standalone spec.
+- RAL BCS: selapa section only, no known standalone spec.
+
+## AutoCAD ACB
+
+- Selapa ACB (AutoCAD) section (annotated `Pantone A & I-cotton` sample): http://www.selapa.net/swatches/colors/fileformats.php
+- Custom color-book guide documenting the unencrypted `RGB8` shape (loaded by AutoCAD despite being undocumented): https://www.cadforum.cz/en/how-to-create-a-custom-color-book-acb-palette-in-autocad-tip8649/
+- Notes on the encrypted values (readable names, opaque RGB): https://keanw.com/2007/12/getting-the-nam.html
+- SwatchBooker reference reader (`autocad_acb.py`, reads names only, warns that encrypted RGB can't be decoded): https://github.com/olivierberten/SwatchBooker/blob/master/src/swatchbook/codecs/autocad_acb.py
+- No 1j01/palettes AutoCAD ACB assets, so fixtures are synthetic-but-derived from the selapa snippet + CAD forum custom-book shape.
 
 ## QuarkXPress QCL + CUI
 
