@@ -13,7 +13,7 @@ Each format lives in `lib/src/<name>/` (folder and model file share the snake_ca
 ## Model file (`<name>.dart`)
 
 - Imports by kind: binary → `package:buffer/buffer.dart`; text → `dart:convert` + `src/text_parse_utils.dart`; XML → `package:xml/xml.dart` + `src/xml_decode_utils.dart` / `src/xml_encode_utils.dart`. Always `package:dart_mappable/dart_mappable.dart`.
-- Header block comment: format name + extensions, producing apps, optional `Format:` layout notes, and `References:` links (see `rebelle.dart`, `colorschemer.dart`). Mirror new links in `docs/references.md`.
+- Header block comment with labeled fields in fixed order (omit a line when unknown): `Format name:`, `Acronym:` (omit when none), `Versions:` (from code constants), `File extensions:` (always plural, must match `docs/supported-formats.md`), `Applications:`, optional `Format details:` (wire-layout or provenance notes), and `References:` links, one per `- ` line (see `acf.dart`, `psp.dart`). Wrap prose values exceeding 80 columns onto ` *   ` continuation lines; keep URLs on their own lines even when long. Mirror new links in `docs/references.md`.
 - Classes: `<Name>Palette` + `<Name>PaletteColor`, both `@MappableClass()` with `XxxMappable` mixins.
 - Keep `@MappableEnum()`s clean (no methods or statics). Convert wire values with file-level functions using `return switch` expressions (see `lib/src/acf/decode.dart`, `lib/src/acf/encode.dart`).
 - Document fields: `/// Value: [0..255]`, units, optionality, raw-vs-decoded semantics (e.g. ACF stores raw 16-bit RGB).

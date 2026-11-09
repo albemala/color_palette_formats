@@ -7,12 +7,14 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* ColorSchemer Studio (CS) (.cs)
-*
-* References:
-* - http://www.selapa.net/swatches/colors/fileformats.php
-* - https://github.com/1j01/anypalette.js/blob/master/src/formats/ColorSchemer.coffee
-*/
+ * Format name: ColorSchemer Studio
+ * Acronym: CS
+ * Versions: 3
+ * File extensions: .cs
+ * References:
+ * - http://www.selapa.net/swatches/colors/fileformats.php
+ * - https://github.com/1j01/anypalette.js/blob/master/src/formats/ColorSchemer.coffee
+ */
 
 @MappableClass()
 class ColorSchemerColor with ColorSchemerColorMappable {

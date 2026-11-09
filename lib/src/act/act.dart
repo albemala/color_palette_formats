@@ -6,11 +6,12 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Adobe Color Table (ACT) (.act)
-*
-* References:
-* - https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577411_pgfId-1070626
-*/
+ * Format name: Adobe Color Table
+ * Acronym: ACT
+ * File extensions: .act
+ * References:
+ * - https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577411_pgfId-1070626
+ */
 
 const adobeColorTableColorsCount = 255;
 

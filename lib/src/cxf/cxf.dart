@@ -8,12 +8,13 @@ part 'cxf.mapper.dart';
 part 'decode.dart';
 
 /*
-* Color Exchange Format (CXF) (.cxf)
-* 
-* References:
-* - Color Exchange Format specification
-* - Based on observed format in sample files
-*/
+ * Format name: Color Exchange Format
+ * Acronym: CXF
+ * File extensions: .cxf
+ * Format details: Based on observed format in sample files.
+ * References:
+ * - Color Exchange Format specification
+ */
 
 @MappableClass()
 class CxfColor with CxfColorMappable {

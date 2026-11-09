@@ -8,11 +8,13 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Adobe Swatch Exchange (ASE) (.ase)
-*
-* References:
-* - http://www.selapa.net/swatches/colors/fileformats.php
-*/
+ * Format name: Adobe Swatch Exchange
+ * Acronym: ASE
+ * Versions: 1.0
+ * File extensions: .ase
+ * References:
+ * - http://www.selapa.net/swatches/colors/fileformats.php
+ */
 
 @MappableEnum()
 enum AdobeSwatchExchangeColorModel {

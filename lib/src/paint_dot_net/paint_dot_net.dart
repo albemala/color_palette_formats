@@ -8,8 +8,9 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Paint.NET Palette (.txt) 
-*/
+ * Format name: Paint.NET Palette
+ * File extensions: .txt
+ */
 
 @MappableClass()
 class PaintDotNetPaletteColor with PaintDotNetPaletteColorMappable {

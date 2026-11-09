@@ -8,12 +8,13 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Jasc / Corel Paint Shop Pro (.pal, .psppalette)
-* Paint Shop Pro, Jasc Software, Corel
-*
-* References:
-* - http://www.selapa.net/swatches/colors/fileformats.php
-*/
+ * Format name: Jasc / Corel Paint Shop Pro
+ * Versions: 0100
+ * File extensions: .pal, .psppalette
+ * Applications: Paint Shop Pro, Jasc Software, Corel
+ * References:
+ * - http://www.selapa.net/swatches/colors/fileformats.php
+ */
 
 @MappableClass()
 class PaintShopProPaletteColor with PaintShopProPaletteColorMappable {

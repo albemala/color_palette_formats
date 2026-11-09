@@ -8,16 +8,14 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Rebelle Color Palette (.txt, .colors)
-* Rebelle - Digital Painting Application
-*
-* Format: Tab-delimited text file with two columns:
-*   - First column: Hex RGB color (e.g., #000000)
-*   - Second column: Color name (optional, can be empty)
-*
-* References:
-*  - Rebelle 7 and 8 manuals
-*/
+ * Format name: Rebelle Palette
+ * File extensions: .txt, .colors
+ * Applications: Rebelle - Digital Painting Application
+ * Format details: Tab-delimited text file with two columns: hex RGB color
+ *   and optional color name.
+ * References:
+ * - Rebelle 7 and 8 manuals
+ */
 
 @MappableClass()
 class RebellePaletteColor with RebellePaletteColorMappable {

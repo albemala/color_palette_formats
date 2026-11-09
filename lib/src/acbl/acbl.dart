@@ -10,11 +10,12 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Adobe Color Book Legacy (ACBL) (.acbl)
-*
-* References:
-* - http://www.selapa.net/swatches/colors/fileformats.php#adobe_acbl
-*/
+ * Format name: Adobe Color Book Legacy
+ * Acronym: ACBL
+ * File extensions: .acbl
+ * References:
+ * - http://www.selapa.net/swatches/colors/fileformats.php#adobe_acbl
+ */
 
 @MappableClass()
 class AdobeColorBookLegacyPrefixPostfix

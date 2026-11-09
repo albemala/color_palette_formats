@@ -8,12 +8,15 @@ part 'encode.dart';
 // TODO implement v2 specs: https://github.com/Ashung/import-colors-sketch/blob/master/src/lib/aco-to-colors.js
 
 /*
-* Adobe Color Swatch (ACO) (.aco)
-*
-* References:
-* - https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577411_pgfId-1055819
-* - http://www.nomodes.com/aco.html
-*/
+ * Format name: Adobe Color Swatch
+ * Acronym: ACO
+ * Versions: 1
+ * File extensions: .aco
+ * Format details: Version 1 supported; version 2 not implemented.
+ * References:
+ * - https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577411_pgfId-1055819
+ * - http://www.nomodes.com/aco.html
+ */
 
 const _maxUInt16 = 65535;
 

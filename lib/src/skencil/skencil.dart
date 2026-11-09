@@ -8,12 +8,11 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Skencil Palette (.spl)
-* Skencil (formerly Sketch), sK1
-*
-* References:
-*  - Based on observed format in example files.
-*/
+ * Format name: Skencil Palette
+ * File extensions: .spl
+ * Applications: Skencil (formerly Sketch), sK1
+ * Format details: Based on observed format in example files.
+ */
 
 @MappableClass()
 class SkencilPaletteColor with SkencilPaletteColorMappable {

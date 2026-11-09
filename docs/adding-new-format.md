@@ -4,7 +4,7 @@
 
 Add `lib/src/<name>/` with 4 files (see `lib/src/gimp/`, `lib/src/aco/`, `lib/src/sk1/`):
 
-- `<name>.dart` — models only: `@MappableClass()` / `@MappableEnum()` classes, range asserts, `fromBytes` / `toBytes` / `isValidFormat` (try `_decode`, catch → `false`), plus a header comment with format name, extensions, apps, and `References:` links.
+- `<name>.dart` — models only: `@MappableClass()` / `@MappableEnum()` classes, range asserts, `fromBytes` / `toBytes` / `isValidFormat` (try `_decode`, catch → `false`), plus a standardized header comment (see the template in `docs/code-guidelines.md`).
 - `decode.dart` — `part of '<name>.dart';` with private `_decode(bytes)`.
 - `encode.dart` — `part of '<name>.dart';` with private `_encode(model)`.
 - `<name>.mapper.dart` — generated, never hand-edited.

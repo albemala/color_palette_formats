@@ -8,12 +8,15 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* ASCII Color Format (ACF) (.acf)
-* Aldus/Adobe PageMaker, Aldus/Macromedia/Adobe Freehand, Adobe FrameMaker
-*
-* References:
-* - https://www.selapa.net/swatches/colors/fileformats.php
-*/
+ * Format name: ASCII Color Format
+ * Acronym: ACF
+ * Versions: ACF 1.0, ACF 2.1
+ * File extensions: .acf
+ * Applications: Aldus/Adobe PageMaker, Aldus/Macromedia/Adobe Freehand,
+ *   Adobe FrameMaker
+ * References:
+ * - https://www.selapa.net/swatches/colors/fileformats.php
+ */
 
 @MappableEnum()
 enum AcfColorModel { rgb, cmyk, lab, hifi }

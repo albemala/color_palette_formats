@@ -8,8 +8,9 @@ part 'artrage.mapper.dart';
 part 'decode.dart';
 
 /*
-* ArtRage 6 Color Palette (.col)
-*/
+ * Format name: ArtRage 6 Palette
+ * File extensions: .col
+ */
 
 @MappableClass()
 class Artrage6Color with Artrage6ColorMappable {

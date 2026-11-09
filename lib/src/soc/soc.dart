@@ -10,13 +10,13 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* StarOffice Colors (SOC) (.soc)
-* StarOffice / OpenOffice.org / LibreOffice
-*
-* References:
- * - Based on observed format in example files (e.g., test/testdata/soc/cmyk.soc)
-* - OpenOffice XML format structure.
-*/
+ * Format name: StarOffice Colors
+ * Acronym: SOC
+ * File extensions: .soc
+ * Applications: StarOffice / OpenOffice.org / LibreOffice
+ * Format details: OpenOffice XML format structure. Based on observed format
+ *   in example files (e.g., test/testdata/soc/cmyk.soc).
+ */
 
 @MappableClass()
 class StarOfficeColor with StarOfficeColorMappable {

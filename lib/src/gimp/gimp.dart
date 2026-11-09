@@ -8,12 +8,13 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Gimp Palette (GPL) (.gpl, .gimp) 
-* Gimp, Inkscape, Krita, KolourPaint, Scribus, CinePaint, MyPaint
-*
-*   References:
-* - http://www.selapa.net/swatches/colors/fileformats.php
-*/
+ * Format name: Gimp Palette
+ * Acronym: GPL
+ * File extensions: .gpl, .gimp
+ * Applications: Gimp, Inkscape, Krita, KolourPaint, Scribus, CinePaint, MyPaint
+ * References:
+ * - http://www.selapa.net/swatches/colors/fileformats.php
+ */
 
 @MappableClass()
 class GimpPaletteColor with GimpPaletteColorMappable {

@@ -8,12 +8,14 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Homesite Palette (HPL) (.hpl) 
-* Allaire Homesite, Macromedia ColdFusion
-*
-* References:
-* - http://www.selapa.net/swatches/colors/fileformats.php
-*/
+ * Format name: Homesite Palette
+ * Acronym: HPL
+ * Versions: 4.0
+ * File extensions: .hpl
+ * Applications: Allaire Homesite, Macromedia ColdFusion
+ * References:
+ * - http://www.selapa.net/swatches/colors/fileformats.php
+ */
 
 @MappableClass()
 class HomesitePaletteColor with HomesitePaletteColorMappable {

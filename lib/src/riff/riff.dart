@@ -10,11 +10,13 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Resource Interchange File Format (RIFF) (.pal)
-*
-* References:
-* - http://www.selapa.net/swatches/colors/fileformats.php
-*/
+ * Format name: Resource Interchange File Format
+ * Acronym: RIFF
+ * Versions: 3
+ * File extensions: .pal
+ * References:
+ * - http://www.selapa.net/swatches/colors/fileformats.php
+ */
 
 @MappableClass()
 class ResourceInterchangeFileFormatColor

@@ -10,8 +10,9 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Scribus Swatch (.xml)
-*/
+ * Format name: Scribus Swatch
+ * File extensions: .xml
+ */
 
 @MappableClass()
 class ScribusColor with ScribusColorMappable {

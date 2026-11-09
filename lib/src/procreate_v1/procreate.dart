@@ -8,8 +8,9 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Procreate v1 (.swatches)
-*/
+ * Format name: Procreate v1 Swatches
+ * File extensions: .swatches
+ */
 
 @MappableEnum(mode: ValuesMode.indexed)
 enum ProcreateV1ColorSpace { hsb }

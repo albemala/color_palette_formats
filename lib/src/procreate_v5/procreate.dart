@@ -8,8 +8,10 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Procreate v5 (.swatches)
-*/
+ * Format name: Procreate v5 Swatches
+ * Versions: 5.0
+ * File extensions: .swatches
+ */
 
 // Removed the ProcreateV5ColorSpace enum as the format uses integers.
 

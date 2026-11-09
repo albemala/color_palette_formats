@@ -8,13 +8,14 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* sK1 Palette (.skp)
-* Format used by sK1 vector graphics editor.
-*
-* References:
-*  - https://sk1project.net/
-*  - Based on observed format in example files like Ubuntu_colors.skp.
-*/
+ * Format name: sK1 Palette
+ * File extensions: .skp
+ * Applications: sK1 vector graphics editor
+ * Format details: Based on observed format in example files like
+ *   Ubuntu_colors.skp.
+ * References:
+ * - https://sk1project.net/
+ */
 
 @MappableEnum()
 enum Sk1ColorSpace { rgb, cmyk, gray } // Assuming possible color spaces

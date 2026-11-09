@@ -7,8 +7,10 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* Sketch Palette (.sketchpalette)
-*/
+ * Format name: Sketch Palette
+ * Versions: 1.4
+ * File extensions: .sketchpalette
+ */
 
 @MappableClass()
 class SketchPaletteColor with SketchPaletteColorMappable {

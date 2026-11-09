@@ -6,15 +6,16 @@ part 'afpalette.mapper.dart';
 part 'decode.dart';
 
 /*
-* Affinity Designer Palette (.afpalette)
-*
-* A proprietary binary format used by Affinity Designer.
-* Based on reverse engineering from community resources.
-*
-* References:
-* - https://github.com/Balakov/GrdToAfpalette
-* - https://github.com/illumincrotty/cracking-afpalette
-*/
+ * Format name: Affinity Designer Palette
+ * Versions: 11, 12
+ * File extensions: .afpalette
+ * Applications: Affinity Designer
+ * Format details: Proprietary binary format. Based on reverse engineering
+ *   from community resources.
+ * References:
+ * - https://github.com/Balakov/GrdToAfpalette
+ * - https://github.com/illumincrotty/cracking-afpalette
+ */
 
 @MappableClass()
 class AffinityDesignerPaletteColor with AffinityDesignerPaletteColorMappable {

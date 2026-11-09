@@ -8,8 +8,9 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* KOffice Palette (.colors)
-*/
+ * Format name: KOffice Palette
+ * File extensions: .colors
+ */
 
 @MappableClass()
 class KOfficePaletteColor with KOfficePaletteColorMappable {

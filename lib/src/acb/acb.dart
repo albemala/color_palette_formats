@@ -8,12 +8,14 @@ part 'decode.dart';
 typedef ColorValueConverter = List<int> Function(List<int> rawValues);
 
 /*
-* Adobe Color Book (ACB) (.acb)
-*
-* References:
-* - https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577411_pgfId-1066780
-* - https://magnetiq.ca/pages/acb-spec/
-*/
+ * Format name: Adobe Color Book
+ * Acronym: ACB
+ * Versions: 1
+ * File extensions: .acb
+ * References:
+ * - https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/#50577411_pgfId-1066780
+ * - https://magnetiq.ca/pages/acb-spec/
+ */
 
 @MappableEnum(defaultValue: AdobeColorBookColorSpace.rgb)
 enum AdobeColorBookColorSpace {

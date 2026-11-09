@@ -8,10 +8,11 @@ part 'decode.dart';
 part 'encode.dart';
 
 /*
-* CorelDraw 4 Palette (.pal)
-* Used by CorelDraw version 4 and potentially earlier versions.
-* Format: Text-based, CMYK color values.
-*/
+ * Format name: CorelDraw 4 Palette
+ * File extensions: .pal
+ * Applications: CorelDraw 4 and potentially earlier versions
+ * Format details: Text-based, CMYK color values.
+ */
 
 @MappableClass()
 class CorelDraw4PaletteColor with CorelDraw4PaletteColorMappable {
