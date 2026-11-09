@@ -22,6 +22,7 @@ Spec links, sample files, and related open-source implementations collected whil
 ## ASCII / Binary Color Format (ACF, BCF)
 
 - Selapa ACF section + BCF section with hexdumps (versions ACF 1.0, ACF 2.1, BCF 2.0): http://www.selapa.net/swatches/colors/fileformats.php
+- SwatchBooker reference reader (`adobe_bcf.py`, big-endian, MacRoman strings): https://github.com/olivierberten/SwatchBooker/blob/master/src/swatchbook/codecs/adobe_bcf.py
 - Official `hificolr.pdf` (dead as of Nov 2026, was at `http://download.adobe.com/pub/adobe/pagemaker/all/6.x/hificolr.pdf`).
 - Real-world `.acf` sample (Unix rgb.txt converted, 752 entries): https://wiki.inkscape.org/wiki/UnixRgbAcf
 - Inkscape wiki discussion (16-bit channels, 48-bit RGB / 64-bit CMYK): https://wiki.inkscape.org/wiki/ColorPalette

@@ -160,4 +160,9 @@ void main() {
     autocadAcbFile.readAsBytesSync(),
   );
   assert(autocadAcb.colors.length == 3);
+
+  // Example: Reading a BCF (Binary Color Format) file.
+  final bcfFile = File('path/to/file.bcf');
+  final bcf = BcfPalette.fromBytes(bcfFile.readAsBytesSync());
+  assert(bcf.colors.length == 3);
 }

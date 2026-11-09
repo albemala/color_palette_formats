@@ -13,6 +13,7 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | Affinity Designer Palette | `.afpalette` | `AffinityDesignerPalette` | ✅ | ❌ | RGB + Alpha |
 | ArtRage 6 Palette | `.col` | `Artrage6Palette` | ✅ | ❌ | RGB + Alpha |
 | AutoCAD Color Book | `.acb` | `AutoCadColorBook` | ✅ | ✅ | RGB (plain `RGB8` or encrypted `RGB8Encrypt` codes) |
+| Binary Color Format | `.bcf` | `BcfPalette` | ✅ | ✅ | XYZ, CMYK, RGB, Lab, HiFi |
 | ColorSchemer Studio | `.cs` | `ColorSchemerPalette` | ✅ | ✅ | RGB |
 | CorelDraw 4 Palette | `.pal` | `CorelDraw4Palette` | ✅ | ✅ | CMYK |
 | Corel Painter Palette | `.txt` | `PainterPalette` | ✅ | ✅ | RGB |

@@ -238,6 +238,15 @@ void main() {
     AutoCadColorBook.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<BcfPalette>(
+    [
+      'test/testdata/bcf/dic-v10.bcf',
+      'test/testdata/bcf/test-v21.bcf',
+      'test/testdata/bcf/pantone-hex.bcf',
+    ],
+    BcfPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

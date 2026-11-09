@@ -18,6 +18,7 @@ Currently, the package supports the following formats (see `docs/supported-forma
 | Affinity Designer Palette | ✅ | ❌ |
 | ArtRage 6 Palette | ✅ | ❌ |
 | AutoCAD Color Book | ✅ | ✅ |
+| Binary Color Format | ✅ | ✅ |
 | ColorSchemer Studio | ✅ | ✅ |
 | CorelDraw 4 Palette | ✅ | ✅ |
 | Corel Painter Palette | ✅ | ✅ |
