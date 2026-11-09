@@ -27,6 +27,8 @@ Currently, the package supports the following formats (see `docs/supported-forma
 | Paint.NET Palette | ✅ | ✅ |
 | Procreate v1 Swatches¹ | ❌ | ✅ |
 | Procreate v5 Swatches | ✅ | ✅ |
+| QuarkXPress Color Library | ✅ | ✅ |
+| QuarkXPress UI Specs | ✅ | ✅ |
 | Jasc / Corel Paint Shop Pro | ✅ | ✅ |
 | Rebelle Palette | ✅ | ✅ |
 | Resource Interchange File Format | ✅ | ✅ |

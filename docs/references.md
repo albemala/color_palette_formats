@@ -33,6 +33,14 @@ Spec links, sample files, and related open-source implementations collected whil
 - QCL: files follow CGATS.17 with a `.cui` UI-spec sidecar (see selapa).
 - AutoCAD ACB, RAL BCS: selapa sections only, no known standalone spec.
 
+## QuarkXPress QCL + CUI
+
+- Selapa QCL section (annotated `solid in hexachrome` sample + `.cui` sidecar): http://www.selapa.net/swatches/colors/fileformats.php
+- Official Quark color-library docs (tag table: `SAMPLE_ID`, `CMYK_C/M/Y/K` percent, `RGB_R/G/B` 0–255, `LAB_L/A/B` decimals, N-channel): https://developer.quark.com/quarkxpress/Documentation/QXP/Overviews/ColorLibrary.htm
+- Official DTDs: https://developer.quark.com/quarkxpress/Documentation/QXP/Overviews/DTD_QCL.htm and https://developer.quark.com/quarkxpress/Documentation/QXP/Overviews/DTD_CUI.htm
+- SwatchBooker reference reader (`quark_qcl.py`, reads the `.cui` sibling off disk): https://github.com/olivierberten/SwatchBooker/blob/master/src/swatchbook/codecs/quark_qcl.py
+- No 1j01/palettes QCL assets (AnyPalette.js lists QCL as TODO), so fixtures are synthetic-but-derived from the selapa snippet + Quark tag docs.
+
 ## Corel Painter TXT
 
 - Selapa TXT section (`ROWS`/`COLS`/`WIDTH`/`HEIGHT`/`TEXTHEIGHT`/`SPACING` header, `R:/G:/B:` + `HV:/SV:/VV:` color lines): http://www.selapa.net/swatches/colors/fileformats.php

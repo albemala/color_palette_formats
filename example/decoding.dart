@@ -220,6 +220,16 @@ void main() {
     ColorSchemerPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<QuarkXPressPalette>(
+    ['test/testdata/qcl/solid-hex.qcl', 'test/testdata/qcl/rgb-cmyk.qcl'],
+    QuarkXPressPalette.fromBytes,
+    (e) => e.toMap(),
+  );
+  processPaletteFiles<QuarkXPressCui>(
+    ['test/testdata/cui/solid-hex.cui'],
+    QuarkXPressCui.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

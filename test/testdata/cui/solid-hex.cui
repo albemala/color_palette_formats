@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LibraryUISpecs>
+  <edit_dialog_data>
+    <rows_per_page>7</rows_per_page>
+    <color_ui_prefix>PANTONE</color_ui_prefix>
+    <color_ui_suffix>HC</color_ui_suffix>
+    <column_data>
+      <column_break>6</column_break>
+      <column_break>543</column_break>
+      <column_break>549</column_break>
+      <column_break>554</column_break>
+      <column_break>560</column_break>
+      <column_break>566</column_break>
+    </column_data>
+  </edit_dialog_data>
+</LibraryUISpecs>

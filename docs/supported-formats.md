@@ -22,6 +22,8 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | Paint.NET Palette | `.txt` | `PaintDotNetPalette` | ✅ | ✅ | RGB + Alpha |
 | Procreate v1 Swatches | `.swatches` | `ProcreateV1Palette` | ❌¹ | ✅ | HSB |
 | Procreate v5 Swatches | `.swatches` | `ProcreateV5Palette` | ✅ | ✅ | Multi-model (RGB, CMYK, LAB, Gray) via raw int + ICC profile |
+| QuarkXPress Color Library | `.qcl` | `QuarkXPressPalette` | ✅ | ✅ | RGB, CMYK, Lab, Hexachrome |
+| QuarkXPress UI Specs | `.cui` | `QuarkXPressCui` | ✅ | ✅ | Display layout only (no colors) |
 | Jasc / Corel Paint Shop Pro | `.pal`, `.psppalette` | `PaintShopProPalette` | ✅ | ✅ | RGB |
 | Rebelle Palette | `.txt`, `.colors` | `RebellePalette` | ✅ | ✅ | RGB |
 | Resource Interchange File Format | `.pal` | `ResourceInterchangeFileFormat` | ✅ | ✅ | RGB |

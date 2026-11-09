@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cgats17 SYSTEM 'cgats_data.dtd'>
+<cgats17 std_version="1.0" dtd_version="1.0">
+  <cgats17.preamble>
+    <standard>CGATS.17</standard>
+    <originator>© Pantone, Inc., 2001</originator>
+    <file_descriptor>PANTONE® solid in hexachrome® coated</file_descriptor>
+    <created date="2005-09-13">Sep 13, 2005</created>
+  </cgats17.preamble>
+  <cgats17.data_section>
+    <cgats17.data_section_header>
+      <manufacturer>PNTN</manufacturer>
+      <comment>Quark Format defines the UI and identifiers for Library</comment>
+      <quark_format>
+        <name_format>
+          <name_field_info format_id="1" long_form="PANTONE %n HC" short_form="%n"/>
+          <name_field_info format_id="2" long_form="PANTONE Hexachrome %n C" short_form="Hexachrome %n"/>
+        </name_format>
+        <library_identifier>PnHS</library_identifier>
+        <default_color_space>6CLR</default_color_space>
+        <color_usage_recommendation>5</color_usage_recommendation>
+        <ui_spec>Solid Hex UI Spec.cui</ui_spec>
+      </quark_format>
+    </cgats17.data_section_header>
+    <cgats17.data_section_data>
+      <number_of_fields>11</number_of_fields>
+      <data_format>
+        <field_info pos="1" name="SAMPLE_ID"/>
+        <field_info pos="2" name="NAME_FORMAT_ID"/>
+        <field_info pos="3" name="LAB_L"/>
+        <field_info pos="4" name="LAB_A"/>
+        <field_info pos="5" name="LAB_B"/>
+        <field_info pos="6" name="PC6_1"/>
+        <field_info pos="7" name="PC6_2"/>
+        <field_info pos="8" name="PC6_3"/>
+        <field_info pos="9" name="PC6_4"/>
+        <field_info pos="10" name="PC6_5"/>
+        <field_info pos="11" name="PC6_6"/>
+      </data_format>
+      <number_of_sets>3</number_of_sets>
+      <table>
+        <tr>
+          <td>Yellow</td>
+          <td>2</td>
+          <td>89.87</td>
+          <td>-1.92</td>
+          <td>99.33</td>
+          <td>0</td>
+          <td>0</td>
+          <td>100</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Orange</td>
+          <td>2</td>
+          <td>69.5</td>
+          <td>51.59</td>
+          <td>80.48</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>100</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>7547</td>
+          <td>1</td>
+          <td>14.87</td>
+          <td>-2.89</td>
+          <td>-9.45</td>
+          <td>100</td>
+          <td>27</td>
+          <td>7</td>
+          <td>100</td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+      </table>
+    </cgats17.data_section_data>
+  </cgats17.data_section>
+</cgats17>

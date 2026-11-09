@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cgats17 SYSTEM 'cgats_data.dtd'>
+<cgats17 std_version="1.0" dtd_version="1.0">
+  <cgats17.preamble>
+    <standard>CGATS.17</standard>
+    <originator>Test Suite</originator>
+    <file_descriptor>Test RGB CMYK library</file_descriptor>
+    <created date="2026-11-09">Nov 9, 2026</created>
+  </cgats17.preamble>
+  <cgats17.data_section>
+    <cgats17.data_section_header>
+      <manufacturer>TEST</manufacturer>
+      <quark_format>
+        <name_format>
+          <name_field_info format_id="1" long_form="TEST %n C" short_form="%n"/>
+        </name_format>
+        <library_identifier>TST1</library_identifier>
+        <default_color_space>QRGB</default_color_space>
+        <color_usage_recommendation>2</color_usage_recommendation>
+        <ui_spec>Test UI Spec.cui</ui_spec>
+      </quark_format>
+    </cgats17.data_section_header>
+    <cgats17.data_section_data>
+      <number_of_fields>9</number_of_fields>
+      <data_format>
+        <field_info pos="1" name="SAMPLE_ID"/>
+        <field_info pos="2" name="NAME_FORMAT_ID"/>
+        <field_info pos="3" name="RGB_R"/>
+        <field_info pos="4" name="RGB_G"/>
+        <field_info pos="5" name="RGB_B"/>
+        <field_info pos="6" name="CMYK_C"/>
+        <field_info pos="7" name="CMYK_M"/>
+        <field_info pos="8" name="CMYK_Y"/>
+        <field_info pos="9" name="CMYK_K"/>
+      </data_format>
+      <number_of_sets>2</number_of_sets>
+      <table>
+        <tr>
+          <td>Red</td>
+          <td>1</td>
+          <td>255</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>100</td>
+          <td>100</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Green</td>
+          <td>1</td>
+          <td>0</td>
+          <td>255</td>
+          <td>0</td>
+          <td>100</td>
+          <td>0</td>
+          <td>100</td>
+          <td>0</td>
+        </tr>
+      </table>
+    </cgats17.data_section_data>
+  </cgats17.data_section>
+</cgats17>

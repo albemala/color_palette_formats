@@ -143,4 +143,14 @@ void main() {
   final cxfFile = File('path/to/file.cxf');
   final cxf = CxfPalette.fromBytes(cxfFile.readAsBytesSync());
   assert(cxf.colors.length == 2);
+
+  // Example: Reading a QCL (QuarkXPress Color Library) file.
+  final qclFile = File('path/to/file.qcl');
+  final qcl = QuarkXPressPalette.fromBytes(qclFile.readAsBytesSync());
+  assert(qcl.colors.length == 3);
+
+  // Example: Reading a CUI (QuarkXPress UI Specs) file.
+  final cuiFile = File('path/to/file.cui');
+  final cui = QuarkXPressCui.fromBytes(cuiFile.readAsBytesSync());
+  assert(cui.columnBreaks.length == 6);
 }
