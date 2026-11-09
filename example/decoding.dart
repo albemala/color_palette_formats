@@ -119,7 +119,10 @@ void main() {
     (e) => e.toMap(),
   );
   processPaletteFiles<PaintShopProPalette>(
-    ['test/testdata/psp/pal1_v0100.pal', 'test/testdata/psp/VisiBone2_km.psppalette'],
+    [
+      'test/testdata/psp/pal1_v0100.pal',
+      'test/testdata/psp/VisiBone2_km.psppalette',
+    ],
     PaintShopProPalette.fromBytes,
     (e) => e.toMap(),
   );
@@ -186,7 +189,11 @@ void main() {
     (e) => e.toMap(),
   );
   processPaletteFiles<StarOfficeColorTable>(
-    ['test/testdata/soc/cmyk.soc', 'test/testdata/soc/gallery.soc', 'test/testdata/soc/html.soc'],
+    [
+      'test/testdata/soc/cmyk.soc',
+      'test/testdata/soc/gallery.soc',
+      'test/testdata/soc/html.soc',
+    ],
     StarOfficeColorTable.fromBytes,
     (e) => e.toMap(),
   );

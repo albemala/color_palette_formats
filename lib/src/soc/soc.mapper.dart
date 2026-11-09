@@ -189,10 +189,11 @@ mixin StarOfficeColorTableMappable {
     StarOfficeColorTable,
     StarOfficeColorTable
   >
-  get copyWith => _StarOfficeColorTableCopyWithImpl<
-    StarOfficeColorTable,
-    StarOfficeColorTable
-  >(this as StarOfficeColorTable, $identity, $identity);
+  get copyWith =>
+      _StarOfficeColorTableCopyWithImpl<
+        StarOfficeColorTable,
+        StarOfficeColorTable
+      >(this as StarOfficeColorTable, $identity, $identity);
   @override
   String toString() {
     return StarOfficeColorTableMapper.ensureInitialized().stringifyValue(

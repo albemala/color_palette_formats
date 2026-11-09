@@ -73,10 +73,11 @@ mixin AdobeColorTableColorMappable {
     AdobeColorTableColor,
     AdobeColorTableColor
   >
-  get copyWith => _AdobeColorTableColorCopyWithImpl<
-    AdobeColorTableColor,
-    AdobeColorTableColor
-  >(this as AdobeColorTableColor, $identity, $identity);
+  get copyWith =>
+      _AdobeColorTableColorCopyWithImpl<
+        AdobeColorTableColor,
+        AdobeColorTableColor
+      >(this as AdobeColorTableColor, $identity, $identity);
   @override
   String toString() {
     return AdobeColorTableColorMapper.ensureInitialized().stringifyValue(

@@ -77,10 +77,11 @@ mixin KOfficePaletteColorMappable {
     KOfficePaletteColor,
     KOfficePaletteColor
   >
-  get copyWith => _KOfficePaletteColorCopyWithImpl<
-    KOfficePaletteColor,
-    KOfficePaletteColor
-  >(this as KOfficePaletteColor, $identity, $identity);
+  get copyWith =>
+      _KOfficePaletteColorCopyWithImpl<
+        KOfficePaletteColor,
+        KOfficePaletteColor
+      >(this as KOfficePaletteColor, $identity, $identity);
   @override
   String toString() {
     return KOfficePaletteColorMapper.ensureInitialized().stringifyValue(

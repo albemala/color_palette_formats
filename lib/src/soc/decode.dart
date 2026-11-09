@@ -4,16 +4,14 @@ StarOfficeColorTable _decode(List<int> bytes) {
   final xmlString = utf8.decode(bytes);
   final document = parseXml(xmlString);
   final root = _validateRootElement(document);
-  final drawNamespace =
-      root.name.namespaceUri == SocConstants.officeNs
-          ? SocConstants.drawNs
-          : SocConstants.drawOasisNs;
+  final drawNamespace = root.name.namespaceUri == SocConstants.officeNs
+      ? SocConstants.drawNs
+      : SocConstants.drawOasisNs;
 
-  final colors =
-      root
-          .findElements(SocConstants.drawColor, namespace: drawNamespace)
-          .map((element) => _parseColor(element, drawNamespace))
-          .toList();
+  final colors = root
+      .findElements(SocConstants.drawColor, namespace: drawNamespace)
+      .map((element) => _parseColor(element, drawNamespace))
+      .toList();
 
   return StarOfficeColorTable(colors: colors);
 }

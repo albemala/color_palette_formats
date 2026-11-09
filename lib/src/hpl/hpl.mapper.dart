@@ -73,10 +73,11 @@ mixin HomesitePaletteColorMappable {
     HomesitePaletteColor,
     HomesitePaletteColor
   >
-  get copyWith => _HomesitePaletteColorCopyWithImpl<
-    HomesitePaletteColor,
-    HomesitePaletteColor
-  >(this as HomesitePaletteColor, $identity, $identity);
+  get copyWith =>
+      _HomesitePaletteColorCopyWithImpl<
+        HomesitePaletteColor,
+        HomesitePaletteColor
+      >(this as HomesitePaletteColor, $identity, $identity);
   @override
   String toString() {
     return HomesitePaletteColorMapper.ensureInitialized().stringifyValue(

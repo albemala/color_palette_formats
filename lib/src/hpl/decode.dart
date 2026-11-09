@@ -15,22 +15,21 @@ HomesitePalette _decode(List<int> bytes) {
     paletteName,
   );
 
-  final colors =
-      lines
-          // Skip header
-          .skip(3)
-          // Skip empty lines
-          .where((line) => line.isNotEmpty)
-          // Parse color values
-          .map((line) {
-            final values = line.split(' ').map(int.parse).toList();
-            return HomesitePaletteColor(
-              red: values[0],
-              green: values[1],
-              blue: values[2],
-            );
-          })
-          .toList();
+  final colors = lines
+      // Skip header
+      .skip(3)
+      // Skip empty lines
+      .where((line) => line.isNotEmpty)
+      // Parse color values
+      .map((line) {
+        final values = line.split(' ').map(int.parse).toList();
+        return HomesitePaletteColor(
+          red: values[0],
+          green: values[1],
+          blue: values[2],
+        );
+      })
+      .toList();
 
   return HomesitePalette(colors: colors);
 }

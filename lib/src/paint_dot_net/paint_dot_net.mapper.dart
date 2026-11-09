@@ -86,10 +86,11 @@ mixin PaintDotNetPaletteColorMappable {
     PaintDotNetPaletteColor,
     PaintDotNetPaletteColor
   >
-  get copyWith => _PaintDotNetPaletteColorCopyWithImpl<
-    PaintDotNetPaletteColor,
-    PaintDotNetPaletteColor
-  >(this as PaintDotNetPaletteColor, $identity, $identity);
+  get copyWith =>
+      _PaintDotNetPaletteColorCopyWithImpl<
+        PaintDotNetPaletteColor,
+        PaintDotNetPaletteColor
+      >(this as PaintDotNetPaletteColor, $identity, $identity);
   @override
   String toString() {
     return PaintDotNetPaletteColorMapper.ensureInitialized().stringifyValue(

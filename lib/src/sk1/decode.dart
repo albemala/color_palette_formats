@@ -144,8 +144,10 @@ Sk1Color _parseColorArgument(String args) {
     }
 
     final valuesStr = valuesList.substring(1, valuesList.length - 1);
-    final values =
-        valuesStr.split(',').map((s) => double.parse(s.trim())).toList();
+    final values = valuesStr
+        .split(',')
+        .map((s) => double.parse(s.trim()))
+        .toList();
 
     // 3. Parse alpha
     final alpha = double.parse(parts[2].trim());

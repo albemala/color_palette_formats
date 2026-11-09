@@ -90,10 +90,11 @@ mixin ResourceInterchangeFileFormatColorMappable {
     ResourceInterchangeFileFormatColor,
     ResourceInterchangeFileFormatColor
   >
-  get copyWith => _ResourceInterchangeFileFormatColorCopyWithImpl<
-    ResourceInterchangeFileFormatColor,
-    ResourceInterchangeFileFormatColor
-  >(this as ResourceInterchangeFileFormatColor, $identity, $identity);
+  get copyWith =>
+      _ResourceInterchangeFileFormatColorCopyWithImpl<
+        ResourceInterchangeFileFormatColor,
+        ResourceInterchangeFileFormatColor
+      >(this as ResourceInterchangeFileFormatColor, $identity, $identity);
   @override
   String toString() {
     return ResourceInterchangeFileFormatColorMapper.ensureInitialized()
@@ -252,10 +253,11 @@ mixin ResourceInterchangeFileFormatMappable {
     ResourceInterchangeFileFormat,
     ResourceInterchangeFileFormat
   >
-  get copyWith => _ResourceInterchangeFileFormatCopyWithImpl<
-    ResourceInterchangeFileFormat,
-    ResourceInterchangeFileFormat
-  >(this as ResourceInterchangeFileFormat, $identity, $identity);
+  get copyWith =>
+      _ResourceInterchangeFileFormatCopyWithImpl<
+        ResourceInterchangeFileFormat,
+        ResourceInterchangeFileFormat
+      >(this as ResourceInterchangeFileFormat, $identity, $identity);
   @override
   String toString() {
     return ResourceInterchangeFileFormatMapper.ensureInitialized()

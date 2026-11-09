@@ -161,10 +161,11 @@ mixin AdobeColorBookColorMappable {
     AdobeColorBookColor,
     AdobeColorBookColor
   >
-  get copyWith => _AdobeColorBookColorCopyWithImpl<
-    AdobeColorBookColor,
-    AdobeColorBookColor
-  >(this as AdobeColorBookColor, $identity, $identity);
+  get copyWith =>
+      _AdobeColorBookColorCopyWithImpl<
+        AdobeColorBookColor,
+        AdobeColorBookColor
+      >(this as AdobeColorBookColor, $identity, $identity);
   @override
   String toString() {
     return AdobeColorBookColorMapper.ensureInitialized().stringifyValue(

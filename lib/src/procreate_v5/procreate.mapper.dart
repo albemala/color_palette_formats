@@ -330,10 +330,11 @@ mixin ProcreateV5ColorProfileMappable {
     ProcreateV5ColorProfile,
     ProcreateV5ColorProfile
   >
-  get copyWith => _ProcreateV5ColorProfileCopyWithImpl<
-    ProcreateV5ColorProfile,
-    ProcreateV5ColorProfile
-  >(this as ProcreateV5ColorProfile, $identity, $identity);
+  get copyWith =>
+      _ProcreateV5ColorProfileCopyWithImpl<
+        ProcreateV5ColorProfile,
+        ProcreateV5ColorProfile
+      >(this as ProcreateV5ColorProfile, $identity, $identity);
   @override
   String toString() {
     return ProcreateV5ColorProfileMapper.ensureInitialized().stringifyValue(
