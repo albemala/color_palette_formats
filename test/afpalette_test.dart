@@ -4,6 +4,8 @@ import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  // Maurice Denis 01 is intentionally absent here: it stores its colors
+  // in the LAB color model, which throws UnsupportedError (see below).
   final expectedData = {
     'test/testdata/afpalette/afpalette-test.afpalette': (
       fileName: 'afpalette-test',
@@ -60,11 +62,6 @@ void main() {
         green: 0.5058823823928833,
         blue: 0.8352941870689392,
       ),
-    ),
-    'test/testdata/afpalette/Maurice Denis 01.afpalette': (
-      fileName: 'Maurice Denis 01',
-      colorCount: 0,
-      firstColor: null,
     ),
     'test/testdata/afpalette/Simple Test A.afpalette': (
       fileName: 'Simple Test A',
@@ -221,6 +218,40 @@ void main() {
     // Test with bytes that are too short
     final shortBytes = [0x00, 0xFF, 0x4B, 0x41];
     expect(AffinityDesignerPalette.isValidFormat(shortBytes), isFalse);
+  });
+
+  test('LAB color model throws UnsupportedError and is not valid', () {
+    // Maurice Denis 01 stores 21 colors in LAB (ABAL) records, which are
+    // not decoded. Previously this silently returned an empty palette.
+    final bytes =
+        File('test/testdata/afpalette/Maurice Denis 01.afpalette')
+            .readAsBytesSync();
+    expect(AffinityDesignerPalette.isValidFormat(bytes), isFalse);
+    expect(
+      () => AffinityDesignerPalette.fromBytes(bytes),
+      throwsA(isA<UnsupportedError>()),
+    );
+  });
+
+  test('truncated file throws FormatException and is not valid', () {
+    final bytes =
+        File('test/testdata/afpalette/Grays.afpalette').readAsBytesSync();
+    final truncated = bytes.sublist(0, 20);
+    expect(AffinityDesignerPalette.isValidFormat(truncated), isFalse);
+    expect(
+      () => AffinityDesignerPalette.fromBytes(truncated),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
+  test('missing file name chunk throws FormatException', () {
+    // Valid magic + version but no P1CN chunk.
+    final bytes = <int>[0x00, 0xFF, 0x4B, 0x41, 0x0B, 0x00, 0x00, 0x00];
+    expect(AffinityDesignerPalette.isValidFormat(bytes), isFalse);
+    expect(
+      () => AffinityDesignerPalette.fromBytes(bytes),
+      throwsA(isA<FormatException>()),
+    );
   });
 
   test('toMap produces valid JSON-serializable map', () {

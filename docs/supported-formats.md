@@ -10,7 +10,7 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | Adobe Color Swatch | `.aco` | `AdobeColorSwatch` | ✅ | ✅ | RGB, HSB, CMYK, LAB, Grayscale, Wide CMYK |
 | Adobe Color Table | `.act` | `AdobeColorTable` | ✅ | ✅ | RGB |
 | Adobe Swatch Exchange | `.ase` | `AdobeSwatchExchange` | ✅ | ✅ | RGB, CMYK, Gray, LAB |
-| Affinity Designer Palette | `.afpalette` | `AffinityDesignerPalette` | ✅ | ❌ | RGB + Alpha |
+| Affinity Designer Palette | `.afpalette` | `AffinityDesignerPalette` | ✅ | ❌ | RGB + Alpha⁴ |
 | ArtRage 6 Palette | `.col` | `Artrage6Palette` | ✅ | ❌ | RGB + Alpha |
 | AutoCAD Color Book | `.acb` | `AutoCadColorBook` | ✅ | ✅ | RGB (plain `RGB8` or encrypted `RGB8Encrypt` codes) |
 | Binary Color Format | `.bcf` | `BcfPalette` | ✅ | ✅ | XYZ, CMYK, RGB, Lab, HiFi |
@@ -48,6 +48,8 @@ The `color_palette_formats` package can read and write a wide range of color pal
 ² **Sketch Document** is an import-only extractor: `SketchDocumentPalette.fromBytes` reads Color Variables (`sharedSwatches`, falling back to legacy `assets` colors) from `document.json` inside the `.sketch` ZIP. There is no `toBytes` since a document cannot round-trip through a palette.
 
 ³ **Adobe Color Book** decodes RGB, CMYK and LAB books. Files using HSB, Grayscale, Pantone, Focoltone, Trumatch, Toyo or HKS throw `UnsupportedError` (and report `isValidFormat == false`) instead of decoding to empty values.
+
+⁴ **Affinity Designer Palette** decodes RGBA (`colD`) colors only. Files storing colors in the LAB model (`ABAL` records, e.g. exported from Affinity with a LAB-based document profile) throw `UnsupportedError` (and report `isValidFormat == false`).
 
 **Procreate v5 Swatches** does not use a Dart enum for color spaces. The format stores `colorSpace` and `colorModel` as raw `int` values and embeds an ICC profile (`ProcreateV5ColorProfile`) that can express RGB, CMYK, LAB, Gray, and other models at the ICC level.
 

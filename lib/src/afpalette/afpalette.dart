@@ -48,7 +48,6 @@ class AffinityDesignerPaletteColor with AffinityDesignerPaletteColorMappable {
 @MappableClass()
 class AffinityDesignerPalette with AffinityDesignerPaletteMappable {
   static const int magicNumber = 0x414BFF00;
-  static const int version = 11;
   static const List<int> supportedVersions = [11, 12];
 
   final String? fileName;
@@ -61,16 +60,12 @@ class AffinityDesignerPalette with AffinityDesignerPaletteMappable {
   }
 
   /// Checks if the provided bytes represent a valid Affinity Designer
-  /// palette file.
+  /// palette file. Runs a full decode so truncated files and unsupported
+  /// color models are rejected (a header-only check would accept them).
   static bool isValidFormat(List<int> bytes) {
     try {
-      if (bytes.length < 8) return false;
-      // Read magic number and version in little-endian
-      final magic =
-          bytes[0] | (bytes[1] << 8) | (bytes[2] << 16) | (bytes[3] << 24);
-      final ver =
-          bytes[4] | (bytes[5] << 8) | (bytes[6] << 16) | (bytes[7] << 24);
-      return magic == magicNumber && supportedVersions.contains(ver);
+      _decode(bytes);
+      return true;
     } catch (_) {
       return false;
     }

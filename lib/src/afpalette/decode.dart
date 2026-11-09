@@ -5,7 +5,8 @@ const int _chunkP1CN = 0x506C434E; // File name
 const int _chunkPaNV = 0x50614E56; // Name list
 const int _chunkPaLV = 0x50616C56; // Palette list
 const int _chunkCols = 0x436F6C73; // Colour list
-const int _chunkColD = 0x636F6C44; // Colour data
+const int _chunkColD = 0x636F6C44; // Colour data (RGB model)
+const int _chunkColrLab = 0x4C414241; // Colour data (LAB model, unsupported)
 const int _chunkPosn = 0x506F736E; // Position
 
 AffinityDesignerPalette _decode(List<int> bytes) {
@@ -33,6 +34,16 @@ AffinityDesignerPalette _decode(List<int> bytes) {
     );
   }
 
+  // The LAB color model (Colr1 records carrying an ABAL chunk) is not
+  // decoded: only RGBA (colD) colors are supported. Fail loudly instead of
+  // silently returning an incomplete palette.
+  if (_skipToChunk(bytes, 8, _chunkColrLab) < bytes.length) {
+    throw UnsupportedError(
+      'Decoding the LAB color model in Affinity Designer palettes '
+      'is not supported.',
+    );
+  }
+
   // Parse chunks using the same approach as the JavaScript decoder:
   // Search for chunks throughout the file rather than assuming sequential order
   String? fileName;
@@ -42,107 +53,110 @@ AffinityDesignerPalette _decode(List<int> bytes) {
   // Start searching after header (byte 8)
   var index = 8;
 
-  // Search for P1CN chunk (filename)
+  // Search for P1CN chunk (filename). Every known file carries one, so a
+  // missing chunk means the file is truncated or not an afpalette at all.
   index = _skipToChunk(bytes, index, _chunkP1CN);
-  if (index < bytes.length) {
-    // Read filename
-    final nameInfo = _readUtf8String(bytes, index);
-    fileName = nameInfo.text;
-    index = nameInfo.newIndex;
+  if (index >= bytes.length) {
+    throw const FormatException(
+      'Not a valid Affinity Designer palette: missing file name chunk',
+    );
+  }
+  // Read filename
+  final nameInfo = _readUtf8String(bytes, index);
+  fileName = nameInfo.text;
+  index = nameInfo.newIndex;
 
-    // Search for PaLV chunk (palette list)
-    index = _skipToChunk(bytes, index, _chunkPaLV);
-    if (index + 4 <= bytes.length) {
-      final paletteCount = _readUint32(bytes, index);
-      index += 4;
+  // Search for PaLV chunk (palette list)
+  index = _skipToChunk(bytes, index, _chunkPaLV);
+  if (index + 4 <= bytes.length) {
+    final paletteCount = _readUint32(bytes, index);
+    index += 4;
 
-      // For each palette, parse positions and colors
-      for (var j = 0; j < paletteCount && index < bytes.length; j++) {
-        // Search for Posn chunk (positions) - optional
-        final posnIndex = _skipToChunk(bytes, index, _chunkPosn);
-        if (posnIndex < bytes.length) {
-          index = posnIndex;
-          if (index + 4 <= bytes.length) {
-            final positionCount = _readUint32(bytes, index);
-            index += 4;
+    // For each palette, parse positions and colors
+    for (var j = 0; j < paletteCount && index < bytes.length; j++) {
+      // Search for Posn chunk (positions) - optional
+      final posnIndex = _skipToChunk(bytes, index, _chunkPosn);
+      if (posnIndex < bytes.length) {
+        index = posnIndex;
+        if (index + 4 <= bytes.length) {
+          final positionCount = _readUint32(bytes, index);
+          index += 4;
 
-            // Skip position data (8 bytes per position:
-            // float64 position + float64 midpoint)
-            index += positionCount * 16;
-          }
-        }
-
-        // Try to find Cols chunk (color list) - but it may not exist
-        final colsIndex = _skipToChunk(bytes, index, _chunkCols);
-        var colourCount = 0;
-
-        if (colsIndex < bytes.length) {
-          // Found Cols chunk
-          index = colsIndex;
-          if (index + 4 <= bytes.length) {
-            colourCount = _readUint32(bytes, index);
-            index += 4;
-          }
-        } else {
-          // No Cols chunk - search for colD chunks directly
-          // until we can't find more
-          // Use a large number, we'll break when no more colD found
-          colourCount = 100;
-        }
-
-        // Read each color
-        for (var k = 0; k < colourCount; k++) {
-          // Search for colD chunk (color data)
-          final colDIndex = _skipToChunk(bytes, index, _chunkColD);
-          if (colDIndex >= bytes.length) {
-            break; // No more colD chunks
-          }
-
-          index = colDIndex;
-
-          // Skip the '_' character
-          index++;
-
-          if (index + 16 <= bytes.length) {
-            final red = _readFloat32(bytes, index);
-            index += 4;
-            final green = _readFloat32(bytes, index);
-            index += 4;
-            final blue = _readFloat32(bytes, index);
-            index += 4;
-            final alpha = _readFloat32(bytes, index);
-            index += 4;
-
-            colors.add(
-              AffinityDesignerPaletteColor(
-                name: '', // Will be filled in later from name list
-                red: red,
-                green: green,
-                blue: blue,
-                alpha: alpha,
-              ),
-            );
-          }
+          // Skip position data (8 bytes per position:
+          // float64 position + float64 midpoint)
+          index += positionCount * 16;
         }
       }
 
-      // Search for PaNV chunk (name list)
-      var nameIndex = _skipToChunk(bytes, index, _chunkPaNV);
-      if (nameIndex + 4 <= bytes.length) {
-        // Skip 4 bytes after PaNV chunk ID (based on JS implementation)
-        nameIndex += 4;
-        final nameCount = _readUint32(bytes, nameIndex);
-        nameIndex += 4;
+      // Try to find Cols chunk (color list) - but it may not exist
+      final colsIndex = _skipToChunk(bytes, index, _chunkCols);
+      var colourCount = 0;
 
-        for (var j = 0; j < nameCount && nameIndex < bytes.length; j++) {
-          final nameInfo = _readUtf8String(bytes, nameIndex);
-          colorNames.add(nameInfo.text);
-          nameIndex = nameInfo.newIndex;
+      if (colsIndex < bytes.length) {
+        // Found Cols chunk
+        index = colsIndex;
+        if (index + 4 <= bytes.length) {
+          colourCount = _readUint32(bytes, index);
+          index += 4;
+        }
+      } else {
+        // No Cols chunk: fall back to scanning for colD chunks directly.
+        // The cap is arbitrary; the loop below breaks as soon as no
+        // further colD chunk is found.
+        colourCount = 100;
+      }
+
+      // Read each color
+      for (var k = 0; k < colourCount; k++) {
+        // Search for colD chunk (color data)
+        final colDIndex = _skipToChunk(bytes, index, _chunkColD);
+        if (colDIndex >= bytes.length) {
+          break; // No more colD chunks
+        }
+
+        index = colDIndex;
+
+        // Skip the '_' character
+        index++;
+
+        if (index + 16 <= bytes.length) {
+          final red = _readFloat32(bytes, index);
+          index += 4;
+          final green = _readFloat32(bytes, index);
+          index += 4;
+          final blue = _readFloat32(bytes, index);
+          index += 4;
+          final alpha = _readFloat32(bytes, index);
+          index += 4;
+
+          colors.add(
+            AffinityDesignerPaletteColor(
+              name: '', // Will be filled in later from name list
+              red: red,
+              green: green,
+              blue: blue,
+              alpha: alpha,
+            ),
+          );
         }
       }
     }
-  }
 
+    // Search for PaNV chunk (name list)
+    var nameIndex = _skipToChunk(bytes, index, _chunkPaNV);
+    if (nameIndex + 4 <= bytes.length) {
+      // Skip 4 bytes after PaNV chunk ID (based on JS implementation)
+      nameIndex += 4;
+      final nameCount = _readUint32(bytes, nameIndex);
+      nameIndex += 4;
+
+      for (var j = 0; j < nameCount && nameIndex < bytes.length; j++) {
+        final nameInfo = _readUtf8String(bytes, nameIndex);
+        colorNames.add(nameInfo.text);
+        nameIndex = nameInfo.newIndex;
+      }
+    }
+  }
   // Match color names to colors
   final finalColors = <AffinityDesignerPaletteColor>[];
   for (var i = 0; i < colors.length; i++) {
