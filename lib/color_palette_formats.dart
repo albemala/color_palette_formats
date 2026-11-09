@@ -8,6 +8,7 @@ export 'src/artrage/artrage.dart';
 export 'src/ase/ase.dart';
 export 'src/autocad_acb/autocad_acb.dart';
 export 'src/bcf/bcf.dart';
+export 'src/clr/clr.dart';
 export 'src/colorschemer/colorschemer.dart';
 export 'src/coreldraw4/coreldraw4.dart';
 export 'src/cui/cui.dart';

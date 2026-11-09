@@ -23,6 +23,7 @@ Currently, the package supports the following formats (see `docs/supported-forma
 | CorelDraw 4 Palette | ✅ | ✅ |
 | Corel Painter Palette | ✅ | ✅ |
 | Color Exchange Format | ✅ | ❌ |
+| Flash Color Set | ✅ | ✅ |
 | GIMP Palette | ✅ | ✅ |
 | Homesite Palette | ✅ | ✅ |
 | KOffice Palette | ✅ | ✅ |

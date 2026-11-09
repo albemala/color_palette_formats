@@ -247,6 +247,11 @@ void main() {
     BcfPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<ClrPalette>(
+    ['test/testdata/clr/tone-v3.clr', 'test/testdata/clr/tone-v4.clr'],
+    ClrPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

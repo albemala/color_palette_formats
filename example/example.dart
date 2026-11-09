@@ -165,4 +165,9 @@ void main() {
   final bcfFile = File('path/to/file.bcf');
   final bcf = BcfPalette.fromBytes(bcfFile.readAsBytesSync());
   assert(bcf.colors.length == 3);
+
+  // Example: Reading a CLR (Flash Color Set) file.
+  final clrFile = File('path/to/file.clr');
+  final clr = ClrPalette.fromBytes(clrFile.readAsBytesSync());
+  assert(clr.colors.length == 3);
 }

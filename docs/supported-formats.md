@@ -18,6 +18,7 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | CorelDraw 4 Palette | `.pal` | `CorelDraw4Palette` | ✅ | ✅ | CMYK |
 | Corel Painter Palette | `.txt` | `PainterPalette` | ✅ | ✅ | RGB |
 | Color Exchange Format | `.cxf` | `CxfPalette` | ✅ | ❌ | CIE Lab |
+| Flash Color Set | `.clr` | `ClrPalette` | ✅ | ✅ | RGB + Alpha, HSV |
 | GIMP Palette | `.gpl`, `.gimp` | `GimpPalette` | ✅ | ✅ | RGB |
 | Homesite Palette | `.hpl` | `HomesitePalette` | ✅ | ✅ | RGB |
 | KOffice Palette | `.colors` | `KOfficePalette` | ✅ | ✅ | RGB |
