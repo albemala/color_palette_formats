@@ -335,4 +335,47 @@ void main() {
     final invalidBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Example invalid data
     expect(Artrage6Palette.isValidFormat(invalidBytes), isFalse);
   });
+
+  test('truncated file throws FormatException and is not valid', () {
+    final bytes = File('test/testdata/artrage/Colors.col').readAsBytesSync();
+    for (final truncated in [
+      bytes.sublist(0, 10),
+      bytes.sublist(0, 52),
+      bytes.sublist(0, bytes.length - 10),
+    ]) {
+      expect(Artrage6Palette.isValidFormat(truncated), isFalse);
+      expect(
+        () => Artrage6Palette.fromBytes(truncated),
+        throwsA(isA<FormatException>()),
+      );
+    }
+  });
+
+  test('wrong version signature throws FormatException', () {
+    final bytes =
+        File('test/testdata/artrage/Pastel.col').readAsBytesSync().toList();
+    // Version signature starts after header (32) + 4 int32s (16) + count (4)
+    // + 6 colors (24) = offset 76.
+    const sigOffset = 32 + 16 + 4 + 6 * 4;
+    // Corrupt 'ARSwatchFileVersion-3' into 'BRSwatchFileVersion-3'.
+    bytes[sigOffset] = 'B'.codeUnitAt(0);
+    expect(Artrage6Palette.isValidFormat(bytes), isFalse);
+    expect(
+      () => Artrage6Palette.fromBytes(bytes),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
+  test('names/colors count mismatch throws FormatException', () {
+    final bytes =
+        File('test/testdata/artrage/Pastel.col').readAsBytesSync().toList();
+    // Drop the trailing NUL terminator of the last name so the final
+    // name is never terminated and the counts disagree.
+    final truncated = bytes.sublist(0, bytes.length - 2);
+    expect(Artrage6Palette.isValidFormat(truncated), isFalse);
+    expect(
+      () => Artrage6Palette.fromBytes(truncated),
+      throwsA(isA<FormatException>()),
+    );
+  });
 }

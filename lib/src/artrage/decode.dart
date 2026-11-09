@@ -11,7 +11,22 @@ Artrage6Palette _decode(List<int> bytes) {
   buffer.readInt32(); // always 0
 
   final colorCount = buffer.readInt32();
-  // print('Color count: $colorCount');
+  if (colorCount < 0) {
+    throw FormatException(
+      'Not a valid ArtRage 6 palette file. '
+      'Invalid color count: $colorCount.',
+    );
+  }
+  // Colors are 4 bytes each (BGRA), followed by the version signature.
+  final minRemaining =
+      colorCount * 4 + Artrage6Palette.fileVersionSignature.length * 2 + 2;
+  if (buffer.remainingLength < minRemaining) {
+    throw FormatException(
+      'Not a valid ArtRage 6 palette file. '
+      'Expected at least $minRemaining bytes for $colorCount colors '
+      'but found ${buffer.remainingLength}.',
+    );
+  }
 
   final colorValues = <List<int>>[];
   for (var i = 0; i < colorCount; i++) {
@@ -19,16 +34,19 @@ Artrage6Palette _decode(List<int> bytes) {
     final g = buffer.readUint8();
     final r = buffer.readUint8();
     final a = buffer.readUint8();
-    // print('Color $i: B=$b, G=$g, R=$r, A=$a');
     colorValues.add([b, g, r, a]);
   }
 
-  // ignore: unused_local_variable
   final fileVersionSignature = readUtf16String(
     buffer,
     Artrage6Palette.fileVersionSignature.length,
   );
-  // print('File Version Signature: $fileVersionSignature');
+  if (fileVersionSignature != Artrage6Palette.fileVersionSignature) {
+    throw FormatException(
+      'Unsupported ArtRage palette version: $fileVersionSignature. '
+      'Expected ${Artrage6Palette.fileVersionSignature}.',
+    );
+  }
 
   buffer.readInt16(); // 0
 
@@ -38,7 +56,6 @@ Artrage6Palette _decode(List<int> bytes) {
     final value = buffer.readInt16();
     if (value == 0) {
       final name = stringBuffer.toString().trim();
-      // print('String: $name');
       colorNames.add(name);
       stringBuffer.clear();
     } else {
@@ -46,10 +63,12 @@ Artrage6Palette _decode(List<int> bytes) {
     }
   }
 
-  assert(
-    colorNames.length == colorValues.length,
-    'Color names and color values count mismatch',
-  );
+  if (colorNames.length != colorValues.length) {
+    throw FormatException(
+      'Not a valid ArtRage 6 palette file. '
+      'Found ${colorNames.length} names for ${colorValues.length} colors.',
+    );
+  }
 
   final colors = <Artrage6Color>[];
   for (var i = 0; i < colorCount; i++) {
@@ -66,10 +85,14 @@ Artrage6Palette _decode(List<int> bytes) {
     );
   }
 
+  // The format stores no palette name, so a fixed display name is used.
   return Artrage6Palette(name: 'ArtRage 6 Palette', colors: colors);
 }
 
 void _validateHeader(ByteDataReader buffer) {
+  if (buffer.remainingLength < Artrage6Palette.validFileSignature.length * 2) {
+    throw const FormatException('Not a valid ArtRage 6 palette file');
+  }
   final header = readUtf16String(
     buffer,
     Artrage6Palette.validFileSignature.length,
