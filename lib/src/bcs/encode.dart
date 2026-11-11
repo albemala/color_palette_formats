@@ -12,6 +12,12 @@ void _validateBilingualField(String field, String label) {
       'Not a valid $_paletteName. $label "$field" contains ":".',
     );
   }
+  if (field.codeUnits.any((c) => c > 0xFF)) {
+    throw FormatException(
+      'Not a valid $_paletteName. $label "$field" '
+      'contains non-Latin1 characters.',
+    );
+  }
 }
 
 void _writeBytes(ByteDataWriter buffer, List<int> bytes) {

@@ -109,6 +109,101 @@ void main() {
     expect(BcsPalette.isValidFormat(invalidBytes), isFalse);
   });
 
+  test('truncated file throws FormatException and is not valid', () {
+    final bytes = File('test/testdata/bcs/designer-atl.bcs').readAsBytesSync();
+    for (final truncated in [
+      bytes.sublist(0, 20),
+      bytes.sublist(0, 50),
+      bytes.sublist(0, 100),
+      bytes.sublist(0, bytes.length - 5),
+    ]) {
+      expect(BcsPalette.isValidFormat(truncated), isFalse);
+      expect(
+        () => BcsPalette.fromBytes(truncated),
+        throwsA(isA<FormatException>()),
+      );
+    }
+  });
+
+  test('corrupt header throws FormatException and is not valid', () {
+    final bytes =
+        File('test/testdata/bcs/designer-atl.bcs').readAsBytesSync().toList();
+    // Unknown-byte index: system block ends at bytes[0], then come the
+    // 2 count bytes, the name-length byte and the name itself.
+    final unknownIndex = bytes[0] + 4 + bytes[bytes[0] + 3];
+    final cases = {
+      'offset2 != 5': [4, 6],
+      'offset1 < offset2': [0, 2],
+      'bad signature': [1, 'X'.codeUnitAt(0)],
+      'bad unknown byte': [unknownIndex, 0],
+    };
+    cases.forEach((reason, patch) {
+      final corrupted = bytes.toList();
+      corrupted[patch[0]] = patch[1];
+      expect(BcsPalette.isValidFormat(corrupted), isFalse, reason: reason);
+      expect(
+        () => BcsPalette.fromBytes(corrupted),
+        throwsA(isA<FormatException>()),
+        reason: reason,
+      );
+    });
+  });
+
+  test('encoder rejects unencodable header fields', () {
+    BcsPalette build({
+      String system = 'System',
+      String? germanSystem,
+      String name = 'Name',
+      String? germanName,
+      List<BcsPaletteColor> colors = const [],
+    }) => BcsPalette(
+      type: BcsPaletteType.clf,
+      system: system,
+      germanSystem: germanSystem,
+      name: name,
+      germanName: germanName,
+      colors: colors,
+    );
+
+    // ':' would break the bilingual block structure.
+    expect(
+      () => build(system: 'a:b').toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(() => build(name: 'a:b').toBytes(), throwsA(isA<FormatException>()));
+    expect(
+      () => build(germanName: 'a:b').toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    // Header blocks are Latin-1 on the wire.
+    expect(
+      () => build(system: 'System €').toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () => build(name: 'Name €').toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    // Overlong blocks do not fit their length prefixes.
+    expect(
+      () => build(system: 'x' * 220).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () => build(name: 'x' * 240).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () =>
+          build(
+            colors: [
+              BcsPaletteColor(name: 'x' * 300, lab: [0, 0, 0]),
+            ],
+          ).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
   test('isValidFormat distinguishes BCS from BCF and CLR', () {
     final bcfBytes = File('test/testdata/bcf/dic-v10.bcf').readAsBytesSync();
     expect(BcsPalette.isValidFormat(bcfBytes), isFalse);
