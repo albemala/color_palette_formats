@@ -40,5 +40,38 @@ void main() {
 
       expect(CxfPalette.isValidFormat(invalidBytes), isFalse);
     });
+
+    test('rejects non-finite Lab values', () {
+      String fileWith(String lab) => '''
+<?xml version="1.0" encoding="utf-8"?>
+<cc:CxF xmlns:cc="http://colorexchangeformat.com/CxF3-core">
+<cc:Resources><cc:ObjectCollection>
+<cc:Object Name="X"><cc:ColorValues><cc:ColorCIELab>$lab</cc:ColorCIELab></cc:ColorValues></cc:Object>
+</cc:ObjectCollection></cc:Resources></cc:CxF>''';
+
+      // Each channel rejects NaN, infinities, and overflow to infinity.
+      const channels = ['L', 'A', 'B'];
+      for (final channel in channels) {
+        for (final bad in ['NaN', 'Infinity', '-Infinity', '1e999']) {
+          final others =
+              channels
+                  .where((c) => c != channel)
+                  .map((c) => '<cc:$c>0</cc:$c>')
+                  .join();
+          final bytes =
+              fileWith('<cc:$channel>$bad</cc:$channel>$others').codeUnits;
+          expect(
+            () => CxfPalette.fromBytes(bytes),
+            throwsA(isA<FormatException>()),
+            reason: '$channel = $bad',
+          );
+          expect(
+            CxfPalette.isValidFormat(bytes),
+            isFalse,
+            reason: '$channel = $bad',
+          );
+        }
+      }
+    });
   });
 }

@@ -11,7 +11,10 @@ part 'decode.dart';
  * Format name: Color Exchange Format
  * Acronym: CXF
  * File extensions: .cxf
- * Format details: Based on observed format in sample files.
+ * Format details: Namespaced CxF3-core XML. Only Object entries carrying
+ *   a ColorCIELab block are read (spectral or other color data is not
+ *   represented); objects without one are rejected. Decode-only: there
+ *   is no encoder.
  * References:
  * - Color Exchange Format specification
  */
@@ -69,7 +72,4 @@ class CxfConstants {
 
   // Attributes
   static const String nameAttr = 'Name';
-
-  // Prefix
-  static const String ccPrefix = 'cc';
 }

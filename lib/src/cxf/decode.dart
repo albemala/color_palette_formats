@@ -84,6 +84,16 @@ CxfColor _parseColor(XmlElement element) {
   if (l == null || a == null || b == null) {
     throw FormatException('Invalid L, A, or B value for color: $name');
   }
+  // double.tryParse accepts NaN/Infinity, which must not silently
+  // become color values.
+  if (l.isNaN ||
+      l.isInfinite ||
+      a.isNaN ||
+      a.isInfinite ||
+      b.isNaN ||
+      b.isInfinite) {
+    throw FormatException('Non-finite L, A, or B value for color: $name');
+  }
 
   return CxfColor(name: name, l: l, a: a, b: b);
 }
