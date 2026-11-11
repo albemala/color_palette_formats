@@ -1,6 +1,7 @@
 import 'package:buffer/buffer.dart';
 import 'package:color_palette_formats/src/buffer_read_utils.dart';
 import 'package:color_palette_formats/src/buffer_write_utils.dart';
+import 'package:color_palette_formats/src/format_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'ase.mapper.dart';

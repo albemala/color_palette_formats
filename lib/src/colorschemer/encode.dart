@@ -1,13 +1,5 @@
 part of 'colorschemer.dart';
 
-void _validateChannel(String label, int value) {
-  if (value < 0 || value > 255) {
-    throw FormatException(
-      'Not a valid $_paletteName. $label "$value" out of range 0..255.',
-    );
-  }
-}
-
 void _validateWireBytes(String label, String value) {
   if (value.codeUnits.any((byte) => byte > 0xFF)) {
     throw FormatException(
@@ -37,12 +29,12 @@ void _validatePalette(ColorSchemerPalette palette) {
     );
   }
   for (final channel in palette.baseColor) {
-    _validateChannel('base color channel', channel);
+    validateIntRange(_paletteName, 'base color channel', channel, 255);
   }
   for (final color in palette.colors) {
-    _validateChannel('red', color.red);
-    _validateChannel('green', color.green);
-    _validateChannel('blue', color.blue);
+    validateIntRange(_paletteName, 'red', color.red, 255);
+    validateIntRange(_paletteName, 'green', color.green, 255);
+    validateIntRange(_paletteName, 'blue', color.blue, 255);
     _validateWireBytes('color name', color.name);
     if (color.hexValue.length != 6) {
       throw FormatException(

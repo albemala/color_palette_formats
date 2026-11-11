@@ -65,10 +65,11 @@ int _parseChannel(String value) {
   // int.tryParse returns null on overflow, which must not silently
   // become 0.
   final parsed = int.tryParse(value);
-  if (parsed == null || parsed < 0 || parsed > 100) {
+  if (parsed == null) {
     throw FormatException(
-      'Not a valid $_paletteName. Channel "$value" out of range 0..100.',
+      'Not a valid $_paletteName. Channel "$value" is not a number.',
     );
   }
+  validateIntRange(_paletteName, 'channel', parsed, 100);
   return parsed;
 }

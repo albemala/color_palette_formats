@@ -26,19 +26,9 @@ void _validatePalette(PainterPalette palette) {
     );
   }
   for (final color in palette.colors) {
-    for (final entry
-        in {
-          'red': color.red,
-          'green': color.green,
-          'blue': color.blue,
-        }.entries) {
-      if (entry.value < 0 || entry.value > 255) {
-        throw FormatException(
-          'Not a valid $_paletteName. '
-          '${entry.key} "${entry.value}" out of range 0..255.',
-        );
-      }
-    }
+    validateIntRange(_paletteName, 'red', color.red, 255);
+    validateIntRange(_paletteName, 'green', color.green, 255);
+    validateIntRange(_paletteName, 'blue', color.blue, 255);
     for (final entry
         in {'HV': color.hv, 'SV': color.sv, 'VV': color.vv}.entries) {
       if (!entry.value.isFinite) {

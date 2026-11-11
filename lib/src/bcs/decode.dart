@@ -51,19 +51,10 @@ BcsPalette _decode(List<int> bytes) {
   }
   final buffer = ByteDataReader(endian: Endian.little)..add(bytes);
 
-  try {
-    return _decodeBody(bytes, buffer);
-  } catch (e) {
-    // Reads past the end of truncated input surface as RangeError or
-    // StateError from the byte buffer; report them as malformed files
-    // instead. Other errors (FormatException) pass through untouched.
-    if (e is RangeError || e is StateError) {
-      throw const FormatException(
-        'Not a valid $_paletteName: truncated input.',
-      );
-    }
-    rethrow;
-  }
+  return decodeWithTruncationGuard(
+    _paletteName,
+    () => _decodeBody(bytes, buffer),
+  );
 }
 
 BcsPalette _decodeBody(List<int> bytes, ByteDataReader buffer) {

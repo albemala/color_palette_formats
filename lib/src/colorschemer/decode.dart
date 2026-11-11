@@ -6,19 +6,7 @@ ColorSchemerPalette _decode(List<int> bytes) {
   // Create a ByteData view with little-endian byte order
   final byteData = ByteData.sublistView(Uint8List.fromList(bytes));
 
-  try {
-    return _decodeBody(byteData);
-  } catch (e) {
-    // Reads past the end of truncated input surface as RangeError;
-    // report them as malformed files instead. Other errors
-    // (FormatException) pass through untouched.
-    if (e is RangeError) {
-      throw const FormatException(
-        'Not a valid $_paletteName: truncated input.',
-      );
-    }
-    rethrow;
-  }
+  return decodeWithTruncationGuard(_paletteName, () => _decodeBody(byteData));
 }
 
 ColorSchemerPalette _decodeBody(ByteData byteData) {

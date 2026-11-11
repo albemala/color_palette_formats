@@ -3,20 +3,10 @@ part of 'ase.dart';
 AdobeSwatchExchange _decode(List<int> bytes) {
   final buffer = ByteDataReader()..add(bytes);
 
-  try {
-    return _decodeBody(buffer);
-  } catch (e) {
-    // Reads past the end of truncated input surface as RangeError or
-    // StateError from the byte buffer; report them as malformed files
-    // instead. Other errors (FormatException, UnsupportedError) pass
-    // through untouched.
-    if (e is RangeError || e is StateError) {
-      throw const FormatException(
-        'Not a valid Adobe Swatch Exchange file: truncated input.',
-      );
-    }
-    rethrow;
-  }
+  return decodeWithTruncationGuard(
+    'Adobe Swatch Exchange file',
+    () => _decodeBody(buffer),
+  );
 }
 
 AdobeSwatchExchange _decodeBody(ByteDataReader buffer) {

@@ -100,19 +100,7 @@ String _parsePreferredModel(int value) => switch (value) {
 BcfPalette _decode(List<int> bytes) {
   final buffer = ByteDataReader()..add(bytes);
 
-  try {
-    return _decodeBody(buffer);
-  } catch (e) {
-    // Reads past the end of truncated input surface as RangeError or
-    // StateError from the byte buffer; report them as malformed files
-    // instead. Other errors (FormatException) pass through untouched.
-    if (e is RangeError || e is StateError) {
-      throw const FormatException(
-        'Not a valid $_paletteName: truncated input.',
-      );
-    }
-    rethrow;
-  }
+  return decodeWithTruncationGuard(_paletteName, () => _decodeBody(buffer));
 }
 
 BcfPalette _decodeBody(ByteDataReader buffer) {

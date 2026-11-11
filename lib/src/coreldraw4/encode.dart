@@ -19,20 +19,10 @@ void _validatePalette(CorelDraw4Palette palette) {
         'Not a valid $_paletteName. Invalid color name "${color.name}".',
       );
     }
-    for (final entry
-        in {
-          'cyan': color.cyan,
-          'magenta': color.magenta,
-          'yellow': color.yellow,
-          'black': color.black,
-        }.entries) {
-      if (entry.value < 0 || entry.value > 100) {
-        throw FormatException(
-          'Not a valid $_paletteName. '
-          '${entry.key} "${entry.value}" out of range 0..100.',
-        );
-      }
-    }
+    validateIntRange(_paletteName, 'cyan', color.cyan, 100);
+    validateIntRange(_paletteName, 'magenta', color.magenta, 100);
+    validateIntRange(_paletteName, 'yellow', color.yellow, 100);
+    validateIntRange(_paletteName, 'black', color.black, 100);
   }
 }
 

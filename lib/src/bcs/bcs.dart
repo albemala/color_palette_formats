@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:buffer/buffer.dart';
+import 'package:color_palette_formats/src/format_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'bcs.mapper.dart';
