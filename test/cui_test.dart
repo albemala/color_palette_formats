@@ -48,9 +48,13 @@ void main() {
   });
 
   test('isValidFormat rejects structurally invalid files', () {
-    String fileWith(String body) =>
-        '<?xml version="1.0" encoding="UTF-8"?>\n<LibraryUISpecs>\n'
-        '  <edit_dialog_data>\n$body  </edit_dialog_data>\n</LibraryUISpecs>\n';
+    String fileWith(String body) => '''
+<?xml version="1.0" encoding="UTF-8"?>
+<LibraryUISpecs>
+  <edit_dialog_data>
+$body  </edit_dialog_data>
+</LibraryUISpecs>
+''';
 
     // Missing rows_per_page.
     expect(QuarkXPressCui.isValidFormat(fileWith('').codeUnits), isFalse);
@@ -67,12 +71,13 @@ void main() {
     }
     // Non-numeric column_break.
     final badBreak =
-        fileWith(
-          '    <rows_per_page>7</rows_per_page>\n'
-          '    <column_data>\n'
-          '      <column_break>six</column_break>\n'
-          '    </column_data>\n',
-        ).codeUnits;
+        fileWith('''
+    <rows_per_page>7</rows_per_page>
+    <column_data>
+      <column_break>six</column_break>
+    </column_data>
+''')
+            .codeUnits;
     expect(QuarkXPressCui.isValidFormat(badBreak), isFalse);
     expect(
       () => QuarkXPressCui.fromBytes(badBreak),

@@ -263,9 +263,14 @@ void main() {
   });
 
   test('rejects malformed color data', () {
-    String fileWith(String colorLine) =>
-        "##sK1 palette\npalette()\nset_name('N')\nset_columns(1)\n"
-        '$colorLine\npalette_end()\n';
+    String fileWith(String colorLine) => '''
+##sK1 palette
+palette()
+set_name('N')
+set_columns(1)
+$colorLine
+palette_end()
+''';
 
     // Wrong value count for the color space.
     expect(
@@ -301,17 +306,25 @@ void main() {
     // Negative and non-numeric columns.
     expect(
       () => Sk1Palette.fromBytes(
-        "##sK1 palette\npalette()\nset_name('N')\nset_columns(-1)\n"
-                'palette_end()\n'
-            .codeUnits,
+        '''
+##sK1 palette
+palette()
+set_name('N')
+set_columns(-1)
+palette_end()
+'''.codeUnits,
       ),
       throwsA(isA<FormatException>()),
     );
     expect(
       () => Sk1Palette.fromBytes(
-        "##sK1 palette\npalette()\nset_name('N')\nset_columns(two)\n"
-                'palette_end()\n'
-            .codeUnits,
+        '''
+##sK1 palette
+palette()
+set_name('N')
+set_columns(two)
+palette_end()
+'''.codeUnits,
       ),
       throwsA(isA<FormatException>()),
     );
@@ -319,9 +332,13 @@ void main() {
     // the missing name rather than the typo.
     expect(
       () => Sk1Palette.fromBytes(
-        "##sK1 palette\npalette()\nset_nmae('N')\nset_columns(1)\n"
-                'palette_end()\n'
-            .codeUnits,
+        '''
+##sK1 palette
+palette()
+set_nmae('N')
+set_columns(1)
+palette_end()
+'''.codeUnits,
       ),
       throwsA(isA<FormatException>()),
     );
@@ -347,9 +364,14 @@ void main() {
     // Corrupt color data.
     expect(
       Sk1Palette.isValidFormat(
-        "##sK1 palette\npalette()\nset_name('N')\nset_columns(1)\n"
-                "color(['RGB', [1.0], 1.0, 'X'])\npalette_end()\n"
-            .codeUnits,
+        '''
+##sK1 palette
+palette()
+set_name('N')
+set_columns(1)
+color(['RGB', [1.0], 1.0, 'X'])
+palette_end()
+'''.codeUnits,
       ),
       isFalse,
     );

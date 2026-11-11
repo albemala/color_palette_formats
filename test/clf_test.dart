@@ -54,14 +54,14 @@ void main() {
   });
 
   test('skips blank and malformed lines like the reference reader', () {
-    final bytes = utf8.encode(
-      'Not a color line\n'
-      '\n'
-      'HLC Red\t53.0\t80.0\t67.0\n'
-      'Comma Green\t87,0\t-30,5\t72,25\n'
-      'Incomplete\t1.0\t2.0\n'
-      'Not numbers\ta\tb\tc\n',
-    );
+    final bytes = utf8.encode('''
+Not a color line
+
+HLC Red\t53.0\t80.0\t67.0
+Comma Green\t87,0\t-30,5\t72,25
+Incomplete\t1.0\t2.0
+Not numbers\ta\tb\tc
+''');
 
     final clf = ClfPalette.fromBytes(bytes);
 

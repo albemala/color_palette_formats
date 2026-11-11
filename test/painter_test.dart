@@ -113,15 +113,14 @@ void main() {
   });
 
   test('tolerates varying whitespace around separators', () {
-    final bytes = utf8.encode(
-      'ROWS 16\n'
-      'COLS 6\n'
-      'WIDTH 41\n'
-      'HEIGHT 12\n'
-      'TEXTHEIGHT 14\n'
-      'SPACING 1\n'
-      'R: 255, G:255, B:0 HV:0.00, SV:0.00, VV:0.00  FFFF00',
-    );
+    final bytes = utf8.encode('''
+ROWS 16
+COLS 6
+WIDTH 41
+HEIGHT 12
+TEXTHEIGHT 14
+SPACING 1
+R: 255, G:255, B:0 HV:0.00, SV:0.00, VV:0.00  FFFF00''');
 
     expect(PainterPalette.isValidFormat(bytes), isTrue);
     final painter = PainterPalette.fromBytes(bytes);
@@ -181,8 +180,14 @@ void main() {
   });
 
   test('truncated input throws FormatException and is not valid', () {
-    const header =
-        'ROWS 7\nCOLS 1\nWIDTH 140\nHEIGHT 30\nTEXTHEIGHT 12\nSPACING 1\n';
+    const header = '''
+ROWS 7
+COLS 1
+WIDTH 140
+HEIGHT 30
+TEXTHEIGHT 12
+SPACING 1
+''';
     const color =
         'R:247, G:224, B:23  HV:0.00, SV:0.00, VV:0.00  PANTONE Yellow C';
     for (final content in [
@@ -201,13 +206,23 @@ void main() {
   });
 
   test('decode rejects malformed values', () {
-    const header =
-        'ROWS 7\nCOLS 1\nWIDTH 140\nHEIGHT 30\nTEXTHEIGHT 12\nSPACING 1\n';
+    const header = '''
+ROWS 7
+COLS 1
+WIDTH 140
+HEIGHT 30
+TEXTHEIGHT 12
+SPACING 1
+''';
     final cases = {
-      'negative header':
-          'ROWS -1\nCOLS 1\nWIDTH 140\nHEIGHT 30\n'
-          'TEXTHEIGHT 12\nSPACING 1\n'
-          'R:1, G:2, B:3  HV:0.00, SV:0.00, VV:0.00  X',
+      'negative header': '''
+ROWS -1
+COLS 1
+WIDTH 140
+HEIGHT 30
+TEXTHEIGHT 12
+SPACING 1
+R:1, G:2, B:3  HV:0.00, SV:0.00, VV:0.00  X''',
       'channel over 255':
           '${header}R:300, G:0, B:0  HV:0.00, SV:0.00, VV:0.00  X',
       'NaN variability': '${header}R:1, G:2, B:3  HV:NaN, SV:0.00, VV:0.00  X',
