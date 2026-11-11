@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:color_palette_formats/color_palette_formats.dart';
@@ -73,10 +74,8 @@ void main() {
     // write to temp file
     final hplFile = File('./test/test.hpl');
     hplFile.writeAsBytesSync(hpl.toBytes());
-    // print(hplFile.readAsStringSync());
 
     final decodedHpl = HomesitePalette.fromBytes(hplFile.readAsBytesSync());
-    // print(decodedHpl.toJson());
 
     expect(decodedHpl.colors.length, equals(3));
 
@@ -94,5 +93,127 @@ void main() {
 
     // delete temp file
     hplFile.deleteSync();
+  });
+
+  test('rejects truncated and malformed input with FormatException', () {
+    String fileWith(String body) => 'Palette\nVersion 4.0\n\n$body';
+
+    // Truncated: header without a version line must throw FormatException,
+    // never RangeError.
+    for (final truncated in ['Palette', '']) {
+      expect(
+        () => HomesitePalette.fromBytes(truncated.codeUnits),
+        throwsA(isA<FormatException>()),
+        reason: 'truncated "$truncated"',
+      );
+      expect(
+        HomesitePalette.isValidFormat(truncated.codeUnits),
+        isFalse,
+        reason: 'truncated "$truncated"',
+      );
+    }
+
+    // Wrong value counts throw FormatException, never RangeError.
+    for (final body in ['1 2\n', '1 2 3 4\n', '1\n', '\n']) {
+      // A body of just '\n' is only blank lines: valid empty palette.
+      if (body.trim().isEmpty) {
+        expect(
+          HomesitePalette.fromBytes(fileWith(body).codeUnits).colors,
+          isEmpty,
+        );
+        continue;
+      }
+      expect(
+        () => HomesitePalette.fromBytes(fileWith(body).codeUnits),
+        throwsA(isA<FormatException>()),
+        reason: 'body "$body"',
+      );
+      expect(
+        HomesitePalette.isValidFormat(fileWith(body).codeUnits),
+        isFalse,
+        reason: 'body "$body"',
+      );
+    }
+
+    // Out-of-range channels throw FormatException.
+    for (final bad in ['256', '1000', '-1', '-5']) {
+      for (final channel in [0, 1, 2]) {
+        final channels = ['10', '20', '30'];
+        channels[channel] = bad;
+        final bytes = fileWith('${channels.join(' ')}\n').codeUnits;
+        expect(
+          () => HomesitePalette.fromBytes(bytes),
+          throwsA(isA<FormatException>()),
+          reason: 'channel $channel = $bad',
+        );
+      }
+    }
+
+    // Non-numeric channels and overflow throw FormatException.
+    for (final body in ['abc def ghi\n', '99999999999999999999 0 0\n']) {
+      expect(
+        () => HomesitePalette.fromBytes(fileWith(body).codeUnits),
+        throwsA(isA<FormatException>()),
+        reason: 'body "$body"',
+      );
+    }
+  });
+
+  test('tolerates separators and blank lines', () {
+    String fileWith(String body) => 'Palette\nVersion 4.0\n\n$body';
+
+    // Multi-space, tab, and leading/trailing whitespace decode identically.
+    for (final body in ['56  37   9\n', '56\t37\t9\n', '  56 37 9  \n']) {
+      final palette = HomesitePalette.fromBytes(fileWith(body).codeUnits);
+      expect(palette.colors.length, equals(1), reason: 'body "$body"');
+      expect(palette.colors.first.red, equals(56));
+      expect(palette.colors.first.green, equals(37));
+      expect(palette.colors.first.blue, equals(9));
+    }
+
+    // Whitespace-only lines are skipped like empty lines.
+    final withBlanks = HomesitePalette.fromBytes(
+      fileWith('1 2 3\n   \n\n4 5 6\n').codeUnits,
+    );
+    expect(withBlanks.colors.length, equals(2));
+  });
+
+  test('decodes lone-CR line endings', () {
+    final bytes = File('test/testdata/hpl/hpl1_v4.0.hpl').readAsBytesSync();
+    final crBytes = ascii.decode(bytes).replaceAll('\n', '\r').codeUnits;
+    final palette = HomesitePalette.fromBytes(crBytes);
+    expect(palette.colors.length, equals(287));
+    expect(palette.colors.first.red, equals(0));
+    expect(palette.colors[1].red, equals(255));
+  });
+
+  test('encoder rejects out-of-range channels', () {
+    // Constructor asserts fire in debug builds before the encoder's
+    // FormatException guards (release safety nets) are reached.
+    final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+    for (final bad in [256, -1]) {
+      expect(
+        () =>
+            HomesitePalette(
+              colors: [HomesitePaletteColor(red: bad, green: 0, blue: 0)],
+            ).toBytes(),
+        throwsA(either),
+        reason: 'red = $bad',
+      );
+    }
+  });
+
+  test('decode-encode-decode is stable on all fixtures', () {
+    for (final filePath in expectedData.keys) {
+      final bytes = File(filePath).readAsBytesSync();
+      final once = HomesitePalette.fromBytes(bytes);
+      final twice = HomesitePalette.fromBytes(once.toBytes());
+      expect(twice.colors.length, equals(once.colors.length), reason: filePath);
+      for (var i = 0; i < once.colors.length; i++) {
+        expect(twice.colors[i].red, equals(once.colors[i].red));
+        expect(twice.colors[i].green, equals(once.colors[i].green));
+        expect(twice.colors[i].blue, equals(once.colors[i].blue));
+      }
+    }
   });
 }
