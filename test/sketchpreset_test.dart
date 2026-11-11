@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:archive/archive.dart';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -8,9 +10,10 @@ void main() {
     late List<int> bytes;
 
     setUpAll(() {
-      bytes = File(
-        'test/testdata/sketchpreset/preset-json.sketchpreset',
-      ).readAsBytesSync();
+      bytes =
+          File(
+            'test/testdata/sketchpreset/preset-json.sketchpreset',
+          ).readAsBytesSync();
     });
 
     test('isValidFormat returns true', () {
@@ -55,9 +58,10 @@ void main() {
     late List<int> bytes;
 
     setUpAll(() {
-      bytes = File(
-        'test/testdata/sketchpreset/preset-zip.sketchpreset',
-      ).readAsBytesSync();
+      bytes =
+          File(
+            'test/testdata/sketchpreset/preset-zip.sketchpreset',
+          ).readAsBytesSync();
     });
 
     test('isValidFormat returns true', () {
@@ -78,22 +82,118 @@ void main() {
 
   test('isValidFormat returns false for invalid preset', () {
     expect(SketchPreset.isValidFormat([0, 1, 2, 3, 4, 5]), isFalse);
-    expect(
-      SketchPreset.isValidFormat('{"root":{}}'.codeUnits),
-      isFalse,
-    );
+    expect(SketchPreset.isValidFormat('{"root":{}}'.codeUnits), isFalse);
+  });
+
+  group('validation', () {
+    String presetDoc(String red) =>
+        '{"root":{"colorAssets":[{"name":"x","color":'
+        '{"red":$red,"green":0,"blue":0,"alpha":1}}]}}';
+
+    List<int> zipOf(String documentJson) {
+      final content = utf8.encode(documentJson);
+      final archive = Archive();
+      archive.addFile(ArchiveFile('document.json', content.length, content));
+      return ZipEncoder().encode(archive);
+    }
+
+    void expectRejected(String label, List<int> bytes) {
+      expect(
+        () => SketchPreset.fromBytes(bytes),
+        throwsA(isA<FormatException>()),
+        reason: label,
+      );
+      expect(SketchPreset.isValidFormat(bytes), isFalse, reason: label);
+    }
+
+    test('rejects out-of-range and non-finite channels on every path', () {
+      final cases = <String, List<int>>{
+        'json above range': utf8.encode(presetDoc('2')),
+        'json negative': utf8.encode(presetDoc('-0.5')),
+        // Strict JSON has no Infinity literal, but overflow decodes to it.
+        'json overflow to Infinity': utf8.encode(presetDoc('1e999')),
+        'json red as string': utf8.encode(presetDoc('"x"')),
+        'zip above range': zipOf(
+          '{"assets":{"colorAssets":[{"name":"x","color":'
+          '{"red":2,"green":0,"blue":0,"alpha":1}}]}}',
+        ),
+        'zip legacy color above range': zipOf(
+          '{"assets":{"colors":[{"red":0,"green":0,"blue":2,"alpha":1}]}}',
+        ),
+      };
+      for (final entry in cases.entries) {
+        expectRejected(entry.key, entry.value);
+      }
+    });
+
+    test('rejects truncated zip input', () {
+      final full =
+          File(
+            'test/testdata/sketchpreset/preset-zip.sketchpreset',
+          ).readAsBytesSync();
+      expectRejected('truncated zip', full.sublist(0, full.length ~/ 2));
+    });
+
+    test('accepts empty color assets', () {
+      for (final doc in ['{"root":{"colorAssets":[]}}', '{"colorAssets":[]}']) {
+        final preset = SketchPreset.fromBytes(utf8.encode(doc));
+        expect(preset.colors, isEmpty, reason: doc);
+        expect(SketchPreset.isValidFormat(utf8.encode(doc)), isTrue);
+      }
+    });
+
+    test('encoder rejects invalid colors', () {
+      // Constructor asserts fire in debug builds before the encoder's
+      // FormatException guards (release safety nets) are reached.
+      final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+      final cases = <String, SketchPresetColor Function()>{
+        'above range':
+            () => SketchPresetColor(
+              name: 'x',
+              red: 2,
+              green: 0,
+              blue: 0,
+              alpha: 1,
+            ),
+        'negative':
+            () => SketchPresetColor(
+              name: 'x',
+              red: -0.1,
+              green: 0,
+              blue: 0,
+              alpha: 1,
+            ),
+        'NaN':
+            () => SketchPresetColor(
+              name: 'x',
+              red: double.nan,
+              green: 0,
+              blue: 0,
+              alpha: 1,
+            ),
+        'infinite':
+            () => SketchPresetColor(
+              name: 'x',
+              red: double.infinity,
+              green: 0,
+              blue: 0,
+              alpha: 1,
+            ),
+      };
+      for (final entry in cases.entries) {
+        expect(
+          () => SketchPreset(colors: [entry.value()]).toBytes(),
+          throwsA(either),
+          reason: entry.key,
+        );
+      }
+    });
   });
 
   test('write sketchpreset file', () {
     final preset = SketchPreset(
       colors: [
-        SketchPresetColor(
-          name: 'Red',
-          red: 1,
-          green: 0,
-          blue: 0,
-          alpha: 1,
-        ),
+        SketchPresetColor(name: 'Red', red: 1, green: 0, blue: 0, alpha: 1),
         SketchPresetColor(
           name: 'Transparent Blue',
           red: 0,
@@ -104,16 +204,12 @@ void main() {
       ],
     );
 
-    final presetFile = File('./test/test.sketchpreset');
-    presetFile.writeAsBytesSync(preset.toBytes());
-
-    final decoded = SketchPreset.fromBytes(presetFile.readAsBytesSync());
+    // Round-trip in memory (no temp file written into the repo).
+    final decoded = SketchPreset.fromBytes(preset.toBytes());
     expect(decoded.colors.length, equals(2));
     expect(decoded.colors[0].name, equals('Red'));
     expect(decoded.colors[0].red, equals(1.0));
     expect(decoded.colors[1].name, equals('Transparent Blue'));
     expect(decoded.colors[1].alpha, equals(0.5));
-
-    presetFile.deleteSync();
   });
 }

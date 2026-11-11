@@ -1,6 +1,22 @@
 part of 'sketchpreset.dart';
 
 SketchPreset _decode(List<int> bytes) {
+  try {
+    return _decodeUnsafe(bytes);
+  } on FormatException {
+    rethrow;
+  } catch (e) {
+    // Zip failures (truncated central directory, unexpected entry types)
+    // and debug-only assertion failures all surface here; the format
+    // contract is FormatException on invalid input, identical in debug
+    // and release builds.
+    throw FormatException(
+      'Invalid Sketch Preset file: ${e.toString().split('\n').first}',
+    );
+  }
+}
+
+SketchPreset _decodeUnsafe(List<int> bytes) {
   if (_isZip(bytes)) {
     return _decodeZip(bytes);
   }
@@ -148,6 +164,17 @@ List<SketchPresetColor> _parseLegacyColors(List<dynamic> colors) {
 }
 
 double _unitInterval(dynamic value, String label) {
-  if (value is num) return value.toDouble();
-  throw FormatException('Invalid $label file: expected 0..1 components.');
+  final message = 'Invalid $label file: expected 0..1 components.';
+  if (value is! num) {
+    throw FormatException(message);
+  }
+  final channel = value.toDouble();
+  // NaN passes bare range comparisons, so finiteness is checked
+  // explicitly. Overflow literals such as 1e999 decode to Infinity. The
+  // model constructor asserts this range in debug builds; enforce it here
+  // with FormatException for release safety.
+  if (!channel.isFinite || channel < 0 || channel > 1) {
+    throw FormatException('$message Found "$value".');
+  }
+  return channel;
 }
