@@ -274,4 +274,92 @@ void main() {
       );
     }
   });
+
+  test('reports truncated input as FormatException', () {
+    final families = {
+      'test/testdata/cpl/std-double.cpl': 'simple',
+      'test/testdata/cpl/custom.cpl': 'custom',
+      'test/testdata/cpl/long-single.cpl': 'headered',
+      'test/testdata/cpl/x4.cpl': 'positioned',
+    };
+    for (final entry in families.entries) {
+      final bytes = File(entry.key).readAsBytesSync();
+      // Mid-header, mid-color, and mid-name cuts.
+      for (final cut in [5, bytes.length ~/ 2, bytes.length - 3]) {
+        expect(
+          () => CplPalette.fromBytes(bytes.sublist(0, cut)),
+          throwsA(isA<FormatException>()),
+          reason: '${entry.value} cut at $cut',
+        );
+      }
+      expect(
+        CplPalette.isValidFormat(bytes.sublist(0, bytes.length - 3)),
+        isFalse,
+        reason: entry.key,
+      );
+    }
+  });
+
+  test('encoder rejects out-of-range values', () {
+    // Constructor asserts fire in debug builds before the encoder's
+    // FormatException guards (release safety nets) are reached.
+    final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+    CplPaletteColor colorWith({
+      int model = 5,
+      int type = 0,
+      List<int> values = const [0, 0, 0, 0, 0, 0, 255, 0],
+    }) => CplPaletteColor(model: model, type: type, values: values, name: 'X');
+
+    CplPalette paletteWith(List<CplPaletteColor> colors) =>
+        CplPalette(version: CplVersion.ccdc, name: '', type: 0, colors: colors);
+
+    expect(
+      () => paletteWith([colorWith(model: 70000)]).toBytes(),
+      throwsA(either),
+    );
+    expect(() => paletteWith([colorWith(type: -1)]).toBytes(), throwsA(either));
+    expect(
+      () =>
+          paletteWith([
+            colorWith(values: [0, 0, 0, 0, 0, 0, 256, 0]),
+          ]).toBytes(),
+      throwsA(either),
+    );
+    expect(
+      () =>
+          paletteWith([
+            colorWith(values: [0, 0, 0, 0, 0, 0, -1, 0]),
+          ]).toBytes(),
+      throwsA(either),
+    );
+    // Headered families: palette type and layout ranges.
+    CplPalette headeredWith({
+      int type = 38,
+      int? displayColumns,
+      int? displayRows,
+      int? totalColumns,
+      int? totalRows,
+    }) => CplPalette(
+      version: CplVersion.dddc,
+      name: 'N',
+      type: type,
+      colors: [colorWith()],
+      displayColumns: displayColumns,
+      displayRows: displayRows,
+      totalColumns: totalColumns,
+      totalRows: totalRows,
+    );
+
+    expect(() => headeredWith(type: 70000).toBytes(), throwsA(either));
+    expect(
+      () =>
+          headeredWith(
+            displayColumns: 1,
+            displayRows: 1,
+            totalColumns: 70000,
+            totalRows: 1,
+          ).toBytes(),
+      throwsA(either),
+    );
+  });
 }

@@ -61,6 +61,10 @@ ByteDataReader _subReader(List<int> bytes, int offset) {
 }
 
 CplPalette _decode(List<int> bytes) {
+  return decodeWithTruncationGuard(_paletteName, () => _decodeBody(bytes));
+}
+
+CplPalette _decodeBody(List<int> bytes) {
   if (bytes.length < 2) {
     throw const FormatException(
       'Not a valid $_paletteName. File is shorter than 2 bytes.',

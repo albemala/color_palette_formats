@@ -63,6 +63,27 @@ void _writeColor(
       'a position.',
     );
   }
+  // The model constructors assert these ranges in debug builds; enforce
+  // them here with FormatException because the byte writer silently masks
+  // out-of-range values in release.
+  validateIntRange(_paletteName, 'model', color.model, 65535);
+  validateIntRange(_paletteName, 'type', color.type, 65535);
+  for (final byte in color.values) {
+    validateIntRange(_paletteName, 'value', byte, 255);
+  }
+  if (long) {
+    validateIntRange(_paletteName, 'id', color.id!, 4294967295);
+    validateIntRange(_paletteName, 'second model', color.secondModel!, 65535);
+    validateIntRange(_paletteName, 'second type', color.secondType!, 65535);
+    for (final byte in color.secondValues!) {
+      validateIntRange(_paletteName, 'second value', byte, 255);
+    }
+  }
+  if (positioned) {
+    validateIntRange(_paletteName, 'row', color.row!, 4294967295);
+    validateIntRange(_paletteName, 'column', color.column!, 4294967295);
+    validateIntRange(_paletteName, 'unknown', color.unknown!, 4294967295);
+  }
 
   if (long) buffer.writeUint32(color.id!);
   buffer.writeUint16(color.model);
@@ -107,6 +128,7 @@ List<int> _encode(CplPalette palette) {
 
 List<int> _encodeSimple(CplPalette palette) {
   _requireBare(palette, '5-8');
+  validateIntRange(_paletteName, 'colors count', palette.colors.length, 65535);
   final singleByte = palette.version == CplVersion.ccdc;
   final buffer = ByteDataWriter(endian: Endian.little);
   // file signature
@@ -146,6 +168,7 @@ List<int> _encodeCustom(CplPalette palette) {
   // palette name
   _writeName(buffer, palette.name, true);
   // colors count
+  validateIntRange(_paletteName, 'colors count', palette.colors.length, 65535);
   buffer.writeUint16(palette.colors.length);
   // color entries
   for (final color in palette.colors) {
@@ -180,6 +203,37 @@ List<int> _encodeHeadered(CplPalette palette) {
   final singleByte = _usesSingleByteNames(palette.version, palette.type);
   final long = _usesLongEntries(palette.version, palette.type);
   final positioned = palette.version == CplVersion.cddd;
+
+  validateIntRange(_paletteName, 'palette type', palette.type, 65535);
+  validateIntRange(_paletteName, 'colors count', palette.colors.length, 65535);
+  validateIntRange(
+    _paletteName,
+    'special inks count',
+    palette.specialInks.length,
+    65535,
+  );
+  for (final ink in palette.specialInks) {
+    validateIntRange(_paletteName, 'special ink', ink, 65535);
+  }
+  for (final model in palette.uiColorModels) {
+    validateIntRange(_paletteName, 'UI color model', model, 255);
+  }
+  if (hasLayout) {
+    validateIntRange(
+      _paletteName,
+      'display columns',
+      palette.displayColumns!,
+      65535,
+    );
+    validateIntRange(_paletteName, 'display rows', palette.displayRows!, 65535);
+    validateIntRange(
+      _paletteName,
+      'total columns',
+      palette.totalColumns!,
+      65535,
+    );
+    validateIntRange(_paletteName, 'total rows', palette.totalRows!, 65535);
+  }
 
   // data blocks
   final nameBlock = ByteDataWriter(endian: Endian.little);
