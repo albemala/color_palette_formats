@@ -1,11 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:archive/archive.dart';
 import 'package:color_palette_formats/color_palette_formats.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final expectedData = {
-    'test/testdata/procreate/procreate1.swatches': ProcreateV1Palette(
+    'test/testdata/procreate/procreate1_v1.swatches': ProcreateV1Palette(
       name: 'Retro & Vintage',
       swatches: [
         ProcreateV1Swatch(
@@ -17,7 +19,7 @@ void main() {
         ),
       ],
     ),
-    'test/testdata/procreate/procreate2.swatches': ProcreateV1Palette(
+    'test/testdata/procreate/procreate2_v1.swatches': ProcreateV1Palette(
       name: 'Modern & Fresh',
       swatches: [
         ProcreateV1Swatch(
@@ -135,7 +137,6 @@ void main() {
     final decodedProcreate = decodeProcreateV1Palettes(
       procreateFile.readAsBytesSync(),
     );
-    // print(decodedProcreate.first.toJson());
 
     expect(decodedProcreate.first.swatches.length, equals(3));
 
@@ -168,5 +169,208 @@ void main() {
 
     // delete temp file
     procreateFile.deleteSync();
+  });
+
+  test('rejects invalid input with FormatException', () {
+    List<int> zipOf(String name, List<int> content) {
+      final archive = Archive();
+      archive.addFile(ArchiveFile(name, content.length, content));
+      return ZipEncoder().encode(archive);
+    }
+
+    String swatchWith(String swatchJson) =>
+        '[{"name":"x","swatches":[$swatchJson]}]';
+    String swatchJson({
+      String hue = '0.5',
+      String saturation = '0.5',
+      String brightness = '0.5',
+      String alpha = '1',
+      String colorSpace = '0',
+    }) =>
+        '{"hue":$hue,"saturation":$saturation,'
+        '"brightness":$brightness,"alpha":$alpha,'
+        '"colorSpace":$colorSpace}';
+    const goodSwatch =
+        '{"hue":0.5,"saturation":0.5,"brightness":0.5,'
+        '"alpha":1,"colorSpace":0}';
+
+    final validBytes =
+        File('test/testdata/procreate/procreate1_v1.swatches').readAsBytesSync();
+
+    final cases = <String, List<int>>{
+      'garbage': [0, 1, 2, 3, 4, 5],
+      'empty zip': ZipEncoder().encode(Archive()),
+      'truncated': validBytes.sublist(0, 20),
+      'json object': zipOf('Swatches.json', utf8.encode('{"a":1}')),
+      'json number': zipOf('Swatches.json', utf8.encode('5')),
+      'json list of numbers': zipOf('Swatches.json', utf8.encode('[1,2]')),
+      'missing keys': zipOf('Swatches.json', utf8.encode('[{"name":"x"}]')),
+      'missing swatch keys': zipOf(
+        'Swatches.json',
+        utf8.encode('[{"name":"x","swatches":[{}]}]'),
+      ),
+      'unknown colorSpace': zipOf(
+        'Swatches.json',
+        utf8.encode(swatchWith(swatchJson(colorSpace: '1'))),
+      ),
+      'string hue': zipOf(
+        'Swatches.json',
+        utf8.encode(swatchWith(swatchJson(hue: '"half"'))),
+      ),
+      'hue above range': zipOf(
+        'Swatches.json',
+        utf8.encode(swatchWith(swatchJson(hue: '5.0'))),
+      ),
+      'negative alpha': zipOf(
+        'Swatches.json',
+        utf8.encode(swatchWith(swatchJson(alpha: '-1.0'))),
+      ),
+      'overflow to infinity': zipOf(
+        'Swatches.json',
+        utf8.encode(swatchWith(swatchJson(hue: '1e999'))),
+      ),
+    };
+
+    for (final entry in cases.entries) {
+      expect(
+        () => decodeProcreateV1Palettes(entry.value),
+        throwsA(isA<FormatException>()),
+        reason: entry.key,
+      );
+      expect(
+        ProcreateV1Palette.isValidFormat(entry.value),
+        isFalse,
+        reason: entry.key,
+      );
+    }
+
+    // Sanity: the well-formed swatch decodes.
+    expect(
+      decodeProcreateV1Palettes(
+        zipOf('Swatches.json', utf8.encode(swatchWith(goodSwatch))),
+      ).first.swatches.length,
+      equals(1),
+    );
+  });
+
+  test('round-trips non-ASCII names without corruption', () {
+    const name = 'Tavolozza 🎨 café';
+    final palette = ProcreateV1Palette(
+      name: name,
+      swatches: [
+        ProcreateV1Swatch(
+          hue: 0.5,
+          saturation: 0.5,
+          brightness: 0.5,
+          alpha: 1,
+          colorSpace: ProcreateV1ColorSpace.hsb,
+        ),
+      ],
+    );
+    final bytes = palette.toBytes();
+    final back = decodeProcreateV1Palettes(bytes);
+    expect(back.first.name, equals(name));
+  });
+
+  test('encoder writes the canonical Swatches.json entry', () {
+    final palette = ProcreateV1Palette(
+      name: 'test',
+      swatches: [
+        ProcreateV1Swatch(
+          hue: 0.5,
+          saturation: 0.5,
+          brightness: 0.5,
+          alpha: 1,
+          colorSpace: ProcreateV1ColorSpace.hsb,
+        ),
+      ],
+    );
+    final archive = ZipDecoder().decodeBytes(palette.toBytes());
+    expect(archive.length, equals(1));
+    expect(archive.first.name, equals('Swatches.json'));
+  });
+
+  test('encoder rejects out-of-range channels', () {
+    // Constructor asserts fire in debug builds before the encoder's
+    // FormatException guards (release safety nets) are reached.
+    final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+    for (final bad in [5.0, -1.0, double.infinity, double.nan]) {
+      expect(
+        () =>
+            ProcreateV1Palette(
+              name: 'x',
+              swatches: [
+                ProcreateV1Swatch(
+                  hue: bad,
+                  saturation: 0.5,
+                  brightness: 0.5,
+                  alpha: 1,
+                  colorSpace: ProcreateV1ColorSpace.hsb,
+                ),
+              ],
+            ).toBytes(),
+        throwsA(either),
+        reason: 'hue = $bad',
+      );
+    }
+  });
+
+  test('rejects v5 files as invalid v1', () {
+    // The remaining fixtures in test/testdata/procreate/ are v5 files: a
+    // single JSON object, not the v1 top-level list.
+    for (final filePath in [
+      'test/testdata/procreate/procreate3_v5.swatches',
+      'test/testdata/procreate/cromatica_v5.swatches',
+      'test/testdata/procreate/shido-10_v5.swatches',
+      'test/testdata/procreate/sunfall_v5.swatches',
+    ]) {
+      final bytes = File(filePath).readAsBytesSync();
+      expect(
+        () => decodeProcreateV1Palettes(bytes),
+        throwsA(isA<FormatException>()),
+        reason: filePath,
+      );
+      expect(
+        ProcreateV1Palette.isValidFormat(bytes),
+        isFalse,
+        reason: filePath,
+      );
+    }
+  });
+
+  test('decode-encode-decode is stable on all fixtures', () {
+    // Only procreate1/2 are v1 files (a top-level JSON list). The other
+    // fixtures in test/testdata/procreate/ are v5 files (a single JSON
+    // object) and are covered by the v5 suite; they must not decode as v1.
+    const fixtures = [
+      'test/testdata/procreate/procreate1_v1.swatches',
+      'test/testdata/procreate/procreate2_v1.swatches',
+    ];
+    for (final filePath in fixtures) {
+      final bytes = File(filePath).readAsBytesSync();
+      final once = decodeProcreateV1Palettes(bytes);
+      final twice = decodeProcreateV1Palettes(encodeProcreateV1Palette(once));
+      expect(twice.length, equals(once.length), reason: filePath);
+      for (var i = 0; i < once.length; i++) {
+        expect(twice[i].name, equals(once[i].name), reason: filePath);
+        expect(
+          twice[i].swatches.length,
+          equals(once[i].swatches.length),
+          reason: filePath,
+        );
+        for (var j = 0; j < once[i].swatches.length; j++) {
+          expect(twice[i].swatches[j].hue, equals(once[i].swatches[j].hue));
+          expect(
+            twice[i].swatches[j].saturation,
+            equals(once[i].swatches[j].saturation),
+          );
+          expect(
+            twice[i].swatches[j].brightness,
+            equals(once[i].swatches[j].brightness),
+          );
+          expect(twice[i].swatches[j].alpha, equals(once[i].swatches[j].alpha));
+        }
+      }
+    }
   });
 }

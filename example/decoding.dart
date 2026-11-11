@@ -141,8 +141,8 @@ void main() {
   );
   for (final path in [
     // v1
-    'test/testdata/procreate/procreate1.swatches',
-    'test/testdata/procreate/procreate2.swatches',
+    'test/testdata/procreate/procreate1_v1.swatches',
+    'test/testdata/procreate/procreate2_v1.swatches',
   ]) {
     final file = File(path);
     final procreate = decodeProcreateV1Palettes(file.readAsBytesSync());
@@ -154,10 +154,10 @@ void main() {
   processPaletteFiles<ProcreateV5Palette>(
     [
       // v5
-      'test/testdata/procreate/procreate3.swatches',
-      'test/testdata/procreate/shido-10.swatches',
-      'test/testdata/procreate/sunfall.swatches',
-      'test/testdata/procreate/cromatica.swatches',
+      'test/testdata/procreate/procreate3_v5.swatches',
+      'test/testdata/procreate/shido-10_v5.swatches',
+      'test/testdata/procreate/sunfall_v5.swatches',
+      'test/testdata/procreate/cromatica_v5.swatches',
     ],
     ProcreateV5Palette.fromBytes,
     (e) => e.toMap(),

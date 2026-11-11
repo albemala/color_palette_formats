@@ -10,6 +10,12 @@ part 'encode.dart';
 /*
  * Format name: Procreate v1 Swatches
  * File extensions: .swatches
+ * Applications: Procreate
+ * Format details: Zip archive holding a single UTF-8 JSON file,
+ *   `Swatches.json`: a list of palettes, each with a name and HSB swatches
+ *   (colorSpace 0 is the only supported color space). Unknown color spaces
+ *   and out-of-range values are rejected; colors are returned as-is with
+ *   no padding or truncation.
  */
 
 @MappableEnum(mode: ValuesMode.indexed)
