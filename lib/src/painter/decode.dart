@@ -13,7 +13,13 @@ int _headerInt(String line, String label) {
       'Not a valid $_paletteName. Expected "$label ..." but found "$line".',
     );
   }
-  return int.parse(parts[1]);
+  final value = int.parse(parts[1]);
+  if (value < 0) {
+    throw FormatException(
+      'Not a valid $_paletteName. "$label" value must not be negative.',
+    );
+  }
+  return value;
 }
 
 PainterPaletteColor _parseColor(String line) {
@@ -23,9 +29,21 @@ PainterPaletteColor _parseColor(String line) {
       'Not a valid $_paletteName. Invalid color line "$line".',
     );
   }
-  final red = int.parse(match.group(1)!);
-  final green = int.parse(match.group(2)!);
-  final blue = int.parse(match.group(3)!);
+  // Groups 1-6 are required by the regex; a missing group means a
+  // malformed line rather than a valid color.
+  final values = <String>[];
+  for (var i = 1; i <= 6; i++) {
+    final value = match.group(i);
+    if (value == null) {
+      throw FormatException(
+        'Not a valid $_paletteName. Invalid color line "$line".',
+      );
+    }
+    values.add(value);
+  }
+  final red = int.parse(values[0]);
+  final green = int.parse(values[1]);
+  final blue = int.parse(values[2]);
   if (red < 0 ||
       red > 255 ||
       green < 0 ||
@@ -36,9 +54,17 @@ PainterPaletteColor _parseColor(String line) {
       'Not a valid $_paletteName. RGB values out of range in "$line".',
     );
   }
-  final hv = double.parse(match.group(4)!);
-  final sv = double.parse(match.group(5)!);
-  final vv = double.parse(match.group(6)!);
+  final hv = double.parse(values[3]);
+  final sv = double.parse(values[4]);
+  final vv = double.parse(values[5]);
+  for (final entry in {'HV': hv, 'SV': sv, 'VV': vv}.entries) {
+    if (!entry.value.isFinite) {
+      throw FormatException(
+        'Not a valid $_paletteName. ${entry.key} value "${entry.value}" '
+        'is not finite in "$line".',
+      );
+    }
+  }
   final name = (match.group(7) ?? '').trim();
   return PainterPaletteColor(
     red: red,
@@ -52,7 +78,15 @@ PainterPaletteColor _parseColor(String line) {
 }
 
 PainterPalette _decode(List<int> bytes) {
-  final lines = splitLines(bytes);
+  // Split locally: the shared splitLines only handles \r?\n, but classic
+  // Mac files may use lone \r (same approach as the CLF codec).
+  final lines = utf8.decode(bytes).split(RegExp(r'\r\n|\r|\n'));
+
+  if (lines.length < 6) {
+    throw const FormatException(
+      'Not a valid $_paletteName: missing header lines.',
+    );
+  }
 
   final rows = _headerInt(lines.elementAt(0), 'ROWS');
   final columns = _headerInt(lines.elementAt(1), 'COLS');

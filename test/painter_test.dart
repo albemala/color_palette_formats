@@ -137,6 +137,168 @@ void main() {
     expect(PainterPalette.isValidFormat(invalidBytes), isFalse);
   });
 
+  test('parses all fixture colors', () {
+    final first = PainterPalette.fromBytes(
+      File('test/testdata/painter/painter1.txt').readAsBytesSync(),
+    );
+    final expectedFirst = [
+      ('PANTONE Yellow C', [247, 224, 23], [0.0, 0.0, 0.0]),
+      ('PANTONE Orange 021 C', [237, 110, 0], [1.25, 2.5, 3.75]),
+      ('PANTONE Blue 072 C', [41, 5, 161], [0.0, 0.0, 0.0]),
+    ];
+    expect(first.colors.length, equals(expectedFirst.length));
+    for (var i = 0; i < expectedFirst.length; i++) {
+      final color = first.colors[i];
+      expect(color.name, equals(expectedFirst[i].$1), reason: 'color $i name');
+      expect(
+        [color.red, color.green, color.blue],
+        equals(expectedFirst[i].$2),
+        reason: 'color $i rgb',
+      );
+      expect(
+        [color.hv, color.sv, color.vv],
+        equals(expectedFirst[i].$3),
+        reason: 'color $i variability',
+      );
+    }
+
+    final second = PainterPalette.fromBytes(
+      File('test/testdata/painter/painter2.txt').readAsBytesSync(),
+    );
+    expect(second.colors.length, equals(2));
+    expect(second.colors[0].name, equals('FFFFFF'));
+    expect([
+      second.colors[0].red,
+      second.colors[0].green,
+      second.colors[0].blue,
+    ], equals([255, 255, 255]));
+    expect(second.colors[1].name, equals('000000'));
+    expect([
+      second.colors[1].red,
+      second.colors[1].green,
+      second.colors[1].blue,
+    ], equals([0, 0, 0]));
+  });
+
+  test('truncated input throws FormatException and is not valid', () {
+    const header =
+        'ROWS 7\nCOLS 1\nWIDTH 140\nHEIGHT 30\nTEXTHEIGHT 12\nSPACING 1\n';
+    const color =
+        'R:247, G:224, B:23  HV:0.00, SV:0.00, VV:0.00  PANTONE Yellow C';
+    for (final content in [
+      'ROWS 7',
+      'ROWS 7\nCOLS 1\n',
+      header.split('\n').take(5).join('\n'),
+      (header + color).substring(0, header.length + 10),
+    ]) {
+      final input = utf8.encode(content);
+      expect(PainterPalette.isValidFormat(input), isFalse);
+      expect(
+        () => PainterPalette.fromBytes(input),
+        throwsA(isA<FormatException>()),
+      );
+    }
+  });
+
+  test('decode rejects malformed values', () {
+    const header =
+        'ROWS 7\nCOLS 1\nWIDTH 140\nHEIGHT 30\nTEXTHEIGHT 12\nSPACING 1\n';
+    final cases = {
+      'negative header':
+          'ROWS -1\nCOLS 1\nWIDTH 140\nHEIGHT 30\n'
+          'TEXTHEIGHT 12\nSPACING 1\n'
+          'R:1, G:2, B:3  HV:0.00, SV:0.00, VV:0.00  X',
+      'channel over 255':
+          '${header}R:300, G:0, B:0  HV:0.00, SV:0.00, VV:0.00  X',
+      'NaN variability': '${header}R:1, G:2, B:3  HV:NaN, SV:0.00, VV:0.00  X',
+      'infinite variability':
+          '${header}R:1, G:2, B:3  HV:0.00, SV:Infinity, VV:0.00  X',
+    };
+    cases.forEach((reason, content) {
+      final input = utf8.encode(content);
+      expect(PainterPalette.isValidFormat(input), isFalse, reason: reason);
+      expect(
+        () => PainterPalette.fromBytes(input),
+        throwsA(isA<FormatException>()),
+        reason: reason,
+      );
+    });
+  });
+
+  test('decodes lone-CR line endings', () {
+    final bytes = utf8.encode(
+      'ROWS 7\rCOLS 1\rWIDTH 140\rHEIGHT 30\rTEXTHEIGHT 12\rSPACING 1\r'
+      'R:247, G:224, B:23  HV:0.00, SV:0.00, VV:0.00  PANTONE Yellow C\r',
+    );
+    final palette = PainterPalette.fromBytes(bytes);
+    expect(palette.rows, equals(7));
+    expect(palette.colors.length, equals(1));
+    expect(palette.colors.single.name, equals('PANTONE Yellow C'));
+  });
+
+  test('encoder writes no trailing newline', () {
+    final bytes = File('test/testdata/painter/painter2.txt').readAsBytesSync();
+    final palette = PainterPalette.fromBytes(bytes);
+    expect(palette.toBytes(), equals(bytes));
+    expect(palette.toBytes().last, isNot(equals(utf8.encode('\n').single)));
+  });
+
+  test('encoder rejects unencodable palettes', () {
+    // Out-of-range values trip the constructor asserts in debug builds
+    // and the encoder validation in release; accept either.
+    final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+
+    PainterPaletteColor color({
+      int red = 1,
+      int green = 2,
+      int blue = 3,
+      double hv = 0,
+      double sv = 0,
+      double vv = 0,
+      String name = 'X',
+    }) => PainterPaletteColor(
+      red: red,
+      green: green,
+      blue: blue,
+      hv: hv,
+      sv: sv,
+      vv: vv,
+      name: name,
+    );
+    PainterPalette build({int rows = 1, List<PainterPaletteColor>? colors}) =>
+        PainterPalette(
+          rows: rows,
+          columns: 1,
+          width: 10,
+          height: 10,
+          textHeight: 10,
+          spacing: 1,
+          colors: colors ?? [color()],
+        );
+
+    expect(() => build(colors: []).toBytes(), throwsA(isA<FormatException>()));
+    expect(() => build(rows: -1).toBytes(), throwsA(either));
+    expect(() => build(colors: [color(red: 300)]).toBytes(), throwsA(either));
+    expect(
+      () => build(colors: [color(hv: double.nan)]).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () => build(colors: [color(vv: double.infinity)]).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () => build(colors: [color(name: 'A\nB')]).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    // Empty names are allowed by design and round-trip.
+    final unnamed = build(colors: [color(name: '')]);
+    expect(
+      PainterPalette.fromBytes(unnamed.toBytes()).colors.single.name,
+      isEmpty,
+    );
+  });
+
   test('write painter file', () {
     final painter = PainterPalette(
       rows: 1,

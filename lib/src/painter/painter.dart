@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:color_palette_formats/src/text_parse_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'painter.mapper.dart';
@@ -13,10 +12,12 @@ part 'encode.dart';
  * Applications: MetaCreations Painter, Corel Painter
  * Format details:
  *   Six-line display-layout header (ROWS, COLS, WIDTH, HEIGHT, TEXTHEIGHT,
- *   SPACING) followed by one color per line carrying RGB values, HSV color
- *   variability (HV, SV, VV) and a trailing name, which may contain spaces
- *   or be a hex code. The decoder accepts varying whitespace around the
- *   separators; the encoder writes a canonical spacing.
+ *   SPACING; values must not be negative) followed by one color per line
+ *   carrying RGB values, HSV color variability (HV, SV, VV; finite
+ *   doubles) and a trailing name, which may contain spaces or be a hex
+ *   code. The decoder accepts varying whitespace around the separators
+ *   and lone-CR line endings; the encoder writes a canonical spacing
+ *   with no trailing newline.
  * References:
  * - http://www.selapa.net/swatches/colors/fileformats.php
  */
