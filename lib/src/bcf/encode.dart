@@ -155,6 +155,17 @@ void _validatePalette(
   required bool isV1,
   required bool hasHifiBlock,
 }) {
+  if (!BcfPalette.validVersions.contains(palette.version)) {
+    throw FormatException(
+      'Not a valid Binary Color Format. '
+      'Unsupported version "${palette.version}".',
+    );
+  }
+  if (palette.models.isEmpty) {
+    throw const FormatException(
+      'Not a valid Binary Color Format. No color models found.',
+    );
+  }
   if (isV1) {
     if (palette.models.contains(BcfColorModel.lab)) {
       throw const FormatException(
@@ -183,6 +194,42 @@ void _validatePalette(
   if (palette.models.contains(BcfColorModel.hifi) != hasHifiBlock) {
     throw const FormatException(
       'HiFi values require a Mixed or HiFi palette type.',
+    );
+  }
+  for (final color in palette.colors) {
+    for (final value in color.values) {
+      if (!palette.models.contains(value.model)) {
+        throw FormatException(
+          'Color "${color.name}" holds ${value.model} values '
+          'missing from the palette models.',
+        );
+      }
+      _validateChannelCount(color.name, value);
+    }
+  }
+}
+
+void _validateChannelCount(String colorName, BcfPaletteColorValue value) {
+  if (value.model == BcfColorModel.hifi) {
+    if (value.values.length.isOdd) {
+      throw FormatException(
+        'Color "$colorName" holds an odd number of HiFi values; '
+        'expected ink id/value pairs.',
+      );
+    }
+    return;
+  }
+  const expectedCounts = {
+    BcfColorModel.xyz: 3,
+    BcfColorModel.cmyk: 4,
+    BcfColorModel.rgb: 3,
+    BcfColorModel.lab: 3,
+  };
+  final expected = expectedCounts[value.model]!;
+  if (value.values.length != expected) {
+    throw FormatException(
+      'Color "$colorName" holds ${value.values.length} ${value.model} '
+      'values; expected $expected.',
     );
   }
 }

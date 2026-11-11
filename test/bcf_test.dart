@@ -237,6 +237,268 @@ void main() {
     expect(BcfPalette.isValidFormat(invalidBytes), isFalse);
   });
 
+  test('truncated file throws FormatException and is not valid', () {
+    final bytes = File('test/testdata/bcf/pantone-hex.bcf').readAsBytesSync();
+    for (final truncated in [
+      bytes.sublist(0, 4),
+      bytes.sublist(0, 100),
+      bytes.sublist(0, 626),
+      bytes.sublist(0, 700),
+      bytes.sublist(0, bytes.length - 10),
+    ]) {
+      expect(BcfPalette.isValidFormat(truncated), isFalse);
+      expect(
+        () => BcfPalette.fromBytes(truncated),
+        throwsA(isA<FormatException>()),
+      );
+    }
+  });
+
+  test('wrong version throws FormatException and is not valid', () {
+    final bytes =
+        File('test/testdata/bcf/dic-v10.bcf').readAsBytesSync().toList();
+    bytes[0] = 'X'.codeUnitAt(0);
+    expect(BcfPalette.isValidFormat(bytes), isFalse);
+    expect(() => BcfPalette.fromBytes(bytes), throwsA(isA<FormatException>()));
+  });
+
+  test('zero HiFi pairs decode to empty values and round-trip', () {
+    final bytes =
+        File('test/testdata/bcf/pantone-hex.bcf').readAsBytesSync().toList();
+    // Pair-count field of the first color: header (658) + 6 inks * 54
+    // + 20 base-group bytes = offset 1002. Zero the count and the whole
+    // 32-byte slot region, as a real pair-less color would store.
+    bytes.fillRange(1002, 1036, 0);
+    final palette = BcfPalette.fromBytes(bytes);
+    expect(palette.colors[0].values.last.model, BcfColorModel.hifi);
+    expect(palette.colors[0].values.last.values, isEmpty);
+    expect(palette.toBytes(), equals(bytes));
+  });
+
+  test('empty HiFi values round-trip through the encoder', () {
+    BcfPaletteColor color(String name, List<int> pairs) => BcfPaletteColor(
+      name: name,
+      values: [
+        BcfPaletteColorValue(model: BcfColorModel.lab, values: [5000, 0, 0]),
+        BcfPaletteColorValue(model: BcfColorModel.cmyk, values: [0, 0, 0, 0]),
+        BcfPaletteColorValue(model: BcfColorModel.rgb, values: [0, 0, 0]),
+        BcfPaletteColorValue(model: BcfColorModel.hifi, values: pairs),
+      ],
+      type: 1,
+      preferredModel: 'hifi',
+    );
+    final palette = BcfPalette(
+      version: 'BCF 2.0',
+      name: 'HiFi test',
+      libraryVersion: '1.0',
+      copyright: 'Test',
+      description: 'Test',
+      namesFormat: BcfNamesFormat.full,
+      rows: 1,
+      columns: 1,
+      prefix: '',
+      suffix: '',
+      type: BcfPaletteType.hifi,
+      models: [
+        BcfColorModel.lab,
+        BcfColorModel.cmyk,
+        BcfColorModel.rgb,
+        BcfColorModel.hifi,
+      ],
+      preferredModel: 'hifi',
+      colors: [
+        color('empty', []),
+        color('full', [0, 0, 1, 65535]),
+      ],
+    );
+
+    final decoded = BcfPalette.fromBytes(palette.toBytes());
+    expect(decoded.colors[0].values.last.values, isEmpty);
+    expect(decoded.colors[1].values.last.values, equals([0, 0, 1, 65535]));
+  });
+
+  test('encoder rejects version-specific violations', () {
+    BcfPalette build({
+      String version = 'ACF 1.0',
+      List<BcfColorModel> models = const [BcfColorModel.rgb],
+      BcfPaletteType type = BcfPaletteType.process,
+      List<BcfPaletteColor> colors = const [],
+      List<BcfHiFiInk> inks = const [],
+      String description = 'Test',
+      String preferredModel = 'RGB',
+    }) => BcfPalette(
+      version: version,
+      name: 'Test',
+      libraryVersion: '1.0',
+      copyright: 'Test',
+      description: description,
+      namesFormat: BcfNamesFormat.full,
+      rows: 1,
+      columns: 1,
+      prefix: '',
+      suffix: '',
+      type: type,
+      models: models,
+      preferredModel: preferredModel,
+      inks: inks,
+      colors: colors,
+    );
+    BcfPaletteColor rgbColor(String name) => BcfPaletteColor(
+      name: name,
+      values: [
+        BcfPaletteColorValue(model: BcfColorModel.rgb, values: [1, 2, 3]),
+      ],
+      type: 1,
+    );
+
+    // Lab/HiFi/inks/long descriptions require 2.x.
+    expect(
+      () => build(models: const [BcfColorModel.lab]).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () =>
+          build(
+            models: const [BcfColorModel.rgb, BcfColorModel.hifi],
+          ).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () =>
+          build(
+            inks: [
+              BcfHiFiInk(angle: '0', frequency: '0', density: 0, name: 'Ink'),
+            ],
+          ).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () => build(description: 'D' * 513).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    // Descriptions are capped at 612 bytes in 2.x.
+    expect(
+      () => build(version: 'BCF 2.0', description: 'D' * 613).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    // HiFi values require a Mixed or HiFi palette type, and vice versa.
+    expect(
+      () =>
+          build(
+            version: 'BCF 2.0',
+            models: const [BcfColorModel.rgb, BcfColorModel.hifi],
+          ).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () =>
+          build(
+            version: 'BCF 2.0',
+            type: BcfPaletteType.mixed,
+            colors: [rgbColor('c')],
+          ).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    // Colors must only hold models listed in the palette header.
+    expect(
+      () =>
+          build(
+            colors: [
+              BcfPaletteColor(
+                name: 'c',
+                values: [
+                  BcfPaletteColorValue(
+                    model: BcfColorModel.xyz,
+                    values: [1, 2, 3],
+                  ),
+                ],
+                type: 1,
+              ),
+            ],
+          ).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    // Channel counts must match the model (AssertionError in debug
+    // builds via the constructor assert, FormatException in release
+    // via encoder validation).
+    expect(
+      () =>
+          build(
+            colors: [
+              BcfPaletteColor(
+                name: 'c',
+                values: [
+                  BcfPaletteColorValue(
+                    model: BcfColorModel.rgb,
+                    values: [1, 2],
+                  ),
+                ],
+                type: 1,
+              ),
+            ],
+          ).toBytes(),
+      throwsA(anyOf(isA<FormatException>(), isA<AssertionError>())),
+    );
+    // Unknown preferred models are rejected.
+    expect(
+      () => build(preferredModel: 'XYZ').toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
+  test('encoder rejects missing and overflowing HiFi values', () {
+    BcfPaletteColor colorWithPairs(String name, List<int> pairs) =>
+        BcfPaletteColor(
+          name: name,
+          values: [
+            BcfPaletteColorValue(model: BcfColorModel.rgb, values: [1, 2, 3]),
+            BcfPaletteColorValue(model: BcfColorModel.hifi, values: pairs),
+          ],
+          type: 1,
+          preferredModel: 'hifi',
+        );
+    BcfPalette build(List<BcfPaletteColor> colors) => BcfPalette(
+      version: 'BCF 2.0',
+      name: 'Test',
+      libraryVersion: '1.0',
+      copyright: 'Test',
+      description: 'Test',
+      namesFormat: BcfNamesFormat.full,
+      rows: 1,
+      columns: 1,
+      prefix: '',
+      suffix: '',
+      type: BcfPaletteType.hifi,
+      models: const [BcfColorModel.rgb, BcfColorModel.hifi],
+      preferredModel: 'hifi',
+      colors: colors,
+    );
+
+    // A color without HiFi values cannot be written to a HiFi palette.
+    expect(
+      () =>
+          build([
+            BcfPaletteColor(
+              name: 'c',
+              values: [
+                BcfPaletteColorValue(
+                  model: BcfColorModel.rgb,
+                  values: [1, 2, 3],
+                ),
+              ],
+              type: 1,
+              preferredModel: 'hifi',
+            ),
+          ]).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    // More than 8 ink slots do not fit the wire format.
+    expect(
+      () => build([colorWithPairs('c', List.filled(18, 0))]).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
   test('isValidFormat distinguishes BCF from ACF text', () {
     final acfBytes = File('test/testdata/acf/acf1_v1.0.acf').readAsBytesSync();
     expect(BcfPalette.isValidFormat(acfBytes), isFalse);

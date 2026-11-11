@@ -58,11 +58,15 @@ class BcfPaletteColorValue with BcfPaletteColorValueMappable {
   final BcfColorModel model;
 
   /// Raw values as stored: unsigned 16-bit for XYZ/CMYK/RGB, signed
-  /// 16-bit for Lab. HiFi holds flat ink id/value pairs.
+  /// 16-bit for Lab. HiFi holds flat ink id/value pairs, and may be
+  /// empty when a color references no HiFi inks (pair count 0).
   final List<int> values;
 
   BcfPaletteColorValue({required this.model, required this.values})
-    : assert(values.isNotEmpty, 'values must not be empty'),
+    : assert(
+        values.isNotEmpty || model == BcfColorModel.hifi,
+        'values must not be empty',
+      ),
       assert(
         model != BcfColorModel.xyz || values.length == 3,
         'XYZ values must have 3 channels',
