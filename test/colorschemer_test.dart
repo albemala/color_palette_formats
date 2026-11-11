@@ -96,6 +96,188 @@ void main() {
     expect(ColorSchemerPalette.isValidFormat(invalidBytes), isFalse);
   });
 
+  test('parses all fixture colors', () {
+    final palette = ColorSchemerPalette.fromBytes(
+      File('test/testdata/colorschemer/Pumpkin.cs').readAsBytesSync(),
+    );
+
+    expect(palette.version, equals(3));
+    expect(palette.baseColor, equals([0x55, 0x11, 0x00]));
+    expect(palette.colors.length, equals(9));
+
+    final expected = [
+      ('#331100', [0x33, 0x11, 0x00], '331100'),
+      ('#552200', [0x55, 0x22, 0x00], '552200'),
+      ('#BB4411', [0xBB, 0x44, 0x11], 'BB4411'),
+      ('#EEEEAA', [0xEE, 0xEE, 0xAA], 'EEEEAA'),
+      ('#DDAA55', [0xDD, 0xAA, 0x55], 'DDAA55'),
+      ('#CC3300', [0xCC, 0x33, 0x00], 'CC3300'),
+      ('#FFFFBB', [0xFF, 0xFF, 0xBB], 'FFFFBB'),
+      ('#EEBB55', [0xEE, 0xBB, 0x55], 'EEBB55'),
+      ('#551100', [0x55, 0x11, 0x00], '551100'),
+    ];
+    for (var i = 0; i < expected.length; i++) {
+      final color = palette.colors[i];
+      expect(color.name, equals(expected[i].$1), reason: 'color $i name');
+      expect(
+        [color.red, color.green, color.blue],
+        equals(expected[i].$2),
+        reason: 'color $i rgb',
+      );
+      expect(color.hexValue, equals(expected[i].$3), reason: 'color $i hex');
+      expect(color.developed, isFalse, reason: 'color $i developed');
+    }
+  });
+
+  test('wrong version throws FormatException and is not valid', () {
+    final bytes =
+        File(
+          'test/testdata/colorschemer/Pumpkin.cs',
+        ).readAsBytesSync().toList();
+    bytes[0] = 9;
+    expect(ColorSchemerPalette.isValidFormat(bytes), isFalse);
+    expect(
+      () => ColorSchemerPalette.fromBytes(bytes),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
+  test('truncated file throws FormatException and is not valid', () {
+    final bytes = File(
+      'test/testdata/colorschemer/Pumpkin.cs',
+    ).readAsBytesSync().sublist(0, 242);
+    for (final truncated in [
+      bytes.sublist(0, 2),
+      bytes.sublist(0, 6),
+      bytes.sublist(0, 10),
+      bytes.sublist(0, 20),
+      bytes.sublist(0, 50),
+      bytes.sublist(0, 150),
+    ]) {
+      expect(ColorSchemerPalette.isValidFormat(truncated), isFalse);
+      expect(
+        () => ColorSchemerPalette.fromBytes(truncated),
+        throwsA(isA<FormatException>()),
+      );
+    }
+  });
+
+  test('corrupt entries throw FormatException and are not valid', () {
+    final bytes =
+        File(
+          'test/testdata/colorschemer/Pumpkin.cs',
+        ).readAsBytesSync().toList();
+    // Entry 0 layout: rgb at 8, name length at 12, hex length at 26.
+    final corrupt = <String, List<int>>{
+      'negative name length': [12, 0xFF, 0xFF, 0xFF, 0xFF],
+      'oversized name length': [12, 200, 0, 0, 0],
+      'bad hex length': [26, 3],
+    };
+    corrupt.forEach((reason, patch) {
+      final corrupted = bytes.toList();
+      for (var i = 1; i < patch.length; i++) {
+        corrupted[patch[0] + i - 1] = patch[i];
+      }
+      expect(
+        ColorSchemerPalette.isValidFormat(corrupted),
+        isFalse,
+        reason: reason,
+      );
+      expect(
+        () => ColorSchemerPalette.fromBytes(corrupted),
+        throwsA(isA<FormatException>()),
+        reason: reason,
+      );
+    });
+  });
+
+  test('encoder writes names without null terminators', () {
+    final palette = ColorSchemerPalette(
+      version: 3,
+      baseColor: [0xFF, 0x00, 0x00],
+      colors: [
+        ColorSchemerColor(
+          name: 'Red',
+          red: 255,
+          green: 0,
+          blue: 0,
+          hexValue: 'FF0000',
+        ),
+      ],
+    );
+
+    final bytes = palette.toBytes();
+    // Header (8) then rgb (3) + pad (1); name length follows.
+    final nameLength =
+        bytes[12] | (bytes[13] << 8) | (bytes[14] << 16) | (bytes[15] << 24);
+    expect(nameLength, equals(3));
+    expect(bytes.sublist(16, 19), equals('Red'.codeUnits));
+    // No null terminator: repeated RGB starts right after the name.
+    expect(bytes.sublist(19, 22), equals([255, 0, 0]));
+  });
+
+  test('decode-encode-decode is stable on the fixture', () {
+    final bytes =
+        File('test/testdata/colorschemer/Pumpkin.cs').readAsBytesSync();
+    final once = ColorSchemerPalette.fromBytes(bytes);
+    final twice = ColorSchemerPalette.fromBytes(once.toBytes());
+
+    expect(twice.version, equals(once.version));
+    expect(twice.baseColor, equals(once.baseColor));
+    expect(twice.colors.length, equals(once.colors.length));
+    for (var i = 0; i < once.colors.length; i++) {
+      expect(twice.colors[i].name, equals(once.colors[i].name));
+      expect(twice.colors[i].hexValue, equals(once.colors[i].hexValue));
+    }
+    expect(twice.toBytes(), equals(once.toBytes()));
+  });
+
+  test('encoder rejects unencodable palettes', () {
+    // Out-of-range values trip the constructor asserts in debug builds
+    // and the encoder validation in release; accept either.
+    final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+
+    ColorSchemerColor color({
+      String name = 'Red',
+      int red = 255,
+      int green = 0,
+      int blue = 0,
+      String hexValue = 'FF0000',
+    }) => ColorSchemerColor(
+      name: name,
+      red: red,
+      green: green,
+      blue: blue,
+      hexValue: hexValue,
+    );
+    ColorSchemerPalette build({
+      int version = 3,
+      List<int> baseColor = const [0xFF, 0x00, 0x00],
+      List<ColorSchemerColor>? colors,
+    }) => ColorSchemerPalette(
+      version: version,
+      baseColor: baseColor,
+      colors: colors ?? [color()],
+    );
+
+    expect(() => build(version: 9).toBytes(), throwsA(either));
+    expect(() => build(baseColor: [0xFF, 0x00]).toBytes(), throwsA(either));
+    expect(
+      () => build(baseColor: [0xFF, 0x00, 0x100]).toBytes(),
+      throwsA(either),
+    );
+    expect(() => build(colors: [color(red: 300)]).toBytes(), throwsA(either));
+    expect(
+      () => build(colors: [color(hexValue: 'FFF')]).toBytes(),
+      throwsA(either),
+    );
+    // Names are single-byte wire strings.
+    expect(
+      () => build(colors: [color(name: 'Grün €')]).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
   test('write cs file', () {
     final palette = ColorSchemerPalette(
       version: 3,

@@ -11,6 +11,14 @@ part 'encode.dart';
  * Acronym: CS
  * Versions: 3
  * File extensions: .cs
+ * Format details:
+ *   Little-endian binary palette: version + count, 3-byte base
+ *   color, then per-color RGB, a length-prefixed name, the RGB
+ *   triplet repeated, a fixed 6-char hex string and a developed
+ *   flag. Name lengths count the name bytes as stored (no null
+ *   terminator in observed files); the decoder tolerates stray
+ *   zero bytes. Trailing bytes past the last entry (a 36-byte
+ *   RGB footer in the observed file) are ignored.
  * References:
  * - http://www.selapa.net/swatches/colors/fileformats.php
  * - https://github.com/1j01/anypalette.js/blob/master/src/formats/ColorSchemer.coffee
@@ -79,10 +87,8 @@ class ColorSchemerPalette with ColorSchemerPaletteMappable {
   /// Checks if the provided bytes represent a valid ColorSchemer file.
   static bool isValidFormat(List<int> bytes) {
     try {
-      if (bytes.length < 8) return false;
-      final byteData = ByteData.sublistView(Uint8List.fromList(bytes));
-      final version = byteData.getUint16(0, Endian.little);
-      return version == validVersion;
+      _decode(bytes);
+      return true;
     } catch (_) {
       return false;
     }

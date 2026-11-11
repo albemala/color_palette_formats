@@ -1,13 +1,37 @@
 part of 'colorschemer.dart';
 
+const _paletteName = 'ColorSchemer Studio';
+
 ColorSchemerPalette _decode(List<int> bytes) {
   // Create a ByteData view with little-endian byte order
   final byteData = ByteData.sublistView(Uint8List.fromList(bytes));
+
+  try {
+    return _decodeBody(byteData);
+  } catch (e) {
+    // Reads past the end of truncated input surface as RangeError;
+    // report them as malformed files instead. Other errors
+    // (FormatException) pass through untouched.
+    if (e is RangeError) {
+      throw const FormatException(
+        'Not a valid $_paletteName: truncated input.',
+      );
+    }
+    rethrow;
+  }
+}
+
+ColorSchemerPalette _decodeBody(ByteData byteData) {
   var offset = 0;
 
   // Read header (little-endian)
   final version = byteData.getUint16(offset, Endian.little);
   offset += 2;
+  if (version != ColorSchemerPalette.validVersion) {
+    throw FormatException(
+      'Not a valid $_paletteName. Unsupported version "$version".',
+    );
+  }
   final colorCount = byteData.getUint16(offset, Endian.little);
   offset += 2;
 
@@ -56,26 +80,35 @@ ColorSchemerPalette _decode(List<int> bytes) {
   currentOffset += 1;
 
   // Color name: string of length (int32 little-endian) characters
-  // The length INCLUDES the null terminator
   final nameLength = byteData.getInt32(currentOffset, Endian.little);
   currentOffset += 4;
+  if (nameLength < 0) {
+    throw FormatException(
+      'Not a valid $_paletteName. Invalid name length "$nameLength".',
+    );
+  }
 
-  // Read name bytes (nameLength includes the null terminator)
+  // Read name bytes
   final nameBytes = <int>[];
   for (var i = 0; i < nameLength; i++) {
     nameBytes.add(byteData.getUint8(currentOffset + i));
   }
   currentOffset += nameLength;
 
-  // Remove the null terminator from the name
+  // Tolerate stray zero bytes (e.g. a null terminator)
   final name = String.fromCharCodes(nameBytes.where((byte) => byte != 0));
 
   // RGB values repeated (3 bytes) - same as the color values above
   currentOffset += 3;
 
-  // Hex string length (1 byte) - should be 6
+  // Hex string length (1 byte) - the wire field is fixed at 6
   final hexLength = byteData.getUint8(currentOffset);
   currentOffset += 1;
+  if (hexLength != 6) {
+    throw FormatException(
+      'Not a valid $_paletteName. Invalid hex length "$hexLength".',
+    );
+  }
 
   // Hex color value: 6*char string (e.g., "331100")
   final hexBytes = <int>[];

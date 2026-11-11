@@ -1,13 +1,69 @@
 part of 'colorschemer.dart';
 
+void _validateChannel(String label, int value) {
+  if (value < 0 || value > 255) {
+    throw FormatException(
+      'Not a valid $_paletteName. $label "$value" out of range 0..255.',
+    );
+  }
+}
+
+void _validateWireBytes(String label, String value) {
+  if (value.codeUnits.any((byte) => byte > 0xFF)) {
+    throw FormatException(
+      'Not a valid $_paletteName. $label "$value" '
+      'contains non-Latin1 characters.',
+    );
+  }
+}
+
+void _validatePalette(ColorSchemerPalette palette) {
+  // The model constructors assert these ranges in debug builds; enforce
+  // them here with FormatException because the byte writer silently masks
+  // out-of-range values in release.
+  if (palette.version != ColorSchemerPalette.validVersion) {
+    throw FormatException(
+      'Not a valid $_paletteName. Unsupported version "${palette.version}".',
+    );
+  }
+  if (palette.colors.length > 0xFFFF) {
+    throw const FormatException(
+      'Not a valid $_paletteName. Too many colors to write.',
+    );
+  }
+  if (palette.baseColor.length != 3) {
+    throw const FormatException(
+      'Not a valid $_paletteName. Base color must have 3 values.',
+    );
+  }
+  for (final channel in palette.baseColor) {
+    _validateChannel('base color channel', channel);
+  }
+  for (final color in palette.colors) {
+    _validateChannel('red', color.red);
+    _validateChannel('green', color.green);
+    _validateChannel('blue', color.blue);
+    _validateWireBytes('color name', color.name);
+    if (color.hexValue.length != 6) {
+      throw FormatException(
+        'Not a valid $_paletteName. '
+        'Hex value "${color.hexValue}" must be 6 characters.',
+      );
+    }
+    _validateWireBytes('hex value', color.hexValue);
+  }
+}
+
 List<int> _encode(ColorSchemerPalette palette) {
+  _validatePalette(palette);
+
   // Calculate total size
   var totalSize = 8; // Header: 2 + 2 + 3 + 1
   for (final color in palette.colors) {
     totalSize += 3; // RGB
     totalSize += 1; // padding after RGB
     totalSize += 4; // name length
-    totalSize += color.name.length + 1; // name + null terminator
+    totalSize += color.name.length; // name (no null terminator)
     totalSize += 3; // RGB repeated
     totalSize += 1; // hex length
     totalSize += 6; // hex value
@@ -59,8 +115,7 @@ int _encodeColor(ByteData byteData, int offset, ColorSchemerColor color) {
   currentOffset += 1;
 
   // Color name: string of length (int32 little-endian) characters
-  // Include null terminator in length
-  final nameBytes = [...color.name.codeUnits, 0];
+  final nameBytes = color.name.codeUnits;
   byteData.setInt32(currentOffset, nameBytes.length, Endian.little);
   currentOffset += 4;
 
