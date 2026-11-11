@@ -2,8 +2,8 @@ part of 'skencil.dart';
 
 // Matches a color line: three sign-aware floats (with optional exponents)
 // followed by a name running to end of line. Anything else is not a color
-// line and is skipped, mirroring the sK1 codec's leniency toward unknown
-// lines. Nameless `r g b` triples also land there: without a trailing
+// line and is skipped. Nameless `r g b` triples also land there:
+// without a trailing `\s+name` there is no match.
 // `\s+name` there is no match.
 // A line starting with a number is a color attempt: it must match the
 // strict grammar below instead of being silently skipped.
@@ -38,7 +38,7 @@ SkencilPalette _decode(List<int> bytes) {
     if (match == null) {
       // Not a color line (e.g. a comment); skip it. But a line starting
       // with a number is a corrupt color attempt, not a comment: hiding
-      // it would silently drop (or, worse, previously coerce) a color.
+      // it would silently drop a color.
       if (_colorAttemptRegex.hasMatch(line)) {
         throw FormatException(
           'Not a valid Skencil palette file. Invalid color line "$line".',

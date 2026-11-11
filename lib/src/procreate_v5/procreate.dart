@@ -12,19 +12,16 @@ part 'encode.dart';
  * Versions: 5.0
  * File extensions: .swatches
  * Format details: Zip archive containing `Swatches.json` (single palette
- *   object). Decoding is tolerant following ColorPaletteCodable's
- *   `ProcreateSwatchesCoder`: missing `colorProfiles` defaults to empty,
- *   numeric `version` is accepted as string, and per-swatch `alpha`,
- *   `origin`, `colorSpace`, `colorModel`, `colorProfile`, `components`
- *   fall back to defaults. `origin`/`colorSpace`/`colorModel` stay loose
- *   integers (no asserts) for the same reason. A v1-shaped payload is
- *   indistinguishable from the tolerated single-element array and decodes
- *   with defaults applied.
+ *   object). Missing `colorProfiles` defaults to empty, numeric `version`
+ *   is accepted as string, and per-swatch `alpha`, `origin`, `colorSpace`,
+ *   `colorModel`, `colorProfile`, `components` fall back to defaults.
+ *   `origin`/`colorSpace`/`colorModel` stay loose integers (no asserts)
+ *   so unknown values decode. A v1-shaped payload is indistinguishable
+ *   from the tolerated single-element array and decodes with defaults
+ *   applied.
  * References:
  * - https://github.com/dagronf/ColorPaletteCodable/blob/main/Sources/ColorPaletteCodable/palette/coders/ProcreateSwatchesCoder.swift
  */
-
-// Removed the ProcreateV5ColorSpace enum as the format uses integers.
 
 @MappableClass()
 class ProcreateV5Swatch with ProcreateV5SwatchMappable {

@@ -1,9 +1,8 @@
 part of 'koffice.dart';
 
 // Color lines hold three channels and an optional name; anything else is
-// skipped like an info line (same leniency as GIMP). The optional minus
-// routes negatives into range validation instead of silently dropping
-// the line, and the optional name keeps bare "r g b" lines decoding
+// skipped as an info line. The optional minus routes negatives into range
+// validation, and the optional name keeps bare "r g b" lines decoding
 // with an empty name.
 final _colorLineRegex = RegExp(r'^\s*(-?\d+)\s+(-?\d+)\s+(-?\d+)(?:\s+(.*))?$');
 

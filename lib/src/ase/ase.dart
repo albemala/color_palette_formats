@@ -82,7 +82,7 @@ class AdobeSwatchExchangeColor with AdobeSwatchExchangeColorMappable {
        );
 
   /// Checks value count and ranges for [model]. LAB stores L as a fraction
-  /// of 100 with raw a/b components (cf. dagronf/ColorPaletteCodable).
+  /// of 100 with raw a/b components.
   static bool _areValidValues(
     AdobeSwatchExchangeColorModel model,
     List<double> values,

@@ -23,13 +23,13 @@ part 'encode.dart';
  *   bytes + name) or long (id + two model slots + name, plus
  *   row/column positions on X4) depending on version and palette
  *   type; raw values and color-type semantics are kept without
- *   normalizing. Name encoding (single-byte latin1 vs. double-
- *   byte UTF-16LE) follows the SwatchBooker reader rules.
+ *   normalizing. Names are single-byte latin1 or double-byte UTF-16LE
+ *   depending on the version family.
  * References:
  * - http://www.selapa.net/swatches/colors/fileformats.php
  * - https://github.com/olivierberten/SwatchBooker/blob/master/src/swatchbook/codecs/corel_cpl.py
  */
-// CMX 8 spec helped decode CPL (via selapa):
+// CMX 8 spec (via selapa):
 // - http://web.archive.org/web/*/ftp.corel.com/CorelSolutionPartners/CMXv8/CMXv800.pdf
 
 @MappableEnum()

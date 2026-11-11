@@ -44,8 +44,8 @@ AffinityDesignerPalette _decode(List<int> bytes) {
     );
   }
 
-  // Parse chunks using the same approach as the JavaScript decoder:
-  // Search for chunks throughout the file rather than assuming sequential order
+  // Chunks are located by scanning the whole file rather than assuming
+  // sequential order.
   String? fileName;
   final colors = <AffinityDesignerPaletteColor>[];
   final colorNames = <String>[];
@@ -145,7 +145,7 @@ AffinityDesignerPalette _decode(List<int> bytes) {
     // Search for PaNV chunk (name list)
     var nameIndex = _skipToChunk(bytes, index, _chunkPaNV);
     if (nameIndex + 4 <= bytes.length) {
-      // Skip 4 bytes after PaNV chunk ID (based on JS implementation)
+      // Skip the 4-byte field after the PaNV chunk ID.
       nameIndex += 4;
       final nameCount = _readUint32(bytes, nameIndex);
       nameIndex += 4;
@@ -217,8 +217,7 @@ class _Utf8StringResult {
   _Utf8StringResult({required this.text, required this.newIndex});
 }
 
-// Helper function to read a UTF-8 string from a byte list
-// Matches JavaScript AFReadUtf8String implementation
+// Helper function to read a length-prefixed UTF-8 string from a byte list
 _Utf8StringResult _readUtf8String(List<int> bytes, int index) {
   if (index + 4 > bytes.length) {
     return _Utf8StringResult(text: '', newIndex: index);

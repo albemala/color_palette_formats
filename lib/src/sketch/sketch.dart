@@ -16,7 +16,7 @@ part 'decode.dart';
  *   (`sharedSwatches.objects`: `{name, value: {red, green, blue, alpha}}`,
  *   0..1 floats) and falling back to legacy document colors
  *   (`assets.colorAssets`: `{name, color}` plus `assets.colors`: bare
- *   colors), mirroring the reference plugin's swatches-else-colors logic.
+ *   colors). The non-empty Color Variables list wins when present.
  * References:
  * - https://github.com/Ashung/import-colors-sketch/blob/master/src/lib/sketch-to-colors.js
  * - https://developer.sketch.com/file-format/

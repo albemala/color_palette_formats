@@ -47,8 +47,7 @@ class ClrPaletteColor with ClrPaletteColorMappable {
   /// Value: [0..255]
   final int alpha;
 
-  /// Raw hue as stored (SwatchBooker reads HLS scaled by 1/240,
-  /// selapa labels the group HSV; kept without normalizing).
+  /// Raw hue as stored, kept without normalizing.
   /// Value: [0..65535]
   final int hue;
 

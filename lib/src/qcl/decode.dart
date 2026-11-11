@@ -16,7 +16,7 @@ String _optionalText(XmlElement parent, String elementName) {
 
 int _parseFormatId(XmlElement element) {
   final raw = element.getAttribute(QclConstants.formatIdAttr);
-  // A missing attribute keeps the historical lenient 0; a present but
+  // A missing attribute defaults to 0; a present but
   // non-numeric one is malformed input, not a silent default.
   if (raw == null) return 0;
   final value = int.tryParse(raw);

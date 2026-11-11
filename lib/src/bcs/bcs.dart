@@ -21,9 +21,7 @@ part 'encode.dart';
  *   headers (English/German colour-system and palette-name
  *   blocks), a 0x01 header byte, and per-color entries holding
  *   a length-prefixed name plus raw 3x float32 Lab values kept
- *   without normalizing. Selapa labels the triplet float16 but
- *   observed bytes and the SwatchBooker reader use 3x float32.
- *   Offsets and counts are re-derived on encode.
+ *   without normalizing. Offsets and counts are re-derived on encode.
  * References:
  * - http://www.selapa.net/swatches/colors/fileformats.php
  * - https://github.com/olivierberten/SwatchBooker/blob/master/src/swatchbook/codecs/ral_bcs.py

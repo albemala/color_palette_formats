@@ -15,9 +15,9 @@ part 'encode.dart';
  *   per line: three space- or tab-separated floats in 0.0..1.0 (signs and
  *   exponents accepted) and a name running to end of line. Lines that do
  *   not parse as color lines (comments, nameless `r g b` triples) are
- *   skipped, mirroring the sK1 codec's leniency toward unknown lines;
- *   anything that does parse as a color line must carry finite in-range
- *   values. Empty palettes are legal. CRLF and lone-CR endings supported.
+ *   skipped; anything that does parse as a color line must carry finite
+ *   in-range values. Empty palettes are legal. CRLF and lone-CR endings
+ *   supported.
  */
 
 @MappableClass()

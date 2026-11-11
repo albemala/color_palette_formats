@@ -33,8 +33,8 @@ SketchDocumentPalette _decodeUnsafe(List<int> bytes) {
     );
   }
 
-  // Color Variables first, mirroring the reference plugin's
-  // swatches-else-colors logic.
+  // Color Variables first; a non-empty swatch list wins over legacy
+  // document colors.
   final sharedSwatches = documentJson['sharedSwatches'];
   if (sharedSwatches is Map<String, dynamic>) {
     final objects = sharedSwatches['objects'];

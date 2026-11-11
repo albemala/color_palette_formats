@@ -6,10 +6,8 @@ List<String> splitLines(List<int> bytes) {
 
 /// Splits decoded text on CRLF, LF, or lone CR.
 ///
-/// Prefer this over [splitLines] for newly audited codecs: classic Mac
-/// files use lone CR line endings, which [splitLines] does not split.
-/// [splitLines] is left unchanged for backward compatibility with
-/// unaudited callers; each adopts this when its format is reviewed.
+/// Classic Mac files use lone CR line endings, which [splitLines] (CRLF and
+/// LF only) does not split.
 List<String> splitLinesUniversal(List<int> bytes) {
   return utf8.decode(bytes).split(RegExp(r'\r\n|\r|\n'));
 }

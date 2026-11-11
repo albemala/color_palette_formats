@@ -14,8 +14,7 @@ BcsPaletteType _parseType(String value) => switch (value) {
 
 /// Splits an `English_<en>:German_<de>:` block, stripping the
 /// language prefixes. Returns `(text, null)` when the block has
-/// no language split (tolerates the CIE workaround files noted
-/// in the SwatchBooker reader).
+/// no language split (some files carry a single language only).
 (String, String?) _parseBilingual(
   String text,
   String englishPrefix,
