@@ -1,6 +1,9 @@
 part of 'scribus.dart';
 
 List<int> _encode(ScribusPalette palette) {
+  for (final color in palette.colors) {
+    _validateColor(color);
+  }
   return buildXmlDocument(
     rootElementName: ScribusConstants.scribusColors,
     buildContent: (builder) {
@@ -27,4 +30,23 @@ void _buildColorElement(XmlBuilder builder, ScribusColor color) {
       builder.attribute(ScribusConstants.colorNameAttr, color.name);
     },
   );
+}
+
+void _validateColor(ScribusColor color) {
+  const paletteName = 'Scribus palette';
+  if (!_hexColor.hasMatch(color.rgb)) {
+    throw FormatException(
+      'Not a valid $paletteName. Expected a "#RRGGBB" RGB value '
+      'but found "${color.rgb}".',
+    );
+  }
+  for (final entry
+      in {'Spot': color.spot, 'Register': color.register}.entries) {
+    if (entry.value != '0' && entry.value != '1') {
+      throw FormatException(
+        'Not a valid $paletteName. Expected "${entry.key}" to be '
+        '"0" or "1" but found "${entry.value}".',
+      );
+    }
+  }
 }

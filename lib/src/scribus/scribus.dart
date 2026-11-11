@@ -12,6 +12,12 @@ part 'encode.dart';
 /*
  * Format name: Scribus Swatch
  * File extensions: .xml
+ * Format details: XML document with a `SCRIBUSCOLORS` root (carrying the
+ *   palette `Name`) and one `COLOR` element per swatch. `RGB` is a `#RRGGBB`
+ *   hex color (uppercase accepted); `Spot` and `Register` are boolean
+ *   flags (`0`/`1`, defaulting to `0` when absent). Empty palettes (no
+ *   `COLOR` elements) are legal, and unknown elements/attributes are
+ *   ignored.
  */
 
 @MappableClass()
