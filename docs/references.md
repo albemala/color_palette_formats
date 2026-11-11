@@ -62,6 +62,11 @@ Spec links, sample files, and related open-source implementations collected whil
 
 - ColorPaletteCodable `ProcreateSwatchesCoder` (tolerant v5 JSON: numeric-or-string `version`, optional `colorProfiles`/swatch fields, single-or-array palette, `Swatches.json` entry — MIT): https://github.com/dagronf/ColorPaletteCodable/blob/main/Sources/ColorPaletteCodable/palette/coders/ProcreateSwatchesCoder.swift
 
+## StarCraft Palette
+
+- AnyPalette.js reference reader/writer (raw 768-byte, 256x RGB; `.wpe` padded variant not implemented here): https://github.com/1j01/anypalette.js/blob/master/src/formats/StarCraft.coffee
+- Fixtures vendored from the `StarCraft` collection (`Units.pal`, `Terrain.pal`): https://github.com/1j01/palettes/tree/bb970c808fabfaaf228780eeb449febd88e751eb/StarCraft
+
 ## Per-codec links already in headers
 
 - ColorSchemer parser reference: https://github.com/1j01/anypalette.js/blob/master/src/formats/ColorSchemer.coffee

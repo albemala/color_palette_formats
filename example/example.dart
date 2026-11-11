@@ -197,4 +197,9 @@ void main() {
   final clfFile = File('path/to/file.clf');
   final clf = ClfPalette.fromBytes(clfFile.readAsBytesSync());
   assert(clf.colors.length == 4);
+
+  // Example: Reading a StarCraft Palette (.pal) file.
+  final starcraftFile = File('path/to/file.pal');
+  final starcraft = StarCraftPalette.fromBytes(starcraftFile.readAsBytesSync());
+  assert(starcraft.colors.length == StarCraftPalette.colorsCount);
 }

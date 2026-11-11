@@ -295,6 +295,14 @@ void main() {
     ClfPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<StarCraftPalette>(
+    [
+      'test/testdata/starcraft/Units.pal',
+      'test/testdata/starcraft/Terrain.pal',
+    ],
+    StarCraftPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(
