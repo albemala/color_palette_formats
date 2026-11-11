@@ -303,6 +303,14 @@ void main() {
     StarCraftPalette.fromBytes,
     (e) => e.toMap(),
   );
+  processPaletteFiles<StarCraftPaddedPalette>(
+    [
+      'test/testdata/starcraft_padded/badlands.wpe',
+      'test/testdata/starcraft_padded/badlands-nc.wpe',
+    ],
+    StarCraftPaddedPalette.fromBytes,
+    (e) => e.toMap(),
+  );
 }
 
 void processPaletteFiles<T>(

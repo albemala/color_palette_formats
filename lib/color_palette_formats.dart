@@ -35,3 +35,4 @@ export 'src/sketchpalette/sketchpalette.dart';
 export 'src/sketchpreset/sketchpreset.dart';
 export 'src/soc/soc.dart';
 export 'src/starcraft/starcraft.dart';
+export 'src/starcraft_padded/starcraft_padded.dart';

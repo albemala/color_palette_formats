@@ -40,6 +40,7 @@ The `color_palette_formats` package can read and write a wide range of color pal
 | Sketch Preset | `.sketchpreset` | `SketchPreset` | ✅ | ✅ | RGB + Alpha |
 | Sketch Document | `.sketch` | `SketchDocumentPalette` | ✅ | ❌² | RGB + Alpha |
 | StarCraft Palette | `.pal` | `StarCraftPalette` | ✅ | ✅ | RGB |
+| StarCraft Padded Palette | `.wpe` | `StarCraftPaddedPalette` | ✅ | ✅ | RGB |
 | StarOffice Colors | `.soc` | `StarOfficeColorTable` | ✅ | ✅ | RGB (hex) |
 
 ## Notes

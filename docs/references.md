@@ -64,8 +64,9 @@ Spec links, sample files, and related open-source implementations collected whil
 
 ## StarCraft Palette
 
-- AnyPalette.js reference reader/writer (raw 768-byte, 256x RGB; `.wpe` padded variant not implemented here): https://github.com/1j01/anypalette.js/blob/master/src/formats/StarCraft.coffee
-- Fixtures vendored from the `StarCraft` collection (`Units.pal`, `Terrain.pal`): https://github.com/1j01/palettes/tree/bb970c808fabfaaf228780eeb449febd88e751eb/StarCraft
+- AnyPalette.js reference reader/writer (raw 768-byte, 256x RGB): https://github.com/1j01/anypalette.js/blob/master/src/formats/StarCraft.coffee
+- AnyPalette.js reference reader/writer for the padded terrain variant (raw 1024-byte, 256x RGB + padding byte): https://github.com/1j01/anypalette.js/blob/master/src/formats/StarCraftPadded.coffee
+- Fixtures vendored from the `StarCraft` collection (`Units.pal`, `Terrain.pal`, `badlands/badlands.wpe`, `badlands/badlands-nc.wpe`): https://github.com/1j01/palettes/tree/bb970c808fabfaaf228780eeb449febd88e751eb/StarCraft
 
 ## Per-codec links already in headers
 

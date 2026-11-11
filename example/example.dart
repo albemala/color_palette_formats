@@ -202,4 +202,11 @@ void main() {
   final starcraftFile = File('path/to/file.pal');
   final starcraft = StarCraftPalette.fromBytes(starcraftFile.readAsBytesSync());
   assert(starcraft.colors.length == StarCraftPalette.colorsCount);
+
+  // Example: Reading a StarCraft Padded Palette (.wpe) file.
+  final starcraftPaddedFile = File('path/to/file.wpe');
+  final starcraftPadded = StarCraftPaddedPalette.fromBytes(
+    starcraftPaddedFile.readAsBytesSync(),
+  );
+  assert(starcraftPadded.colors.length == StarCraftPaddedPalette.colorsCount);
 }
