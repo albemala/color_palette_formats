@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:color_palette_formats/src/format_utils.dart';
 import 'package:color_palette_formats/src/text_parse_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -10,6 +11,11 @@ part 'encode.dart';
 /*
  * Format name: Paint.NET Palette
  * File extensions: .txt
+ * Applications: Paint.NET
+ * Format details: Colors are 8-digit hexadecimal aarrggbb values; lines
+ *   starting with ';' are comments and are ignored. The header banner is
+ *   encode-only: decoding does not require it. Decoded colors are returned
+ *   as-is with no padding or truncation to the 96 colors Paint.NET targets.
  */
 
 @MappableClass()
