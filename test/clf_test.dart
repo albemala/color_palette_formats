@@ -78,6 +78,57 @@ void main() {
     expect(ClfPalette.isValidFormat(utf8.encode('No tabs here\n')), isFalse);
   });
 
+  test('splits lone-CR line endings like the reference reader', () {
+    final bytes = utf8.encode(
+      'HLC Red\t53.0\t80.0\t67.0\r'
+      'Comma Green\t87,0\t-30,5\t72,25\r',
+    );
+
+    final clf = ClfPalette.fromBytes(bytes);
+
+    expect(ClfPalette.isValidFormat(bytes), isTrue);
+    expect(clf.colors.length, equals(2));
+    expect(clf.colors[0].name, equals('HLC Red'));
+    expect(clf.colors[0].lab, equals([53.0, 80.0, 67.0]));
+    expect(clf.colors[1].name, equals('Comma Green'));
+    expect(clf.colors[1].lab, equals([87.0, -30.5, 72.25]));
+  });
+
+  test('splits CRLF line endings', () {
+    final bytes = utf8.encode(
+      'HLC Red\t53.0\t80.0\t67.0\r\n'
+      'HLC Gray\t50.0\t0.0\t0.0\r\n',
+    );
+
+    final clf = ClfPalette.fromBytes(bytes);
+
+    expect(clf.colors.length, equals(2));
+    expect(clf.colors[0].name, equals('HLC Red'));
+    expect(clf.colors[1].name, equals('HLC Gray'));
+  });
+
+  test('invalid UTF-8 throws FormatException and is not valid', () {
+    const bytes = [0xFF, 0xFE, 0xFD];
+    expect(ClfPalette.isValidFormat(bytes), isFalse);
+    expect(() => ClfPalette.fromBytes(bytes), throwsA(isA<FormatException>()));
+  });
+
+  test('encoder rejects separators and empty palettes', () {
+    ClfPalette build(String name) => ClfPalette(
+      colors: [
+        ClfPaletteColor(name: name, lab: [50.0, 0.0, 0.0]),
+      ],
+    );
+
+    expect(() => build('a\tb').toBytes(), throwsA(isA<FormatException>()));
+    expect(() => build('a\nb').toBytes(), throwsA(isA<FormatException>()));
+    expect(() => build('a\rb').toBytes(), throwsA(isA<FormatException>()));
+    expect(
+      () => ClfPalette(colors: []).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
   test('write clf file', () {
     final clf = ClfPalette(
       colors: [

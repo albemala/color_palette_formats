@@ -7,7 +7,9 @@ double? _parseComponent(String value) {
 }
 
 ClfPalette _decode(List<int> bytes) {
-  final lines = splitLines(bytes);
+  // Split locally (not via splitLines) so lone-CR line endings decode
+  // like Swift's `.lines` in the reference reader.
+  final lines = utf8.decode(bytes).split(RegExp(r'\r\n|\r|\n'));
 
   // Loose like the ColorPaletteCodable reader: skip blank and
   // malformed lines, accept comma decimal separators.
