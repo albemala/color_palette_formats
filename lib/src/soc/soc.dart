@@ -14,8 +14,12 @@ part 'encode.dart';
  * Acronym: SOC
  * File extensions: .soc
  * Applications: StarOffice / OpenOffice.org / LibreOffice
- * Format details: OpenOffice XML format structure. Based on observed format
- *   in example files (e.g., test/testdata/soc/cmyk.soc).
+ * Format details: XML document with a `color-table` root (StarOffice or
+ *   OASIS namespace, or none) and one `draw:color` element per swatch.
+ *   `draw:color` is a `#RRGGBB` hex color (uppercase accepted); both
+ *   `draw:name` and `draw:color` are required on every entry. Empty tables
+ *   (no `draw:color` elements) are legal and unknown elements are ignored.
+ *   Trailing text after the document is tolerated by the XML parser.
  */
 
 @MappableClass()

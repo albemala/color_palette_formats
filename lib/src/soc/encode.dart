@@ -1,6 +1,9 @@
 part of 'soc.dart';
 
 List<int> _encode(StarOfficeColorTable table) {
+  for (final color in table.colors) {
+    _validateColor(color);
+  }
   return buildXmlDocument(
     rootElementName: SocConstants.officeColorTable,
     namespace: SocConstants.officeNs,
@@ -29,6 +32,15 @@ List<int> _encode(StarOfficeColorTable table) {
       }
     },
   );
+}
+
+void _validateColor(StarOfficeColor color) {
+  if (!_hexColor.hasMatch(color.color)) {
+    throw FormatException(
+      "Invalid hex color format '${color.color}' "
+      "for color '${color.name}'. Expected #RRGGBB.",
+    );
+  }
 }
 
 // Helper to build a draw:color element.

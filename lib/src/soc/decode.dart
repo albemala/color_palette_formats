@@ -48,13 +48,14 @@ StarOfficeColor _parseColor(XmlElement element, String drawNamespace) {
     namespace: drawNamespace,
   );
 
-  // Basic validation for hex color format
-  if (!color.startsWith('#') || (color.length != 7 && color.length != 9)) {
+  if (!_hexColor.hasMatch(color)) {
     throw FormatException(
       """
-Invalid hex color format '$color' for color '$name' in <${element.name.qualified}>. Expected #RRGGBB or #AARRGGBB.""",
+Invalid hex color format '$color' for color '$name' in <${element.name.qualified}>. Expected #RRGGBB.""",
     );
   }
 
   return StarOfficeColor(name: name, color: color);
 }
+
+final _hexColor = RegExp(r'^#[0-9a-fA-F]{6}$');
