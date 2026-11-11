@@ -78,9 +78,8 @@ PainterPaletteColor _parseColor(String line) {
 }
 
 PainterPalette _decode(List<int> bytes) {
-  // Split locally: the shared splitLines only handles \r?\n, but classic
-  // Mac files may use lone \r (same approach as the CLF codec).
-  final lines = utf8.decode(bytes).split(RegExp(r'\r\n|\r|\n'));
+  // Lone-CR line endings are accepted (classic Mac files).
+  final lines = splitLinesUniversal(bytes);
 
   if (lines.length < 6) {
     throw const FormatException(

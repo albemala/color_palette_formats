@@ -3,9 +3,8 @@ part of 'coreldraw4.dart';
 const _paletteName = 'CorelDraw 4 Palette';
 
 CorelDraw4Palette _decode(List<int> bytes) {
-  // Split locally: the shared splitLines only handles \r?\n, but classic
-  // Mac files may use lone \r (same approach as the CLF codec).
-  final lines = utf8.decode(bytes).split(RegExp(r'\r\n|\r|\n'));
+  // Lone-CR line endings are accepted (classic Mac files).
+  final lines = splitLinesUniversal(bytes);
 
   // Regex to capture the name in quotes and the four CMYK values.
   // Handles potential extra whitespace. Anchored so lines with trailing
