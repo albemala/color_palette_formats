@@ -14,6 +14,75 @@ int _encodeOverflow(ClrGradientOverflow overflow, bool linearRgb) {
   return linearRgb ? base + 1 : base;
 }
 
+void _validateChannel(String label, int value, int max) {
+  if (value < 0 || value > max) {
+    throw FormatException(
+      'Not a valid $_paletteName. $label "$value" out of range 0..$max.',
+    );
+  }
+}
+
+void _validatePalette(ClrPalette palette) {
+  // The model constructors assert these ranges in debug builds; enforce
+  // them here with FormatException because the byte writer silently masks
+  // out-of-range values (e.g. writeUint8(300) stores 44) in release.
+  if (palette.colors.length > 0xFFFF) {
+    throw const FormatException(
+      'Not a valid $_paletteName. Too many colors to write.',
+    );
+  }
+  if (palette.gradients.length > 0xFFFF) {
+    throw const FormatException(
+      'Not a valid $_paletteName. Too many gradients to write.',
+    );
+  }
+  for (final color in palette.colors) {
+    if (color.version != 3 && color.version != 4) {
+      throw FormatException(
+        'Not a valid $_paletteName. Unsupported version "${color.version}".',
+      );
+    }
+    _validateChannel('red', color.red, 255);
+    _validateChannel('green', color.green, 255);
+    _validateChannel('blue', color.blue, 255);
+    _validateChannel('alpha', color.alpha, 255);
+    _validateChannel('hue', color.hue, 65535);
+    _validateChannel('saturation', color.saturation, 65535);
+    _validateChannel('brightness', color.brightness, 65535);
+  }
+  for (final gradient in palette.gradients) {
+    if (gradient.version != 3 && gradient.version != 4) {
+      throw FormatException(
+        'Not a valid $_paletteName. Unsupported version '
+        '"${gradient.version}".',
+      );
+    }
+    if (gradient.version == 3 && gradient.linearRgb) {
+      throw FormatException(
+        'Gradient with base color "${gradient.baseRed},'
+        '${gradient.baseGreen},${gradient.baseBlue}" uses linearRgb '
+        'which requires version 4.',
+      );
+    }
+    _validateChannel('baseRed', gradient.baseRed, 255);
+    _validateChannel('baseGreen', gradient.baseGreen, 255);
+    _validateChannel('baseBlue', gradient.baseBlue, 255);
+    _validateChannel('baseAlpha', gradient.baseAlpha, 255);
+    if (gradient.stops.length > 0xFF) {
+      throw const FormatException(
+        'Not a valid $_paletteName. Too many gradient stops to write.',
+      );
+    }
+    for (final stop in gradient.stops) {
+      _validateChannel('offset', stop.offset, 255);
+      _validateChannel('stop red', stop.red, 255);
+      _validateChannel('stop green', stop.green, 255);
+      _validateChannel('stop blue', stop.blue, 255);
+      _validateChannel('stop alpha', stop.alpha, 255);
+    }
+  }
+}
+
 void _writePrefix(ByteDataWriter buffer) {
   buffer.writeUint8(0xFF);
   buffer.writeUint8(0xFF);
@@ -35,15 +104,7 @@ void _writeZeros(ByteDataWriter buffer, int count) {
 }
 
 List<int> _encode(ClrPalette palette) {
-  for (final gradient in palette.gradients) {
-    if (gradient.version == 3 && gradient.linearRgb) {
-      throw FormatException(
-        'Gradient with base color "${gradient.baseRed},'
-        '${gradient.baseGreen},${gradient.baseBlue}" uses linearRgb '
-        'which requires version 4.',
-      );
-    }
-  }
+  _validatePalette(palette);
 
   final buffer = ByteDataWriter(endian: Endian.little);
   // file signature

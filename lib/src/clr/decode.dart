@@ -78,6 +78,22 @@ int _readVersion(ByteDataReader buffer) {
 ClrPalette _decode(List<int> bytes) {
   final buffer = ByteDataReader(endian: Endian.little)..add(bytes);
 
+  try {
+    return _decodeBody(buffer);
+  } catch (e) {
+    // Reads past the end of truncated input surface as RangeError or
+    // StateError from the byte buffer; report them as malformed files
+    // instead. Other errors (FormatException) pass through untouched.
+    if (e is RangeError || e is StateError) {
+      throw const FormatException(
+        'Not a valid $_paletteName: truncated input.',
+      );
+    }
+    rethrow;
+  }
+}
+
+ClrPalette _decodeBody(ByteDataReader buffer) {
   _validatePrefix(buffer);
   _validateSectionName(buffer, ClrPalette.colorListName);
   final colorCount = buffer.readUint16();
