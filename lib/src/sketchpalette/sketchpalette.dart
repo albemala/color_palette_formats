@@ -10,6 +10,11 @@ part 'encode.dart';
  * Format name: Sketch Palette
  * Versions: 1.4
  * File extensions: .sketchpalette
+ * Format details: JSON object with `compatibleVersion` and `pluginVersion`
+ *   (both must be "1.4") and a `colors` array of
+ *   `{red, green, blue, alpha}` objects, each channel a finite number in
+ *   0..1. Empty palettes (`"colors": []`) are legal. Trailing garbage
+ *   after the JSON document is rejected.
  */
 
 @MappableClass()
