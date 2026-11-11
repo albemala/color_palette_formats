@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:color_palette_formats/src/text_parse_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'coreldraw4.mapper.dart';
@@ -11,7 +10,10 @@ part 'encode.dart';
  * Format name: CorelDraw 4 Palette
  * File extensions: .pal
  * Applications: CorelDraw 4 and potentially earlier versions
- * Format details: Text-based, CMYK color values.
+ * Format details: Text-based, no header or signature. One color per
+ *   line: "Name" C M Y K with CMYK values in 0..100. Blank lines and
+ *   lines that are not color definitions (including DOS Ctrl-Z
+ *   end-of-file markers) are skipped.
  */
 
 @MappableClass()
