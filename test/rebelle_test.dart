@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:color_palette_formats/color_palette_formats.dart';
@@ -110,5 +111,99 @@ void main() {
     expect(decoded.colors.length, equals(2));
     expect(decoded.colors[0].name, equals(''));
     expect(decoded.colors[1].name, equals(''));
+  });
+
+  group('validation', () {
+    List<int> bytes(String content) => utf8.encode(content);
+
+    test('rejects malformed lines with FormatException', () {
+      final cases = <String, List<int>>{
+        'garbage line': bytes('#ff0000\tRed\nnot a color\n#00ff00\tGreen\n'),
+        'three-digit hex': bytes('#fff\n'),
+        'no hash': bytes('ff0000\n'),
+        'eight-digit hex': bytes('#ff0000ff\n'),
+        'non-hex digits': bytes('#zzzzzz\n'),
+        'extra columns': bytes('#ff0000\tRed\textra\n'),
+        'empty': <int>[],
+        'blank lines only': bytes('\n   \n'),
+      };
+
+      for (final entry in cases.entries) {
+        expect(
+          () => RebellePalette.fromBytes(entry.value),
+          throwsA(isA<FormatException>()),
+          reason: entry.key,
+        );
+        expect(
+          RebellePalette.isValidFormat(entry.value),
+          isFalse,
+          reason: entry.key,
+        );
+      }
+    });
+
+    test('reads lone-CR endings as separate colors', () {
+      final palette = RebellePalette.fromBytes(
+        bytes('#ff0000\tRed\r#00ff00\tGreen\r'),
+      );
+      expect(palette.colors.length, equals(2));
+      expect(palette.colors[0].name, equals('Red'));
+      expect(palette.colors[1].name, equals('Green'));
+      expect(
+        RebellePalette.isValidFormat(bytes('#ff0000\tRed\r#00ff00\tGreen\r')),
+        isTrue,
+      );
+    });
+
+    test('accepts uppercase hex', () {
+      final palette = RebellePalette.fromBytes(bytes('#FF0000\tRed\n'));
+      expect(palette.colors.first.red, equals(255));
+      expect(palette.colors.first.green, equals(0));
+      expect(palette.colors.first.blue, equals(0));
+    });
+
+    test('encoder rejects invalid colors', () {
+      // Constructor asserts fire in debug builds before the encoder's
+      // FormatException guards (release safety nets) are reached.
+      final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+      for (final bad in [300, -1]) {
+        expect(
+          () =>
+              RebellePalette(
+                colors: [
+                  RebellePaletteColor(red: bad, green: 0, blue: 0, name: 'x'),
+                ],
+              ).toBytes(),
+          throwsA(either),
+          reason: 'red = $bad',
+        );
+      }
+      for (final badName in ['a\n#bada55', 'a\tb', 'a\rb']) {
+        expect(
+          () =>
+              RebellePalette(
+                colors: [
+                  RebellePaletteColor(red: 1, green: 2, blue: 3, name: badName),
+                ],
+              ).toBytes(),
+          throwsA(isA<FormatException>()),
+          reason: 'name = ${badName.codeUnits}',
+        );
+      }
+    });
+  });
+
+  test('decode-encode-decode is stable on the fixture', () {
+    final fileBytes =
+        File('test/testdata/rebelle/default.colors').readAsBytesSync();
+    final once = RebellePalette.fromBytes(fileBytes);
+    final twice = RebellePalette.fromBytes(once.toBytes());
+    expect(twice.colors.length, equals(once.colors.length));
+    for (var i = 0; i < once.colors.length; i++) {
+      expect(twice.colors[i].red, equals(once.colors[i].red));
+      expect(twice.colors[i].green, equals(once.colors[i].green));
+      expect(twice.colors[i].blue, equals(once.colors[i].blue));
+      expect(twice.colors[i].name, equals(once.colors[i].name));
+    }
   });
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:color_palette_formats/src/format_utils.dart';
 import 'package:color_palette_formats/src/text_parse_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -11,8 +12,11 @@ part 'encode.dart';
  * Format name: Rebelle Palette
  * File extensions: .txt, .colors
  * Applications: Rebelle - Digital Painting Application
- * Format details: Tab-delimited text file with two columns: hex RGB color
- *   and optional color name.
+ * Format details: Tab-delimited text file with two columns: `#RRGGBB` hex
+ *   color and optional color name (uppercase hex accepted). Every
+ *   non-blank line must be a color; malformed lines are rejected, not
+ *   skipped. Files with no colors are rejected. CRLF and lone-CR line
+ *   endings are supported.
  * References:
  * - Rebelle 7 and 8 manuals
  */
