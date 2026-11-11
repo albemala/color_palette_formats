@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:color_palette_formats/src/format_utils.dart';
 import 'package:color_palette_formats/src/text_parse_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -10,6 +11,9 @@ part 'encode.dart';
 /*
  * Format name: KOffice Palette
  * File extensions: .colors
+ * Applications: KOffice, KDE
+ * References:
+ * - http://www.selapa.net/swatches/colors/fileformats.php
  */
 
 @MappableClass()
