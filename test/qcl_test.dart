@@ -315,4 +315,151 @@ void main() {
       );
     }
   });
+
+  group('validation', () {
+    String rgbCmyk() =>
+        File('test/testdata/qcl/rgb-cmyk.qcl').readAsStringSync();
+    String solidHex() =>
+        File('test/testdata/qcl/solid-hex.qcl').readAsStringSync();
+    List<int> mutate(String source, String from, String to) =>
+        utf8.encode(source.replaceFirst(from, to));
+
+    void expectRejected(String label, List<int> bytes) {
+      expect(
+        () => QuarkXPressPalette.fromBytes(bytes),
+        throwsA(isA<FormatException>()),
+        reason: label,
+      );
+      expect(QuarkXPressPalette.isValidFormat(bytes), isFalse, reason: label);
+    }
+
+    test('isValidFormat rejects broken bodies', () {
+      final rgb = rgbCmyk();
+      expectRejected('root only', utf8.encode('<cgats17/>'));
+      expectRejected(
+        'empty table',
+        utf8.encode(rgb.replaceAll(RegExp('<tr>.*?</tr>', dotAll: true), '')),
+      );
+      expectRejected(
+        'rgb out of range',
+        mutate(rgb, '<td>255</td>', '<td>300</td>'),
+      );
+      expectRejected(
+        'unknown name format',
+        mutate(rgb, '<td>1</td>', '<td>9</td>'),
+      );
+    });
+
+    test('rejects non-finite and out-of-range doubles', () {
+      final rgb = rgbCmyk();
+      final hex = solidHex();
+      final cases = <String, List<int>>{
+        'cmyk NaN': mutate(rgb, '<td>100</td>', '<td>NaN</td>'),
+        'cmyk Infinity': mutate(rgb, '<td>100</td>', '<td>Infinity</td>'),
+        'cmyk overflow': mutate(rgb, '<td>100</td>', '<td>1e999</td>'),
+        'cmyk above range': mutate(rgb, '<td>100</td>', '<td>101</td>'),
+        'cmyk below range': mutate(rgb, '<td>100</td>', '<td>-5</td>'),
+        'lab NaN': mutate(hex, '<td>89.87</td>', '<td>NaN</td>'),
+        'lab Infinity': mutate(hex, '<td>-1.92</td>', '<td>Infinity</td>'),
+        'hexachrome NaN': mutate(hex, '<td>100</td>', '<td>NaN</td>'),
+        'hexachrome above range': mutate(hex, '<td>100</td>', '<td>101</td>'),
+        'non-numeric format_id': utf8.encode(
+          hex.replaceFirst('format_id="2"', 'format_id="abc"'),
+        ),
+        'incomplete group': utf8.encode(
+          rgb.replaceFirst('        <field_info pos="5" name="RGB_B"/>\n', ''),
+        ),
+      };
+      for (final entry in cases.entries) {
+        expectRejected(entry.key, entry.value);
+      }
+    });
+
+    test('accepts out-of-range Lab values', () {
+      // Lab is range-free (out-of-gamut measurements can exceed the usual
+      // bounds); only finiteness is enforced.
+      final bytes = mutate(solidHex(), '<td>89.87</td>', '<td>150</td>');
+      final palette = QuarkXPressPalette.fromBytes(bytes);
+      expect(palette.colors.first.lab?.first, equals(150));
+      expect(QuarkXPressPalette.isValidFormat(bytes), isTrue);
+    });
+
+    test('encoder rejects invalid colors', () {
+      // Constructor asserts fire in debug builds before the encoder's
+      // FormatException guards (release safety nets) are reached.
+      final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+      QuarkXPressPalette wrap(QuarkXPressPaletteColor color) =>
+          QuarkXPressPalette(
+            stdVersion: '1.0',
+            dtdVersion: '1.0',
+            standard: 'CGATS.17',
+            originator: 'Tests',
+            fileDescriptor: 'x',
+            createdDate: '2026-11-09',
+            createdText: 'x',
+            manufacturer: 'TEST',
+            headerComment: '',
+            nameFormats: const [],
+            libraryIdentifier: 'T',
+            defaultColorSpace: 'QRGB',
+            colorUsageRecommendation: '2',
+            uiSpec: '',
+            colors: [color],
+          );
+      final cases = <String, QuarkXPressPaletteColor Function()>{
+        'rgb wrong length':
+            () =>
+                QuarkXPressPaletteColor(sampleId: 'B', name: 'B', rgb: [1, 2]),
+        'rgb out of range':
+            () => QuarkXPressPaletteColor(
+              sampleId: 'B',
+              name: 'B',
+              rgb: [300, 0, 0],
+            ),
+        'cmyk wrong length':
+            () => QuarkXPressPaletteColor(
+              sampleId: 'B',
+              name: 'B',
+              cmyk: [1, 2, 3, 4, 5],
+            ),
+        'cmyk out of range':
+            () => QuarkXPressPaletteColor(
+              sampleId: 'B',
+              name: 'B',
+              cmyk: [101, 0, 0, 0],
+            ),
+        'cmyk NaN':
+            () => QuarkXPressPaletteColor(
+              sampleId: 'B',
+              name: 'B',
+              cmyk: [double.nan, 0, 0, 0],
+            ),
+        'lab infinite':
+            () => QuarkXPressPaletteColor(
+              sampleId: 'B',
+              name: 'B',
+              lab: [double.infinity, 0, 0],
+            ),
+        'hexachrome wrong length':
+            () => QuarkXPressPaletteColor(
+              sampleId: 'B',
+              name: 'B',
+              hexachrome: [1, 2],
+            ),
+        'hexachrome out of range':
+            () => QuarkXPressPaletteColor(
+              sampleId: 'B',
+              name: 'B',
+              hexachrome: [0, 0, 0, 0, 0, 101],
+            ),
+      };
+      for (final entry in cases.entries) {
+        expect(
+          () => wrap(entry.value()).toBytes(),
+          throwsA(either),
+          reason: entry.key,
+        );
+      }
+    });
+  });
 }

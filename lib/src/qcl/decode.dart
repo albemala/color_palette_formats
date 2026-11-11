@@ -14,6 +14,20 @@ String _optionalText(XmlElement parent, String elementName) {
   return parent.findElements(elementName).firstOrNull?.innerText ?? '';
 }
 
+int _parseFormatId(XmlElement element) {
+  final raw = element.getAttribute(QclConstants.formatIdAttr);
+  // A missing attribute keeps the historical lenient 0; a present but
+  // non-numeric one is malformed input, not a silent default.
+  if (raw == null) return 0;
+  final value = int.tryParse(raw);
+  if (value == null) {
+    throw FormatException(
+      'Not a valid $_paletteName. Invalid format_id "$raw".',
+    );
+  }
+  return value;
+}
+
 XmlElement _requiredChild(XmlElement parent, String elementName) {
   final element = parent.findElements(elementName).firstOrNull;
   if (element == null) {
@@ -68,8 +82,9 @@ List<double>? _parseGroup(
   Map<String, int> fieldPositions,
   List<String> fieldNames,
   List<XmlElement> cells,
-  String row,
-) {
+  String row, {
+  double? max,
+}) {
   final present = fieldNames.map(fieldPositions.containsKey).toList();
   if (present.every((p) => !p)) return null;
   if (present.any((p) => !p)) {
@@ -78,10 +93,27 @@ List<double>? _parseGroup(
       'in row "$row".',
     );
   }
-  return [
+  final values = [
     for (final name in fieldNames)
       _parseDoubleCell(cells, fieldPositions[name]!, row),
   ];
+  for (final value in values) {
+    // NaN passes bare range comparisons, so finiteness is checked
+    // explicitly. Overflow (e.g. 1e999) can still decode to Infinity.
+    if (!value.isFinite) {
+      throw FormatException(
+        'Not a valid $_paletteName. Non-finite "${fieldNames.first}" '
+        'value "$value" in row "$row".',
+      );
+    }
+    if (max != null && (value < 0 || value > max)) {
+      throw FormatException(
+        'Not a valid $_paletteName. "${fieldNames.first}" value "$value" '
+        'out of range 0..$max in row "$row".',
+      );
+    }
+  }
+  return values;
 }
 
 String _resolveName(
@@ -122,11 +154,7 @@ QuarkXPressPalette _decode(List<int> bytes) {
           ?.findElements(QclConstants.nameFieldInfo)
           .map(
             (e) => QuarkXPressNameFormat(
-              formatId:
-                  int.tryParse(
-                    e.getAttribute(QclConstants.formatIdAttr) ?? '',
-                  ) ??
-                  0,
+              formatId: _parseFormatId(e),
               longForm: e.getAttribute(QclConstants.longFormAttr) ?? '',
               shortForm: e.getAttribute(QclConstants.shortFormAttr) ?? '',
             ),
@@ -213,6 +241,7 @@ QuarkXPressPalette _decode(List<int> bytes) {
           ],
           cells,
           sampleId,
+          max: 100,
         ),
         lab: _parseGroup(
           fieldPositions,
@@ -225,6 +254,7 @@ QuarkXPressPalette _decode(List<int> bytes) {
           [for (var i = 1; i <= 6; i++) '${QclConstants.pc6Prefix}$i'],
           cells,
           sampleId,
+          max: 100,
         ),
       ),
     );

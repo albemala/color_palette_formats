@@ -3,6 +3,52 @@ part of 'qcl.dart';
 String _formatNumber(double value) =>
     value == value.roundToDouble() ? value.toInt().toString() : '$value';
 
+void _validateColor(QuarkXPressPaletteColor color) {
+  // The model constructor asserts these invariants in debug builds; enforce
+  // them here with FormatException for release safety.
+  final rgb = color.rgb;
+  if (rgb != null) {
+    if (rgb.length != 3) {
+      throw const FormatException(
+        'Not a valid $_paletteName. rgb must have 3 values.',
+      );
+    }
+    for (final value in rgb) {
+      validateIntRange(_paletteName, 'rgb', value, 255);
+    }
+  }
+  _validateDoubleGroup(color.cmyk, 'cmyk', 4, 100);
+  _validateDoubleGroup(color.lab, 'lab', 3, null);
+  _validateDoubleGroup(color.hexachrome, 'hexachrome', 6, 100);
+}
+
+void _validateDoubleGroup(
+  List<double>? values,
+  String label,
+  int length,
+  double? max,
+) {
+  if (values == null) return;
+  if (values.length != length) {
+    throw FormatException(
+      'Not a valid $_paletteName. $label must have $length values.',
+    );
+  }
+  for (final value in values) {
+    if (!value.isFinite) {
+      throw FormatException(
+        'Not a valid $_paletteName. Non-finite $label value "$value".',
+      );
+    }
+    if (max != null && (value < 0 || value > max)) {
+      throw FormatException(
+        'Not a valid $_paletteName. $label value "$value" '
+        'out of range 0..$max.',
+      );
+    }
+  }
+}
+
 List<String> _encodeFields(QuarkXPressPalette palette) {
   final fields = <String>[QclConstants.sampleId];
   if (palette.colors.any((c) => c.nameFormatId != null)) {
@@ -50,6 +96,9 @@ String _encodeCell(QuarkXPressPaletteColor color, String field) {
 }
 
 List<int> _encode(QuarkXPressPalette palette) {
+  for (final color in palette.colors) {
+    _validateColor(color);
+  }
   final fields = _encodeFields(palette);
   final builder = XmlBuilder();
   builder.processing('xml', 'version="1.0" encoding="UTF-8"');

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:color_palette_formats/src/format_utils.dart';
 import 'package:color_palette_formats/src/xml_decode_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:xml/xml.dart';
@@ -21,7 +22,10 @@ part 'encode.dart';
  *   are resolved from `name_field_info` long forms via the `%n` placeholder
  *   (1-based ids; a NAME_FORMAT_ID of 0 means no name format).
  *   Values are stored in wire units (RGB 0-255, CMYK/hexachrome percent,
- *   Lab decimals) without normalization. The companion `.cui` UI-spec file
+ *   Lab decimals) without normalization. CMYK and hexachrome values are
+ *   percents (0..100, enforced); Lab values are range-free but must be
+ *   finite, as must CMYK/hexachrome values. Empty color tables are
+ *   rejected. The companion `.cui` UI-spec file
  *   (sidecar referenced by `uiSpec`) is a separate codec, `QuarkXPressCui`.
  * References:
  * - http://www.selapa.net/swatches/colors/fileformats.php
@@ -154,9 +158,7 @@ class QuarkXPressPalette with QuarkXPressPaletteMappable {
   /// Checks if the provided bytes represent a valid QuarkXPress library.
   static bool isValidFormat(List<int> bytes) {
     try {
-      final xmlString = utf8.decode(bytes);
-      final document = parseXml(xmlString);
-      validateRootElement(document, QclConstants.cgats17);
+      _decode(bytes);
       return true;
     } catch (_) {
       return false;
