@@ -228,4 +228,228 @@ void main() {
     // Delete temp file
     tempFile.deleteSync();
   });
+
+  test('round-trips names containing commas, brackets and quotes', () {
+    final palette = Sk1Palette(
+      name: 'Tricky names',
+      columns: 1,
+      colors: [
+        Sk1Color(
+          name: 'Red, bright',
+          colorSpace: Sk1ColorSpace.rgb,
+          values: [1.0, 0.0, 0.0],
+          alpha: 1,
+        ),
+        Sk1Color(
+          name: 'Blue [dark]',
+          colorSpace: Sk1ColorSpace.rgb,
+          values: [0.0, 0.0, 1.0],
+          alpha: 1,
+        ),
+        Sk1Color(
+          name: "It's green",
+          colorSpace: Sk1ColorSpace.rgb,
+          values: [0.0, 1.0, 0.0],
+          alpha: 1,
+        ),
+      ],
+    );
+
+    final decoded = Sk1Palette.fromBytes(palette.toBytes());
+    expect(
+      decoded.colors.map((c) => c.name).toList(),
+      equals(['Red, bright', 'Blue [dark]', "It's green"]),
+    );
+  });
+
+  test('rejects malformed color data', () {
+    String fileWith(String colorLine) =>
+        "##sK1 palette\npalette()\nset_name('N')\nset_columns(1)\n"
+        '$colorLine\npalette_end()\n';
+
+    // Wrong value count for the color space.
+    expect(
+      () => Sk1Palette.fromBytes(
+        fileWith("color(['RGB', [1.0, 0.0], 1.0, 'X'])").codeUnits,
+      ),
+      throwsA(isA<FormatException>()),
+    );
+    // Non-finite and out-of-range channel values.
+    for (final bad in ['NaN', 'Infinity', '-Infinity', '1.5', '-0.1']) {
+      expect(
+        () => Sk1Palette.fromBytes(
+          fileWith("color(['RGB', [$bad, 0.0, 0.0], 1.0, 'X'])").codeUnits,
+        ),
+        throwsA(isA<FormatException>()),
+        reason: 'value $bad',
+      );
+    }
+    // Out-of-range alpha.
+    expect(
+      () => Sk1Palette.fromBytes(
+        fileWith("color(['RGB', [1.0, 0.0, 0.0], 1.5, 'X'])").codeUnits,
+      ),
+      throwsA(isA<FormatException>()),
+    );
+    // Unknown color space.
+    expect(
+      () => Sk1Palette.fromBytes(
+        fileWith("color(['LAB', [1.0, 0.0, 0.0], 1.0, 'X'])").codeUnits,
+      ),
+      throwsA(isA<FormatException>()),
+    );
+    // Negative and non-numeric columns.
+    expect(
+      () => Sk1Palette.fromBytes(
+        "##sK1 palette\npalette()\nset_name('N')\nset_columns(-1)\n"
+                'palette_end()\n'
+            .codeUnits,
+      ),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () => Sk1Palette.fromBytes(
+        "##sK1 palette\npalette()\nset_name('N')\nset_columns(two)\n"
+                'palette_end()\n'
+            .codeUnits,
+      ),
+      throwsA(isA<FormatException>()),
+    );
+    // Unknown commands are skipped, so a missing name still reports
+    // the missing name rather than the typo.
+    expect(
+      () => Sk1Palette.fromBytes(
+        "##sK1 palette\npalette()\nset_nmae('N')\nset_columns(1)\n"
+                'palette_end()\n'
+            .codeUnits,
+      ),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
+  test('decodes lone-CR line endings', () {
+    final bytes = File('test/testdata/sk1/Ubuntu_colors.skp').readAsBytesSync();
+    final crBytes = ascii.decode(bytes).replaceAll('\n', '\r').codeUnits;
+    final palette = Sk1Palette.fromBytes(crBytes);
+    expect(palette.name, equals('Ubuntu colors'));
+    expect(palette.colors.length, equals(9));
+    expect(palette.colors.first.name, equals('Ubuntu orange'));
+  });
+
+  test('isValidFormat rejects structurally invalid files', () {
+    // Missing palette name.
+    expect(
+      Sk1Palette.isValidFormat(
+        '##sK1 palette\npalette()\nset_columns(1)\npalette_end()\n'.codeUnits,
+      ),
+      isFalse,
+    );
+    // Corrupt color data.
+    expect(
+      Sk1Palette.isValidFormat(
+        "##sK1 palette\npalette()\nset_name('N')\nset_columns(1)\n"
+                "color(['RGB', [1.0], 1.0, 'X'])\npalette_end()\n"
+            .codeUnits,
+      ),
+      isFalse,
+    );
+    // Invalid UTF-8.
+    expect(Sk1Palette.isValidFormat([0xFF, 0xFE, 0xFD]), isFalse);
+  });
+
+  test('encoder rejects invalid palettes', () {
+    Sk1Palette paletteWith({
+      String name = 'N',
+      int columns = 1,
+      List<Sk1Color>? colors,
+    }) => Sk1Palette(
+      name: name,
+      columns: columns,
+      colors:
+          colors ??
+          [
+            Sk1Color(
+              name: 'X',
+              colorSpace: Sk1ColorSpace.rgb,
+              values: [1.0, 0.0, 0.0],
+              alpha: 1,
+            ),
+          ],
+    );
+
+    expect(
+      () => paletteWith(columns: -1).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () => paletteWith(name: 'a\nb').toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () =>
+          Sk1Palette(
+            name: 'N',
+            columns: 1,
+            colors: [
+              Sk1Color(
+                name: 'a\rb',
+                colorSpace: Sk1ColorSpace.rgb,
+                values: [1.0, 0.0, 0.0],
+                alpha: 1,
+              ),
+            ],
+          ).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    // Comment and source line breaks are rejected too.
+    expect(
+      () =>
+          Sk1Palette(
+            name: 'N',
+            columns: 1,
+            comments: ['ok', 'a\nb'],
+            colors: [],
+          ).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+    expect(
+      () =>
+          Sk1Palette(
+            name: 'N',
+            source: 'a\nb',
+            columns: 1,
+            colors: [],
+          ).toBytes(),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
+  test('decode-encode-decode is stable on all fixtures', () {
+    for (final path in [
+      'test/testdata/sk1/Fedora_color_palette.skp',
+      'test/testdata/sk1/Lible_Colors.skp',
+      'test/testdata/sk1/openSUSE_colors.skp',
+      'test/testdata/sk1/Ubuntu_colors.skp',
+    ]) {
+      final bytes = File(path).readAsBytesSync();
+      final once = Sk1Palette.fromBytes(bytes);
+      final twice = Sk1Palette.fromBytes(once.toBytes());
+      expect(twice.name, equals(once.name), reason: path);
+      expect(twice.source, equals(once.source), reason: path);
+      expect(twice.comments, equals(once.comments), reason: path);
+      expect(twice.columns, equals(once.columns), reason: path);
+      expect(twice.colors.length, equals(once.colors.length), reason: path);
+      for (var i = 0; i < once.colors.length; i++) {
+        expect(twice.colors[i].name, equals(once.colors[i].name));
+        expect(twice.colors[i].colorSpace, equals(once.colors[i].colorSpace));
+        for (var j = 0; j < once.colors[i].values.length; j++) {
+          expect(
+            twice.colors[i].values[j],
+            closeTo(once.colors[i].values[j], 1e-12),
+          );
+        }
+        expect(twice.colors[i].alpha, closeTo(once.colors[i].alpha, 1e-12));
+      }
+    }
+  });
 }

@@ -77,10 +77,8 @@ class Sk1Palette with Sk1PaletteMappable {
   /// Checks if the provided bytes represent a valid sK1 Palette file.
   static bool isValidFormat(List<int> bytes) {
     try {
-      // Basic check for the signature and structure start
-      final content = utf8.decode(bytes, allowMalformed: true);
-      return content.startsWith(Sk1Palette.validFileSignature) &&
-          content.contains('palette()');
+      _decode(bytes);
+      return true;
     } catch (_) {
       return false;
     }
