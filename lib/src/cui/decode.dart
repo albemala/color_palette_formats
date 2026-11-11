@@ -17,7 +17,9 @@ QuarkXPressCui _decode(List<int> bytes) {
   final rowsPerPageText =
       data.findElements(CuiConstants.rowsPerPage).firstOrNull?.innerText.trim();
   final rowsPerPage = int.tryParse(rowsPerPageText ?? '');
-  if (rowsPerPage == null) {
+  // The model constructor asserts non-negativity in debug builds; enforce
+  // it here with FormatException for release safety.
+  if (rowsPerPage == null || rowsPerPage < 0) {
     throw const FormatException(
       'Not a valid $_paletteName. Invalid <${CuiConstants.rowsPerPage}>.',
     );

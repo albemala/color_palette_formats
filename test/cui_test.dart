@@ -47,6 +47,55 @@ void main() {
     expect(QuarkXPressCui.isValidFormat(invalidBytes), isFalse);
   });
 
+  test('isValidFormat rejects structurally invalid files', () {
+    String fileWith(String body) =>
+        '<?xml version="1.0" encoding="UTF-8"?>\n<LibraryUISpecs>\n'
+        '  <edit_dialog_data>\n$body  </edit_dialog_data>\n</LibraryUISpecs>\n';
+
+    // Missing rows_per_page.
+    expect(QuarkXPressCui.isValidFormat(fileWith('').codeUnits), isFalse);
+    // Non-numeric and negative rows_per_page.
+    for (final rows in ['seven', '-5']) {
+      final bytes =
+          fileWith('    <rows_per_page>$rows</rows_per_page>\n').codeUnits;
+      expect(QuarkXPressCui.isValidFormat(bytes), isFalse, reason: rows);
+      expect(
+        () => QuarkXPressCui.fromBytes(bytes),
+        throwsA(isA<FormatException>()),
+        reason: rows,
+      );
+    }
+    // Non-numeric column_break.
+    final badBreak =
+        fileWith(
+          '    <rows_per_page>7</rows_per_page>\n'
+          '    <column_data>\n'
+          '      <column_break>six</column_break>\n'
+          '    </column_data>\n',
+        ).codeUnits;
+    expect(QuarkXPressCui.isValidFormat(badBreak), isFalse);
+    expect(
+      () => QuarkXPressCui.fromBytes(badBreak),
+      throwsA(isA<FormatException>()),
+    );
+  });
+
+  test('encoder rejects negative rowsPerPage', () {
+    // The constructor assert fires in debug builds before the encoder's
+    // FormatException guard (release safety net) is reached.
+    final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+    expect(
+      () =>
+          QuarkXPressCui(
+            rowsPerPage: -5,
+            prefix: 'P',
+            suffix: '',
+            columnBreaks: [],
+          ).toBytes(),
+      throwsA(either),
+    );
+  });
+
   test('write cui file', () {
     final cui = QuarkXPressCui(
       rowsPerPage: 5,

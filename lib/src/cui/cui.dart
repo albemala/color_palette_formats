@@ -56,9 +56,7 @@ class QuarkXPressCui with QuarkXPressCuiMappable {
   /// Checks if the provided bytes represent a valid QuarkXPress UI spec.
   static bool isValidFormat(List<int> bytes) {
     try {
-      final xmlString = utf8.decode(bytes);
-      final document = parseXml(xmlString);
-      validateRootElement(document, CuiConstants.libraryUISpecs);
+      _decode(bytes);
       return true;
     } catch (_) {
       return false;
