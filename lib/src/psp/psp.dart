@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:color_palette_formats/src/format_utils.dart';
 import 'package:color_palette_formats/src/text_parse_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
@@ -12,6 +13,11 @@ part 'encode.dart';
  * Versions: 0100
  * File extensions: .pal, .psppalette
  * Applications: Paint Shop Pro, Jasc Software, Corel
+ * Format details: Text file with `JASC-PAL` signature, `0100` version, a
+ *   color-count line, then one `R G B` (0..255) line per color. The
+ *   declared count must be a non-negative integer but mismatches with
+ *   the actual color lines are tolerated; empty palettes (count 0) are
+ *   legal. Decoding is whitespace-tolerant and skips blank lines.
  * References:
  * - http://www.selapa.net/swatches/colors/fileformats.php
  */
@@ -53,7 +59,7 @@ class PaintShopProPalette with PaintShopProPaletteMappable {
     return _encode(this);
   }
 
-  /// Checks if the provided bytes represent a valid Adobe Color Book file.
+  /// Checks if the provided bytes represent a valid Paint Shop Pro file.
   static bool isValidFormat(List<int> bytes) {
     try {
       _decode(bytes);
