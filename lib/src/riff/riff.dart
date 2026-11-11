@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:buffer/buffer.dart';
 import 'package:color_palette_formats/src/buffer_read_utils.dart';
 import 'package:color_palette_formats/src/buffer_write_utils.dart';
+import 'package:color_palette_formats/src/format_utils.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'riff.mapper.dart';
@@ -14,6 +15,14 @@ part 'encode.dart';
  * Acronym: RIFF
  * Versions: 3
  * File extensions: .pal
+ * Format details: Little-endian RIFF container holding a `PAL data` chunk:
+ *   `RIFF` signature, data size (`file length - 8`), `PAL data` type tag,
+ *   chunk size, big-endian version (3), little-endian color count, then
+ *   count RGB triples each followed by a flags byte. `dataSize`/`chunkSize`
+ *   are trusted for skipping nothing and ignored on decode; the encoder
+ *   always writes correct values. The flags byte is read and discarded on
+ *   decode and written as 0 on encode. Empty (0-color) palettes are legal,
+ *   and trailing bytes after the last color are ignored.
  * References:
  * - http://www.selapa.net/swatches/colors/fileformats.php
  */
@@ -56,7 +65,7 @@ class ResourceInterchangeFileFormat with ResourceInterchangeFileFormatMappable {
     return _encode(this);
   }
 
-  /// Checks if the provided bytes represent a valid Adobe Color Book file.
+  /// Checks if the provided bytes represent a valid RIFF palette file.
   static bool isValidFormat(List<int> bytes) {
     try {
       _decode(bytes);
