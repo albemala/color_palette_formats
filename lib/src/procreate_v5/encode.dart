@@ -3,6 +3,7 @@ part of 'procreate.dart';
 // Encodes a single ProcreateV5Palette into the .swatches file format
 // (zipped JSON).
 List<int> _encode(ProcreateV5Palette palette) {
+  _validatePalette(palette);
   // Use the generated mapper to convert the palette object to a Map
   final paletteMap = palette.toMap();
 

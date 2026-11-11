@@ -337,7 +337,6 @@ void main() {
     final decodedProcreate = ProcreateV5Palette.fromBytes(
       procreateFile.readAsBytesSync(),
     );
-    // print(decodedProcreate.toJson()); // Optional: print decoded data
 
     // Assertions
     expect(decodedProcreate.name, equals('test_v5'));
@@ -447,5 +446,145 @@ void main() {
       final archive = ZipDecoder().decodeBytes(palette.toBytes());
       expect(archive.files.any((f) => f.name == 'Swatches.json'), isTrue);
     });
+  });
+
+  group('validation', () {
+    List<int> zipSwatch(String swatchJson) {
+      final archive = Archive();
+      final content = utf8.encode(
+        '{"name":"x","swatches":[$swatchJson],"colorProfiles":[]}',
+      );
+      archive.addFile(ArchiveFile('Swatches.json', content.length, content));
+      return ZipEncoder().encode(archive);
+    }
+
+    String swatchJson({
+      String alpha = '1',
+      String brightness = '0.5',
+      String saturation = '0.5',
+      String hue = '0.5',
+      String components = '[0.1,0.2,0.5]',
+    }) =>
+        '{"alpha":$alpha,"origin":0,"colorSpace":0,"colorModel":0,'
+        '"brightness":$brightness,"components":$components,'
+        '"colorProfile":"","saturation":$saturation,'
+        '"hue":$hue,"version":"5.0"}';
+
+    test('rejects malformed entries with FormatException', () {
+      final cases = <String, List<int>>{
+        'missing hue': zipSwatch('{"alpha":1}'),
+        'components as string': zipSwatch(swatchJson(components: '"nope"')),
+        'components with strings': zipSwatch(
+          swatchJson(components: '[0.1,"x",0.5]'),
+        ),
+        'components empty': zipSwatch(swatchJson(components: '[]')),
+        'alpha above range': zipSwatch(swatchJson(alpha: '5.0')),
+        'negative hue': zipSwatch(swatchJson(hue: '-0.5')),
+        'overflow to infinity': zipSwatch(swatchJson(brightness: '1e999')),
+      };
+
+      for (final entry in cases.entries) {
+        expect(
+          () => ProcreateV5Palette.fromBytes(entry.value),
+          throwsA(isA<FormatException>()),
+          reason: entry.key,
+        );
+        expect(
+          ProcreateV5Palette.isValidFormat(entry.value),
+          isFalse,
+          reason: entry.key,
+        );
+      }
+    });
+
+    test('encoder rejects out-of-range swatches', () {
+      // Constructor asserts fire in debug builds before the encoder's
+      // FormatException guards (release safety nets) are reached.
+      final either = anyOf(isA<FormatException>(), isA<AssertionError>());
+
+      ProcreateV5Swatch swatchWith({
+        double alpha = 1,
+        double brightness = 0.5,
+        double saturation = 0.5,
+        double hue = 0.5,
+        List<double> components = const [0.1, 0.2, 0.5],
+      }) => ProcreateV5Swatch(
+        alpha: alpha,
+        origin: 0,
+        colorSpace: 0,
+        colorModel: 0,
+        brightness: brightness,
+        components: components,
+        colorProfile: '',
+        saturation: saturation,
+        hue: hue,
+        version: ProcreateV5Swatch.defaultVersion,
+      );
+
+      for (final bad in [5.0, -1.0, double.infinity, double.nan]) {
+        expect(
+          () =>
+              ProcreateV5Palette(
+                name: 'x',
+                swatches: [swatchWith(alpha: bad)],
+                colorProfiles: const [],
+              ).toBytes(),
+          throwsA(either),
+          reason: 'alpha = $bad',
+        );
+      }
+      expect(
+        () =>
+            ProcreateV5Palette(
+              name: 'x',
+              swatches: [swatchWith(components: [])],
+              colorProfiles: const [],
+            ).toBytes(),
+        throwsA(either),
+        reason: 'empty components',
+      );
+    });
+
+    test('v1-shaped file decodes with defaults applied', () {
+      // A v1 file (top-level JSON list of palettes) is indistinguishable
+      // from the tolerated single-element array, so it decodes as v5.
+      final bytes =
+          File(
+            'test/testdata/procreate/procreate1_v1.swatches',
+          ).readAsBytesSync();
+      final palette = ProcreateV5Palette.fromBytes(bytes);
+      expect(palette.name, equals('Retro & Vintage'));
+      expect(palette.swatches.length, equals(30));
+      expect(palette.colorProfiles, isEmpty);
+      final first = palette.swatches.first!;
+      expect(first.colorModel, equals(0));
+      expect(first.version, equals(ProcreateV5Swatch.defaultVersion));
+    });
+  });
+
+  test('decode-encode-decode is stable on all fixtures', () {
+    for (final filePath in expectedData.keys) {
+      final bytes = File(filePath).readAsBytesSync();
+      final once = ProcreateV5Palette.fromBytes(bytes);
+      final twice = ProcreateV5Palette.fromBytes(once.toBytes());
+      expect(twice.name, equals(once.name), reason: filePath);
+      expect(
+        twice.swatches.length,
+        equals(once.swatches.length),
+        reason: filePath,
+      );
+      for (var i = 0; i < once.swatches.length; i++) {
+        final a = once.swatches[i];
+        final b = twice.swatches[i];
+        expect(b?.alpha, equals(a?.alpha), reason: filePath);
+        expect(b?.components, equals(a?.components), reason: filePath);
+        expect(b?.version, equals(a?.version), reason: filePath);
+      }
+      expect(
+        twice.colorProfiles.length,
+        equals(once.colorProfiles.length),
+        reason: filePath,
+      );
+    }
   });
 }

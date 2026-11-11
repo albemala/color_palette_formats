@@ -17,7 +17,9 @@ part 'encode.dart';
  *   numeric `version` is accepted as string, and per-swatch `alpha`,
  *   `origin`, `colorSpace`, `colorModel`, `colorProfile`, `components`
  *   fall back to defaults. `origin`/`colorSpace`/`colorModel` stay loose
- *   integers (no asserts) for the same reason.
+ *   integers (no asserts) for the same reason. A v1-shaped payload is
+ *   indistinguishable from the tolerated single-element array and decodes
+ *   with defaults applied.
  * References:
  * - https://github.com/dagronf/ColorPaletteCodable/blob/main/Sources/ColorPaletteCodable/palette/coders/ProcreateSwatchesCoder.swift
  */
